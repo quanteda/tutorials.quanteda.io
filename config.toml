@@ -10,7 +10,7 @@ defaultContentLanguageInSubdir= true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
-  editURL = "https://github.com/matcornic/hugo-theme-learn/edit/master/exampleSite/content/"
+  editURL = "https://github.com/koheiw/quanteda_tutorials/tree/master/content/"
   description = "Tutorials on quantitative text analysis using quanteda"
   author = "Mathieu Cornic"
   showVisitedLinks = true
@@ -28,7 +28,7 @@ languageName = "English"
 [[Languages.en.menu.shortcuts]] 
 name = "<i class='fa fa-github'></i> Github repo"
 identifier = "ds"
-url = "https://github.com/matcornic/hugo-theme-learn"
+url = "https://github.com/kbenoit/quanteda"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
