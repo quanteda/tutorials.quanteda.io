@@ -1,8 +1,5 @@
 ---
 title: Data import
-weight: 30
-pre: "<b>3. </b>"
-chapter: true
 ---
 
 # Getting texts into R

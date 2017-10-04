@@ -1,7 +1,5 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+title: Newspaper
 ---
 
 # Analyzing Media Text
