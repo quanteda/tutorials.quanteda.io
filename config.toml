@@ -32,11 +32,6 @@ url = "https://github.com/kbenoit/quanteda"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fa fa-camera'></i> Showcases"
-url = "showcase"
-weight = 11
-
-[[Languages.en.menu.shortcuts]]
 name = "<i class='fa fa-bookmark'></i> Hugo Documentation"
 identifier = "hugodoc"
 url = "https://gohugo.io/"
@@ -57,11 +52,6 @@ name = "<i class='fa fa-github'></i> Repo Github"
 identifier = "ds"
 url = "https://github.com/matcornic/hugo-theme-learn"
 weight = 10
-
-[[Languages.fr.menu.shortcuts]]
-name = "<i class='fa fa-camera'></i> Vitrine"
-url = "/showcase"
-weight = 11
 
 [[Languages.fr.menu.shortcuts]]
 name = "<i class='fa fa-bookmark'></i> Documentation Hugo"
