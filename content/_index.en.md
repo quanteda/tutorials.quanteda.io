@@ -1,5 +1,5 @@
 ---
-title: "Learn Theme for Hugo"
+title: "quanteda tutorials"
 ---
 
 # Hugo learn theme
