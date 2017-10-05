@@ -4,19 +4,15 @@ weight: 40
 chapter: true
 ---
 
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+require(quanteda)
+```
+
 # Descriptive Analysis of Texts
 
-### Kenneth Benoit
-### 24 April 2017
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE
-)
-```
 quateda has a number of descriptive statistics available for reporting on texts.  The **simplest of these** is through the `summary()` method:
 ```{r}
-require(quanteda)
 txt <- c(sent1 = "This is an example of the summary method for character objects.",
          sent2 = "The cat in the hat swung the bat.")
 summary(txt)

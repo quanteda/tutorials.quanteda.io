@@ -4,24 +4,13 @@ weight: 40
 chapter: true
 ---
 
+
+
 # Descriptive Analysis of Texts
-
-### Kenneth Benoit
-### 24 April 2017
-
 
 quateda has a number of descriptive statistics available for reporting on texts.  The **simplest of these** is through the `summary()` method:
 
 ```r
-require(quanteda)
-## Loading required package: quanteda
-## quanteda version 0.99.9
-## Using 3 of 4 threads for parallel computing
-## 
-## Attaching package: 'quanteda'
-## The following object is masked from 'package:utils':
-## 
-##     View
 txt <- c(sent1 = "This is an example of the summary method for character objects.",
          sent2 = "The cat in the hat swung the bat.")
 summary(txt)
@@ -49,7 +38,7 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_basic/* on x86_64 by kohei
-## Created: Thu Oct  5 19:31:24 2017
+## Created: Thu Oct  5 19:57:16 2017
 ## Notes:
 ```
 

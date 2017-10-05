@@ -9,7 +9,7 @@ chapter: true
 
 # Basics
 
-Discover what your can do using **quanted**.
+Learn basic functions of **quanted**.
 
 {{% children  %}}
 

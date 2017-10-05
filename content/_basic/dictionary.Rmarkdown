@@ -4,12 +4,12 @@ weight: 50
 chapter: true
 ---
 
-# Dictionary Analysis of Texts
-
 ```{r, echo=FALSE, results='hide', message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 ```
+
+# Dictionary Analysis of Texts
 
 ## Applying equivalency classes: dictionaries, thesaruses
 

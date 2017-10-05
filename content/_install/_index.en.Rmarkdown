@@ -5,12 +5,9 @@ pre: "<b>2. </b>"
 chapter: true
 ---
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = FALSE
-)
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
 ```
-
 # Installation
 
 First, you need to have **quanteda** installed.  You can do this from inside RStudio, from the Tools...Install Packages menu, or simply using

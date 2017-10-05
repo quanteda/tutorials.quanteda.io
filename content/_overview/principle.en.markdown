@@ -28,8 +28,6 @@ weight: 10
     * settings examples are: `tolower`, `stem`, `removeTwitter` etc.
     * also include any objects used in feature selection, such as dictionaries or stopword lists
 
-## Basic Principles (cont.)
-
 4. A document-feature matrix is a sparse matrix that is always *documents* (or document groups) in rows by *features* in columns.
 
 5. Encoding of texts should be done in the corpus, and recorded as meta-data in the corpus
@@ -49,8 +47,6 @@ weight: 10
 
     * defining what are "texts", for instance using `corpus_segment` or grouping
 
-## Text analysis workflow: Corpora, documents, and features (cont.)
-
 3.  Defining and delimiting textual features, using:
     
     * `tokens`, to indentify instances of defined features ("tokens") and extract 
@@ -64,8 +60,6 @@ weight: 10
         * URLs
         * Twitter tags
         * inter-token separators
-
-## Text analysis workflow: Corpora, documents, and features (cont.)
 
 4.  Further feature selection
 
@@ -96,26 +90,3 @@ weight: 10
 2.  If separate steps are desired
     * we can still perform same steps on intermediate objects (`tokens`) 
     * we can perform many operations of feature selection, removal, equivalencies on a dfm, or during its creation
-
-
-## Text analysis workflow: Analyzing a dfm
-
-1.  Many analyses are possible directly from the dfm
-    
-    ```r
-    dfm                           print, show
-    kwic                          summary
-    ndoc                          ntoken
-    nsentence                     settings
-    ```
-
-## Text analysis workflow: Analyzing a dfm (cont.)
-
-2.  Plan is to incorporate wrappers for many `textmodel_*` functions that work in a similar fashion, e.g.
-    *  text regression
-    *  predictive methods (Naive Bayes, SVM, kNN, etc.)
-    *  scaling methods (Poisson scaling aka "wordfish", correspondence analysis)
-    
-3.  Hands off nicely to other packages needing a dfm
-    * `convert()` converts to formats needed by `topicmodels`, `LDA`, and `STM` packages
-

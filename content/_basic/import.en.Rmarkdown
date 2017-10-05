@@ -4,17 +4,12 @@ weight: 10
 chapter: false
 ---
 
-# Getting texts into R
-
-### Kenneth Benoit
-### 27 April 2017
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE
-)
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+require(quanteda)
 ```
 
+# Getting texts into R
 
 In this section we will show how to load texts from different sources and create a `corpus` object in **quanteda**.
 

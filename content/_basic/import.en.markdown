@@ -4,13 +4,9 @@ weight: 10
 chapter: false
 ---
 
+
+
 # Getting texts into R
-
-### Kenneth Benoit
-### 27 April 2017
-
-
-
 
 In this section we will show how to load texts from different sources and create a `corpus` object in **quanteda**.
 
@@ -22,8 +18,6 @@ In this section we will show how to load texts from different sources and create
 
 ```r
 require(quanteda, warn.conflicts = FALSE, quietly = TRUE)
-## quanteda version 0.99.9
-## Using 3 of 4 threads for parallel computing
 myCorpus <- corpus(data_char_ukimmig2010, notes = "My first corpus")
 ## Warning in corpus.character(data_char_ukimmig2010, notes = "My first
 ## corpus"): Argument notes not used.
@@ -42,7 +36,7 @@ summary(myCorpus)
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_basic/* on x86_64 by kohei
-## Created: Thu Oct  5 19:24:15 2017
+## Created: Thu Oct  5 19:56:00 2017
 ## Notes:
 ```
     
@@ -80,7 +74,7 @@ summary(myTmCorpus, 5)
 ##                        <NA> <NA>   <NA>      <NA>
 ## 
 ## Source:  Converted from tm Corpus 'crude'
-## Created: Thu Oct  5 19:24:16 2017
+## Created: Thu Oct  5 19:56:00 2017
 ## Notes:
 ```
 
@@ -130,7 +124,7 @@ summary(data_corpus_inaugural, 5)
 ##   1805-Jefferson.txt   804   2381        45 1805  Jefferson
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_basic/* on x86_64 by kohei
-## Created: Thu Oct  5 19:24:19 2017
+## Created: Thu Oct  5 19:56:03 2017
 ## Notes:
 ```
 

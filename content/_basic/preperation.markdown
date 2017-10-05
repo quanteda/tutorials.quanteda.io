@@ -4,12 +4,9 @@ weight: 20
 chapter: true
 ---
 
+
+
 # Preparing texts for analysis
-
-### Kenneth Benoit
-### 24 April 2017
-
-
 
 Here we will step through the basic elements of preparing a text for analysis.  These are tokenization, conversion to lower case, stemming, removing or selecting features, and defining equivalency classes for features, including the use of dictionaries.
 
@@ -21,8 +18,6 @@ Tokenization in quanteda is very *conservative*: by default, it only removes sep
 
 ```r
 require(quanteda, quietly = TRUE, warn.conflicts = FALSE)
-## quanteda version 0.99.9
-## Using 3 of 4 threads for parallel computing
 txt <- c(text1 = "This is $10 in 999 different ways,\n up and down; left and right!",
          text2 = "@kenbenoit working: on #quanteda 2day\t4ever, http://textasdata.com?page=123.")
 tokens(txt)
@@ -45,7 +40,7 @@ tokens(txt, verbose = TRUE)
 ## ...preserving hyphens
 ## ...preserving Twitter characters (#, @)
 ## ...serializing tokens 34 unique types
-## ...total elapsed:  0.239000000000001 seconds.
+## ...total elapsed:  0.176 seconds.
 ## Finished tokenizing and cleaning 2 texts.
 ## tokens from 2 documents.
 ## text1 :
@@ -276,7 +271,7 @@ myDfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
 ##    ... found 2 documents, 20 features
 ##    ... created a 2 x 20 sparse dfm
 ##    ... complete. 
-## Elapsed time: 0.315 seconds.
+## Elapsed time: 0.149 seconds.
 dfm_select(myDfm, features = c("s$", ".y"), selection = "keep", valuetype = "regex")
 ## Document-feature matrix of: 2 documents, 20 features (50% sparse).
 ## 2 x 20 sparse Matrix of class "dfmSparse"

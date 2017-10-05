@@ -3,12 +3,9 @@ title: Workflow
 weight: 20
 ---
 
+
+
 # Introduction and Workflow
-
-### Kenneth Benoit
-### Date: 20 April 2017
-
-
 
 {{% notice warning %}}
 An warning disclaimer
@@ -25,16 +22,34 @@ graph LR;
 This file demonstrates a basic workflow to take some pre-loaded texts and perform elementary text analysis tasks quickly. The `quanteda` packages comes with a built-in set of inaugural addresses from US Presidents. We begin by loading quanteda and examining these texts. The `summary` command will output the name of each text along with the number of types, tokens and sentences contained in the text. Below we use R's indexing syntax to selectivly use the summary command on the first five texts.
 
 
+
+
+## Text analysis workflow: Analyzing a dfm
+
+1.  Many analyses are possible directly from the dfm
+
+
+```r
+dfm                           print, show
+kwic                          summary
+ndoc                          ntoken
+nsentence                     settings
+```
+
+2.  Plan is to incorporate wrappers for many `textmodel_*` functions that work in a similar fashion, e.g.
+    *  text regression
+    *  predictive methods (Naive Bayes, SVM, kNN, etc.)
+    *  scaling methods (Poisson scaling aka "wordfish", correspondence analysis)
+    
+3.  Hands off nicely to other packages needing a dfm
+    * `convert()` converts to formats needed by `topicmodels`, `LDA`, and `STM` packages
+
+
+
+
+
 ```r
 require(quanteda)
-## Loading required package: quanteda
-## quanteda version 0.99.9
-## Using 3 of 4 threads for parallel computing
-## 
-## Attaching package: 'quanteda'
-## The following object is masked from 'package:utils':
-## 
-##     View
 
 summary(data_corpus_inaugural)
 ## Corpus consisting of 58 documents:
@@ -328,7 +343,7 @@ summary(recentCorpus)
 ##    2013-Obama   814   2317        88   dem
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_overview/* on x86_64 by kohei
-## Created: Thu Oct  5 19:25:48 2017
+## Created: Thu Oct  5 20:06:47 2017
 ## Notes:
 ```
 
@@ -339,4 +354,4 @@ partyDfm <- dfm(recentCorpus, groups = 'Party', remove = (stopwords('english')))
 textplot_wordcloud(partyDfm, comparison = TRUE)
 ```
 
-<img src="/_overview/workflow.en_files/figure-html/unnamed-chunk-12-1.svg" width="960" />
+<img src="/_overview/workflow.en_files/figure-html/unnamed-chunk-13-1.svg" width="960" />
