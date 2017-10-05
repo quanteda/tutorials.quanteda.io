@@ -1,4 +1,4 @@
 blogdown::html_page:
   toc: false
-  fig_width: 6
+  fig_width: 8
   dev: "svg"

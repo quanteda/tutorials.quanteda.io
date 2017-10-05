@@ -1,0 +1,11 @@
+---
+title: Wordfish
+---
+## Poisson scaling:
+```{r, fig.width = 8, fig.height = 5}
+require(quanteda)
+ieWF <- dfm(data_corpus_irishbudget2010, removePunct = TRUE) %>%
+    textmodel_wordfish(dir = c(6,5))
+summary(ieWF)
+textplot_scale1d(ieWF)
+```
