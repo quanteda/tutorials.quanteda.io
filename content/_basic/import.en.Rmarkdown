@@ -1,5 +1,7 @@
 ---
 title: Data import
+weight: 10
+chapter: false
 ---
 
 # Getting texts into R

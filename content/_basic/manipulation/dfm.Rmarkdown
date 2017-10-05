@@ -1,0 +1,37 @@
+---
+title: Document-feature matrix
+weight: 30
+chapter: false
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+```
+
+Now summarize some texts in the Irish 2010 budget speech corpus:
+```{r, echo=FALSE}
+require(quanteda)
+```
+```{r}
+summary(data_corpus_irishbudget2010)
+```
+
+Create a document-feature matrix from this corpus, removing stop words:
+```{r}
+ieDfm <- dfm(data_corpus_irishbudget2010, remove = c(stopwords("english"), "will"), 
+             stem = TRUE)
+```
+
+Look at the top occuring features:
+```{r}
+topfeatures(ieDfm)
+```
+
+Make a word cloud:
+```{r, fig.width=8, fig.height=8}
+textplot_wordcloud(ieDfm, min.freq = 25, random.order = FALSE)
+```
+
+If you got this far, congratulations!

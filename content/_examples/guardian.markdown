@@ -155,7 +155,7 @@ points(freq_dict_britain, col = 'red', pch = 2)
 legend('topright', legend = c('Europe', 'Britain'), col = c('black', 'red'), pch = 1:2)
 ```
 
-<img src="/_advanced/guardian_files/figure-html/unnamed-chunk-4-1.svg" width="768" />
+<img src="/_examples/guardian_files/figure-html/unnamed-chunk-4-1.svg" width="768" />
 
 ### Identifying and concatenating multi-word expressions
 

@@ -1,0 +1,10 @@
+---
+title: Manipulating texts
+weight: 10
+chapter: false
+---
+
+# Manupulating text in R
+
+{{% children  %}}
+

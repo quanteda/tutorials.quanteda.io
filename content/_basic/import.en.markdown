@@ -1,5 +1,7 @@
 ---
 title: Data import
+weight: 10
+chapter: false
 ---
 
 # Getting texts into R
@@ -40,7 +42,7 @@ summary(myCorpus)
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_basic/* on x86_64 by kohei
-## Created: Thu Oct  5 11:49:23 2017
+## Created: Thu Oct  5 19:24:15 2017
 ## Notes:
 ```
     
@@ -78,7 +80,7 @@ summary(myTmCorpus, 5)
 ##                        <NA> <NA>   <NA>      <NA>
 ## 
 ## Source:  Converted from tm Corpus 'crude'
-## Created: Thu Oct  5 11:49:24 2017
+## Created: Thu Oct  5 19:24:16 2017
 ## Notes:
 ```
 
@@ -128,7 +130,7 @@ summary(data_corpus_inaugural, 5)
 ##   1805-Jefferson.txt   804   2381        45 1805  Jefferson
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_basic/* on x86_64 by kohei
-## Created: Thu Oct  5 11:49:27 2017
+## Created: Thu Oct  5 19:24:19 2017
 ## Notes:
 ```
 

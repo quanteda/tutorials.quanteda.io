@@ -1,5 +1,7 @@
 ---
-title: Descriptive
+title: Descriptive analysis
+weight: 40
+chapter: true
 ---
 
 # Descriptive Analysis of Texts
@@ -47,7 +49,7 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_basic/* on x86_64 by kohei
-## Created: Thu Oct  5 11:49:12 2017
+## Created: Thu Oct  5 19:31:24 2017
 ## Notes:
 ```
 

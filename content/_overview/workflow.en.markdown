@@ -328,7 +328,7 @@ summary(recentCorpus)
 ##    2013-Obama   814   2317        88   dem
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_overview/* on x86_64 by kohei
-## Created: Thu Oct  5 11:50:13 2017
+## Created: Thu Oct  5 19:25:48 2017
 ## Notes:
 ```
 

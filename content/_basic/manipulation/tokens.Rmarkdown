@@ -1,0 +1,24 @@
+---
+title: Tokens
+weight: 20
+chapter: false
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+```
+
+Now summarize some texts in the Irish 2010 budget speech corpus:
+```{r, echo=FALSE}
+require(quanteda)
+```
+```{r}
+summary(data_corpus_irishbudget2010)
+```
+
+```{r}
+toks <- tokens(data_corpus_irishbudget2010)
+```
+

@@ -2,45 +2,30 @@
 title: Wordscores
 ---
 
+
+
 ## Wordscores
 
 ```r
 require(quanteda)
-```
-
-```
 ## Loading required package: quanteda
-```
-
-```
 ## quanteda version 0.99.9
-```
-
-```
 ## Using 3 of 4 threads for parallel computing
-```
-
-```
 ## 
 ## Attaching package: 'quanteda'
-```
-
-```
 ## The following object is masked from 'package:utils':
 ## 
 ##     View
-```
-
-```r
 data(data_corpus_amicus, package = "quantedaData")
 refs <- docvars(data_corpus_amicus, "trainclass")
-refs <- (as.numeric(refs) - 1.5)*2
+refs <- (as.numeric(refs) - 1.5) * 2
 amicusDfm <- dfm(data_corpus_amicus)
 wm <- textmodel_wordscores(amicusDfm, y = refs)
-summary(wm)
 ```
 
-```
+
+```r
+summary(wm)
 ## Call:
 ## 	textmodel_wordscores.dfm(x = amicusDfm, y = refs)
 ## 
@@ -152,12 +137,10 @@ summary(wm)
 ## sAR83.txt    NA  6115   0  348 0.27003754      0
 ```
 
+
 ```r
 preds <- predict(wm, newdata = amicusDfm)
 summary(preds)
-```
-
-```
 ## Predicted textmodel of type: wordscores
 ## 
 ##           textscore LBG se   ci lo   ci hi
@@ -263,12 +246,9 @@ summary(preds)
 ## sAR80.txt    0.1056 0.0053  0.0952  0.1159
 ## sAR81.txt    0.0871 0.0085  0.0705  0.1037
 ## sAR83.txt    0.0268 0.0051  0.0168  0.0368
-```
-
-```r
 plot(coef(preds)$coef_document ~ docvars(amicusDfm, "testclass"),
      horizontal = TRUE, xlab = "Predicted document score",
      ylab = "Test class", las = 1)
 ```
 
-<img src="/_advanced/wordscore.en_files/figure-html/unnamed-chunk-1-1.svg" width="768" />
+<img src="/_advanced/wordscore.en_files/figure-html/unnamed-chunk-4-1.svg" width="768" />

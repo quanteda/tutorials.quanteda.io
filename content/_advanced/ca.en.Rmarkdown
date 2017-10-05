@@ -2,9 +2,16 @@
 title: Correspondence analysis
 ---
 
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE
+)
+```
+
 ## Correspondence analysis
 
-```{r, fig.width = 8, fig.height = 5}
+```{r}
+require(quanteda)
 dfm(data_corpus_irishbudget2010) %>%
     textmodel_ca() %>% 
     textplot_scale1d()

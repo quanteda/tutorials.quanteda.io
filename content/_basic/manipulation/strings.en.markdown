@@ -1,11 +1,10 @@
 ---
-title: Manipulation texts
+title: Strings
+weight: 10
+chapter: false
 ---
 
 # Manupulating text in R
-
-### Kenneth Benoit
-### 27§ April 2017
 
 
 In this section we will work through some basic string manipulation functions in R.

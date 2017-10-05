@@ -5,12 +5,12 @@ pre: "<b>3. </b>"
 chapter: true
 ---
 
-# Advanced Analysis of Texts
+### Chapter 1
 
-## Including Plots
+# Basics
 
-You can also embed plots, for example:
+Discover what your can do using **quanted**.
 
-<img src="/_basic/_index.en_files/figure-html/pressure-1.svg" width="768" />
+{{% children  %}}
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
