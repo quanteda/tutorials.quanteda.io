@@ -5,5 +5,7 @@
 *.Rproj
 public/
 content/*/*.html
+content/*/*.svg
+content/*/*.png
 
 
