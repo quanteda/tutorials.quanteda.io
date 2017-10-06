@@ -9,7 +9,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 ```
 
-# Getting texts into R
+## Getting texts into R
 
 In this section we will show how to load texts from different sources and create a `corpus` object in **quanteda**.
 

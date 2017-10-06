@@ -6,7 +6,7 @@ chapter: false
 
 
 
-# Getting texts into R
+## Getting texts into R
 
 In this section we will show how to load texts from different sources and create a `corpus` object in **quanteda**.
 
@@ -36,7 +36,7 @@ summary(myCorpus)
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_basic/* on x86_64 by kohei
-## Created: Thu Oct  5 19:56:00 2017
+## Created: Fri Oct  6 07:41:16 2017
 ## Notes:
 ```
     
@@ -74,7 +74,7 @@ summary(myTmCorpus, 5)
 ##                        <NA> <NA>   <NA>      <NA>
 ## 
 ## Source:  Converted from tm Corpus 'crude'
-## Created: Thu Oct  5 19:56:00 2017
+## Created: Fri Oct  6 07:41:16 2017
 ## Notes:
 ```
 
@@ -116,15 +116,15 @@ data_corpus_inaugural <- corpus(mytf)
 summary(data_corpus_inaugural, 5)
 ## Corpus consisting of 57 documents, showing 5 documents:
 ## 
-##                 Text Types Tokens Sentences Year  President
-##  1789-Washington.txt   625   1538        23 1789 Washington
-##  1793-Washington.txt    96    147         4 1793 Washington
-##       1797-Adams.txt   826   2578        37 1797      Adams
-##   1801-Jefferson.txt   717   1927        41 1801  Jefferson
-##   1805-Jefferson.txt   804   2381        45 1805  Jefferson
+##   Text Types Tokens Sentences              doc_id Year  President
+##  text1   625   1538        23 1789-Washington.txt 1789 Washington
+##  text2    96    147         4 1793-Washington.txt 1793 Washington
+##  text3   826   2578        37      1797-Adams.txt 1797      Adams
+##  text4   717   1927        41  1801-Jefferson.txt 1801  Jefferson
+##  text5   804   2381        45  1805-Jefferson.txt 1805  Jefferson
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/_basic/* on x86_64 by kohei
-## Created: Thu Oct  5 19:56:03 2017
+## Created: Fri Oct  6 07:41:18 2017
 ## Notes:
 ```
 

@@ -4,7 +4,7 @@ weight: 10
 chapter: false
 ---
 
-# Manupulating text in R
+
 
 
 In this section we will work through some basic string manipulation functions in R.

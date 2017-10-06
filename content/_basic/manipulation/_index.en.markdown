@@ -1,7 +1,7 @@
 ---
 title: Manipulating texts
 weight: 30
-chapter: true
+chapter: false
 ---
 
 # Manupulating text in R

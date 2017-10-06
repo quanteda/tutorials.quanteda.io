@@ -4,13 +4,12 @@ weight: 10
 chapter: false
 ---
 
-# Manupulating text in R
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE
-)
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+require(quanteda)
 ```
+
+
 In this section we will work through some basic string manipulation functions in R.
 
 ## String handling in base R

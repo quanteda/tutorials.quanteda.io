@@ -2,13 +2,10 @@
 title: Correspondence analysis
 ---
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE
-)
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+require(quanteda)
 ```
-
-## Correspondence analysis
 
 ```{r}
 require(quanteda)

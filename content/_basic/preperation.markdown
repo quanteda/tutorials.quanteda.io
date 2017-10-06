@@ -1,15 +1,12 @@
 ---
 title: Preparing texts
 weight: 20
-chapter: true
+chapter: false
 ---
 
 
 
-# Preparing texts for analysis
-
 Here we will step through the basic elements of preparing a text for analysis.  These are tokenization, conversion to lower case, stemming, removing or selecting features, and defining equivalency classes for features, including the use of dictionaries.
-
 
 ### 1. Tokenization
 
@@ -40,7 +37,7 @@ tokens(txt, verbose = TRUE)
 ## ...preserving hyphens
 ## ...preserving Twitter characters (#, @)
 ## ...serializing tokens 34 unique types
-## ...total elapsed:  0.176 seconds.
+## ...total elapsed:  0.149 seconds.
 ## Finished tokenizing and cleaning 2 texts.
 ## tokens from 2 documents.
 ## text1 :
@@ -271,7 +268,7 @@ myDfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
 ##    ... found 2 documents, 20 features
 ##    ... created a 2 x 20 sparse dfm
 ##    ... complete. 
-## Elapsed time: 0.149 seconds.
+## Elapsed time: 0.088 seconds.
 dfm_select(myDfm, features = c("s$", ".y"), selection = "keep", valuetype = "regex")
 ## Document-feature matrix of: 2 documents, 20 features (50% sparse).
 ## 2 x 20 sparse Matrix of class "dfmSparse"

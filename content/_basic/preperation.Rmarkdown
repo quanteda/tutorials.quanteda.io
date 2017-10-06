@@ -1,7 +1,7 @@
 ---
 title: Preparing texts
 weight: 20
-chapter: true
+chapter: false
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
@@ -9,10 +9,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 ```
 
-# Preparing texts for analysis
-
 Here we will step through the basic elements of preparing a text for analysis.  These are tokenization, conversion to lower case, stemming, removing or selecting features, and defining equivalency classes for features, including the use of dictionaries.
-
 
 ### 1. Tokenization
 

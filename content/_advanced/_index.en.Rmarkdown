@@ -5,12 +5,11 @@ pre: "<b>4. </b>"
 chapter: true
 ---
 
-# Advanced Analysis
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE
-)
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+require(quanteda)
 ```
+
+# Advanced Analysis
 
 {{% children  %}}
