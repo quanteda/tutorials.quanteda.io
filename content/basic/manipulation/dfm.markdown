@@ -97,6 +97,6 @@ textplot_wordcloud(ieDfm, min.freq = 25, random.order = FALSE)
 ## rotWord * : font metrics unknown for Unicode character U+20ac
 ```
 
-<img src="/_basic/manipulation/dfm_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
+<img src="/basic/manipulation/dfm_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
 
 If you got this far, congratulations!
