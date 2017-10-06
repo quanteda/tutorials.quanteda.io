@@ -4,7 +4,6 @@
 .Ruserdata
 *.Rproj
 public/
-content/*/*.markdown
 content/*/*.html
 content/*/*.svg
 content/*/*.png
