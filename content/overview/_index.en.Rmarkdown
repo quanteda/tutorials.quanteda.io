@@ -9,5 +9,3 @@ chapter: true
 
 Discover what you can do using **quanted**.
 
-{{% children  %}}
-
