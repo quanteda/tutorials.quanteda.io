@@ -7,5 +7,5 @@ chapter: true
 
 # Overview
 
-Discover what you can do using **quanted**.
+Discover what you can do using **quanteda**.
 
