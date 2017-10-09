@@ -1,0 +1,45 @@
+---
+title: Example
+weight: 10
+---
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+## Visualizing UK party platforms
+With **quanted**, it takes only five steps to create wordcloud in R.
+
+### 1. Load the package
+```{r}
+library(quanteda)
+```
+
+### 2. Create a corpus from manifestos
+```{r}
+uk2010immigCorpus <- 
+    corpus(data_char_ukimmig2010,
+           docvars = data.frame(party = names(data_char_ukimmig2010)),
+           metacorpus = list(notes = "Immigration-related sections of 2010 UK party manifestos"))
+uk2010immigCorpus
+summary(uk2010immigCorpus)
+```
+### 3. Check how keywords are used
+```{r}
+kwic(uk2010immigCorpus, "deport*", window = 3)
+```
+
+### 4. Create a document-feature matrix, removing gramatical words
+```{r}
+mydfm <- dfm(uk2010immigCorpus, remove = stopwords("english"), remove_punct = TRUE)
+mydfm
+topfeatures(mydfm, 20)  # 20 top words
+```
+
+### 5. Plot a word cloud
+```{r quanteda_example}
+set.seed(100)
+textplot_wordcloud(mydfm, min.freq = 6, random.order = FALSE,
+                   rot.per = .25, 
+                   colors = RColorBrewer::brewer.pal(8,"Dark2"))
+```

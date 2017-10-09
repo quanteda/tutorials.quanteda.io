@@ -38,7 +38,7 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
-## Created: Fri Oct  6 08:19:05 2017
+## Created: Mon Oct  9 17:50:27 2017
 ## Notes:
 ```
 

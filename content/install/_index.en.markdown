@@ -39,7 +39,7 @@ Run the rest of this file to test your setup.  You must have quanteda installed 
 ```r
 require(quanteda)
 ## Loading required package: quanteda
-## quanteda version 0.99.11
+## quanteda version 0.99.13
 ## Using 7 of 8 threads for parallel computing
 ## 
 ## Attaching package: 'quanteda'
