@@ -38,7 +38,7 @@ tokens(txt, verbose = TRUE)
 ## ...preserving hyphens
 ## ...preserving Twitter characters (#, @)
 ## ...serializing tokens 34 unique types
-## ...total elapsed:  0.125 seconds.
+## ...total elapsed:  0.134 seconds.
 ## Finished tokenizing and cleaning 2 texts.
 ## tokens from 2 documents.
 ## text1 :
@@ -269,7 +269,7 @@ myDfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
 ##    ... found 2 documents, 20 features
 ##    ... created a 2 x 20 sparse dfm
 ##    ... complete. 
-## Elapsed time: 0.113 seconds.
+## Elapsed time: 0.114 seconds.
 dfm_select(myDfm, features = c("s$", ".y"), selection = "keep", valuetype = "regex")
 ## Document-feature matrix of: 2 documents, 20 features (50% sparse).
 ## 2 x 20 sparse Matrix of class "dfm"

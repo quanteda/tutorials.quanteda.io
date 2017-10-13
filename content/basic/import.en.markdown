@@ -37,7 +37,7 @@ summary(myCorpus)
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
-## Created: Fri Oct 13 21:07:23 2017
+## Created: Fri Oct 13 21:16:20 2017
 ## Notes:
 ```
     
@@ -75,7 +75,7 @@ summary(myTmCorpus, 5)
 ##                        <NA> <NA>   <NA>      <NA>
 ## 
 ## Source:  Converted from tm Corpus 'crude'
-## Created: Fri Oct 13 21:07:23 2017
+## Created: Fri Oct 13 21:16:20 2017
 ## Notes:
 ```
 
@@ -125,7 +125,7 @@ summary(data_corpus_inaugural, 5)
 ##  text5   804   2381        45  1805-Jefferson.txt 1805  Jefferson
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
-## Created: Fri Oct 13 21:07:25 2017
+## Created: Fri Oct 13 21:16:22 2017
 ## Notes:
 ```
 
