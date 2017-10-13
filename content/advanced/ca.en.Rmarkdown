@@ -1,5 +1,6 @@
 ---
 title: Correspondence analysis
+draft: true
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
