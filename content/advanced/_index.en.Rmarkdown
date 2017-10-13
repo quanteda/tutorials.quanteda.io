@@ -3,7 +3,7 @@ title: Advanced
 weight: 40
 pre: "<b>4. </b>"
 chapter: true
-draft: true
+draft: false
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
@@ -13,4 +13,4 @@ require(quanteda)
 
 # Advanced Analysis
 
-Perform advanced analysis using **quanteda**.
+Perform advanced analysis using **quanteda** (comming soon).
