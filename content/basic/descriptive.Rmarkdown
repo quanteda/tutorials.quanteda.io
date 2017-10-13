@@ -2,6 +2,7 @@
 title: Descriptive analysis
 weight: 40
 chapter: true
+draft: true
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}

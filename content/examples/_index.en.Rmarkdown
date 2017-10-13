@@ -7,5 +7,6 @@ chapter: true
 
 # Examples
 
-{{% children  %}}
+Learn how to deal with different types of textual data using **quanteda** (comming soon)
+
 

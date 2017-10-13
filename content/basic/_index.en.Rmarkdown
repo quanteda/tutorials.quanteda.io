@@ -3,14 +3,13 @@ title: Basic
 weight: 30
 pre: "<b>3. </b>"
 chapter: true
+draft: false
 ---
 
 ### Chapter 1
 
 # Basics
 
-Learn basic functions of **quanted**.
-
-{{% children  %}}
+Learn **quanted**'s basic functions (comming soon)
 
 

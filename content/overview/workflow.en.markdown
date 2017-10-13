@@ -1,6 +1,7 @@
 ---
 title: Workflow
 weight: 20
+draft: true
 ---
 
 
@@ -404,7 +405,7 @@ summary(recentCorpus)
 ##    2013-Obama   814   2317        88   dem
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/overview/* on x86_64 by kohei
-## Created: Fri Oct 13 20:53:22 2017
+## Created: Fri Oct 13 21:08:27 2017
 ## Notes:
 ```
 

@@ -2,6 +2,7 @@
 title: Dictionary analysis
 weight: 50
 chapter: true
+draft: true
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
