@@ -32,7 +32,7 @@ url = "https://github.com/kbenoit/quanteda"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fa fa-bookmark'></i> Hugo Documentation"
+name = "<i class='fa fa-bookmark'></i> Documentation"
 identifier = "hugodoc"
 url = "http://doc.quanteda.io/"
 weight = 20
