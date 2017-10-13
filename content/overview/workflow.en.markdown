@@ -363,20 +363,18 @@ Likewise, you can also figure out what methods are defined for any given *class*
 
 ```r
 methods(class = "tokens")
-##  [1] applyDictionary       as.character          as.list              
-##  [4] as.tokenizedTexts     c                     dfm                  
-##  [7] docnames<-            docnames              kwic                 
-## [10] lengths               metadoc               ndoc                 
-## [13] nfeature              ngrams                nsentence            
-## [16] nsyllable             ntoken                phrase               
-## [19] print                 selectFeatures        textstat_collocations
-## [22] [<-                   [                     [[<-                 
-## [25] [[                    $                     +                    
-## [28] tokens_compound       tokens_lookup         tokens_ngrams        
-## [31] tokens_segment        tokens_select         tokens               
-## [34] tokens_tolower        tokens_toupper        tokens_wordstem      
-## [37] toLower               toUpper               unlist               
-## [40] wordstem             
+##  [1] as.character          as.list               as.tokenizedTexts    
+##  [4] c                     dfm                   docnames<-           
+##  [7] docnames              kwic                  lengths              
+## [10] metadoc               ndoc                  nfeature             
+## [13] nsentence             nsyllable             ntoken               
+## [16] phrase                print                 textstat_collocations
+## [19] [<-                   [                     [[<-                 
+## [22] [[                    $                     +                    
+## [25] tokens_compound       tokens_lookup         tokens_ngrams        
+## [28] tokens_segment        tokens_select         tokens               
+## [31] tokens_tolower        tokens_toupper        tokens_wordstem      
+## [34] unlist               
 ## see '?methods' for accessing help and source code
 ```
 
@@ -406,7 +404,7 @@ summary(recentCorpus)
 ##    2013-Obama   814   2317        88   dem
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/overview/* on x86_64 by kohei
-## Created: Mon Oct  9 17:51:38 2017
+## Created: Fri Oct 13 20:34:18 2017
 ## Notes:
 ```
 

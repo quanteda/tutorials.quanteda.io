@@ -38,7 +38,7 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
-## Created: Mon Oct  9 17:50:27 2017
+## Created: Fri Oct 13 20:33:07 2017
 ## Notes:
 ```
 
@@ -164,14 +164,11 @@ And this can be used for **clustering documents**:
 
 ```r
 data(data_corpus_SOTU, package="quantedaData")
-presDfm <- dfm(subset(data_corpus_SOTU, lubridate::year(Date)>1990), stem = TRUE,
+presDfm <- dfm(corpus_subset(data_corpus_SOTU, lubridate::year(Date)>1990), stem = TRUE,
                remove = stopwords("english"))
-## Warning: 'subset.corpus' is deprecated.
-## Use 'corpus_subset' instead.
-## See help("Deprecated")
 presDfm <- dfm_trim(presDfm, min_count = 5, min_docfreq = 3)
 # hierarchical clustering - get distances on normalized dfm
-presDistMat <- dist(as.matrix(dfm_weight(presDfm, "relFreq")))
+presDistMat <- textstat_dist(dfm_weight(presDfm, "relFreq"))
 # hiarchical clustering the distance object
 presCluster <- hclust(presDistMat)
 # label with document names
@@ -186,10 +183,7 @@ Or we could look at **term clustering** instead:
 
 ```r
 # word dendrogram with tf-idf weighting
-wordDfm <- sort(dfm_weight(presDfm, "tfidf"))
-## Warning: 'sort.dfm' is deprecated.
-## Use 'dfm_sort' instead.
-## See help("Deprecated")
+wordDfm <- dfm_sort(dfm_weight(presDfm, "tfidf"))
 wordDfm <- t(wordDfm)[1:100,]  # because transposed
 wordDistMat <- dist(wordDfm)
 wordCluster <- hclust(wordDistMat)
