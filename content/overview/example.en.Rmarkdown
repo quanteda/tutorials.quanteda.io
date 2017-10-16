@@ -9,8 +9,8 @@ knitr::opts_chunk$set(collapse = TRUE)
 options(width=120)
 ```
 
-## Visualizing UK party platforms
-With **quanted**, it takes only five steps to create wordcloud in R.
+## Analyze UK party platforms
+With **quanteda**, it takes only five steps to create wordcloud in R.
 
 ### 1. Load the package
 ```{r}

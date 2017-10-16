@@ -6,8 +6,8 @@ draft: false
 
 
 
-## Visualizing UK party platforms
-With **quanted**, it takes only five steps to create wordcloud in R.
+## Analyze UK party platforms
+With **quanteda**, it takes only five steps to create wordcloud in R.
 
 ### 1. Load the package
 
@@ -46,7 +46,7 @@ summary(uk2010immigCorpus)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/overview/* on x86-64 by Kohei
-## Created: Mon Oct 16 09:41:34 2017
+## Created: Mon Oct 16 09:54:36 2017
 ## Notes:   Immigration-related sections of 2010 UK party manifestos
 ```
 ### 3. Check how keywords are used

@@ -9,7 +9,7 @@ chapter: false
 
 ## Install R Studio
 
-**quanteda** works with [base R](https://cran.r-project.org/), but [R Studio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write you code and inspect you data.
+**quanteda** runs solely on [base R](https://cran.r-project.org/), but [R Studio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your data.
 
 ## Install quanteda
 
@@ -19,7 +19,7 @@ First, you need to have **quanteda** installed.  You can do this from inside RSt
 install.packages("quanteda")
 ```
 
-(Optional) You can install some additional corpus data from **quantedaData** using
+Optionally, you can install some additional corpus data from **quantedaData** using
 
 
 ```r
