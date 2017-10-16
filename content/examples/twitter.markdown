@@ -1,5 +1,6 @@
 ---
 title: Twitter
+draft: true
 ---
 
 
@@ -61,8 +62,8 @@ Load the data frame containing the sample tweets:
 ```r
 require(quanteda)
 ## Loading required package: quanteda
-## quanteda version 0.99.13
-## Using 7 of 8 threads for parallel computing
+## quanteda version 0.99.9000
+## Using 3 of 4 threads for parallel computing
 ## 
 ## Attaching package: 'quanteda'
 ## The following object is masked from 'package:utils':

@@ -2,6 +2,7 @@
 title: Preparing texts
 weight: 20
 chapter: false
+draft: true
 ---
 
 
@@ -37,7 +38,11 @@ tokens(txt, verbose = TRUE)
 ## ...preserving hyphens
 ## ...preserving Twitter characters (#, @)
 ## ...serializing tokens 34 unique types
+<<<<<<< HEAD
 ## ...total elapsed:  0.121 seconds.
+=======
+## ...total elapsed:  0.134 seconds.
+>>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
 ## Finished tokenizing and cleaning 2 texts.
 ## tokens from 2 documents.
 ## text1 :
@@ -246,7 +251,7 @@ dfmsInaug2
 ## Document-feature matrix of: 10 documents, 2,303 features (75.1% sparse).
 head(dfmsInaug2)
 ## Document-feature matrix of: 6 documents, 6 features (41.7% sparse).
-## 6 x 6 sparse Matrix of class "dfmSparse"
+## 6 x 6 sparse Matrix of class "dfm"
 ##               features
 ## docs           senat hatfield   , mr   . chief
 ##   1981-Reagan      2        1 174  3 130     1
@@ -268,10 +273,14 @@ myDfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
 ##    ... found 2 documents, 20 features
 ##    ... created a 2 x 20 sparse dfm
 ##    ... complete. 
+<<<<<<< HEAD
 ## Elapsed time: 0.078 seconds.
+=======
+## Elapsed time: 0.114 seconds.
+>>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
 dfm_select(myDfm, features = c("s$", ".y"), selection = "keep", valuetype = "regex")
 ## Document-feature matrix of: 2 documents, 20 features (50% sparse).
-## 2 x 20 sparse Matrix of class "dfmSparse"
+## 2 x 20 sparse Matrix of class "dfm"
 ##        features
 ## docs    My Christmas was ruined by your opposition tax plan . Does the
 ##   text1  1         1   1      1  1    1          1   1    1 1    0   0
@@ -282,7 +291,7 @@ dfm_select(myDfm, features = c("s$", ".y"), selection = "keep", valuetype = "reg
 ##   text2             1  1      1    1    1           1        1 1
 dfm_select(myDfm, features = c("s$", ".y"), selection = "remove", valuetype = "regex")
 ## Document-feature matrix of: 2 documents, 20 features (50% sparse).
-## 2 x 20 sparse Matrix of class "dfmSparse"
+## 2 x 20 sparse Matrix of class "dfm"
 ##        features
 ## docs    My Christmas was ruined by your opposition tax plan . Does the
 ##   text1  1         1   1      1  1    1          1   1    1 1    0   0
@@ -293,7 +302,7 @@ dfm_select(myDfm, features = c("s$", ".y"), selection = "remove", valuetype = "r
 ##   text2             1  1      1    1    1           1        1 1
 dfm_select(myDfm, features = stopwords("english"), selection = "keep", valuetype = "fixed")
 ## Document-feature matrix of: 2 documents, 20 features (50% sparse).
-## 2 x 20 sparse Matrix of class "dfmSparse"
+## 2 x 20 sparse Matrix of class "dfm"
 ##        features
 ## docs    My Christmas was ruined by your opposition tax plan . Does the
 ##   text1  1         1   1      1  1    1          1   1    1 1    0   0
@@ -304,7 +313,7 @@ dfm_select(myDfm, features = stopwords("english"), selection = "keep", valuetype
 ##   text2             1  1      1    1    1           1        1 1
 dfm_select(myDfm, features = stopwords("english"), selection = "remove", valuetype = "fixed")
 ## Document-feature matrix of: 2 documents, 20 features (50% sparse).
-## 2 x 20 sparse Matrix of class "dfmSparse"
+## 2 x 20 sparse Matrix of class "dfm"
 ##        features
 ## docs    My Christmas was ruined by your opposition tax plan . Does the
 ##   text1  1         1   1      1  1    1          1   1    1 1    0   0
@@ -361,13 +370,13 @@ featnames(dfm(tokensNgramsNoStopwords, verbose = FALSE))
 # keep only certain words
 dfm(testCorpus, select = "*s", verbose = FALSE)  # keep only words ending in "s"
 ## Document-feature matrix of: 1 document, 3 features (0% sparse).
-## 1 x 3 sparse Matrix of class "dfmSparse"
+## 1 x 3 sparse Matrix of class "dfm"
 ##        features
 ## docs    seamus jumps his
 ##   text1      3     1   1
 dfm(testCorpus, select = "s$", valuetype = "regex", verbose = FALSE)
 ## Document-feature matrix of: 1 document, 3 features (0% sparse).
-## 1 x 3 sparse Matrix of class "dfmSparse"
+## 1 x 3 sparse Matrix of class "dfm"
 ##        features
 ## docs    seamus jumps his
 ##   text1      3     1   1
@@ -378,7 +387,7 @@ testTweets <- c("My homie @justinbieber #justinbieber shopping in #LA yesterday 
                 "Justin Bieber #justinbieber #belieber #fetusjustin #EMABiggestFansJustinBieber")
 dfm(testTweets, select = "#*", remove_twitter = FALSE)  # keep only hashtags
 ## Document-feature matrix of: 3 documents, 6 features (50% sparse).
-## 3 x 6 sparse Matrix of class "dfmSparse"
+## 3 x 6 sparse Matrix of class "dfm"
 ##        features
 ## docs    #justinbieber #la #beliebers #emabiggestfansjustinbieber #belieber
 ##   text1             1   1          1                           0         0
@@ -391,7 +400,7 @@ dfm(testTweets, select = "#*", remove_twitter = FALSE)  # keep only hashtags
 ##   text3            1
 dfm(testTweets, select = "^#.*$", valuetype = "regex", remove_twitter = FALSE)
 ## Document-feature matrix of: 3 documents, 6 features (50% sparse).
-## 3 x 6 sparse Matrix of class "dfmSparse"
+## 3 x 6 sparse Matrix of class "dfm"
 ##        features
 ## docs    #justinbieber #la #beliebers #emabiggestfansjustinbieber #belieber
 ##   text1             1   1          1                           0         0
@@ -418,7 +427,7 @@ featnames(dfm2a <- dfm(textVec2))
 ## [1] "here"  "are"   "new"   "words" "."     "in"    "this"  "text"
 (dfm2b <- dfm_select(dfm2a, dfm1))
 ## Document-feature matrix of: 2 documents, 11 features (77.3% sparse).
-## 2 x 11 sparse Matrix of class "dfmSparse"
+## 2 x 11 sparse Matrix of class "dfm"
 ##        features
 ## docs    this is text one . , the second here : third
 ##   text1    0  0    0   0 1 0   0      0    1 0     0
@@ -461,7 +470,7 @@ char_wordstem(txt)
 ##  [7] "text"     "analysi"  "packag"   "for"      "analys"   "text"
 dfm_wordstem(dfm(toks))
 ## Document-feature matrix of: 1 document, 10 features (0% sparse).
-## 1 x 10 sparse Matrix of class "dfmSparse"
+## 1 x 10 sparse Matrix of class "dfm"
 ##        features
 ## docs    from 10k packag quanteda is an text analysi for anali
 ##   text1    1   1      2        1  1  1    2       1   1     1
@@ -496,7 +505,7 @@ head(dfm(data_corpus_inaugural[1:2], stem = TRUE, verbose = FALSE))
 
 ```
 ## Document-feature matrix of: 2 documents, 6 features (25% sparse).
-## 2 x 6 sparse Matrix of class "dfmSparse"
+## 2 x 6 sparse Matrix of class "dfm"
 ##                  features
 ## docs              fellow-citizen of the senat and hous
 ##   1789-Washington              1 71 116     1  48    2

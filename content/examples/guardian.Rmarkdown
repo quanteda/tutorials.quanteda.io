@@ -1,5 +1,6 @@
 ---
-title: Newspaper
+title: Newspapers
+draft: true
 ---
 
 # Analyzing Media Text

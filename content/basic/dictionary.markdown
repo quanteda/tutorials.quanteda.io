@@ -2,6 +2,7 @@
 title: Dictionary analysis
 weight: 50
 chapter: true
+draft: true
 ---
 
 
@@ -22,10 +23,14 @@ budgdfm <- dfm(data_corpus_irishbudget2010, dictionary = lgdict, verbose = TRUE)
 ##    ... applying a dictionary consisting of 20 keys
 ##    ... created a 14 x 20 sparse dfm
 ##    ... complete. 
+<<<<<<< HEAD
 ## Elapsed time: 0.406 seconds.
+=======
+## Elapsed time: 0.395 seconds.
+>>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
 head(budgdfm)
 ## Document-feature matrix of: 6 documents, 6 features (33.3% sparse).
-## 6 x 6 sparse Matrix of class "dfmSparse"
+## 6 x 6 sparse Matrix of class "dfm"
 ##                                   features
 ## docs                               CULTURE CULTURE.CULTURE-HIGH
 ##   2010_BUDGET_01_Brian_Lenihan_FF        8                    1
@@ -70,7 +75,7 @@ myDfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
              remove = stopwords("english"), verbose = FALSE)
 myDfm
 ## Document-feature matrix of: 2 documents, 11 features (50% sparse).
-## 2 x 11 sparse Matrix of class "dfmSparse"
+## 2 x 11 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas ruined opposition tax plan . united_states sweden
 ##   text1         1      1          1   1    1 1             0      0
@@ -83,14 +88,14 @@ myDfm
 # glob format
 dfm_lookup(myDfm, myDict, valuetype = "glob")
 ## Document-feature matrix of: 2 documents, 5 features (50% sparse).
-## 2 x 5 sparse Matrix of class "dfmSparse"
+## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       1        0       0
 ##   text2         0          0       1        0       2
 dfm_lookup(myDfm, myDict, valuetype = "glob", case_insensitive = FALSE)
 ## Document-feature matrix of: 2 documents, 5 features (50% sparse).
-## 2 x 5 sparse Matrix of class "dfmSparse"
+## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       1        0       0
@@ -99,14 +104,14 @@ dfm_lookup(myDfm, myDict, valuetype = "glob", case_insensitive = FALSE)
 # regex v. glob format: note that "united_states" is a regex match for "tax*"
 dfm_lookup(myDfm, myDict, valuetype = "glob")
 ## Document-feature matrix of: 2 documents, 5 features (50% sparse).
-## 2 x 5 sparse Matrix of class "dfmSparse"
+## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       1        0       0
 ##   text2         0          0       1        0       2
 dfm_lookup(myDfm, myDict, valuetype = "regex", case_insensitive = TRUE)
 ## Document-feature matrix of: 2 documents, 5 features (40% sparse).
-## 2 x 5 sparse Matrix of class "dfmSparse"
+## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       1        0       0
@@ -115,14 +120,14 @@ dfm_lookup(myDfm, myDict, valuetype = "regex", case_insensitive = TRUE)
 # fixed format: no pattern matching
 dfm_lookup(myDfm, myDict, valuetype = "fixed")
 ## Document-feature matrix of: 2 documents, 5 features (70% sparse).
-## 2 x 5 sparse Matrix of class "dfmSparse"
+## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       0        0       0
 ##   text2         0          0       0        0       2
 dfm_lookup(myDfm, myDict, valuetype = "fixed", case_insensitive = FALSE)
 ## Document-feature matrix of: 2 documents, 5 features (70% sparse).
-## 2 x 5 sparse Matrix of class "dfmSparse"
+## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       0        0       0
@@ -143,7 +148,7 @@ mydict <- dictionary(list(christmas = c("Christmas", "Santa", "holiday"),
 dictDfm <- dfm(mycorpus, dictionary = mydict)
 head(dictDfm)
 ## Document-feature matrix of: 6 documents, 6 features (61.1% sparse).
-## 6 x 6 sparse Matrix of class "dfmSparse"
+## 6 x 6 sparse Matrix of class "dfm"
 ##                 features
 ## docs             christmas opposition taxing taxation taxregex country
 ##   1901-McKinley          0          2      0        1        1       9
@@ -162,7 +167,7 @@ mytexts <- c("British English tokenises differently, with more colour.",
 mydict <- dictionary(list(color = "colo*r", tokenize = "tokeni?e*"))
 dfm(mytexts, thesaurus = mydict)
 ## Document-feature matrix of: 2 documents, 13 features (34.6% sparse).
-## 2 x 13 sparse Matrix of class "dfmSparse"
+## 2 x 13 sparse Matrix of class "dfm"
 ##        features
 ## docs    COLOR TOKENIZE british english differently , with more . american
 ##   text1     1        1       1       1           1 1    1    1 1        0

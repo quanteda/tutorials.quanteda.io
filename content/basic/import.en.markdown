@@ -2,6 +2,7 @@
 title: Data import
 weight: 10
 chapter: false
+draft: true
 ---
 
 
@@ -36,7 +37,11 @@ summary(myCorpus)
 ##          UKIP   346    723        27
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
+<<<<<<< HEAD
 ## Created: Mon Oct  9 20:12:59 2017
+=======
+## Created: Fri Oct 13 21:16:20 2017
+>>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
 ## Notes:
 ```
     
@@ -74,7 +79,11 @@ summary(myTmCorpus, 5)
 ##                        <NA> <NA>   <NA>      <NA>
 ## 
 ## Source:  Converted from tm Corpus 'crude'
+<<<<<<< HEAD
 ## Created: Mon Oct  9 20:12:59 2017
+=======
+## Created: Fri Oct 13 21:16:20 2017
+>>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
 ## Notes:
 ```
 
@@ -124,7 +133,11 @@ summary(data_corpus_inaugural, 5)
 ##  text5   804   2381        45  1805-Jefferson.txt 1805  Jefferson
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
+<<<<<<< HEAD
 ## Created: Mon Oct  9 20:13:01 2017
+=======
+## Created: Fri Oct 13 21:16:22 2017
+>>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
 ## Notes:
 ```
 

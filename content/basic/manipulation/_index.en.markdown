@@ -2,9 +2,5 @@
 title: Manipulating texts
 weight: 30
 chapter: false
+draft: true
 ---
-
-# Manupulating text in R
-
-{{% children  %}}
-
