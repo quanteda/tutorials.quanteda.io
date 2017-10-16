@@ -10,6 +10,6 @@ draft: false
 
 # Basics
 
-Learn **quanted**'s basic functions (comming soon)
+Learn **quanted**'s basic functions (coming soon)
 
 

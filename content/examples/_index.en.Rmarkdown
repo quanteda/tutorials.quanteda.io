@@ -7,6 +7,6 @@ chapter: true
 
 # Examples
 
-Learn how to deal with different types of textual data using **quanteda** (comming soon)
+Learn how to deal with different types of textual data using **quanteda** (coming soon)
 
 
