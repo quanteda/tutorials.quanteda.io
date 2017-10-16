@@ -5,6 +5,7 @@ weight: 10
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
+options(width=120)
 ```
 
 ## Visualizing UK party platforms
@@ -26,7 +27,7 @@ summary(uk2010immigCorpus)
 ```
 ### 3. Check how keywords are used
 ```{r}
-kwic(uk2010immigCorpus, "deport*", window = 3)
+kwic(uk2010immigCorpus, "deport*", window = 5)
 ```
 
 ### 4. Create a document-feature matrix, removing gramatical words

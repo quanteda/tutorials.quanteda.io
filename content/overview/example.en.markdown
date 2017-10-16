@@ -45,43 +45,28 @@ summary(uk2010immigCorpus)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/overview/* on x86_64 by kohei
-## Created: Mon Oct  9 18:08:55 2017
+## Created: Mon Oct  9 20:13:46 2017
 ## Notes:   Immigration-related sections of 2010 UK party manifestos
 ```
 ### 3. Check how keywords are used
 
 ```r
-kwic(uk2010immigCorpus, "deport*", window = 3)
-##                                                         
-##      [BNP, 81]         immigration, the | deportation  |
-##     [BNP, 157]             The BNP will |    deport    |
-##    [BNP, 1946]                     . 2. |    Deport    |
-##    [BNP, 1952]      immigrants We shall |    deport    |
-##    [BNP, 1974] current unacceptably lax | deportation  |
-##    [BNP, 1981]            of people are |   deported   |
-##    [BNP, 2563]      enforced by instant | deportation  |
-##    [BNP, 2578]                     . 8. | Deportation  |
-##    [BNP, 2585]       Criminals We shall |    deport    |
-##    [BNP, 2599]        This includes the | deportation  |
-##  [Greens, 631]       subject to summary | deportation  |
-##  [LibDem, 217]            .- Prioritise | deportation  |
-##  [LibDem, 444]                   .- End | deportations |
-##    [UKIP, 362]             laws or face | deportation  |
-##                          
-##  of all illegal          
-##  all foreigners convicted
-##  all illegal immigrants  
-##  all illegal immigrants  
-##  policies, thousands     
-##  from the UK             
-##  , for anyone            
-##  of all Foreign          
-##  all criminal entrants   
-##  of all Muslim           
-##  . They should           
-##  efforts on criminals    
-##  of refugees to          
-##  . Such citizens
+kwic(uk2010immigCorpus, "deport*", window = 5)
+##                                                                                                            
+##      [BNP, 81]       all further immigration, the | deportation  | of all illegal immigrants,              
+##     [BNP, 157]                    .- The BNP will |    deport    | all foreigners convicted of crimes      
+##    [BNP, 1946]         resettlement programme. 2. |    Deport    | all illegal immigrants We shall         
+##    [BNP, 1952]    all illegal immigrants We shall |    deport    | all illegal immigrants and bogus        
+##    [BNP, 1974] under the current unacceptably lax | deportation  | policies, thousands of people           
+##    [BNP, 1981]          , thousands of people are |   deported   | from the UK annually without            
+##    [BNP, 2563]       Britain, enforced by instant | deportation  | , for anyone found guilty               
+##    [BNP, 2578]               immigration laws. 8. | Deportation  | of all Foreign Criminals We             
+##    [BNP, 2585]     all Foreign Criminals We shall |    deport    | all criminal entrants, regardless       
+##    [BNP, 2599]          status. This includes the | deportation  | of all Muslim extremists,               
+##  [Greens, 631]          not be subject to summary | deportation  | . They should receive a                 
+##  [LibDem, 217]        illegal labour.- Prioritise | deportation  | efforts on criminals, people-traffickers
+##  [LibDem, 444]                 flight risks.- End | deportations | of refugees to countries where          
+##    [UKIP, 362]           respect our laws or face | deportation  | . Such citizens will not
 ```
 
 ### 4. Create a document-feature matrix, removing gramatical words
@@ -91,14 +76,10 @@ mydfm <- dfm(uk2010immigCorpus, remove = stopwords("english"), remove_punct = TR
 mydfm
 ## Document-feature matrix of: 9 documents, 1,547 features (83.8% sparse).
 topfeatures(mydfm, 20)  # 20 top words
-## immigration     british      people      asylum     britain          uk 
-##          66          37          35          29          28          27 
-##      system  population     country         new  immigrants      ensure 
-##          27          21          20          19          17          17 
-##       shall citizenship      social    national         bnp     illegal 
-##          17          16          14          14          13          13 
-##        work     percent 
-##          13          12
+## immigration     british      people      asylum     britain          uk      system  population     country         new 
+##          66          37          35          29          28          27          27          21          20          19 
+##  immigrants      ensure       shall citizenship      social    national         bnp     illegal        work     percent 
+##          17          17          17          16          14          14          13          13          13          12
 ```
 
 ### 5. Plot a word cloud

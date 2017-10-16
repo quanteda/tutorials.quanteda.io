@@ -11,11 +11,11 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 ## Install R Studio
 
-[download R Studio](https://www.rstudio.com/products/rstudio/download/)
+**quanteda** works with [base R](https://cran.r-project.org/), but [R Studio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write you code and inspect you data.
 
 ## Install quanteda
 
-First, you need to have **quanteda** installed.  You can do this from inside RStudio, from the Tools...Install Packages menu, or simply using
+First, you need to have **quanteda** installed.  You can do this from inside RStudio, from the Tools... Install Packages menu, or simply using
 ```{r, eval = FALSE}
 install.packages("quanteda")
 ```

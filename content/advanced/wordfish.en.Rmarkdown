@@ -9,13 +9,13 @@ require(quanteda)
 
 Poisson scaling
 
-```{r}
+```{r eval=FALSE}
 ieWF <- dfm(data_corpus_irishbudget2010, removePunct = TRUE) %>%
     textmodel_wordfish(dir = c(6,5))
 textplot_scale1d(ieWF)
 summary(ieWF)
 ```
 
-```{r kable, results = 'asis'}
+```{r kable, results = 'asis', eval=FALSE}
 knitr::kable(summary(ieWF))
 ```
