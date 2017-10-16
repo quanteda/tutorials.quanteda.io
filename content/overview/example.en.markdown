@@ -2,6 +2,7 @@
 title: Example
 weight: 10
 draft: false
+output: slidy_presentation
 ---
 
 
@@ -46,7 +47,7 @@ summary(uk2010immigCorpus)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/overview/* on x86-64 by Kohei
-## Created: Mon Oct 16 09:54:36 2017
+## Created: Mon Oct 16 19:09:59 2017
 ## Notes:   Immigration-related sections of 2010 UK party manifestos
 ```
 ### 3. Check how keywords are used
@@ -92,4 +93,4 @@ textplot_wordcloud(mydfm, min.freq = 6, random.order = FALSE,
                    colors = RColorBrewer::brewer.pal(8,"Dark2"))
 ```
 
-<img src="/overview/example.en_files/figure-html/quanteda_example-1.svg" width="768" />
+![plot of chunk quanteda_example](figure/quanteda_example-1.png)
