@@ -36,12 +36,8 @@ summary(myCorpus)
 ##           SNP    88    134         4
 ##          UKIP   346    723        27
 ## 
-## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
-<<<<<<< HEAD
-## Created: Mon Oct  9 20:12:59 2017
-=======
-## Created: Fri Oct 13 21:16:20 2017
->>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
+## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic/* on x86-64 by Kohei
+## Created: Mon Oct 16 09:40:38 2017
 ## Notes:
 ```
     
@@ -79,11 +75,7 @@ summary(myTmCorpus, 5)
 ##                        <NA> <NA>   <NA>      <NA>
 ## 
 ## Source:  Converted from tm Corpus 'crude'
-<<<<<<< HEAD
-## Created: Mon Oct  9 20:12:59 2017
-=======
-## Created: Fri Oct 13 21:16:20 2017
->>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
+## Created: Mon Oct 16 09:40:39 2017
 ## Notes:
 ```
 
@@ -132,12 +124,8 @@ summary(data_corpus_inaugural, 5)
 ##  text4   717   1927        41  1801-Jefferson.txt 1801  Jefferson
 ##  text5   804   2381        45  1805-Jefferson.txt 1805  Jefferson
 ## 
-## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
-<<<<<<< HEAD
-## Created: Mon Oct  9 20:13:01 2017
-=======
-## Created: Fri Oct 13 21:16:22 2017
->>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
+## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic/* on x86-64 by Kohei
+## Created: Mon Oct 16 09:40:40 2017
 ## Notes:
 ```
 
@@ -219,20 +207,20 @@ demFeatures <- dfm(demCorpus, remove = stopwords('english')) %>%
     dfm_trim(min_doc = 3, min_count = 5) %>% 
     dfm_weight(type='tfidf')
 topfeatures(demFeatures)
-##         -    mexico   tonight         $      jobs  treasury      1947 
-##  398.7026  202.0298  177.5838  152.0577  141.0520  139.4839  122.5412 
-##   subject    duties condition 
-##  122.0720  121.8514  119.6557
+##        -   mexico  tonight        $ treasury     jobs     1947     help 
+## 427.9556 198.8482 182.1753 153.5178 148.0181 139.5461 122.5412 120.5252 
+##      u.s   duties 
+## 120.0403 118.3891
 
 repCorpus <- corpus_subset(sotuCorpus, party == 'Republican') 
 repFeatures <- dfm(repCorpus, remove = stopwords('english')) %>%
     dfm_trim(min_doc = 3, min_count = 5) %>% 
     dfm_weight(type = 'tfidf')
 topfeatures(repFeatures)
-##            -         upon      tonight      islands      program 
-##    270.05524    120.61102    112.63028    111.74523    105.92713 
-##     programs corporations     economic       tariff          u.s 
-##    102.14216    101.85261     95.98184     95.78987     95.00670
+##            -         upon      islands      tonight corporations 
+##    246.36857    119.75093    110.59322    110.34032     99.33542 
+##         cent       tariff         navy      program      subject 
+##     97.52065     95.78987     92.06111     91.09733     90.93973
 ```
 
 The **quanteda** corpus objects can be combined using the `+` operator:
@@ -243,7 +231,7 @@ dfm(data_corpus_inaugural2, remove = stopwords('english'), verbose = FALSE) %>%
     dfm_trim(min_doc = 3, min_count = 5) %>% 
     dfm_weight(type = 'tfidf') %>% 
     topfeatures
-##        -  tonight        •   mexico     jobs     upon  subject        $ 
+##        -  tonight           mexico     jobs     upon  subject        $ 
 ## 659.9549 291.1009 238.4091 233.0129 217.3148 215.4849 207.0569 206.7664 
 ##  program     cent 
 ## 206.7522 195.8858

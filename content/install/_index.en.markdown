@@ -9,11 +9,11 @@ chapter: false
 
 ## Install R Studio
 
-[download R Studio](https://www.rstudio.com/products/rstudio/download/)
+**quanteda** works with [base R](https://cran.r-project.org/), but [R Studio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write you code and inspect you data.
 
 ## Install quanteda
 
-First, you need to have **quanteda** installed.  You can do this from inside RStudio, from the Tools...Install Packages menu, or simply using
+First, you need to have **quanteda** installed.  You can do this from inside RStudio, from the Tools... Install Packages menu, or simply using
 
 ```r
 install.packages("quanteda")
@@ -40,7 +40,7 @@ Run the rest of this file to test your setup.  You must have quanteda installed 
 require(quanteda)
 ## Loading required package: quanteda
 ## quanteda version 0.99.9000
-## Using 3 of 4 threads for parallel computing
+## Using 7 of 8 threads for parallel computing
 ## 
 ## Attaching package: 'quanteda'
 ## The following object is masked from 'package:utils':

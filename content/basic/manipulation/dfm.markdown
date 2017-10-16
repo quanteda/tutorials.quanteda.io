@@ -12,7 +12,7 @@ Now summarize some texts in the Irish 2010 budget speech corpus:
 ```
 ## Loading required package: quanteda
 ## quanteda version 0.99.9000
-## Using 3 of 4 threads for parallel computing
+## Using 7 of 8 threads for parallel computing
 ## 
 ## Attaching package: 'quanteda'
 ## The following object is masked from 'package:utils':
@@ -71,7 +71,7 @@ Look at the top occuring features:
 
 ```r
 topfeatures(ieDfm)
-##      .      ,      €  peopl budget govern minist   year    tax public 
+##      .      ,        peopl budget govern minist   year    tax public 
 ##   2371   1548    336    273    272    271    204    201    195    179
 ```
 
@@ -79,23 +79,6 @@ Make a word cloud:
 
 ```r
 textplot_wordcloud(ieDfm, min.freq = 25, random.order = FALSE)
-## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
-## '€' in 'mbcsToSbcs': dot substituted for <e2>
-## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
-## '€' in 'mbcsToSbcs': dot substituted for <82>
-## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
-## '€' in 'mbcsToSbcs': dot substituted for <ac>
-## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
-## rotWord * : conversion failure on '€' in 'mbcsToSbcs': dot substituted for
-## <e2>
-## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
-## rotWord * : conversion failure on '€' in 'mbcsToSbcs': dot substituted for
-## <82>
-## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
-## rotWord * : conversion failure on '€' in 'mbcsToSbcs': dot substituted for
-## <ac>
-## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
-## rotWord * : font metrics unknown for Unicode character U+20ac
 ```
 
 <img src="/basic/manipulation/dfm_files/figure-html/unnamed-chunk-6-1.svg" width="768" />

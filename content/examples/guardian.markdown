@@ -33,7 +33,7 @@ It is common to construct a corpus of news articles (or transcripts) from databa
 require(quanteda)
 ## Loading required package: quanteda
 ## quanteda version 0.99.9000
-## Using 3 of 4 threads for parallel computing
+## Using 7 of 8 threads for parallel computing
 ## 
 ## Attaching package: 'quanteda'
 ## The following object is masked from 'package:utils':

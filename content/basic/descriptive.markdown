@@ -38,12 +38,8 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##           SNP    88    134         4
 ##          UKIP   346    723        27
 ## 
-## Source:  /home/kohei/packages/quanteda_tutorials/content/basic/* on x86_64 by kohei
-<<<<<<< HEAD
-## Created: Mon Oct  9 20:12:48 2017
-=======
-## Created: Fri Oct 13 21:16:08 2017
->>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
+## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic/* on x86-64 by Kohei
+## Created: Mon Oct 16 09:40:27 2017
 ## Notes:
 ```
 

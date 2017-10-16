@@ -364,16 +364,16 @@ Likewise, you can also figure out what methods are defined for any given *class*
 
 ```r
 methods(class = "tokens")
-##  [1] as.character          as.list               as.tokenizedTexts    
-##  [4] c                     dfm                   docnames<-           
-##  [7] docnames              kwic                  lengths              
-## [10] metadoc               ndoc                  nfeature             
-## [13] nsentence             nsyllable             ntoken               
-## [16] phrase                print                 textstat_collocations
-## [19] [<-                   [                     [[<-                 
-## [22] [[                    $                     +                    
-## [25] tokens_compound       tokens_lookup         tokens_ngrams        
-## [28] tokens_segment        tokens_select         tokens               
+##  [1] $                     [                     [[                   
+##  [4] [[<-                  [<-                   +                    
+##  [7] as.character          as.list               as.tokenizedTexts    
+## [10] c                     dfm                   docnames             
+## [13] docnames<-            kwic                  lengths              
+## [16] metadoc               ndoc                  nfeature             
+## [19] nsentence             nsyllable             ntoken               
+## [22] phrase                print                 textstat_collocations
+## [25] tokens                tokens_compound       tokens_lookup        
+## [28] tokens_ngrams         tokens_segment        tokens_select        
 ## [31] tokens_tolower        tokens_toupper        tokens_wordstem      
 ## [34] unlist               
 ## see '?methods' for accessing help and source code
@@ -404,12 +404,8 @@ summary(recentCorpus)
 ##    2009-Obama   938   2711       110   dem
 ##    2013-Obama   814   2317        88   dem
 ## 
-## Source:  /home/kohei/packages/quanteda_tutorials/content/overview/* on x86_64 by kohei
-<<<<<<< HEAD
-## Created: Mon Oct  9 20:13:54 2017
-=======
-## Created: Fri Oct 13 21:17:21 2017
->>>>>>> b59f8d5e7707795f3ee8a9243174ca7b91d14b59
+## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/overview/* on x86-64 by Kohei
+## Created: Mon Oct 16 09:41:41 2017
 ## Notes:
 ```
 
