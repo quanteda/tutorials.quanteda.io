@@ -2,7 +2,6 @@
 title: Example
 weight: 10
 draft: false
-output: slidy_presentation
 ---
 
 
@@ -47,7 +46,7 @@ summary(uk2010immigCorpus)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/overview/* on x86-64 by Kohei
-## Created: Tue Oct 17 08:03:09 2017
+## Created: Tue Oct 17 08:23:40 2017
 ## Notes:   Immigration-related sections of 2010 UK party manifestos
 ```
 ### 3. Check how keywords are used
