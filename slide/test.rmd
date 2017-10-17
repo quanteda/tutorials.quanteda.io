@@ -1,0 +1,14 @@
+---
+title: "Multi-modal content test"
+author: Kohei Watanabe
+date: March 22, 2005
+output: slidy_presentation
+---
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+options(width=60)
+```
+
+```{r test-main, child = '../content/overview/example_main.en.Rmarkdown'}
+```
