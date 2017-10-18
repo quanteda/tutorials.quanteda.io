@@ -15,7 +15,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   description = "Tutorials on quantitative text analysis using quanteda"
   author = "Kenneth Benoit"
   showVisitedLinks = true
-  themeVariant = "blue"
+  themeVariant = "mine"
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
