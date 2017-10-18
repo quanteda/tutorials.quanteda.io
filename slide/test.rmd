@@ -8,6 +8,7 @@ output: slidy_presentation
 ```{r, echo=FALSE, results='hide', message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 options(width=60)
+book = FALSE
 ```
 
 ```{r test-main, child = '../content/overview/example_main.en.Rmarkdown'}

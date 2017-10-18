@@ -13,8 +13,8 @@ With **quanteda**, it takes only five steps to create wordcloud in R.
 
 ```r
 library(quanteda)
-## quanteda version 0.99.9000
-## Using 7 of 8 threads for parallel computing
+## quanteda version 0.99.14
+## Using 3 of 4 threads for parallel computing
 ## 
 ## Attaching package: 'quanteda'
 ## The following object is masked from 'package:utils':
@@ -46,7 +46,7 @@ summary(uk2010immigCorpus)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/overview/* on x86-64 by Kohei
-## Created: Tue Oct 17 08:23:40 2017
+## Created: Wed Oct 18 11:32:50 2017
 ## Notes:   Immigration-related sections of 2010 UK party manifestos
 ```
 ### 3. Check how keywords are used

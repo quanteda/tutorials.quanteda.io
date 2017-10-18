@@ -62,8 +62,8 @@ Load the data frame containing the sample tweets:
 ```r
 require(quanteda)
 ## Loading required package: quanteda
-## quanteda version 0.99.9000
-## Using 7 of 8 threads for parallel computing
+## quanteda version 0.99.14
+## Using 3 of 4 threads for parallel computing
 ## 
 ## Attaching package: 'quanteda'
 ## The following object is masked from 'package:utils':
@@ -177,17 +177,17 @@ jd <- dfm(jCorp)
 jd <- dfm_select(jd, "^#.+", "keep", valuetype = "regex") 
 # equivalent: jd <- dfm_select(jd, "#*", "keep", valuetype = "glob") 
 topfeatures(jd, nfeature(jd))
-##   #withjuncker        #ep2014    #telleurope           #afd       #tvduell 
-##              5              4              3              2              2 
+##   #withjuncker    #telleurope        #ep2014           #afd       #tvduell 
+##              4              3              3              2              2 
 ##     #nowschulz  #eudebate2014            #rt        #ee2014          #riga 
 ##              1              1              1              1              1 
-##   #teammartens        #eu2014  #caraacaratve           #ppe        #votapp 
+##  #withjunckerâ       #ep2014â   #teammartens        #eu2014  #caraacaratve 
 ##              1              1              1              1              1 
-##    #votacanete #publicviewing     #tvduell's        #euhaus          #eu14 
+##           #ppe        #votapp    #votacanete #publicviewing     #tvduell's 
 ##              1              1              1              1              1 
-##    #europawahl        #berlin         #linke        #merkel       #gabriel 
+##        #euhaus          #eu14    #europawahl        #berlin         #linke 
 ##              1              1              1              1              1 
-##     #wahlarena 
-##              1
+##        #merkel       #gabriel     #wahlarena 
+##              1              1              1
 ```
 

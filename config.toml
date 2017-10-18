@@ -9,6 +9,7 @@ metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
+
 [params]
   editURL = "https://github.com/koheiw/quanteda_tutorials/tree/master/content/"
   description = "Tutorials on quantitative text analysis using quanteda"

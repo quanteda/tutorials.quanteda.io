@@ -4,7 +4,11 @@
 library(quanteda)
 ```
 
-### 2. Create a corpus from manifestos
+### 2. Create a corpus from manifestos {.hide}
+```{r, results = 'asis', echo = FALSE}
+if(exists("book") && book) cat('Creating a corpus object from a text is really easy. Just type a few commands')
+```
+
 ```{r}
 uk2010immigCorpus <- 
     corpus(data_char_ukimmig2010,
