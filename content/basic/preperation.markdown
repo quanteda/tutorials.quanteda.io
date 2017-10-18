@@ -38,7 +38,7 @@ tokens(txt, verbose = TRUE)
 ## ...preserving hyphens
 ## ...preserving Twitter characters (#, @)
 ## ...serializing tokens 34 unique types
-## ...total elapsed:  0.25 seconds.
+## ...total elapsed:  0.14 seconds.
 ## Finished tokenizing and cleaning 2 texts.
 ## tokens from 2 documents.
 ## text1 :
