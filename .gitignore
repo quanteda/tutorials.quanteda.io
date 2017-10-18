@@ -7,4 +7,5 @@ public/
 content/*/*.html
 content/*/*.svg
 content/*/*.png
+**/*_files
 .httr-oauth
