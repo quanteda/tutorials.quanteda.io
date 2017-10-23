@@ -102,6 +102,11 @@ a:hover {
     border-color: var(--MENU-SECTION-HR-color);
 }
 
+pre,
+pre .copy-to-clipboard{
+  background-color: #282b2e;
+  background-color: #f8f8f8;
+}
 
 @media all and (display-mode: fullscreen) {
   
