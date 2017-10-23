@@ -46,7 +46,7 @@ summary(uk2010immigCorpus)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/overview/* on x86-64 by Kohei
-## Created: Wed Oct 18 21:24:30 2017
+## Created: Mon Oct 23 14:33:09 2017
 ## Notes:   Immigration-related sections of 2010 UK party manifestos
 ```
 ### 3. Check how keywords are used
