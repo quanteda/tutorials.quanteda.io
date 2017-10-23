@@ -102,6 +102,7 @@ a:hover {
     border-color: var(--MENU-SECTION-HR-color);
 }
 
+
 @media all and (display-mode: fullscreen) {
   
     .responsive {
