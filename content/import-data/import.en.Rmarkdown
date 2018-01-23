@@ -1,0 +1,218 @@
+---
+title: Data import
+weight: 10
+chapter: false
+draft: true
+---
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+require(quanteda)
+```
+
+## Getting texts into R
+
+In this section we will show how to load texts from different sources and create a `corpus` object in **quanteda**.
+
+## Creating a `corpus` object
+
+**quanteda can construct a `corpus` object** from several input sources:
+
+###  a character vector object  
+```{r}
+require(quanteda, warn.conflicts = FALSE, quietly = TRUE)
+myCorpus <- corpus(data_char_ukimmig2010, notes = "My first corpus")
+summary(myCorpus)
+```
+    
+###  a `VCorpus` object from the **tm** package, and
+```{r}
+data(crude, package = "tm")
+myTmCorpus <- corpus(crude)
+summary(myTmCorpus, 5)
+```
+
+### using `readtext()` to import texts
+
+The vignette walks you through importing a variety of different text files into R using the **readtext** package. Currently, **readtext** supports plain text files (.txt), data in some form of JavaScript Object Notation (.json), comma-or tab-separated values (.csv, .tab, .tsv), XML documents (.xml), as well as PDF and Microsoft Word formatted files (.pdf, .doc, .docx). The **quanteda** package works nicely with a companion package we have written named, descriptively, [**readtext**](https://github.com/kbenoit/readtext).  **readtext** is a one-function package that does exactly what it says on the tin: It reads files containing text, along with any associated document-level metadata, which we call "docvars", for document variables.  
+
+**readtext** accepts filemasks, so that you can specify a pattern to load multiple texts from one or more folders, and these texts can even be of multiple types.  **readtext** is smart enough to process them correctly, returning a data.frame with a primary field "text" containing a character vector of the texts, and additional columns of the data.frame as found in the document variables from the source files.
+
+As encoding can also be a challenging issue for those reading in texts, we include functions for diagnosing encodings on a file-by-file basis, and allow you to specify vectorized input encodings to read in file types with individually set (and different) encodings.  (All encoding functions are handled by the **stringi** package.) Because **quanteda**'s corpus constructor recognizes the data.frame format returned by `readtext()`, it can construct a corpus directly from a `readtext` object, preserving all docvars and other meta-data.
+
+**readtext** also handles multiple files and file types using for instance a "glob" expression, files from a URL or an archive file (.zip, .tar, .tar.gz, .tar.bz). Usually, you do not have to determine the format of the files explicitly - **readtext** takes this information from the file ending.
+
+The **readtext** package comes with a data directory called `extdata` that contains examples of all files listed above. In the vignette, we use this data directory.
+
+```{r}
+# Load the readtext package
+library(readtext)
+
+# Get the data directory from readtext
+DATA_DIR <- system.file("extdata/", package = "readtext")
+```
+
+The `extdata` directory contains several subfolders that include different text files. In the following examples, we load one or more files stored in each of these folders. The `paste0` command is used to concatenate the `extdata` folder from the 
+**readtext** package with the subfolders. When reading in custom text files, you will need to determine your own data directory (see `?setwd()`). Alternatively, if you use RStudio you can create a Project (File -> New Project) and put the textual raw data in a separate folder in the Project folder. Then you can simply start the .Rproj file and you do not have to specify the full working directory. 
+
+# 2. Reading one or more text files
+
+## 2.1 Plain text files (.txt)
+
+The folder "txt" contains a subfolder named UDHR with .txt files of the Universal Declaration of Human Rights in 13 languages. 
+
+```{r}
+# Read in all files from a folder
+readtext(paste0(DATA_DIR, "/txt/UDHR/*"))
+```
+
+We can specify document-level metadata (`docvars`) based on the file names or on a separate data.frame. Below we take the docvars from the filenames (`docvarsfrom = "filenames"`) and set the names for each variable (`docvarnames = c("unit", "context", "year", "language", "party")`). The command `dvsep = "_"` determines the separator (a regular expression character string) included in the filenames to delimit the `docvar` elements. `encoding = "ISO-8859-1"` specifies the encoding of the text. Below we describe how you can find out how your text is encoded.
+
+```{r}
+# Manifestos with docvars from filenames
+readtext(paste0(DATA_DIR, "/txt/EU_manifestos/*.txt"),
+         docvarsfrom = "filenames", 
+         docvarnames = c("unit", "context", "year", "language", "party"),
+         dvsep = "_", 
+         encoding = "ISO-8859-1")
+```
+
+**readtext** can also curse through subdirectories. In our example, the folder `txt/movie_reviews` contains two subfolders (called `neg` and `pos`). We can load all texts included in both folders. 
+
+```{r}
+# Recurse through subdirectories
+readtext(paste0(DATA_DIR, "/txt/movie_reviews/*"))
+```
+
+## 2.2 Comma- or tab-separated values (.csv, .tab, .tsv)
+
+Read in comma separted values (.csv files) that contain textual data. We determine the `texts` variable in our .csv file as the `text_field`. This is the column that contains the actual text. The other columns of the original csv file (`Year`, `President`, `FirstName`) are by default treated as document-level variables. 
+
+```{r}
+# Read in comma-separated values
+readtext(paste0(DATA_DIR, "/csv/inaugCorpus.csv"), text_field = "texts")
+```
+
+The same procedure applies to tab-separated values.
+
+```{r}
+# Read in tab-separated values
+readtext(paste0(DATA_DIR, "/tsv/dailsample.tsv"), text_field = "speech")
+```
+
+## 2.3 JSON data (.json)
+
+You can also read .json data. Again you need to specify the `text_field`. 
+
+```{r}
+## Read in JSON data
+readtext(paste0(DATA_DIR, "/json/inaugural_sample.json"), text_field = "texts")
+```
+
+## 2.4 PDF files
+
+**readtext** can also read in and convert .pdf files. In the example below we load all .pdf files stored in the `UDHR` folder, and determine that the `docvars` shall be taken from the filenames. We call the document-level variables `document` and `language`, and specify the delimiter (`dvsep`).
+
+```{r}
+## Read in Universal Declaration of Human Rights pdf files
+(rt_pdf <- readtext(paste0(DATA_DIR, "/pdf/UDHR/*.pdf"), 
+                    docvarsfrom = "filenames", 
+                    docvarnames = c("document", "language"),
+                    sep = "_"))
+```
+
+
+## 2.5 Microsoft Word files (.doc, .docx)
+
+Microsoft Word formatted files are converted through the package **antiword** for older `.doc` files, and using **XML** for newer `.docx` files.
+
+```{r}
+## Read in Word data (.docx)
+readtext(paste0(DATA_DIR, "/word/*.docx"))
+```
+
+## 2.6 Text from URLs
+
+You can also read in text directly from a URL.
+
+```{r}
+# Note: Example required: which URL should we use?
+```
+
+## 2.7 Text from archive files (.zip, .tar, .tar.gz, .tar.bz)
+
+Finally, it is possible to inclue text from archives. In the repository for this tutorial page, we include a zip archive of all State of the Union
+
+```{r}
+# Note: Archive file required. The only zip archive included in readtext has 
+# different encodings and is difficult to import (see section 4.2).
+#sotu <- readtext("content/basic/sotu.zip")
+```
+
+# 3. Inter-operability with quanteda
+
+**readtext** was originally developed in early versions of the [**quanteda**](http://github.com/quanteda/quanteda) package for the quantitative analysis of textual data.  It was spawned from the `textfile()` function from that package, and now lives exclusively in **readtext**. Because **quanteda**'s corpus constructor recognizes the data.frame format returned by `readtext()`, it can construct a corpus directly from a `readtext` object, preserving all docvars and other meta-data.
+
+```{r, message = FALSE}
+require(quanteda)
+```
+
+You can easily contruct a corpus from a **readtext** object.
+
+```{r}
+# read in comma-separated values with readtext
+rt_csv <- readtext(paste0(DATA_DIR, "/csv/inaugCorpus.csv"), text_field = "texts")
+
+# create quanteda corpus
+corpus_csv <- corpus(rt_csv)
+summary(corpus_csv, 5)
+```
+
+## 4. Read files with different encodings
+
+Sometimes files of the same type have different encodings. If the encoding of a file is included in the file name, we can extract this information and import the texts correctly. 
+
+```{r}
+# create a temporary directory to extract the .zip file
+FILEDIR <- tempdir()
+# unzip file
+unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"), exdir = FILEDIR)
+```
+
+Here, we will get the encoding from the filenames themselves.
+```{r}
+# get encoding from filename
+filenames <- list.files(FILEDIR, "^(Indian|UDHR_).*\\.txt$")
+
+head(filenames)
+
+# Strip the extension
+filenames <- gsub(".txt$", "", filenames)
+parts <- strsplit(filenames, "_")
+fileencodings <- sapply(parts, "[", 3)
+
+head(fileencodings)
+
+# Check whether certain file encodings are not supported
+notAvailableIndex <- which(!(fileencodings %in% iconvlist()))
+fileencodings[notAvailableIndex]
+```
+
+If we read the text files without specifying the encoding, we get erroneously formatted text. To avoid this, we determine the `encoding` using the character object `fileencoding` created above. 
+
+We can also add `docvars` based on the filenames.
+```{r}
+txts <- readtext(paste0(DATA_DIR, "/data_files_encodedtexts.zip"), 
+                 encoding = fileencodings,
+                 docvarsfrom = "filenames", 
+                 docvarnames = c("document", "language", "input_encoding"))
+print(txts, n = 50)
+```
+
+From this file we can easily create a **quanteda** `corpus` object.
+
+```{r}
+corpus_txts <- corpus(txts)
+summary(corpus_txts, 5)
+```
+
