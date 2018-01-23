@@ -1,0 +1,31 @@
+---
+title: Wordscores
+draft: true
+---
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+require(quanteda)
+```
+
+Baysian
+
+```{r}
+data(data_corpus_amicus, package = "quanteda.corpora")
+refs <- docvars(data_corpus_amicus, "trainclass")
+refs <- (as.numeric(refs) - 1.5) * 2
+amicusDfm <- dfm(data_corpus_amicus)
+wm <- textmodel_wordscores(amicusDfm, y = refs)
+```
+
+```{r}
+preds <- predict(wm, newdata = amicusDfm)
+summary(preds)
+plot(preds ~ docvars(amicusDfm, "testclass"),
+     horizontal = TRUE, xlab = "Predicted document score",
+     ylab = "Test class", las = 1)
+```
+
+```{r}
+summary(wm)
+```

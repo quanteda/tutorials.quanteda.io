@@ -1,0 +1,140 @@
+---
+title: Data import
+weight: 10
+chapter: false
+draft: true
+---
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+require(quanteda)
+```
+
+## Getting texts into R
+
+In this section we will show how to load texts from different sources and create a `corpus` object in **quanteda**.
+
+## Creating a `corpus` object
+
+**quanteda can construct a `corpus` object** from several input sources:
+
+###  a character vector object  
+```{r, eval=FALSE}
+require(quanteda, warn.conflicts = FALSE, quietly = TRUE)
+myCorpus <- corpus(data_char_ukimmig2010, notes = "My first corpus")
+summary(myCorpus)
+```
+    
+###  a `VCorpus` object from the **tm** package, and
+```{r, eval=FALSE}
+data(crude, package = "tm")
+myTmCorpus <- corpus(crude)
+summary(myTmCorpus, 5)
+```
+
+###  Texts read by the **readtext** package
+
+The **quanteda** package works nicely with a companion package we have written named, descriptively, [**readtext**](https://github.com/kbenoit/readtext).  **readtext** is a one-function package that does exactly what it says on the tin: It reads files containing text, along with any associated document-level metadata, which we call "docvars", for document variables.  Plain text files do not have docvars, but other forms such as .csv, .tab, .xml, and .json files usually do.  
+
+**readtext** accepts filemasks, so that you can specify a pattern to load multiple texts, and these texts can even be of multiple types.  **readtext** is smart enough to process them correctly, returning a data.frame with a primary field "text" containing a character vector of the texts, and additional columns of the data.frame as found in the document variables from the source files.
+
+As encoding can also be a challenging issue for those reading in texts, we include functions for diagnosing encodings on a file-by-file basis, and allow you to specify vectorized input encodings to read in file types with individually set (and different) encodings.  (All ecnoding functions are handled by the **stringi** package.)
+
+To install **readtext**, you will need to use the **devtools** package, and then issue this command:
+```{r, eval = FALSE}
+# devtools packaged required to install readtext from Github 
+devtools::install_github("kbenoit/readtext") 
+```
+
+
+## Using `readtext()` to import texts
+
+In the simplest case, we would like to load a set of texts in plain text files from a single directory. To do this, we use the `textfile` command, and use the 'glob' operator '*' to indicate that we want to load multiple files:
+
+```{r, eval=FALSE}
+require(readtext)
+myCorpus <- corpus(readtext("inaugural/*.txt"))
+myCorpus <- corpus(readtext("sotu/*.txt"))
+```
+
+Often, we have metadata encoded in the names of the files. For example, the inaugural addresses contain the year and the president's name in the name of the file. With the `docvarsfrom` argument, we can instruct the `textfile` command to consider these elements as document variables.
+
+```{r, eval=FALSE}
+mytf <- readtext("inaugural/*.txt", docvarsfrom = "filenames", dvsep = "-", 
+                 docvarnames = c("Year", "President"))
+data_corpus_inaugural <- corpus(mytf)
+summary(data_corpus_inaugural, 5)
+```
+
+If the texts and document variables are stored separately, we can easily add document variables to the corpus, as long as the data frame containing them is of the same length as the texts:
+
+```{r, eval=FALSE}
+SOTUdocvars <- read.csv("SOTU_metadata.csv", stringsAsFactors = FALSE)
+SOTUdocvars$Date <- as.Date(SOTUdocvars$Date, "%B %d, %Y")
+SOTUdocvars$delivery <- as.factor(SOTUdocvars$delivery)
+SOTUdocvars$type <- as.factor(SOTUdocvars$type)
+SOTUdocvars$party <- as.factor(SOTUdocvars$party)
+SOTUdocvars$nwords <- NULL
+
+sotuCorpus <- corpus(readtext("sotu/*.txt", encoding = "UTF-8-BOM"))
+docvars(sotuCorpus) <- SOTUdocvars
+```
+
+On some non-English Windows operation systems, the `"%B %d, %Y"` pattern does not work. If it happens, change locale (language setting) temporarily:
+```{r, eval = FALSE}
+lct <- Sys.getlocale("LC_TIME") # get original locale
+Sys.setlocale("LC_TIME", "C") # set C's basic locale
+SOTUdocvars$Date <- as.Date(SOTUdocvars$Date, "%B %d, %Y")
+Sys.setlocale("LC_TIME", lct) # set original locale
+
+```
+
+Another common case is that our texts are stored alongside the document variables in a structured file, such as a json, csv or excel file. The textfile command can read in the texts and document variables simultaneously from these files when the name of the field containing the texts is specified.
+```{r, eval=FALSE}
+tf1 <- readtext("inaugTexts.csv", textfield = "inaugSpeech")
+myCorpus <- corpus(tf1)
+
+
+tf2 <- readtext("text_example.csv", textfield = "Title")
+myCorpus <- corpus(tf2)
+head(docvars(tf2))
+```
+
+## Working with corpus objects
+
+Once the we have loaded a corpus with some document level variables, we can subset the corpus using these variables, create document-feature matrices by aggregating on the variables, or extract the texts concatenated by variable.
+
+```{r, eval=FALSE}
+recentCorpus <- corpus_subset(data_corpus_inaugural, Year > 1980)
+oldCorpus <- corpus_subset(data_corpus_inaugural, Year < 1880)
+
+require(magrittr)
+demCorpus <- corpus_subset(sotuCorpus, party == 'Democratic')
+demFeatures <- dfm(demCorpus, remove = stopwords('english')) %>%
+    dfm_trim(min_doc = 3, min_count = 5) %>% 
+    dfm_weight(type='tfidf')
+topfeatures(demFeatures)
+
+repCorpus <- corpus_subset(sotuCorpus, party == 'Republican') 
+repFeatures <- dfm(repCorpus, remove = stopwords('english')) %>%
+    dfm_trim(min_doc = 3, min_count = 5) %>% 
+    dfm_weight(type = 'tfidf')
+topfeatures(repFeatures)
+```
+
+The **quanteda** corpus objects can be combined using the `+` operator:
+```{r, eval=FALSE}
+data_corpus_inaugural2 <- demCorpus + repCorpus
+dfm(data_corpus_inaugural2, remove = stopwords('english'), verbose = FALSE) %>%
+    dfm_trim(min_doc = 3, min_count = 5) %>% 
+    dfm_weight(type = 'tfidf') %>% 
+    topfeatures
+```
+
+It should also be possible to load a zip file containing texts directly from a url. However, whether this operation succeeds or not can depend on access permission settings on your particular system (i.e. fails on Windows):
+
+```{r eval=FALSE}
+immigfiles <- readtext("https://github.com/kbenoit/ME114/raw/master/day8/UKimmigTexts.zip")
+mycorpus <- corpus(immigfiles)
+summary(mycorpus)
+```
