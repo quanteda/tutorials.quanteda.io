@@ -68,8 +68,8 @@ lapply(as.list(textstat_simil(presDfm, c("fair", "health", "terror"), margin = "
 
 And this can be used for **clustering documents**:
 ```{r, fig.height=6, fig.width=10}
-data(data_corpus_stou, package="quanteda.corpora")
-presDfm <- dfm(corpus_subset(data_corpus_stou, lubridate::year(Date)>1990), stem = TRUE,
+data(data_corpus_sotu, package="quanteda.corpora")
+presDfm <- dfm(corpus_subset(data_corpus_sotu, lubridate::year(Date)>1990), stem = TRUE,
                remove = stopwords("english"))
 presDfm <- dfm_trim(presDfm, min_count = 5, min_docfreq = 3)
 # hierarchical clustering - get distances on normalized dfm
