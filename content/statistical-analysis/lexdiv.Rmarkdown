@@ -1,0 +1,21 @@
+---
+title: Lexical diversity
+weight: 20
+chapter: false
+draft: false
+---
+
+```{r message=FALSE}
+require(quanteda)
+```
+
+```{r}
+inaug_toks <- tokens(data_corpus_inaugural)
+inaug_dfm <- dfm(inaug_toks, remove = stopwords('en'))
+lexdiv <- textstat_lexdiv(inaug_dfm)
+tail(lexdiv, 20)
+plot(lexdiv$TTR, type = 'l', xaxt = 'n')
+axis(1, at = seq_len(nrow(lexdiv)), labels = docvars(inaug_dfm, 'President'))
+```
+
+

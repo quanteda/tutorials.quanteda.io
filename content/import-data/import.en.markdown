@@ -36,8 +36,8 @@ summary(myCorpus)
 ##           SNP    88    134         4
 ##          UKIP   346    723        27
 ## 
-## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/import-data/* on x86_64 by stefan
-## Created: Tue Jan 23 17:44:35 2018
+## Source:  /home/kohei/packages/quanteda_tutorials/content/import-data/* on x86_64 by kohei
+## Created: Tue Jan 23 19:40:14 2018
 ## Notes:
 ```
     
@@ -75,7 +75,7 @@ summary(myTmCorpus, 5)
 ##                        <NA> <NA>   <NA>      <NA>
 ## 
 ## Source:  Converted from tm Corpus 'crude'
-## Created: Tue Jan 23 17:44:35 2018
+## Created: Tue Jan 23 19:40:14 2018
 ## Notes:
 ```
 
@@ -114,15 +114,15 @@ The folder "txt" contains a subfolder named UDHR with .txt files of the Universa
 # Read in all files from a folder
 readtext(paste0(DATA_DIR, "/txt/UDHR/*"))
 ## readtext object consisting of 13 documents and 0 docvars.
-## # data.frame [13 x 2]
-##              doc_id                          text
-##               <chr>                         <chr>
-## 1  UDHR_chinese.txt "\"世界人权宣言\n联合国\"..."
-## 2    UDHR_czech.txt           "\"VŠEOBECNÁ \"..."
-## 3   UDHR_danish.txt           "\"Den 10. de\"..."
-## 4  UDHR_english.txt           "\"Universal \"..."
-## 5   UDHR_french.txt           "\"Déclaratio\"..."
-## 6 UDHR_georgian.txt           "\"FLFVBFYBC \"..."
+## # data.frame [13 × 2]
+##   doc_id            text                         
+##   <chr>             <chr>                        
+## 1 UDHR_chinese.txt  "\"世界人权宣言\n联合国\"..."
+## 2 UDHR_czech.txt    "\"VŠEOBECNÁ \"..."          
+## 3 UDHR_danish.txt   "\"Den 10. de\"..."          
+## 4 UDHR_english.txt  "\"Universal \"..."          
+## 5 UDHR_french.txt   "\"Déclaratio\"..."          
+## 6 UDHR_georgian.txt "\"FLFVBFYBC \"..."          
 ## # ... with 7 more rows
 ```
 
@@ -137,16 +137,16 @@ readtext(paste0(DATA_DIR, "/txt/EU_manifestos/*.txt"),
          dvsep = "_", 
          encoding = "ISO-8859-1")
 ## readtext object consisting of 17 documents and 5 docvars.
-## # data.frame [17 x 7]
-##                    doc_id                 text  unit context  year
-##                     <chr>                <chr> <chr>   <chr> <int>
-## 1 EU_euro_2004_de_PSE.txt  "\"PES · PSE \"..."    EU    euro  2004
-## 2   EU_euro_2004_de_V.txt  "\"Gemeinsame\"..."    EU    euro  2004
-## 3 EU_euro_2004_en_PSE.txt  "\"PES · PSE \"..."    EU    euro  2004
-## 4   EU_euro_2004_en_V.txt "\"Manifesto\n\"..."    EU    euro  2004
-## 5 EU_euro_2004_es_PSE.txt  "\"PES · PSE \"..."    EU    euro  2004
-## 6   EU_euro_2004_es_V.txt "\"Manifesto\n\"..."    EU    euro  2004
-## # ... with 11 more rows, and 2 more variables: language <chr>, party <chr>
+## # data.frame [17 × 7]
+##   doc_id                  text            unit  context  year langu… party
+##   <chr>                   <chr>           <chr> <chr>   <int> <chr>  <chr>
+## 1 EU_euro_2004_de_PSE.txt "\"PES · PSE \… EU    euro     2004 de     PSE  
+## 2 EU_euro_2004_de_V.txt   "\"Gemeinsame\… EU    euro     2004 de     V    
+## 3 EU_euro_2004_en_PSE.txt "\"PES · PSE \… EU    euro     2004 en     PSE  
+## 4 EU_euro_2004_en_V.txt   "\"Manifesto\n… EU    euro     2004 en     V    
+## 5 EU_euro_2004_es_PSE.txt "\"PES · PSE \… EU    euro     2004 es     PSE  
+## 6 EU_euro_2004_es_V.txt   "\"Manifesto\n… EU    euro     2004 es     V    
+## # ... with 11 more rows
 ```
 
 **readtext** can also curse through subdirectories. In our example, the folder `txt/movie_reviews` contains two subfolders (called `neg` and `pos`). We can load all texts included in both folders. 
@@ -156,15 +156,15 @@ readtext(paste0(DATA_DIR, "/txt/EU_manifestos/*.txt"),
 # Recurse through subdirectories
 readtext(paste0(DATA_DIR, "/txt/movie_reviews/*"))
 ## readtext object consisting of 10 documents and 0 docvars.
-## # data.frame [10 x 2]
-##                    doc_id                 text
-##                     <chr>                <chr>
-## 1 neg/neg_cv000_29416.txt  "\"plot : two\"..."
-## 2 neg/neg_cv001_19502.txt  "\"the happy \"..."
-## 3 neg/neg_cv002_17424.txt  "\"it is movi\"..."
+## # data.frame [10 × 2]
+##   doc_id                  text                
+##   <chr>                   <chr>               
+## 1 neg/neg_cv000_29416.txt "\"plot : two\"..." 
+## 2 neg/neg_cv001_19502.txt "\"the happy \"..." 
+## 3 neg/neg_cv002_17424.txt "\"it is movi\"..." 
 ## 4 neg/neg_cv003_12683.txt "\" \" quest f\"..."
-## 5 neg/neg_cv004_12641.txt  "\"synopsis :\"..."
-## 6 pos/pos_cv000_29590.txt  "\"films adap\"..."
+## 5 neg/neg_cv004_12641.txt "\"synopsis :\"..." 
+## 6 pos/pos_cv000_29590.txt "\"films adap\"..." 
 ## # ... with 4 more rows
 ```
 
@@ -177,14 +177,14 @@ Read in comma separted values (.csv files) that contain textual data. We determi
 # Read in comma-separated values
 readtext(paste0(DATA_DIR, "/csv/inaugCorpus.csv"), text_field = "texts")
 ## readtext object consisting of 5 documents and 3 docvars.
-## # data.frame [5 x 5]
-##              doc_id                text  Year  President FirstName
-##               <chr>               <chr> <int>      <chr>     <chr>
-## 1 inaugCorpus.csv.1 "\"Fellow-Cit\"..."  1789 Washington    George
-## 2 inaugCorpus.csv.2 "\"Fellow cit\"..."  1793 Washington    George
-## 3 inaugCorpus.csv.3 "\"When it wa\"..."  1797      Adams      John
-## 4 inaugCorpus.csv.4 "\"Friends an\"..."  1801  Jefferson    Thomas
-## 5 inaugCorpus.csv.5 "\"Proceeding\"..."  1805  Jefferson    Thomas
+## # data.frame [5 × 5]
+##   doc_id            text                 Year President  FirstName
+##   <chr>             <chr>               <int> <chr>      <chr>    
+## 1 inaugCorpus.csv.1 "\"Fellow-Cit\"..."  1789 Washington George   
+## 2 inaugCorpus.csv.2 "\"Fellow cit\"..."  1793 Washington George   
+## 3 inaugCorpus.csv.3 "\"When it wa\"..."  1797 Adams      John     
+## 4 inaugCorpus.csv.4 "\"Friends an\"..."  1801 Jefferson  Thomas   
+## 5 inaugCorpus.csv.5 "\"Proceeding\"..."  1805 Jefferson  Thomas
 ```
 
 The same procedure applies to tab-separated values.
@@ -194,17 +194,16 @@ The same procedure applies to tab-separated values.
 # Read in tab-separated values
 readtext(paste0(DATA_DIR, "/tsv/dailsample.tsv"), text_field = "speech")
 ## readtext object consisting of 33 documents and 9 docvars.
-## # data.frame [33 x 11]
-##             doc_id                text speechID memberID partyID constID
-##              <chr>               <chr>    <int>    <int>   <int>   <int>
-## 1 dailsample.tsv.1 "\"Molaimse d\"..."        1      977      22     158
-## 2 dailsample.tsv.2 "\"Is bród mó\"..."        2     1603      22     103
-## 3 dailsample.tsv.3 "\"' A cháird\"..."        3      116      22     178
-## 4 dailsample.tsv.4 "\"Tá ceathra\"..."        4      116      22     178
-## 5 dailsample.tsv.5 "\"Léighfead \"..."        5      116      22     178
-## 6 dailsample.tsv.6 "\"-Braithean\"..."        6      116      22     178
-## # ... with 27 more rows, and 5 more variables: title <chr>, date <chr>,
-## #   member_name <chr>, party_name <chr>, const_name <chr>
+## # data.frame [33 × 11]
+##   doc_id text   speec… membe… party… cons… title  date  membe… part… cons…
+##   <chr>  <chr>   <int>  <int>  <int> <int> <chr>  <chr> <chr>  <chr> <chr>
+## 1 dails… "\"Mo…      1    977     22   158 1. CE… 1919… Count… Sinn… Rosc…
+## 2 dails… "\"Is…      2   1603     22   103 1. CE… 1919… Mr. P… Sinn… Galw…
+## 3 dails… "\"' …      3    116     22   178 1. CE… 1919… Mr. C… Sinn… Wate…
+## 4 dails… "\"Tá…      4    116     22   178 2. CL… 1919… Mr. C… Sinn… Wate…
+## 5 dails… "\"Lé…      5    116     22   178 3. AN… 1919… Mr. C… Sinn… Wate…
+## 6 dails… "\"-B…      6    116     22   178 3. AN… 1919… Mr. C… Sinn… Wate…
+## # ... with 27 more rows
 ```
 
 ## 2.3 JSON data (.json)
@@ -218,12 +217,12 @@ readtext(paste0(DATA_DIR, "/json/inaugural_sample.json"), text_field = "texts")
 ## Warning in doTryCatch(return(expr), name, parentenv, handler): Doesn't look
 ## like Tweets json file, trying general JSON
 ## readtext object consisting of 3 documents and 3 docvars.
-## # data.frame [3 x 5]
-##                    doc_id                text  Year  President FirstName
-##                     <chr>               <chr> <int>      <chr>     <chr>
-## 1 inaugural_sample.json.1 "\"Fellow-Cit\"..."  1789 Washington    George
-## 2 inaugural_sample.json.2 "\"Fellow cit\"..."  1793 Washington    George
-## 3 inaugural_sample.json.3 "\"When it wa\"..."  1797      Adams      John
+## # data.frame [3 × 5]
+##   doc_id                  text                 Year President  FirstName
+##   <chr>                   <chr>               <int> <chr>      <chr>    
+## 1 inaugural_sample.json.1 "\"Fellow-Cit\"..."  1789 Washington George   
+## 2 inaugural_sample.json.2 "\"Fellow cit\"..."  1793 Washington George   
+## 3 inaugural_sample.json.3 "\"When it wa\"..."  1797 Adams      John
 ```
 
 ## 2.4 PDF files
@@ -238,15 +237,15 @@ readtext(paste0(DATA_DIR, "/json/inaugural_sample.json"), text_field = "texts")
                     docvarnames = c("document", "language"),
                     sep = "_"))
 ## readtext object consisting of 11 documents and 2 docvars.
-## # data.frame [11 x 4]
-##             doc_id                          text document language
-##              <chr>                         <chr>    <chr>    <chr>
-## 1 UDHR_chinese.pdf "\"世界人权宣言\n联合国\"..."     UDHR  chinese
-## 2   UDHR_czech.pdf           "\"VŠEOBECNÁ \"..."     UDHR    czech
-## 3  UDHR_danish.pdf           "\"Den 10. de\"..."     UDHR   danish
-## 4 UDHR_english.pdf           "\"Universal \"..."     UDHR  english
-## 5  UDHR_french.pdf           "\"Déclaratio\"..."     UDHR   french
-## 6   UDHR_greek.pdf           "\"ΟΙΚΟΥΜΕΝΙΚ\"..."     UDHR    greek
+## # data.frame [11 × 4]
+##   doc_id           text                          document language
+##   <chr>            <chr>                         <chr>    <chr>   
+## 1 UDHR_chinese.pdf "\"世界人权宣言\n联合国\"..." UDHR     chinese 
+## 2 UDHR_czech.pdf   "\"VŠEOBECNÁ \"..."           UDHR     czech   
+## 3 UDHR_danish.pdf  "\"Den 10. de\"..."           UDHR     danish  
+## 4 UDHR_english.pdf "\"Universal \"..."           UDHR     english 
+## 5 UDHR_french.pdf  "\"Déclaratio\"..."           UDHR     french  
+## 6 UDHR_greek.pdf   "\"ΟΙΚΟΥΜΕΝΙΚ\"..."           UDHR     greek   
 ## # ... with 5 more rows
 ```
 
@@ -260,11 +259,11 @@ Microsoft Word formatted files are converted through the package **antiword** fo
 ## Read in Word data (.docx)
 readtext(paste0(DATA_DIR, "/word/*.docx"))
 ## readtext object consisting of 2 documents and 0 docvars.
-## # data.frame [2 x 2]
-##                        doc_id                text
-##                         <chr>               <chr>
+## # data.frame [2 × 2]
+##   doc_id                      text               
+##   <chr>                       <chr>              
 ## 1 UK_2015_EccentricParty.docx "\"The Eccent\"..."
-## 2     UK_2015_LoonyParty.docx "\"The Offici\"..."
+## 2 UK_2015_LoonyParty.docx     "\"The Offici\"..."
 ```
 
 ## 2.6 Text from URLs
@@ -315,8 +314,8 @@ summary(corpus_csv, 5)
 ##  text4   717   1927        41 inaugCorpus.csv.4 1801  Jefferson    Thomas
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
-## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/import-data/* on x86_64 by stefan
-## Created: Tue Jan 23 17:44:37 2018
+## Source:  /home/kohei/packages/quanteda_tutorials/content/import-data/* on x86_64 by kohei
+## Created: Tue Jan 23 19:40:16 2018
 ## Notes:
 ```
 
@@ -372,47 +371,45 @@ txts <- readtext(paste0(DATA_DIR, "/data_files_encodedtexts.zip"),
                  docvarnames = c("document", "language", "input_encoding"))
 print(txts, n = 50)
 ## readtext object consisting of 36 documents and 3 docvars.
-## # data.frame [36 x 5]
-##                                doc_id                          text
-##                                 <chr>                         <chr>
-##  1  IndianTreaty_English_UTF-16LE.txt           "\"WHEREAS, t\"..."
-##  2 IndianTreaty_English_UTF-8-BOM.txt           "\"ARTICLE 1.\"..."
-##  3         UDHR_Arabic_ISO-8859-6.txt          "\"الديباجة\nل\"..."
-##  4              UDHR_Arabic_UTF-8.txt          "\"الديباجة\nل\"..."
-##  5       UDHR_Arabic_WINDOWS-1256.txt          "\"الديباجة\nل\"..."
-##  6            UDHR_Chinese_GB2312.txt "\"世界人权宣言\n联合国\"..."
-##  7               UDHR_Chinese_GBK.txt "\"世界人权宣言\n联合国\"..."
-##  8             UDHR_Chinese_UTF-8.txt "\"世界人权宣言\n联合国\"..."
-##  9          UDHR_English_UTF-16BE.txt           "\"Universal \"..."
-## 10          UDHR_English_UTF-16LE.txt           "\"Universal \"..."
-## 11             UDHR_English_UTF-8.txt           "\"Universal \"..."
-## 12      UDHR_English_WINDOWS-1252.txt           "\"Universal \"..."
-## 13         UDHR_French_ISO-8859-1.txt           "\"Déclaratio\"..."
-## 14              UDHR_French_UTF-8.txt           "\"Déclaratio\"..."
-## 15       UDHR_French_WINDOWS-1252.txt           "\"Déclaratio\"..."
-## 16         UDHR_German_ISO-8859-1.txt           "\"Die Allgem\"..."
-## 17              UDHR_German_UTF-8.txt           "\"Die Allgem\"..."
-## 18       UDHR_German_WINDOWS-1252.txt           "\"Die Allgem\"..."
-## 19              UDHR_Greek_CP1253.txt           "\"ΟΙΚΟΥΜΕΝΙΚ\"..."
-## 20          UDHR_Greek_ISO-8859-7.txt           "\"ΟΙΚΟΥΜΕΝΙΚ\"..."
-## 21               UDHR_Greek_UTF-8.txt           "\"ΟΙΚΟΥΜΕΝΙΚ\"..."
-## 22               UDHR_Hindi_UTF-8.txt           "\"मानव अधिका\"..."
-## 23      UDHR_Icelandic_ISO-8859-1.txt           "\"Mannréttin\"..."
-## 24           UDHR_Icelandic_UTF-8.txt           "\"Mannréttin\"..."
-## 25    UDHR_Icelandic_WINDOWS-1252.txt           "\"Mannréttin\"..."
-## 26            UDHR_Japanese_CP932.txt  "\"『世界人権宣言』\n \"..."
-## 27      UDHR_Japanese_ISO-2022-JP.txt  "\"『世界人権宣言』\n \"..."
-## 28            UDHR_Japanese_UTF-8.txt  "\"『世界人権宣言』\n \"..."
-## 29      UDHR_Japanese_WINDOWS-936.txt  "\"『世界人権宣言』\n \"..."
-## 30        UDHR_Korean_ISO-2022-KR.txt      "\"세 계 인 권 선 \"..."
-## 31              UDHR_Korean_UTF-8.txt      "\"세 계 인 권 선 \"..."
-## 32        UDHR_Russian_ISO-8859-5.txt           "\"Всеобщая д\"..."
-## 33            UDHR_Russian_KOI8-R.txt           "\"Всеобщая д\"..."
-## 34             UDHR_Russian_UTF-8.txt           "\"Всеобщая д\"..."
-## 35      UDHR_Russian_WINDOWS-1251.txt           "\"Всеобщая д\"..."
-## 36                UDHR_Thai_UTF-8.txt            "\"ปฏิญญาสากล\"..."
-## # ... with 3 more variables: document <chr>, language <chr>,
-## #   input_encoding <chr>
+## # data.frame [36 × 5]
+##    doc_id                             text          docume… langu… input_…
+##    <chr>                              <chr>         <chr>   <chr>  <chr>  
+##  1 IndianTreaty_English_UTF-16LE.txt  "\"WHEREAS, … Indian… Engli… UTF-16…
+##  2 IndianTreaty_English_UTF-8-BOM.txt "\"ARTICLE 1… Indian… Engli… UTF-8-…
+##  3 UDHR_Arabic_ISO-8859-6.txt         "\"الديباجة\… UDHR    Arabic ISO-88…
+##  4 UDHR_Arabic_UTF-8.txt              "\"الديباجة\… UDHR    Arabic UTF-8  
+##  5 UDHR_Arabic_WINDOWS-1256.txt       "\"الديباجة\… UDHR    Arabic WINDOW…
+##  6 UDHR_Chinese_GB2312.txt            "\"世界人权宣言\n联… UDHR    Chine… GB2312 
+##  7 UDHR_Chinese_GBK.txt               "\"世界人权宣言\n联… UDHR    Chine… GBK    
+##  8 UDHR_Chinese_UTF-8.txt             "\"世界人权宣言\n联… UDHR    Chine… UTF-8  
+##  9 UDHR_English_UTF-16BE.txt          "\"Universal… UDHR    Engli… UTF-16…
+## 10 UDHR_English_UTF-16LE.txt          "\"Universal… UDHR    Engli… UTF-16…
+## 11 UDHR_English_UTF-8.txt             "\"Universal… UDHR    Engli… UTF-8  
+## 12 UDHR_English_WINDOWS-1252.txt      "\"Universal… UDHR    Engli… WINDOW…
+## 13 UDHR_French_ISO-8859-1.txt         "\"Déclarati… UDHR    French ISO-88…
+## 14 UDHR_French_UTF-8.txt              "\"Déclarati… UDHR    French UTF-8  
+## 15 UDHR_French_WINDOWS-1252.txt       "\"Déclarati… UDHR    French WINDOW…
+## 16 UDHR_German_ISO-8859-1.txt         "\"Die Allge… UDHR    German ISO-88…
+## 17 UDHR_German_UTF-8.txt              "\"Die Allge… UDHR    German UTF-8  
+## 18 UDHR_German_WINDOWS-1252.txt       "\"Die Allge… UDHR    German WINDOW…
+## 19 UDHR_Greek_CP1253.txt              "\"ΟΙΚΟΥΜΕΝΙ… UDHR    Greek  CP1253 
+## 20 UDHR_Greek_ISO-8859-7.txt          "\"ΟΙΚΟΥΜΕΝΙ… UDHR    Greek  ISO-88…
+## 21 UDHR_Greek_UTF-8.txt               "\"ΟΙΚΟΥΜΕΝΙ… UDHR    Greek  UTF-8  
+## 22 UDHR_Hindi_UTF-8.txt               "\"मानव अधिक… UDHR    Hindi  UTF-8  
+## 23 UDHR_Icelandic_ISO-8859-1.txt      "\"Mannrétti… UDHR    Icela… ISO-88…
+## 24 UDHR_Icelandic_UTF-8.txt           "\"Mannrétti… UDHR    Icela… UTF-8  
+## 25 UDHR_Icelandic_WINDOWS-1252.txt    "\"Mannrétti… UDHR    Icela… WINDOW…
+## 26 UDHR_Japanese_CP932.txt            "\"『世界人権宣言』\… UDHR    Japan… CP932  
+## 27 UDHR_Japanese_ISO-2022-JP.txt      "\"『世界人権宣言』\… UDHR    Japan… ISO-20…
+## 28 UDHR_Japanese_UTF-8.txt            "\"『世界人権宣言』\… UDHR    Japan… UTF-8  
+## 29 UDHR_Japanese_WINDOWS-936.txt      "\"『世界人権宣言』\… UDHR    Japan… WINDOW…
+## 30 UDHR_Korean_ISO-2022-KR.txt        "\"세 계 인 권 선… UDHR    Korean ISO-20…
+## 31 UDHR_Korean_UTF-8.txt              "\"세 계 인 권 선… UDHR    Korean UTF-8  
+## 32 UDHR_Russian_ISO-8859-5.txt        "\"Всеобщая … UDHR    Russi… ISO-88…
+## 33 UDHR_Russian_KOI8-R.txt            "\"Всеобщая … UDHR    Russi… KOI8-R 
+## 34 UDHR_Russian_UTF-8.txt             "\"Всеобщая … UDHR    Russi… UTF-8  
+## 35 UDHR_Russian_WINDOWS-1251.txt      "\"Всеобщая … UDHR    Russi… WINDOW…
+## 36 UDHR_Thai_UTF-8.txt                "\"ปฏิญญาสาก…  UDHR    Thai   UTF-8
 ```
 
 From this file we can easily create a **quanteda** `corpus` object.
@@ -436,8 +433,8 @@ summary(corpus_txts, 5)
 ##          UDHR   Arabic          UTF-8
 ##          UDHR   Arabic   WINDOWS-1256
 ## 
-## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/import-data/* on x86_64 by stefan
-## Created: Tue Jan 23 17:44:37 2018
+## Source:  /home/kohei/packages/quanteda_tutorials/content/import-data/* on x86_64 by kohei
+## Created: Tue Jan 23 19:40:16 2018
 ## Notes:
 ```
 

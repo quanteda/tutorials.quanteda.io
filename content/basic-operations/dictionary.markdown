@@ -23,7 +23,7 @@ budgdfm <- dfm(data_corpus_irishbudget2010, dictionary = lgdict, verbose = TRUE)
 ##    ... applying a dictionary consisting of 20 keys
 ##    ... created a 14 x 20 sparse dfm
 ##    ... complete. 
-## Elapsed time: 0.248 seconds.
+## Elapsed time: 0.381 seconds.
 head(budgdfm)
 ## Document-feature matrix of: 6 documents, 20 features (30% sparse).
 ## 6 x 20 sparse Matrix of class "dfm"

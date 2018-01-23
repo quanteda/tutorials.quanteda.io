@@ -40,8 +40,8 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##           SNP    88    134         4
 ##          UKIP   346    723        27
 ## 
-## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/basic-operations/* on x86_64 by stefan
-## Created: Tue Jan 23 17:44:03 2018
+## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/* on x86_64 by kohei
+## Created: Tue Jan 23 19:39:44 2018
 ## Notes:
 ```
 
@@ -162,8 +162,8 @@ lapply(as.list(textstat_simil(presDfm, c("fair", "health", "terror"), margin = "
 And this can be used for **clustering documents**:
 
 ```r
-data(data_corpus_sotu, package="quanteda.corpora")
-presDfm <- dfm(corpus_subset(data_corpus_sotu, lubridate::year(Date)>1990), stem = TRUE,
+data(data_corpus_stou, package="quanteda.corpora")
+presDfm <- dfm(corpus_subset(data_corpus_stou, lubridate::year(Date)>1990), stem = TRUE,
                remove = stopwords("english"))
 presDfm <- dfm_trim(presDfm, min_count = 5, min_docfreq = 3)
 # hierarchical clustering - get distances on normalized dfm
