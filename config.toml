@@ -11,8 +11,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 
 [params]
-  editURL = "https://github.com/koheiw/quanteda_tutorials/tree/master/content/"
-  description = "Tutorials on quantitative text analysis using quanteda"
+  editURL = "https://github.com/quanteda/quanteda_tutorials/tree/master/content/"
+  description = "Introduction to quantitative text analysis using quanteda"
   author = "Kenneth Benoit"
   showVisitedLinks = true
   themeVariant = "mine"
@@ -29,7 +29,7 @@ languageName = "English"
 [[Languages.en.menu.shortcuts]] 
 name = "<i class='fa fa-github'></i> Github repo"
 identifier = "ds"
-url = "https://github.com/kbenoit/quanteda"
+url = "https://github.com/quanteda/quanteda"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
