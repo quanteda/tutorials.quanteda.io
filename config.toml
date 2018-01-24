@@ -26,7 +26,7 @@ title = "Tutorials for quanteda"
 weight = 1
 languageName = "English"
 
-[[Languages.en.menu.shortcuts]] 
+[[Languages.en.menu.shortcuts]]
 name = "<i class='fa fa-github'></i> Github repo"
 identifier = "ds"
 url = "https://github.com/quanteda/quanteda"
@@ -35,7 +35,13 @@ weight = 10
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fa fa-bookmark'></i> Documentation"
 identifier = "hugodoc"
-url = "http://doc.quanteda.io/"
+url = "http://docs.quanteda.io/"
+weight = 20
+
+[[Languages.en.menu.shortcuts]]
+name = "<i class='fa fa-home'></i> Website"
+identifier = "hugodoc"
+url = "http://quanteda.io/"
 weight = 20
 
 # [[Languages.en.menu.shortcuts]]

@@ -5,10 +5,7 @@ chapter: false
 draft: true
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
-require(quanteda)
-```
+
 
 # Introduction: Getting texts into R
 
@@ -19,18 +16,68 @@ In this section we will show how to load texts from different sources and create
 **quanteda can construct a `corpus` object** from several input sources:
 
 ## a character vector object  
-```{r}
+
+```r
 require(quanteda, warn.conflicts = FALSE, quietly = TRUE)
 myCorpus <- corpus(data_char_ukimmig2010, notes = "My first corpus")
+## Warning in corpus.character(data_char_ukimmig2010, notes = "My first
+## corpus"): Argument notes not used.
 summary(myCorpus)
+## Corpus consisting of 9 documents:
+## 
+##          Text Types Tokens Sentences
+##           BNP  1125   3280        88
+##     Coalition   142    260         4
+##  Conservative   251    499        15
+##        Greens   322    679        21
+##        Labour   298    683        29
+##        LibDem   251    483        14
+##            PC    77    114         5
+##           SNP    88    134         4
+##          UKIP   346    723        27
+## 
+## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/import-data/* on x86_64 by stefan
+## Created: Wed Jan 24 02:01:26 2018
+## Notes:
 ```
     
 ## a `VCorpus` object from the **tm** package, and
 
-```{r}
+
+```r
 data(crude, package = "tm")
 myTmCorpus <- corpus(crude)
 summary(myTmCorpus, 5)
+## Corpus consisting of 20 documents, showing 5 documents:
+## 
+##  Text Types Tokens Sentences       datetimestamp description
+##   127    62    103         5 1987-02-26 17:00:56            
+##   144   238    495        19 1987-02-26 17:34:11            
+##   191    47     62         4 1987-02-26 18:18:00            
+##   194    55     74         5 1987-02-26 18:21:01            
+##   211    67     97         4 1987-02-26 19:00:57            
+##                                          heading  id language
+##         DIAMOND SHAMROCK (DIA) CUTS CRUDE PRICES 127       en
+##  OPEC MAY HAVE TO MEET TO FIRM PRICES - ANALYSTS 144       en
+##        TEXACO CANADA <TXC> LOWERS CRUDE POSTINGS 191       en
+##        MARATHON PETROLEUM REDUCES CRUDE POSTINGS 194       en
+##        HOUSTON OIL <HO> RESERVES STUDY COMPLETED 211       en
+##             origin topics lewissplit     cgisplit oldid places
+##  Reuters-21578 XML    YES      TRAIN TRAINING-SET  5670    usa
+##  Reuters-21578 XML    YES      TRAIN TRAINING-SET  5687    usa
+##  Reuters-21578 XML    YES      TRAIN TRAINING-SET  5734 canada
+##  Reuters-21578 XML    YES      TRAIN TRAINING-SET  5737    usa
+##  Reuters-21578 XML    YES      TRAIN TRAINING-SET  5754    usa
+##                      author orgs people exchanges
+##                        <NA> <NA>   <NA>      <NA>
+##  BY TED D'AFFLISIO, Reuters opec   <NA>      <NA>
+##                        <NA> <NA>   <NA>      <NA>
+##                        <NA> <NA>   <NA>      <NA>
+##                        <NA> <NA>   <NA>      <NA>
+## 
+## Source:  Converted from tm Corpus 'crude'
+## Created: Wed Jan 24 02:01:26 2018
+## Notes:
 ```
 
 ## using `readtext()` to import texts
@@ -45,7 +92,8 @@ As encoding can also be a challenging issue for those reading in texts, we inclu
 
 The **readtext** package comes with a data directory called `extdata` that contains examples of all files listed above. In the vignette, we use this data directory.
 
-```{r}
+
+```r
 # Load the readtext package
 library(readtext)
 

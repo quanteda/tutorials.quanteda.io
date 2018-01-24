@@ -12,7 +12,7 @@ Now summarize some texts in the Irish 2010 budget speech corpus:
 ```
 ## Loading required package: quanteda
 ## quanteda version 1.0.0
-## Using 7 of 8 threads for parallel computing
+## Using 3 of 4 threads for parallel computing
 ## 
 ## Attaching package: 'quanteda'
 ## The following object is masked from 'package:utils':

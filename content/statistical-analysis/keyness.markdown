@@ -11,6 +11,10 @@ require(quanteda)
 require(lubridate)
 ```
 
+```
+## Warning: package 'lubridate' was built under R version 3.4.2
+```
+
 Keyness is a statistical measure originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to discover frequent words in target documents. This statistic is essentially a signed chi-square, where words more frequent than expected are given positive sign. 
 
 
