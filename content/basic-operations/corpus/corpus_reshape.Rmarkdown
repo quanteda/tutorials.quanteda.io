@@ -4,3 +4,83 @@ weight: 20
 chapter: false
 draft: false
 ---
+
+
+```{r message=FALSE}
+require(quanteda)
+```
+
+Once you have created a corpus, you can change the units of texts. This can be either done on a pattern match through `corpus_segment()` or by recasting the units of a corpus to sentences or paragraphs through `corpus_reshape()`.
+
+## Segmenting a corpus
+
+Segment a corpus using tags. 
+
+
+```{r}
+corpus_tags <- corpus(c("##INTRO This is the introduction.
+                  ##DOC1 This is the first document.  Second sentence in Doc 1.
+                  ##DOC3 Third document starts here.  End of third document.",
+                 "##INTRO Document ##NUMBER Two starts before ##NUMBER Three."))
+
+corp_seg_tags <- corpus_segment(corpus_tags, "##*")
+
+cbind(texts(corp_seg_tags), docvars(corp_seg_tags), metadoc(corp_seg_tags))
+```
+
+Segmenting a transcript based on speaker identifiers
+
+```{r}
+corpus_speakers <- corpus("Mr. Smith: Text.\nMrs. Jones: More text.\nMr. Smith: I'm speaking, again.")
+
+corpus_speakers_tags <- corpus_segment(corpus_speakers, pattern = "\\b[A-Z].+\\s[A-Z][a-z]+:",
+                            valuetype = "regex")
+
+cbind(texts(corpus_speakers_tags), docvars(corpus_speakers_tags), metadoc(corpus_speakers_tags))
+```
+
+You can also segment character values. Here we segment a text into clauses
+
+```{r}
+txt <- c(d1 = "This, is a sentence?  You: come here.", 
+         d2 = "Yes, yes okay.")
+
+char_segment(txt, pattern = "\\p{P}", valuetype = "regex", 
+             pattern_position = "after", remove_pattern = FALSE)
+```
+
+## Reshaping a corpus
+
+For a corpus, you can reshape (or recast) the documents to a different level of aggregation. Units of aggregation can be defined as documents, paragraphs, or sentences. Because the corpus object records its current "units" status, it is possible to move from recast units back to original units, for example from documents, to sentences, and then back to documents (possibly after modifying the sentences). We use the Guardian corpus as an example.
+
+```{r}
+news_corp <- quanteda.corpora::download('data_corpus_guardian')
+
+news_corp_sentences <- corpus_reshape(news_corp, to = "sentences")
+
+summary(news_corp_sentences, 5)
+```
+
+The corpus now increased from 6,000 documents (i.e. newspaper articles) to 201,097 documents (i.e. sentences).
+
+Now we could, for instance, select only sentences that contain at least 10 words and reshape the corpus back to documents. For this, we use `corpus_subset()` and apply `corpus_reshape()` to the subsetted corpus
+
+```{r}
+# create document-level variable with number of tokens
+docvars(news_corp_sentences, "ntoken") <- ntoken(news_corp_sentences, remove_punct = TRUE)
+
+ndoc(news_corp_sentences)
+
+# subset the corpus
+news_corp_sentences_subset <- corpus_subset(news_corp_sentences, ntoken >= 10)
+
+ndoc(news_corp_sentences_subset)
+
+# reshape back to the level of documents
+
+news_corp_documens_subset <- corpus_reshape(news_corp_sentences_subset, to = "documents")
+
+ndoc(news_corp_documens_subset)
+
+```
+
