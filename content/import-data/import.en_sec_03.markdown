@@ -137,6 +137,6 @@ summary(corpus_txts, 5)
 ##          UDHR   Arabic   WINDOWS-1256
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/import-data/* on x86-64 by Kohei
-## Created: Wed Jan 24 18:49:25 2018
+## Created: Wed Jan 24 18:58:04 2018
 ## Notes:
 ```

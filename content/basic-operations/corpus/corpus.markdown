@@ -30,6 +30,9 @@ data_corpus_ukimmig2010 <- corpus(data_char_ukimmig2010,
                                   docvars = data.frame(party = names(data_char_ukimmig2010)))
 
 summary(data_corpus_ukimmig2010)
+```
+
+```
 ## Corpus consisting of 9 documents:
 ## 
 ##          Text Types Tokens Sentences        party
@@ -44,7 +47,7 @@ summary(data_corpus_ukimmig2010)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Wed Jan 24 18:48:12 2018
+## Created: Wed Jan 24 18:58:29 2018
 ## Notes:
 ```
 
@@ -68,6 +71,9 @@ data_inaugural <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field 
 data_corpus_inaugural <- corpus(data_inaugural)
 
 summary(data_corpus_inaugural, 5)
+```
+
+```
 ## Corpus consisting of 5 documents:
 ## 
 ##   Text Types Tokens Sentences            doc_id Year  President FirstName
@@ -78,7 +84,7 @@ summary(data_corpus_inaugural, 5)
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Wed Jan 24 18:48:13 2018
+## Created: Wed Jan 24 18:58:29 2018
 ## Notes:
 ```
 
@@ -86,7 +92,6 @@ You can change the `docnames` for a corpus to change them from `text1`, `text2` 
 
 
 ```r
-
 doc_id <- paste(data_inaugural$Year, 
                 data_inaugural$FirstName, 
                 data_inaugural$President, sep = " ")
@@ -94,6 +99,9 @@ doc_id <- paste(data_inaugural$Year,
 docnames(data_corpus_inaugural) <- doc_id
 
 summary(data_corpus_inaugural, 5)
+```
+
+```
 ## Corpus consisting of 5 documents:
 ## 
 ##                    Text Types Tokens Sentences            doc_id Year
@@ -110,7 +118,7 @@ summary(data_corpus_inaugural, 5)
 ##   Jefferson    Thomas
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Wed Jan 24 18:48:13 2018
+## Created: Wed Jan 24 18:58:29 2018
 ## Notes:
 ```
 

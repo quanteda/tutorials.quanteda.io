@@ -5,12 +5,8 @@ chapter: false
 draft: false
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+```{r, echo=FALSE, message=FALSE}
 require(quanteda)
-require(tm)
-
-# load the readtext package
 require(readtext)
 ```
 
