@@ -1,15 +1,13 @@
 ---
-title: Data import
+title: Inter-operability
 weight: 30
 chapter: false
 draft: false
 ---
 
-# 3. Inter-operability with quanteda
-
 **readtext** was originally developed in early versions of the [**quanteda**](http://github.com/quanteda/quanteda) package for the quantitative analysis of textual data.  It was spawned from the `textfile()` function from that package, and now lives exclusively in **readtext**. Because **quanteda**'s corpus constructor recognizes the data.frame format returned by `readtext()`, it can construct a corpus directly from a `readtext` object, preserving all docvars and other meta-data.
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r,  message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 
@@ -31,7 +29,7 @@ corpus_csv <- corpus(rt_csv)
 summary(corpus_csv, 5)
 ```
 
-## 4. Read files with different encodings
+## Read files with different encodings
 
 Sometimes files of the same type have different encodings. If the encoding of a file is included in the file name, we can extract this information and import the texts correctly. 
 
@@ -78,3 +76,4 @@ From this file we can easily create a **quanteda** `corpus` object.
 corpus_txts <- corpus(txts)
 summary(corpus_txts, 5)
 ```
+

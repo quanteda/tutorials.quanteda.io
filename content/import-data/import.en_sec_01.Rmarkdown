@@ -1,5 +1,5 @@
 ---
-title: Reading pre-formatted files
+title: Pre-formatted files
 weight: 10
 chapter: false
 draft: false

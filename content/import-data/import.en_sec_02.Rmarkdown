@@ -1,11 +1,11 @@
 ---
-title: Reading multiple text files
+title: Multiple text files
 weight: 20
 chapter: false
 draft: false
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 
@@ -16,10 +16,7 @@ require(readtext)
 data_dir <- system.file("extdata/", package = "readtext")
 ```
 
-
-# 2. Reading one or more text files
-
-## 2.1 Plain text files (.txt)
+## Plain text files (.txt)
 
 The folder "txt" contains a subfolder named UDHR with .txt files of the Universal Declaration of Human Rights in 13 languages. 
 
@@ -46,7 +43,7 @@ readtext(paste0(data_dir, "/txt/EU_manifestos/*.txt"),
 readtext(paste0(data_dir, "/txt/movie_reviews/*"))
 ```
 
-## 2.2 Comma- or tab-separated values (.csv, .tab, .tsv)
+## Comma- or tab-separated values (.csv, .tab, .tsv)
 
 Read in comma separted values (.csv files) that contain textual data. We determine the `texts` variable in our .csv file as the `text_field`. This is the column that contains the actual text. The other columns of the original csv file (`Year`, `President`, `FirstName`) are by default treated as document-level variables. 
 
@@ -62,7 +59,7 @@ The same procedure applies to tab-separated values.
 readtext(paste0(data_dir, "/tsv/dailsample.tsv"), text_field = "speech")
 ```
 
-## 2.3 JSON data (.json)
+## JSON data (.json)
 
 You can also read .json data. Again you need to specify the `text_field`. 
 
@@ -71,7 +68,7 @@ You can also read .json data. Again you need to specify the `text_field`.
 readtext(paste0(data_dir, "/json/inaugural_sample.json"), text_field = "texts")
 ```
 
-## 2.4 PDF files
+## PDF files
 
 **readtext** can also read in and convert .pdf files. In the example below we load all .pdf files stored in the `UDHR` folder, and determine that the `docvars` shall be taken from the filenames. We call the document-level variables `document` and `language`, and specify the delimiter (`dvsep`).
 
@@ -84,7 +81,7 @@ readtext(paste0(data_dir, "/json/inaugural_sample.json"), text_field = "texts")
 ```
 
 
-## 2.5 Microsoft Word files (.doc, .docx)
+## Microsoft Word files (.doc, .docx)
 
 Microsoft Word formatted files are converted through the package **antiword** for older `.doc` files, and using **XML** for newer `.docx` files.
 
