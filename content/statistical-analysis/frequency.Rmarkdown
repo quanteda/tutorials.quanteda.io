@@ -7,6 +7,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+require(ggplot2)
 ```
 
 Twitter is bette here
@@ -16,8 +17,7 @@ news_corp <- quanteda.corpora::download('data_corpus_guardian')
 news_toks <- tokens(news_corp, remove_punct = TRUE) 
 news_dfm <- dfm(news_toks)
 freq <- textstat_frequency(news_dfm)
-head(freq, 1000)
-
+head(freq, 500)
 ```
 
 

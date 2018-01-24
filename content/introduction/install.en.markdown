@@ -26,14 +26,14 @@ Optionally, you can install some additional corpus data from **quanteda.corpora*
 devtools::install_github("quanteda/quanteda.corpora")
 ```
 
-If you are feeling adventurous, you can install the latest build of **quanteda** from its [GitHub code page](https://github.com/kbenoit/quanteda).
+If you are feeling adventurous, you can install the latest build of **quanteda** from its [GitHub code page](https://github.com/quanteda/quanteda).
 
 Note that on **Windows platforms**, it is also recommended that you install the [RTools suite](https://cran.r-project.org/bin/windows/Rtools/), and for **OS X**, that you install [XCode](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12) from the App Store.
 
 
 ### Load your quanteda
 
-Run the rest of this file to test your setup.  You must have quanteda installed in order for this next step to succeed.
+Run the rest of this file to test your setup. You must have quanteda installed in order for this next step to succeed.
 
 ```r
 require(quanteda)
@@ -47,9 +47,12 @@ require(quanteda)
 ##     View
 ```
 
+## Install readtext
+
+We will use the **readtext** package to read in different types of text data. Again, you can do this from inside RStudio, from the Tools... Install Packages menu, or simply using
 
 
-
-
-
+```r
+install.packages("readtext")
+```
 
