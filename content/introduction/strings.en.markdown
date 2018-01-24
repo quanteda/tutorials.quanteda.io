@@ -175,9 +175,7 @@ Note that quanteda has a special wrapper for changing case, called `char_tolower
 ```r
 require(quanteda)
 tolower(c("This", "is", "Kεφαλαία Γράμματα"))
-## [1] "this"                                         
-## [2] "is"                                           
-## [3] "kefa<u+03bb>a<u+03af>a g<u+03c1><u+03ac>µµata"
+## [1] "this"              "is"                "kεφαλαία γράμματα"
 ```
 Why is it better?  It calls the [**stringi** package's](http://www.gagolewski.com/software/stringi/) (see more below) function `stri_trans_tolower()`, which is more sensitive to multi-byte encodings and the definition of case transformations for non-European languages (and even some "harder" European ones, such as Hungarian, which has characters not used in any other language).
 

@@ -46,8 +46,8 @@ summary(data_corpus_ukimmig2010)
 ##           SNP    88    134         4          SNP
 ##          UKIP   346    723        27         UKIP
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Wed Jan 24 18:58:29 2018
+## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by stefan
+## Created: Wed Jan 24 22:38:58 2018
 ## Notes:
 ```
 
@@ -83,8 +83,8 @@ summary(data_corpus_inaugural, 5)
 ##  text4   717   1927        41 inaugCorpus.csv.4 1801  Jefferson    Thomas
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Wed Jan 24 18:58:29 2018
+## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by stefan
+## Created: Wed Jan 24 22:38:58 2018
 ## Notes:
 ```
 
@@ -117,8 +117,8 @@ summary(data_corpus_inaugural, 5)
 ##   Jefferson    Thomas
 ##   Jefferson    Thomas
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Wed Jan 24 18:58:29 2018
+## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by stefan
+## Created: Wed Jan 24 22:38:58 2018
 ## Notes:
 ```
 
