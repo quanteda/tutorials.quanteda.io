@@ -5,4 +5,44 @@ chapter: false
 draft: false
 ---
 
-Explain how to use R's basic `readLineds` and `read.csv()` for pre-formatted files.
+Sometimes, your text data might be stored in a pre-formatted file where one column contains the text and additional columns might store document-level variables, such as year, author, or language. 
+
+You can use basic R functions to import such files, for example `read.csv()` for pre-formatted files.
+
+In this chapter, we use various text files in different formats which are part of the **readtext** package. First, we import a `csv` file with base R tools. 
+
+
+```r
+knitr::opts_chunk$set(collapse = TRUE)
+
+# Load the readtext package
+require(readtext)
+
+# Get the data directory with text data from readtext
+data_dir <- system.file("extdata/", package = "readtext")
+
+# Read csv file with US presidential inaugural address texts and metadata
+inaug_data <- read.csv(paste0(data_dir, "/csv/inaugCorpus.csv"))
+```
+
+## Use readtext for comma- or tab-separated values (.csv, .tab, .tsv)
+
+Alternatively, you can use the **readtext** package to import comma- or tab-separated values. **readtext** is a one-function package that does exactly what it says on the tin: It reads files containing text, along with any associated document-level metadata, which we call "docvars", for document variables.
+
+In contrast to the base R solution, you can specify directly which variable contains the text data using `text_field`. This ensures that the corpus object that is based on the text data imports the correct column as the text field. The other columns of the original csv file (`Year`, `President`, `FirstName`) are by default treated as document-level variables. 
+
+```r
+# Read in comma-separated values
+inaug_data <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
+
+dim(inaug_data)
+## [1] 5 5
+```
+
+The same procedure applies to tab-separated values.
+
+
+```r
+# Read in tab-separated values
+inaug_data <- readtext(paste0(data_dir, "/tsv/dailsample.tsv"), text_field = "speech")
+```

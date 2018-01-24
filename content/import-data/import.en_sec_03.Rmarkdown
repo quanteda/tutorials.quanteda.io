@@ -1,32 +1,19 @@
 ---
-title: Inter-operability
-weight: 30
+title: Different encodings
+weight: 40
 chapter: false
 draft: false
 ---
 
-**readtext** was originally developed in early versions of the [**quanteda**](http://github.com/quanteda/quanteda) package for the quantitative analysis of textual data.  It was spawned from the `textfile()` function from that package, and now lives exclusively in **readtext**. Because **quanteda**'s corpus constructor recognizes the data.frame format returned by `readtext()`, it can construct a corpus directly from a `readtext` object, preserving all docvars and other meta-data.
-
-```{r,  message=FALSE}
+```{r, message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
-require(quanteda)
+library(quanteda)
 
 # Load the readtext package
 require(readtext)
 
 # Get the data directory from readtext
 data_dir <- system.file("extdata/", package = "readtext")
-```
-
-You can easily contruct a corpus from a **readtext** object.
-
-```{r}
-# read in comma-separated values with readtext
-rt_csv <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
-
-# create quanteda corpus
-corpus_csv <- corpus(rt_csv)
-summary(corpus_csv, 5)
 ```
 
 ## Read files with different encodings
@@ -41,6 +28,7 @@ unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"
 ```
 
 Here, we will get the encoding from the filenames themselves.
+
 ```{r}
 # get encoding from filename
 filenames <- list.files(FILEDIR, "^(Indian|UDHR_).*\\.txt$")
@@ -62,18 +50,18 @@ fileencodings[notAvailableIndex]
 If we read the text files without specifying the encoding, we get erroneously formatted text. To avoid this, we determine the `encoding` using the character object `fileencoding` created above. 
 
 We can also add `docvars` based on the filenames.
+
 ```{r}
-txts <- readtext(paste0(data_dir, "/data_files_encodedtexts.zip"), 
+data_txts <- readtext(paste0(data_dir, "/data_files_encodedtexts.zip"), 
                  encoding = fileencodings,
                  docvarsfrom = "filenames", 
                  docvarnames = c("document", "language", "input_encoding"))
-print(txts, n = 50)
+print(data_txts, n = 50)
 ```
 
 From this file we can easily create a **quanteda** `corpus` object.
 
 ```{r}
-corpus_txts <- corpus(txts)
+corpus_txts <- corpus(data_txts)
 summary(corpus_txts, 5)
 ```
-

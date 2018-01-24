@@ -5,12 +5,14 @@ chapter: false
 draft: false
 ---
 
+In this section we show you how to import multiple text files from one or more folders. In contrast to the pre-formatted files from the previous sections, these files usually do not contain document-level variables. However, you can use the filenames as document-level variables or use a data frame that contains document-level variables and merge them with the text data. 
+
 ```{r, message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 
 # Load the readtext package
-require(readtext)
+library(readtext)
 
 # Get the data directory from readtext
 data_dir <- system.file("extdata/", package = "readtext")
@@ -22,41 +24,26 @@ The folder "txt" contains a subfolder named UDHR with .txt files of the Universa
 
 ```{r}
 # Read in all files from a folder
-readtext(paste0(data_dir, "/txt/UDHR/*"))
+data_udhr <- readtext(paste0(data_dir, "/txt/UDHR/*"))
 ```
 
 We can specify document-level metadata (`docvars`) based on the file names or on a separate data.frame. Below we take the docvars from the filenames (`docvarsfrom = "filenames"`) and set the names for each variable (`docvarnames = c("unit", "context", "year", "language", "party")`). The command `dvsep = "_"` determines the separator (a regular expression character string) included in the filenames to delimit the `docvar` elements. `encoding = "ISO-8859-1"` specifies the encoding of the text. Below we describe how you can find out how your text is encoded.
 
 ```{r}
 # Manifestos with docvars from filenames
-readtext(paste0(data_dir, "/txt/EU_manifestos/*.txt"),
+data_eu <- readtext(paste0(data_dir, "/txt/EU_manifestos/*.txt"),
          docvarsfrom = "filenames", 
          docvarnames = c("unit", "context", "year", "language", "party"),
          dvsep = "_", 
          encoding = "ISO-8859-1")
+str(data_eu)
 ```
 
 **readtext** can also curse through subdirectories. In our example, the folder `txt/movie_reviews` contains two subfolders (called `neg` and `pos`). We can load all texts included in both folders. 
 
 ```{r}
 # Recurse through subdirectories
-readtext(paste0(data_dir, "/txt/movie_reviews/*"))
-```
-
-## Comma- or tab-separated values (.csv, .tab, .tsv)
-
-Read in comma separted values (.csv files) that contain textual data. We determine the `texts` variable in our .csv file as the `text_field`. This is the column that contains the actual text. The other columns of the original csv file (`Year`, `President`, `FirstName`) are by default treated as document-level variables. 
-
-```{r}
-# Read in comma-separated values
-readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
-```
-
-The same procedure applies to tab-separated values.
-
-```{r}
-# Read in tab-separated values
-readtext(paste0(data_dir, "/tsv/dailsample.tsv"), text_field = "speech")
+data_reviews <- readtext(paste0(data_dir, "/txt/movie_reviews/*"))
 ```
 
 ## JSON data (.json)
@@ -65,7 +52,7 @@ You can also read .json data. Again you need to specify the `text_field`.
 
 ```{r}
 ## Read in JSON data
-readtext(paste0(data_dir, "/json/inaugural_sample.json"), text_field = "texts")
+inaug_data <- readtext(paste0(data_dir, "/json/inaugural_sample.json"), text_field = "texts")
 ```
 
 ## PDF files
@@ -74,10 +61,10 @@ readtext(paste0(data_dir, "/json/inaugural_sample.json"), text_field = "texts")
 
 ```{r}
 ## Read in Universal Declaration of Human Rights pdf files
-(rt_pdf <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"), 
+data_udhr <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"), 
                     docvarsfrom = "filenames", 
                     docvarnames = c("document", "language"),
-                    sep = "_"))
+                    sep = "_")
 ```
 
 
@@ -87,5 +74,5 @@ Microsoft Word formatted files are converted through the package **antiword** fo
 
 ```{r}
 ## Read in Word data (.docx)
-readtext(paste0(data_dir, "/word/*.docx"))
+data_word <- readtext(paste0(data_dir, "/word/*.docx"))
 ```
