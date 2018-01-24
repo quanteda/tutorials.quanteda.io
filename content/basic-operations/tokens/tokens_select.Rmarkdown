@@ -1,6 +1,6 @@
 ---
 title: Token selection
 weight: 30
-chapter: true
+chapter: false
 draft: false
 ---

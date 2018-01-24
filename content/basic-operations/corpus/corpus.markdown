@@ -1,18 +1,11 @@
 ---
 title: Construct a corpus
 weight: 10
-chapter: true
+chapter: false
 draft: false
 ---
 
 
-```
-## Warning: package 'tm' was built under R version 3.4.3
-```
-
-```
-## Warning: package 'NLP' was built under R version 3.4.1
-```
 
 Having shown how to read various text files, we turn to constructing a text corpus from these text data. You can create a corpus object in **quanteda** from various available sources:
 
@@ -23,6 +16,7 @@ Having shown how to read various text files, we turn to constructing a text corp
 3. a **tm** `VCorpus` or `SimpleCorpus` class object, with the fixed metadata fields imported as docvars and corpus-level metadata imported as metacorpus information.
 
 4. (a keywords-in-context object constructed by `kwic`).
+
 
 ## Construct a corpus from a character vector
 
@@ -49,10 +43,11 @@ summary(data_corpus_ukimmig2010)
 ##           SNP    88    134         4          SNP
 ##          UKIP   346    723        27         UKIP
 ## 
-## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by stefan
-## Created: Wed Jan 24 17:49:09 2018
+## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
+## Created: Wed Jan 24 18:48:12 2018
 ## Notes:
 ```
+
 
 ## Construct a corpus from a data frame
 
@@ -82,8 +77,8 @@ summary(data_corpus_inaugural, 5)
 ##  text4   717   1927        41 inaugCorpus.csv.4 1801  Jefferson    Thomas
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
-## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by stefan
-## Created: Wed Jan 24 17:49:09 2018
+## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
+## Created: Wed Jan 24 18:48:13 2018
 ## Notes:
 ```
 
@@ -114,10 +109,11 @@ summary(data_corpus_inaugural, 5)
 ##   Jefferson    Thomas
 ##   Jefferson    Thomas
 ## 
-## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by stefan
-## Created: Wed Jan 24 17:49:09 2018
+## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
+## Created: Wed Jan 24 18:48:13 2018
 ## Notes:
 ```
+
 
 ## Import a VM corpus
 

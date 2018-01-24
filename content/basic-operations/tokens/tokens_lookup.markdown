@@ -1,7 +1,7 @@
 ---
 title: Dictionary lookup
 weight: 40
-chapter: true
+chapter: false
 draft: false
 ---
 

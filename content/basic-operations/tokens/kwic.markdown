@@ -1,6 +1,6 @@
 ---
 title: Keyword-in-contexts
 weight: 20
-chapter: true
+chapter: false
 draft: false
 ---
