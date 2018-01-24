@@ -15,28 +15,28 @@ quantdfm <- dfm(mycorpus, verbose = FALSE, remove_punct = TRUE,
 ldadfm <- convert(quantdfm, to = "topicmodels")
 lda <- LDA(ldadfm, control = list(alpha = 0.1), k = 10)
 terms(lda, 10)
-##       Topic 1          Topic 2  Topic 3   Topic 4    Topic 5     
-##  [1,] "peace"          "must"   "must"    "freedom"  "let"       
-##  [2,] "world"          "world"  "may"     "liberty"  "government"
-##  [3,] "let"            "change" "world"   "every"    "world"     
-##  [4,] "free"           "new"    "freedom" "one"      "freedom"   
-##  [5,] "shall"          "today"  "nations" "country"  "must"      
-##  [6,] "faith"          "time"   "time"    "world"    "believe"   
-##  [7,] "new"            "let"    "peace"   "history"  "time"      
-##  [8,] "responsibility" "now"    "new"     "free"     "new"       
-##  [9,] "freedom"        "fellow" "seek"    "time"     "man"       
-## [10,] "history"        "work"   "one"     "citizens" "one"       
-##       Topic 6   Topic 7      Topic 8      Topic 9  Topic 10    
-##  [1,] "country" "world"      "new"        "new"    "new"       
-##  [2,] "one"     "know"       "must"       "must"   "world"     
-##  [3,] "every"   "new"        "world"      "every"  "one"       
-##  [4,] "world"   "peace"      "great"      "less"   "government"
-##  [5,] "great"   "make"       "good"       "let"    "time"      
-##  [6,] "new"     "now"        "free"       "work"   "must"      
-##  [7,] "never"   "let"        "freedom"    "world"  "century"   
-##  [8,] "now"     "citizens"   "strength"   "time"   "every"     
-##  [9,] "back"    "country"    "government" "today"  "now"       
-## [10,] "make"    "government" "work"       "common" "let"
+##       Topic 1      Topic 2  Topic 3     Topic 4          Topic 5     
+##  [1,] "new"        "new"    "let"       "let"            "must"      
+##  [2,] "century"    "must"   "world"     "peace"          "time"      
+##  [3,] "must"       "every"  "country"   "world"          "freedom"   
+##  [4,] "world"      "less"   "new"       "new"            "government"
+##  [5,] "government" "let"    "citizens"  "responsibility" "citizens"  
+##  [6,] "time"       "work"   "power"     "government"     "world"     
+##  [7,] "let"        "world"  "one"       "great"          "one"       
+##  [8,] "together"   "time"   "never"     "home"           "new"       
+##  [9,] "one"        "today"  "every"     "abroad"         "every"     
+## [10,] "land"       "common" "president" "make"           "now"       
+##       Topic 6   Topic 7   Topic 8      Topic 9    Topic 10
+##  [1,] "freedom" "world"   "government" "world"    "must"  
+##  [2,] "world"   "free"    "must"       "peace"    "world" 
+##  [3,] "free"    "peace"   "believe"    "let"      "change"
+##  [4,] "liberty" "nations" "world"      "know"     "new"   
+##  [5,] "new"     "freedom" "one"        "make"     "today" 
+##  [6,] "must"    "may"     "time"       "earth"    "time"  
+##  [7,] "time"    "must"    "freedom"    "now"      "let"   
+##  [8,] "great"   "upon"    "work"       "new"      "now"   
+##  [9,] "work"    "shall"   "man"        "together" "man"   
+## [10,] "day"     "faith"   "let"        "voices"   "union"
 ```
 
 
@@ -46,15 +46,15 @@ knitr::kable(terms(lda, 10))
 
 
 
-|Topic 1        |Topic 2 |Topic 3 |Topic 4  |Topic 5    |Topic 6 |Topic 7    |Topic 8    |Topic 9 |Topic 10   |
-|:--------------|:-------|:-------|:--------|:----------|:-------|:----------|:----------|:-------|:----------|
-|peace          |must    |must    |freedom  |let        |country |world      |new        |new     |new        |
-|world          |world   |may     |liberty  |government |one     |know       |must       |must    |world      |
-|let            |change  |world   |every    |world      |every   |new        |world      |every   |one        |
-|free           |new     |freedom |one      |freedom    |world   |peace      |great      |less    |government |
-|shall          |today   |nations |country  |must       |great   |make       |good       |let     |time       |
-|faith          |time    |time    |world    |believe    |new     |now        |free       |work    |must       |
-|new            |let     |peace   |history  |time       |never   |let        |freedom    |world   |century    |
-|responsibility |now     |new     |free     |new        |now     |citizens   |strength   |time    |every      |
-|freedom        |fellow  |seek    |time     |man        |back    |country    |government |today   |now        |
-|history        |work    |one     |citizens |one        |make    |government |work       |common  |let        |
+|Topic 1    |Topic 2 |Topic 3   |Topic 4        |Topic 5    |Topic 6 |Topic 7 |Topic 8    |Topic 9  |Topic 10 |
+|:----------|:-------|:---------|:--------------|:----------|:-------|:-------|:----------|:--------|:--------|
+|new        |new     |let       |let            |must       |freedom |world   |government |world    |must     |
+|century    |must    |world     |peace          |time       |world   |free    |must       |peace    |world    |
+|must       |every   |country   |world          |freedom    |free    |peace   |believe    |let      |change   |
+|world      |less    |new       |new            |government |liberty |nations |world      |know     |new      |
+|government |let     |citizens  |responsibility |citizens   |new     |freedom |one        |make     |today    |
+|time       |work    |power     |government     |world      |must    |may     |time       |earth    |time     |
+|let        |world   |one       |great          |one        |time    |must    |freedom    |now      |let      |
+|together   |time    |never     |home           |new        |great   |upon    |work       |new      |now      |
+|one        |today   |every     |abroad         |every      |work    |shall   |man        |together |man      |
+|land       |common  |president |make           |now        |day     |faith   |let        |voices   |union    |

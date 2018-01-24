@@ -1,6 +1,6 @@
 ---
-title: Descriptive analysis
-weight: 40
+title: Descriptive analysis (old)
+weight: 1000
 chapter: true
 draft: true
 ---
@@ -40,8 +40,8 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##           SNP    88    134         4
 ##          UKIP   346    723        27
 ## 
-## Source:  /home/kohei/packages/quanteda_tutorials/content/statistical-analysis/* on x86_64 by kohei
-## Created: Wed Jan 24 14:21:07 2018
+## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/statistical-analysis/* on x86-64 by Kohei
+## Created: Wed Jan 24 16:09:49 2018
 ## Notes:
 ```
 

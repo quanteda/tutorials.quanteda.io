@@ -79,23 +79,6 @@ Make a word cloud:
 
 ```r
 textplot_wordcloud(ieDfm, min.freq = 25, random.order = FALSE)
-## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
-## '€' in 'mbcsToSbcs': dot substituted for <e2>
-## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
-## '€' in 'mbcsToSbcs': dot substituted for <82>
-## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
-## '€' in 'mbcsToSbcs': dot substituted for <ac>
-## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
-## rotWord * : conversion failure on '€' in 'mbcsToSbcs': dot substituted for
-## <e2>
-## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
-## rotWord * : conversion failure on '€' in 'mbcsToSbcs': dot substituted for
-## <82>
-## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
-## rotWord * : conversion failure on '€' in 'mbcsToSbcs': dot substituted for
-## <ac>
-## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
-## rotWord * : font metrics unknown for Unicode character U+20ac
 ```
 
 <img src="/basic-operations/manipulation/dfm_files/figure-html/unnamed-chunk-6-1.svg" width="768" />

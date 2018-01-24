@@ -105,7 +105,7 @@ print(txts, n = 50)
 ## 27 UDHR_Japanese_ISO-2022-JP.txt      "\"\u300e\u4e1~ UDHR    Japa~ ISO-2~
 ## 28 UDHR_Japanese_UTF-8.txt            "\"\u300e\u4e1~ UDHR    Japa~ UTF-8 
 ## 29 UDHR_Japanese_WINDOWS-936.txt      "\"\u300e\u4e1~ UDHR    Japa~ WINDO~
-## 30 UDHR_Korean_ISO-2022-KR.txt        "\"i\"..."      UDHR    Kore~ ISO-2~
+## 30 UDHR_Korean_ISO-2022-KR.txt        "\"\xe3\"..."   UDHR    Kore~ ISO-2~
 ## 31 UDHR_Korean_UTF-8.txt              "\"\uc138 \uac~ UDHR    Kore~ UTF-8 
 ## 32 UDHR_Russian_ISO-8859-5.txt        "\"\u0412\u044~ UDHR    Russ~ ISO-8~
 ## 33 UDHR_Russian_KOI8-R.txt            "\"\u0412\u044~ UDHR    Russ~ KOI8-R
@@ -136,6 +136,6 @@ summary(corpus_txts, 5)
 ##          UDHR   Arabic   WINDOWS-1256
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/import-data/* on x86-64 by Kohei
-## Created: Wed Jan 24 15:01:02 2018
+## Created: Wed Jan 24 16:08:36 2018
 ## Notes:
 ```

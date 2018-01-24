@@ -39,7 +39,7 @@ summary(corpus_csv, 5)
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/import-data/* on x86-64 by Kohei
-## Created: Wed Jan 24 15:19:31 2018
+## Created: Wed Jan 24 16:08:30 2018
 ## Notes:
 ```
 
@@ -161,7 +161,7 @@ summary(corpus_txts, 5)
 ##          UDHR   Arabic   WINDOWS-1256
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/import-data/* on x86-64 by Kohei
-## Created: Wed Jan 24 15:19:32 2018
+## Created: Wed Jan 24 16:08:31 2018
 ## Notes:
 ```
 

@@ -1,30 +1,24 @@
 ---
-title: Dictionary analysis
-weight: 50
+title: Dictionary lookup
+weight: 30
 chapter: true
-draft: true
+draft: false
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+```{r, message=FALSE}
 require(quanteda)
 ```
 
-# Dictionary Analysis of Texts
 
 ## Applying equivalency classes: dictionaries, thesaruses
 
 Dictionary creation is done through the `dictionary()` function, which classes a named list of characters as a dictionary.
 ```{r}
-# import the Laver-Garry dictionary from http://bit.ly/1FH2nvf
-lgdict <- dictionary(file = "LaverGarry.cat")
-budgdfm <- dfm(data_corpus_irishbudget2010, dictionary = lgdict, verbose = TRUE)
+# import the Laver-Garry dictionary
+lgdict <- dictionary(file = "../../dictionary/LaverGarry.cat")
+budgdfm <- dfm(data_corpus_irishbudget2010, dictionary = lgdict)
 head(budgdfm)
 
-# import a LIWC formatted dictionary
-# liwcdict <- dictionary(file = "~/Dropbox/QUANTESS/dictionaries/LIWC/LIWC2015_English_Flat.dic")
-# dictdfm <- dfm(data_corpus_inaugural, dictionary = liwcdict, verbose = TRUE)
-# dictdfm[50:58, c("money", "power")]
 ```
 
 We apply dictionaries to a dfm using the `dfm_lookup()` function.  Through the `valuetype`, argument, we can match patterns of one of three types: `"glob"`, `"regex"`, or `"fixed"`.

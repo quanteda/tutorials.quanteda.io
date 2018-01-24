@@ -1,30 +1,28 @@
 ---
-title: Dictionary analysis
-weight: 50
+title: Dictionary lookup
+weight: 30
 chapter: true
-draft: true
+draft: false
 ---
 
 
+```r
+require(quanteda)
+```
 
-# Dictionary Analysis of Texts
 
 ## Applying equivalency classes: dictionaries, thesaruses
 
 Dictionary creation is done through the `dictionary()` function, which classes a named list of characters as a dictionary.
 
 ```r
-# import the Laver-Garry dictionary from http://bit.ly/1FH2nvf
-lgdict <- dictionary(file = "LaverGarry.cat")
-budgdfm <- dfm(data_corpus_irishbudget2010, dictionary = lgdict, verbose = TRUE)
-## Creating a dfm from a corpus input...
-##    ... lowercasing
-##    ... found 14 documents, 5,140 features
-##    ... applying a dictionary consisting of 20 keys
-##    ... created a 14 x 20 sparse dfm
-##    ... complete. 
-## Elapsed time: 0.636 seconds.
+# import the Laver-Garry dictionary
+lgdict <- dictionary(file = "../../dictionary/LaverGarry.cat")
+budgdfm <- dfm(data_corpus_irishbudget2010, dictionary = lgdict)
 head(budgdfm)
+```
+
+```
 ## Document-feature matrix of: 6 documents, 20 features (30% sparse).
 ## 6 x 20 sparse Matrix of class "dfm"
 ##                                   features
@@ -131,11 +129,6 @@ head(budgdfm)
 ##   2010_BUDGET_04_Arthur_Morgan_SF                   16              2
 ##   2010_BUDGET_05_Brian_Cowen_FF                     13              0
 ##   2010_BUDGET_06_Enda_Kenny_FG                       7              1
-
-# import a LIWC formatted dictionary
-# liwcdict <- dictionary(file = "~/Dropbox/QUANTESS/dictionaries/LIWC/LIWC2015_English_Flat.dic")
-# dictdfm <- dfm(data_corpus_inaugural, dictionary = liwcdict, verbose = TRUE)
-# dictdfm[50:58, c("money", "power")]
 ```
 
 We apply dictionaries to a dfm using the `dfm_lookup()` function.  Through the `valuetype`, argument, we can match patterns of one of three types: `"glob"`, `"regex"`, or `"fixed"`.
@@ -150,6 +143,9 @@ myDfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
                "Does the United_States or Sweden have more progressive taxation?"),
              remove = stopwords("english"), verbose = FALSE)
 myDfm
+```
+
+```
 ## Document-feature matrix of: 2 documents, 11 features (50% sparse).
 ## 2 x 11 sparse Matrix of class "dfm"
 ##        features
@@ -160,48 +156,81 @@ myDfm
 ## docs    progressive taxation ?
 ##   text1           0        0 0
 ##   text2           1        1 1
+```
 
+```r
 # glob format
 dfm_lookup(myDfm, myDict, valuetype = "glob")
-## Document-feature matrix of: 2 documents, 5 features (50% sparse).
-## 2 x 5 sparse Matrix of class "dfm"
-##        features
-## docs    christmas opposition taxglob taxregex country
-##   text1         1          1       1        0       0
-##   text2         0          0       1        0       2
-dfm_lookup(myDfm, myDict, valuetype = "glob", case_insensitive = FALSE)
-## Document-feature matrix of: 2 documents, 5 features (50% sparse).
-## 2 x 5 sparse Matrix of class "dfm"
-##        features
-## docs    christmas opposition taxglob taxregex country
-##   text1         1          1       1        0       0
-##   text2         0          0       1        0       2
+```
 
+```
+## Document-feature matrix of: 2 documents, 5 features (50% sparse).
+## 2 x 5 sparse Matrix of class "dfm"
+##        features
+## docs    christmas opposition taxglob taxregex country
+##   text1         1          1       1        0       0
+##   text2         0          0       1        0       2
+```
+
+```r
+dfm_lookup(myDfm, myDict, valuetype = "glob", case_insensitive = FALSE)
+```
+
+```
+## Document-feature matrix of: 2 documents, 5 features (50% sparse).
+## 2 x 5 sparse Matrix of class "dfm"
+##        features
+## docs    christmas opposition taxglob taxregex country
+##   text1         1          1       1        0       0
+##   text2         0          0       1        0       2
+```
+
+```r
 # regex v. glob format: note that "united_states" is a regex match for "tax*"
 dfm_lookup(myDfm, myDict, valuetype = "glob")
+```
+
+```
 ## Document-feature matrix of: 2 documents, 5 features (50% sparse).
 ## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       1        0       0
 ##   text2         0          0       1        0       2
+```
+
+```r
 dfm_lookup(myDfm, myDict, valuetype = "regex", case_insensitive = TRUE)
+```
+
+```
 ## Document-feature matrix of: 2 documents, 5 features (40% sparse).
 ## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       1        0       0
 ##   text2         0          0       2        1       2
+```
 
+```r
 # fixed format: no pattern matching
 dfm_lookup(myDfm, myDict, valuetype = "fixed")
+```
+
+```
 ## Document-feature matrix of: 2 documents, 5 features (70% sparse).
 ## 2 x 5 sparse Matrix of class "dfm"
 ##        features
 ## docs    christmas opposition taxglob taxregex country
 ##   text1         1          1       0        0       0
 ##   text2         0          0       0        0       2
+```
+
+```r
 dfm_lookup(myDfm, myDict, valuetype = "fixed", case_insensitive = FALSE)
+```
+
+```
 ## Document-feature matrix of: 2 documents, 5 features (70% sparse).
 ## 2 x 5 sparse Matrix of class "dfm"
 ##        features
@@ -223,6 +252,9 @@ mydict <- dictionary(list(christmas = c("Christmas", "Santa", "holiday"),
                           country = "united states"))
 dictDfm <- dfm(mycorpus, dictionary = mydict)
 head(dictDfm)
+```
+
+```
 ## Document-feature matrix of: 6 documents, 6 features (61.1% sparse).
 ## 6 x 6 sparse Matrix of class "dfm"
 ##                 features
@@ -242,6 +274,9 @@ mytexts <- c("British English tokenises differently, with more colour.",
              "American English tokenizes color as one word.")
 mydict <- dictionary(list(color = "colo*r", tokenize = "tokeni?e*"))
 dfm(mytexts, thesaurus = mydict)
+```
+
+```
 ## Document-feature matrix of: 2 documents, 13 features (34.6% sparse).
 ## 2 x 13 sparse Matrix of class "dfm"
 ##        features
