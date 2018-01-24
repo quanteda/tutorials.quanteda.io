@@ -1,8 +1,8 @@
 ---
 title: Different encodings
-weight: 10
+weight: 40
 chapter: false
-draft: true
+draft: false
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
@@ -13,7 +13,7 @@ require(quanteda)
 require(readtext)
 
 # Get the data directory from readtext
-DATA_DIR <- system.file("extdata/", package = "readtext")
+data_dir <- system.file("extdata/", package = "readtext")
 ```
 
 
@@ -51,7 +51,7 @@ If we read the text files without specifying the encoding, we get erroneously fo
 
 We can also add `docvars` based on the filenames.
 ```{r}
-txts <- readtext(paste0(DATA_DIR, "/data_files_encodedtexts.zip"), 
+txts <- readtext(paste0(data_dir, "/data_files_encodedtexts.zip"), 
                  encoding = fileencodings,
                  docvarsfrom = "filenames", 
                  docvarnames = c("document", "language", "input_encoding"))

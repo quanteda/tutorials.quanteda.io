@@ -1,57 +1,8 @@
 ---
-title: Getting texts into R
+title: Reading pre-formatted files
 weight: 10
 chapter: false
-draft: true
+draft: false
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
-require(quanteda)
-```
-
-# Introduction: Getting texts into R
-
-In this section we will show how to load texts from different sources and create a `corpus` object in **quanteda**.
-
-## Creating a `corpus` object
-
-**quanteda can construct a `corpus` object** from several input sources:
-
-## a character vector object  
-```{r}
-require(quanteda, warn.conflicts = FALSE, quietly = TRUE)
-myCorpus <- corpus(data_char_ukimmig2010, notes = "My first corpus")
-summary(myCorpus)
-```
-    
-## a `VCorpus` object from the **tm** package, and
-
-```{r}
-data(crude, package = "tm")
-myTmCorpus <- corpus(crude)
-summary(myTmCorpus, 5)
-```
-
-## using `readtext()` to import texts
-
-This chapter walks you through importing a variety of different text files into R using the **readtext** package. Currently, **readtext** supports plain text files (.txt), data in some form of JavaScript Object Notation (.json), comma-or tab-separated values (.csv, .tab, .tsv), XML documents (.xml), as well as PDF and Microsoft Word formatted files (.pdf, .doc, .docx).  **readtext** is a one-function package that does exactly what it says on the tin: It reads files containing text, along with any associated document-level metadata, which we call "docvars", for document variables.  
-
-**readtext** accepts filemasks, so that you can specify a pattern to load multiple texts from one or more folders, and these texts can even be of multiple types.  **readtext** is smart enough to process them correctly, returning a data.frame with a primary field "text" containing a character vector of the texts, and additional columns of the data.frame as found in the document variables from the source files.
-
-As encoding can also be a challenging issue for those reading in texts, we include functions for diagnosing encodings on a file-by-file basis, and allow you to specify vectorized input encodings to read in file types with individually set (and different) encodings.  (All encoding functions are handled by the **stringi** package.) Because **quanteda**'s corpus constructor recognizes the data.frame format returned by `readtext()`, it can construct a corpus directly from a `readtext` object, preserving all docvars and other meta-data.
-
-**readtext** also handles multiple files and file types using for instance a "glob" expression, files from a URL or an archive file (.zip, .tar, .tar.gz, .tar.bz). Usually, you do not have to determine the format of the files explicitly - **readtext** takes this information from the file ending.
-
-The **readtext** package comes with a data directory called `extdata` that contains examples of all files listed above. In the vignette, we use this data directory.
-
-```{r}
-# Load the readtext package
-library(readtext)
-
-# Get the data directory from readtext
-DATA_DIR <- system.file("extdata/", package = "readtext")
-```
-
-The `extdata` directory contains several subfolders that include different text files. In the following examples, we load one or more files stored in each of these folders. The `paste0` command is used to concatenate the `extdata` folder from the 
-**readtext** package with the subfolders. When reading in custom text files, you will need to determine your own data directory (see `?setwd()`). Alternatively, if you use RStudio you can create a Project (File -> New Project) and put the textual raw data in a separate folder in the Project folder. Then you can simply start the .Rproj file and you do not have to specify the full working directory. 
+Explain how to use R's basic `readLineds` and `read.csv()` for pre-formatted files.

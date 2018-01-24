@@ -40,8 +40,8 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##           SNP    88    134         4
 ##          UKIP   346    723        27
 ## 
-## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/* on x86_64 by kohei
-## Created: Wed Jan 24 14:18:01 2018
+## Source:  /home/kohei/packages/quanteda_tutorials/content/statistical-analysis/* on x86_64 by kohei
+## Created: Wed Jan 24 14:21:07 2018
 ## Notes:
 ```
 
@@ -79,7 +79,7 @@ lexdiv <- textstat_lexdiv(myDfm, "R")
 dotchart(sort(lexdiv[[2]]))
 ```
 
-<img src="/basic-operations/descriptive_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
+<img src="/statistical-analysis/descriptive_old_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
 
 We can analyze the **readability** of texts, using `readability()` on a vector of texts or a corpus:
 
@@ -89,7 +89,7 @@ readab <- textstat_readability(corpus_subset(data_corpus_inaugural, Year > 1980)
 dotchart(sort(readab[[2]]))
 ```
 
-<img src="/basic-operations/descriptive_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
+<img src="/statistical-analysis/descriptive_old_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
 
 We can **identify documents and terms that are similar to one another**, using `similarity()`:
 
@@ -178,7 +178,7 @@ presCluster$labels <- docnames(presDfm)
 plot(presCluster)
 ```
 
-<img src="/basic-operations/descriptive_files/figure-html/unnamed-chunk-9-1.svg" width="960" />
+<img src="/statistical-analysis/descriptive_old_files/figure-html/unnamed-chunk-9-1.svg" width="960" />
 
 Or we could look at **term clustering** instead:
 
@@ -192,7 +192,7 @@ wordCluster <- hclust(wordDistMat)
 plot(wordCluster, xlab="", main="tf-idf Frequency weighting")
 ```
 
-<img src="/basic-operations/descriptive_files/figure-html/unnamed-chunk-10-1.svg" width="1152" />
+<img src="/statistical-analysis/descriptive_old_files/figure-html/unnamed-chunk-10-1.svg" width="1152" />
 
 Finally, there are number of helper functions to extract information from quanteda objects:
 

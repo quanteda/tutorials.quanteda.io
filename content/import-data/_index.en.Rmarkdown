@@ -1,11 +1,11 @@
 ---
-title: Read texts
-weight: 50
-pre: "<b>5. </b>"
+title: Data import
+weight: 20
+pre: "<b>2. </b>"
 chapter: true
 draft: false
 ---
 
-# Advanced operations
+# Import data into R
 
 

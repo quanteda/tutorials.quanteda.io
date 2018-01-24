@@ -2,7 +2,7 @@
 title: Preparing texts
 weight: 20
 chapter: false
-draft: true
+draft: false
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}

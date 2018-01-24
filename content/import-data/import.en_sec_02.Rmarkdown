@@ -1,8 +1,8 @@
 ---
 title: Reading multiple text files
-weight: 10
+weight: 20
 chapter: false
-draft: true
+draft: false
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}
@@ -13,7 +13,7 @@ require(quanteda)
 require(readtext)
 
 # Get the data directory from readtext
-DATA_DIR <- system.file("extdata/", package = "readtext")
+data_dir <- system.file("extdata/", package = "readtext")
 ```
 
 
@@ -25,14 +25,14 @@ The folder "txt" contains a subfolder named UDHR with .txt files of the Universa
 
 ```{r}
 # Read in all files from a folder
-readtext(paste0(DATA_DIR, "/txt/UDHR/*"))
+readtext(paste0(data_dir, "/txt/UDHR/*"))
 ```
 
 We can specify document-level metadata (`docvars`) based on the file names or on a separate data.frame. Below we take the docvars from the filenames (`docvarsfrom = "filenames"`) and set the names for each variable (`docvarnames = c("unit", "context", "year", "language", "party")`). The command `dvsep = "_"` determines the separator (a regular expression character string) included in the filenames to delimit the `docvar` elements. `encoding = "ISO-8859-1"` specifies the encoding of the text. Below we describe how you can find out how your text is encoded.
 
 ```{r}
 # Manifestos with docvars from filenames
-readtext(paste0(DATA_DIR, "/txt/EU_manifestos/*.txt"),
+readtext(paste0(data_dir, "/txt/EU_manifestos/*.txt"),
          docvarsfrom = "filenames", 
          docvarnames = c("unit", "context", "year", "language", "party"),
          dvsep = "_", 
@@ -43,7 +43,7 @@ readtext(paste0(DATA_DIR, "/txt/EU_manifestos/*.txt"),
 
 ```{r}
 # Recurse through subdirectories
-readtext(paste0(DATA_DIR, "/txt/movie_reviews/*"))
+readtext(paste0(data_dir, "/txt/movie_reviews/*"))
 ```
 
 ## 2.2 Comma- or tab-separated values (.csv, .tab, .tsv)
@@ -52,14 +52,14 @@ Read in comma separted values (.csv files) that contain textual data. We determi
 
 ```{r}
 # Read in comma-separated values
-readtext(paste0(DATA_DIR, "/csv/inaugCorpus.csv"), text_field = "texts")
+readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
 ```
 
 The same procedure applies to tab-separated values.
 
 ```{r}
 # Read in tab-separated values
-readtext(paste0(DATA_DIR, "/tsv/dailsample.tsv"), text_field = "speech")
+readtext(paste0(data_dir, "/tsv/dailsample.tsv"), text_field = "speech")
 ```
 
 ## 2.3 JSON data (.json)
@@ -68,7 +68,7 @@ You can also read .json data. Again you need to specify the `text_field`.
 
 ```{r}
 ## Read in JSON data
-readtext(paste0(DATA_DIR, "/json/inaugural_sample.json"), text_field = "texts")
+readtext(paste0(data_dir, "/json/inaugural_sample.json"), text_field = "texts")
 ```
 
 ## 2.4 PDF files
@@ -77,7 +77,7 @@ readtext(paste0(DATA_DIR, "/json/inaugural_sample.json"), text_field = "texts")
 
 ```{r}
 ## Read in Universal Declaration of Human Rights pdf files
-(rt_pdf <- readtext(paste0(DATA_DIR, "/pdf/UDHR/*.pdf"), 
+(rt_pdf <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"), 
                     docvarsfrom = "filenames", 
                     docvarnames = c("document", "language"),
                     sep = "_"))
@@ -90,5 +90,5 @@ Microsoft Word formatted files are converted through the package **antiword** fo
 
 ```{r}
 ## Read in Word data (.docx)
-readtext(paste0(DATA_DIR, "/word/*.docx"))
+readtext(paste0(data_dir, "/word/*.docx"))
 ```
