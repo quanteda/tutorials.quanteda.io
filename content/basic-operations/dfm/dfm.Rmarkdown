@@ -1,6 +1,78 @@
 ---
 title: Constructor
 weight: 10
-chapter: true
+chapter: false
 draft: false
 ---
+
+```{r, echo=FALSE, message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+require(stopwords)
+```
+
+Tokenizing texts, as dicussed in the previous section, is an intermediate option, and most users will want to skip straight to constructing a document-feature matrix. For this, we have a Swiss-army knife function, called `dfm()`, which performs tokenization and tabulates the extracted features into a matrix of documents by features. 
+
+
+## Construct a document-feature matrix
+
+```{r}
+# load Guardian corpus
+news_corp <- quanteda.corpora::download('data_corpus_guardian')
+
+# construct a dfm
+
+news_dfm <- dfm(news_corp, verbose = TRUE)
+```
+
+From `verbose = TRUE` we can see that all words were transformed to lowercase which is the default. All of the options to tokens() can be passed to dfm(), however. For instance, this `dfm` contains punctuation and so called stopwords as we can see when we plot the 10 most frequent words in the corpus using `textstat_frequency()`. 
+
+```{r}
+textstat_frequency(news_dfm, n = 10)
+```
+
+## Remove features
+
+We repeat the step above, but specify in the options to remove punctuation, English stopwords and numbers.
+
+```{r}
+news_dfm_small <- dfm(news_corp, remove = stopwords("en"),
+                remove_punct = TRUE,
+                remove_numbers = TRUE,
+                verbose = TRUE)
+
+# check most frequent words again
+textstat_frequency(news_dfm_small, n = 10)
+```
+
+The **stopwords** package includes stopwords for several languages. For instance:
+
+```{r}
+head(stopwords("en"))
+
+head(stopwords("de"))
+
+head(stopwords("ru"))
+```
+
+
+## Stemming
+
+Stemming relies on the **SnowballC** package's implementation of the Porter stemmer, and is available for the following languages (it does not work perfectly, but it is very fast). When constructing a corpus, you can use `stem = TRUE` to stem the words in the corpus.
+
+```{r}
+news_dfm_stem <- dfm(news_dfm_small, stem = TRUE)
+```
+
+Let's compare the differences:
+
+```{r}
+head(featnames(news_dfm_small))
+
+head(featnames(news_dfm_stem))
+```
+
+
+
+
+

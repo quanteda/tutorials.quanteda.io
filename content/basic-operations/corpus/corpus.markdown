@@ -24,7 +24,7 @@ The file `data_char_ukimmig2010` is a named character vector of extracts of elec
 
 
 ```r
-# Transform data_char_ukimmig2010 to corpus and specify document-level variables
+# transform data_char_ukimmig2010 to corpus and specify document-level variables
 
 data_corpus_ukimmig2010 <- corpus(data_char_ukimmig2010, 
                                   docvars = data.frame(party = names(data_char_ukimmig2010)))
@@ -47,7 +47,7 @@ summary(data_corpus_ukimmig2010)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Thu Jan 25 16:55:34 2018
+## Created: Thu Jan 25 17:23:56 2018
 ## Notes:
 ```
 
@@ -84,7 +84,7 @@ summary(data_corpus_inaugural, 5)
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Thu Jan 25 16:55:34 2018
+## Created: Thu Jan 25 17:23:56 2018
 ## Notes:
 ```
 
@@ -118,12 +118,12 @@ summary(data_corpus_inaugural, 5)
 ##   Jefferson    Thomas
 ## 
 ## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Thu Jan 25 16:55:34 2018
+## Created: Thu Jan 25 17:23:56 2018
 ## Notes:
 ```
 
 
-## Import a VM corpus
+## Import a Vcorpus from the tm package
 
 **quanteda** also allows to import a **tm** `VCorpus` object
 

@@ -77,13 +77,12 @@ You can use `tokens_select()` with `window` argument to perform more targeted se
 
 
 ```r
-eu <- c('europ*', 'european union')
+eu <- c('EU', 'europ*', 'european union')
 eu_toks <- tokens_keep(news_toks, phrase(eu), window = 10)
 eu_lsd_dfm <- dfm(eu_toks, dictionary = data_dictionary_LSD2015[1:2]) %>% 
                   dfm_group(group = 'week', fill = TRUE) 
 
-matplot(eu_lsd_dfm, type = 'l', xaxt = 'n', lty = 1,
-        main = 'Sentiment on EU', ylab = 'Frequency')
+matplot(eu_lsd_dfm, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
 grid()
 axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd_dfm)) - 1))
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1)
@@ -95,7 +94,7 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1)
 ```r
 eu_n <- ntoken(dfm(eu_toks, group = docvars(eu_toks, 'week')))
 plot((eu_lsd_dfm[,2] - eu_lsd_dfm[,1]) / eu_n, 
-     type = 'l', main = 'Sentiment on EU', ylab = 'Sentiment', xlab = '', xaxt = 'n')
+     type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
 axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd_dfm)) - 1))
 grid()
 abline(h = 0, lty = 2)
@@ -112,8 +111,7 @@ immig_toks <- tokens_keep(news_toks, phrase(us), window = 10)
 immig_lsd_dfm <- dfm(immig_toks, dictionary = data_dictionary_LSD2015[1:2]) %>% 
                   dfm_group(group = 'week', fill = TRUE) 
 
-matplot(immig_lsd_dfm, type = 'l', xaxt = 'n', lty = 1,
-        main = 'Sentiment on immigration', ylab = 'Frequency')
+matplot(immig_lsd_dfm, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
 grid()
 axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(immig_lsd_dfm)) - 1))
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1)
@@ -125,7 +123,7 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1)
 ```r
 immig_n <- ntoken(dfm(immig_toks, group = docvars(immig_toks, 'week')))
 plot((immig_lsd_dfm[,2] - immig_lsd_dfm[,1]) / immig_n, 
-     type = 'l', main = 'Sentiment on immigration', ylab = 'Sentiment', xlab = '', xaxt = 'n')
+     type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
 axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(immig_lsd_dfm)) - 1))
 grid()
 abline(h = 0, lty = 2)

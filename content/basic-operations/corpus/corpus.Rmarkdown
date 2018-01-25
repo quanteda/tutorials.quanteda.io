@@ -26,7 +26,7 @@ Having shown how to read various text files, we turn to constructing a text corp
 The file `data_char_ukimmig2010` is a named character vector of extracts of election manifestos from UK political parties on immigration and asylum-seekers.
 
 ```{r}
-# Transform data_char_ukimmig2010 to corpus and specify document-level variables
+# transform data_char_ukimmig2010 to corpus and specify document-level variables
 
 data_corpus_ukimmig2010 <- corpus(data_char_ukimmig2010, 
                                   docvars = data.frame(party = names(data_char_ukimmig2010)))
@@ -68,7 +68,7 @@ summary(data_corpus_inaugural, 5)
 ```
 
 
-## Import a VM corpus
+## Import a Vcorpus from the tm package
 
 **quanteda** also allows to import a **tm** `VCorpus` object
 
