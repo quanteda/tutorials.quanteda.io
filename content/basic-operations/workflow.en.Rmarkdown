@@ -2,7 +2,7 @@
 title: Workflow
 weight: 5
 chapter: false
-draft: true
+draft: false
 ---
 
 **quanteda** has three basic types of objects:
