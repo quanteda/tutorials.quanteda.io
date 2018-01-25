@@ -104,8 +104,8 @@ head(cap_col, 20)
 
 The result of collocation analysis is not only interesting but useful: you can be use it to compound tokens. Compounding makes tokens less ambiguous and significantly improves quality of statistical analysis in the downstream. We will only compound strongly associated (p<0.998) multi-word expressions here by sub-setting `cap_col$collocation`.
 
-{{% notice %}}
-Collocations are automatically recognized as multi-word expressions by `tokens_compound()` in *case-sensitive fixed pattern matching*. This is the fastest way to compound large numbers of multi-word expressions, but make sure that tolower = FALSE in textstat_collocations() to do this.
+{{% notice note %}}
+Collocations are automatically recognized as multi-word expressions by `tokens_compound()` in *case-sensitive fixed pattern matching*. This is the fastest way to compound large numbers of multi-word expressions, but make sure that `tolower = FALSE` in `textstat_collocations()` to do this.
 {{% /notice %}}
 
 
