@@ -5,17 +5,17 @@ chapter: false
 draft: false
 ---
 
-In this section we show you how to import multiple text files from one or more folders. In contrast to the pre-formatted files from the previous sections, these files usually do not contain document-level variables. However, you can use the filenames as document-level variables or use a data frame that contains document-level variables and merge them with the text data. 
+In this section we show you how to import multiple text files from one or more folders. In contrast to the pre-formatted files from the previous sections, these files usually do not contain document-level variables (`docvars`). However, you can use the filenames as `docvars` or use a data frame that contains document-level variables and merge them with the text data. 
 
 
 ```r
 knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 
-# Load the readtext package
+# load the readtext package
 library(readtext)
 
-# Get the data directory from readtext
+# get the data directory from readtext
 data_dir <- system.file("extdata/", package = "readtext")
 ```
 
@@ -25,7 +25,7 @@ The folder "txt" contains a subfolder named UDHR with .txt files of the Universa
 
 
 ```r
-# Read in all files from a folder
+# read in all files from a folder
 data_udhr <- readtext(paste0(data_dir, "/txt/UDHR/*"))
 ```
 
@@ -33,7 +33,7 @@ We can specify document-level metadata (`docvars`) based on the file names or on
 
 
 ```r
-# Manifestos with docvars from filenames
+# manifestos with docvars from filenames
 data_eu <- readtext(paste0(data_dir, "/txt/EU_manifestos/*.txt"),
          docvarsfrom = "filenames", 
          docvarnames = c("unit", "context", "year", "language", "party"),
@@ -54,20 +54,24 @@ str(data_eu)
 
 
 ```r
-# Recurse through subdirectories
+# recurse through subdirectories
 data_reviews <- readtext(paste0(data_dir, "/txt/movie_reviews/*"))
 ```
 
 ## JSON data (.json)
 
-You can also read .json data. Again you need to specify the `text_field`. 
+You can also read .json data. Again you need to specify the `text_field`. We use Twitter data stored in a .json file format.
 
 
 ```r
-## Read in JSON data
-inaug_data <- readtext(paste0(data_dir, "/json/inaugural_sample.json"), text_field = "texts")
-## Warning in doTryCatch(return(expr), name, parentenv, handler): Doesn't look
-## like Tweets json file, trying general JSON
+#twitter_data <- readtext("content/import-data/import-data_files/twitter.json", text_field = "text")
+```
+
+The file comes with several metadata for each tweet, such as the number of retweets and likes, the username, time and time zone. 
+
+
+```r
+# names(twitter_data)
 ```
 
 ## PDF files
@@ -75,8 +79,9 @@ inaug_data <- readtext(paste0(data_dir, "/json/inaugural_sample.json"), text_fie
 **readtext** can also read in and convert .pdf files. In the example below we load all .pdf files stored in the `UDHR` folder, and determine that the `docvars` shall be taken from the filenames. We call the document-level variables `document` and `language`, and specify the delimiter (`dvsep`).
 
 
+
 ```r
-## Read in Universal Declaration of Human Rights pdf files
+# read in Universal Declaration of Human Rights pdf files
 data_udhr <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"), 
                     docvarsfrom = "filenames", 
                     docvarnames = c("document", "language"),
@@ -90,6 +95,6 @@ Microsoft Word formatted files are converted through the package **antiword** fo
 
 
 ```r
-## Read in Word data (.docx)
+# read in Word data (.docx)
 data_word <- readtext(paste0(data_dir, "/word/*.docx"))
 ```

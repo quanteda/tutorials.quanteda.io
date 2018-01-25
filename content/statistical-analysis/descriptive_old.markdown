@@ -41,7 +41,7 @@ summary(corpus(data_char_ukimmig2010, notes = "Created as a demo."))
 ##          UKIP   346    723        27
 ## 
 ## Source:  /Users/stefan/GitHub/quanteda_tutorials/content/statistical-analysis/* on x86_64 by stefan
-## Created: Wed Jan 24 22:40:35 2018
+## Created: Thu Jan 25 14:17:22 2018
 ## Notes:
 ```
 
