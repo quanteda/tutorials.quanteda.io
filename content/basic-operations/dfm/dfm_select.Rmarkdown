@@ -1,6 +1,56 @@
 ---
 title: Feature selection
-weight: 20
+weight: 30
 chapter: false
 draft: false
 ---
+
+
+```{r, message=FALSE}
+require(quanteda)
+```
+
+## Select features from a dfm
+
+`dfm_select()` selects or removes features from a dfm, based on feature name matches with pattern. The most common usages are to eliminate features from a dfm already constructed, such as stopwords, or to select only terms of interest from a dictionary.
+
+
+```{r}
+# create a dfm
+my_dfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
+               "Does the United_States or Sweden have more progressive taxation?"),
+             tolower = FALSE)
+
+# construct a dictionary
+my_dict <- dictionary(list(countries = c("United_States", "Sweden", "France"),
+                          words_ending_in_y = c("by", "my"),
+                          not_in_text = "blahblah"))
+```
+
+First, we select only those features from `my_dfm` that also occur in `my_dict`.
+
+```{r}
+dfm_select(my_dfm, my_dict)
+
+dfm_select(my_dfm, my_dict, case_insensitive = FALSE)
+```
+
+The `selection` argument allows to specifiy whether the features that occur both in the `dfm` and the `dictionary` should be kept or removed. `valuetype` specifies the type of pattern matching.
+
+```{r}
+dfm_select(my_dfm, c("s$", ".y"), selection = "keep", valuetype = "regex")
+
+dfm_select(my_dfm, c("s$", ".y"), selection = "remove", valuetype = "regex")
+
+dfm_select(my_dfm, stopwords("english"), selection = "keep", valuetype = "fixed")
+
+dfm_select(my_dfm, stopwords("english"), selection = "remove", valuetype = "fixed")
+```
+
+You can also select based on character length.
+
+```{r}
+dfm_select(my_dfm, min_nchar = 5)
+```
+
+Note that you can use the same functions for feature co-occurrence matrix using `fcm_select()`. 

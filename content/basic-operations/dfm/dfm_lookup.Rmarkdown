@@ -1,6 +1,6 @@
 ---
 title: Dictionary lookup
-weight: 30
+weight: 20
 chapter: false
 draft: false
 ---
@@ -55,7 +55,7 @@ dict_dfm <- dfm(my_corpus, dictionary = my_dict)
 head(dict_dfm)
 ```
 
-Finally, there is a related "thesaurus" feature, which collapses words in a dictionary but is not exclusive.
+There is also a related "thesaurus" feature, which collapses words in a dictionary but is not exclusive.
 ```{r}
 my_texts <- c("British English tokenises differently, with more colour.",
              "American English tokenizes color as one word.")
@@ -64,6 +64,7 @@ my_dict <- dictionary(list(color = "colo*r", tokenize = "tokeni?e*"))
 
 dfm(my_texts, thesaurus = mydict)
 ```
+
 
 ## Using the Lexicoder Sentiment Dictionary
 
