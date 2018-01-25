@@ -10,6 +10,6 @@ draft: false
 
 # Basics operations
 
-Learn basic operations in **quanted**
+Learn basic operations in **quanteda**
 
 
