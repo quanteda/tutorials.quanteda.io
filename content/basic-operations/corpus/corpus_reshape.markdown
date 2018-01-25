@@ -57,7 +57,7 @@ summary(news_corp_sentences, 5)
 ##  f0f8e302fc9886bb0a8472a02974b336
 ## 
 ## Source:  Combination of corpuses x[[1]] and x[[2]]
-## Created: Thu Jan 25 17:24:10 2018
+## Created: Thu Jan 25 17:51:31 2018
 ## Notes:   corpus_reshape.corpus(news_corp, to = "sentences")
 ```
 

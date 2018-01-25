@@ -37,7 +37,7 @@ news_dfm <- dfm(news_corp, verbose = TRUE)
 ```
 ##    ... created a 6,000 x 99,360 sparse dfm
 ##    ... complete. 
-## Elapsed time: 6.83 seconds.
+## Elapsed time: 9.02 seconds.
 ```
 
 From `verbose = TRUE` we can see that all words were transformed to lowercase which is the default. All of the options to tokens() can be passed to dfm(), however. For instance, this `dfm` contains punctuation and so called stopwords as we can see when we plot the 10 most frequent words in the corpus using `textstat_frequency()`. 
@@ -89,7 +89,7 @@ news_dfm_small <- dfm(news_corp, remove = stopwords("en"),
 ##    ... removed 174 features
 ##    ... created a 6,000 x 94,188 sparse dfm
 ##    ... complete. 
-## Elapsed time: 4.91 seconds.
+## Elapsed time: 4.92 seconds.
 ```
 
 ```r
