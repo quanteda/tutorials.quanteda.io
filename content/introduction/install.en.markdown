@@ -56,3 +56,22 @@ We will use the **readtext** package to read in different types of text data. Ag
 install.packages("readtext")
 ```
 
+## Additional recommended packages
+
+The following packages work well with or extend quanteda and we recommend that you also install them:
+
+**spacyr**: NLP using the spaCy library, including part-of-speech tagging, entity recognition, and dependency parsing. Note that you need to have Python installed to use the **spacyr** package. See the [package description](https://github.com/quanteda/spacyr/blob/master/README.md) for more information.
+
+
+```r
+install.packages("spacyr")
+```
+
+
+**quanteda.corpora**: Additional textual data for use with quanteda. We will use some of these corpora throughout these tutorials.
+
+
+```r
+devtools::install_github("quanteda/quanteda.corpora")
+```
+
