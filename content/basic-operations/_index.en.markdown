@@ -6,10 +6,10 @@ chapter: true
 draft: false
 ---
 
-### Chapter 1
+### Chapter 3
 
 # Basics operations
 
-Learn **quanted**'s basic functions (coming soon)
+Learn basic operations in **quanted**
 
 
