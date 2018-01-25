@@ -7,4 +7,4 @@ draft: false
 
 # Corpus
 
-Learn how to make and modify **quanteda** corpus object
+Learn how to make and modify **quanteda**'s corpus object
