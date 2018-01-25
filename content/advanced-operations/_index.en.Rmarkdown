@@ -6,6 +6,10 @@ chapter: true
 draft: false
 ---
 
+### Chapter 5
+
 # Advanced operations
+
+Learn how to combine operations and analysis in **quanted**
 
 

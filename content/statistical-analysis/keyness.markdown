@@ -11,43 +11,39 @@ require(quanteda)
 require(lubridate)
 ```
 
-```
-## Warning: package 'lubridate' was built under R version 3.4.2
-```
-
-Keyness is a statistical measure originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to discover frequent words in target documents. This statistic is essentially a signed chi-square, where words more frequent than expected are given positive sign. 
+`textstat_keyness()` compares frequencies of words between two groups of documents by the kyeness statistics. This statistical measure was originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to discover frequent words in target documents. Kyeness is essentially a signed chi-square, where words more frequent than expected are given positive sign. 
 
 
 ```r
 news_corp <- quanteda.corpora::download('data_corpus_guardian')
 news_toks <- tokens(news_corp, remove_punct = TRUE) 
 news_dfm <- dfm(news_toks)
-key <- textstat_keyness(news_dfm, 6 <= month(docvars(news_dfm, 'date'))) 
+key <- textstat_keyness(news_dfm, 2016 <= year(docvars(news_dfm, 'date'))) 
 head(key, 20)
 ```
 
 ```
-##       feature      chi2 p n_target n_reference
-## 1     october 176.47475 0      732         261
-## 2      august 175.44999 0      569         170
-## 3     climate 156.19111 0     1042         475
-## 4      corbyn 136.08017 0      645         249
-## 5       sharm 129.40436 0      144           0
-## 6   september 127.02452 0      608         236
-## 7   emissions 122.49636 0      427         135
-## 8        july 117.80318 0      574         225
-## 9          vw 111.11408 0      139           5
-## 10    flights 110.15854 0      229          42
-## 11   november 108.64113 0      758         352
-## 12 volkswagen  99.74377 0      132           7
-## 13       said  91.57670 0    15768       12645
-## 14  el-sheikh  83.57271 0       93           0
-## 15  #plebgate  80.87677 0       90           0
-## 16    suicide  80.16133 0      316         109
-## 17        was  79.53702 0    18200       14824
-## 18   barclays  72.96325 0      209          56
-## 19  customers  72.52186 0      632         319
-## 20      paris  70.30945 0      602         302
+##           feature      chi2 p n_target n_reference
+## 1           trump 3357.8703 0     2886         383
+## 2            2016 1978.8983 0     1762         261
+## 3         clinton 1919.2093 0     1695         245
+## 4         sanders 1591.1874 0     1206          93
+## 5            cruz 1326.3063 0      967          58
+## 6              eu 1259.6693 0     2256        1005
+## 7          brexit 1142.7441 0      767          18
+## 8          donald 1142.1275 0      985         132
+## 9             gmt  863.3412 0     2105        1193
+## 10        hillary  712.4467 0      626          89
+## 11     block-time  682.8614 0     3240        2591
+## 12       campaign  637.1807 0     1816        1135
+## 13         bernie  635.8215 0      466          29
+## 14            ted  580.7457 0      448          38
+## 15       february  573.2721 0      901         353
+## 16        trump's  537.2018 0      520          96
+## 17 published-time  515.3862 0     2446        1956
+## 18        related  505.5657 0     1996        1476
+## 19     republican  504.5048 0      909         407
+## 20         kasich  459.9745 0      323          14
 ```
 
 ```r

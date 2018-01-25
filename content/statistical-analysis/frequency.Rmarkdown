@@ -7,17 +7,17 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
-require(ggplot2)
 ```
 
-Twitter is bette here
+Unlike `topfeatures()`,`textstat_frequency() shows term and document frequencies. It can also be used to find the most frequent features within groups.
 
 ```{r}
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
-news_toks <- tokens(news_corp, remove_punct = TRUE) 
-news_dfm <- dfm(news_toks)
-freq <- textstat_frequency(news_dfm)
-head(freq, 500)
+
+tweet_corp <- quanteda.corpora::download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')
+tweet_toks <- tokens(tweet_corp, remove_punct = TRUE) 
+tweet_dfm <- dfm(tweet_toks, select = "#*")
+freq <- textstat_frequency(tweet_dfm, n = 10, groups = docvars(tweet_dfm, 'lang'))
+head(freq, 100)
 ```
 
 

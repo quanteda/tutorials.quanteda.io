@@ -8,522 +8,222 @@ draft: false
 
 ```r
 require(quanteda)
-require(ggplot2)
 ```
 
-Twitter is bette here
+Unlike `topfeatures()`,`textstat_frequency() shows term and document frequencies. It can also be used to find the most frequent features within groups.
 
 
 ```r
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
-news_toks <- tokens(news_corp, remove_punct = TRUE) 
-news_dfm <- dfm(news_toks)
-freq <- textstat_frequency(news_dfm)
-head(freq, 500)
+tweet_corp <- quanteda.corpora::download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')
+tweet_toks <- tokens(tweet_corp, remove_punct = TRUE) 
+tweet_dfm <- dfm(tweet_toks, select = "#*")
+freq <- textstat_frequency(tweet_dfm, n = 10, groups = docvars(tweet_dfm, 'lang'))
+head(freq, 100)
 ```
 
 ```
-##                 feature frequency rank docfreq group
-## 1                   the    282794    1    5966   all
-## 2                    to    135020    2    5949   all
-## 3                    of    120626    3    5943   all
-## 4                     a    106730    4    5937   all
-## 5                   and    103822    5    5933   all
-## 6                    in     96986    6    5931   all
-## 7                  that     53601    7    5650   all
-## 8                    is     45648    8    5586   all
-## 9                   for     44547    9    5750   all
-## 10                   on     41036   10    5704   all
-## 11                  was     33024   11    5176   all
-## 12                   it     32918   12    5428   all
-## 13                   he     29223   13    4146   all
-## 14                 said     28413   14    4809   all
-## 15                   as     28262   15    5390   all
-## 16                 with     28059   16    5445   all
-## 17                   be     25544   17    5176   all
-## 18                   by     25064   18    5410   all
-## 19                   at     24745   19    5244   all
-## 20                 have     23550   20    5169   all
-## 21                  are     22909   21    4821   all
-## 22                  has     22346   22    5190   all
-## 23                 from     21755   23    5220   all
-## 24                  not     19554   24    4851   all
-## 25                  but     19513   25    4992   all
-## 26                 this     18593   26    4757   all
-## 27                   an     17399   27    4997   all
-## 28                  his     16825   28    3410   all
-## 29                    i     16600   29    3035   all
-## 30                   we     16396   30    3881   all
-## 31                 will     16269   31    4170   all
-## 32                 they     16004   32    4184   all
-## 33                  had     15313   33    4129   all
-## 34                  who     14379   34    4273   all
-## 35                 been     13633   35    4483   all
-## 36                would     12627   36    3930   all
-## 37                their     12221   37    3992   all
-## 38                which     12210   38    4498   all
-## 39                 were     12131   39    4008   all
-## 40                 more     12013   40    4091   all
-## 41                about     11432   41    3899   all
-## 42               people     11169   42    3363   all
-## 43                   or     10865   43    3860   all
-## 44                there     10303   44    3748   all
-## 45                  its     10303   45    3570   all
-## 46                  you     10202   46    2441   all
-## 47                  one      9884   47    3859   all
-## 48                  she      9543   48    2037   all
-## 49                   up      9065   49    3735   all
-## 50                after      8833   50    3820   all
-## 51                   if      8748   51    3378   all
-## 52                  out      8651   52    3569   all
-## 53                  all      8471   53    3472   all
-## 54                 than      8458   54    3646   all
-## 55                 when      8180   55    3553   all
-## 56                  new      8024   56    3072   all
-## 57                 also      7901   57    3684   all
-## 58                  her      7363   58    1657   all
-## 59                 what      7284   59    3036   all
-## 60                   us      7091   60    2549   all
-## 61                  can      6972   61    2985   all
-## 62                 over      6910   62    3356   all
-## 63           government      6821   63    2354   all
-## 64                   no      6783   64    3135   all
-## 65                   so      6659   65    2996   all
-## 66                 year      6570   66    2927   all
-## 67                could      6378   67    2983   all
-## 68                 last      6335   68    3129   all
-## 69                 some      6316   69    3030   all
-## 70                 says      6310   70    1567   all
-## 71                 into      6278   71    3073   all
-## 72                  our      6247   72    2504   all
-## 73                  now      5883   73    2822   all
-## 74                other      5869   74    3052   all
-## 75                years      5839   75    2871   all
-## 76           block-time      5831   76     189   all
-## 77                 time      5694   77    2908   all
-## 78                 them      5565   78    2671   all
-## 79                   do      5531   79    2569   all
-## 80                 it's      5491   80    2180   all
-## 81                first      5382   81    2834   all
-## 82                 just      5369   82    2680   all
-## 83                  two      5106   83    2696   all
-## 84                being      4977   84    2743   all
-## 85                 only      4917   85    2738   all
-## 86                   uk      4875   86    1681   all
-## 87                  how      4741   87    2364   all
-## 88               police      4621   88    1129   all
-## 89                 like      4584   89    2189   all
-## 90                 most      4554   90    2536   all
-## 91              because      4550   91    2393   all
-## 92                 many      4453   92    2393   all
-## 93       published-time      4402   93     189   all
-## 94                where      4394   94    2442   all
-## 95                  any      4371   95    2486   all
-## 96                   my      4370   96    1640   all
-## 97                 told      4350   97    2227   all
-## 98                  him      4336   98    1660   all
-## 99               should      4197   99    2158   all
-## 100              before      4195  100    2417   all
-## 101               those      4154  101    2305   all
-## 102               while      4034  102    2427   all
-## 103                very      3996  103    2121   all
-## 104               party      3890  104    1201   all
-## 105                 may      3873  105    2129   all
-## 106                 get      3852  106    1975   all
-## 107                make      3844  107    2237   all
-## 108                such      3798  108    2252   all
-## 109                made      3752  109    2342   all
-## 110            minister      3680  110    1466   all
-## 111             against      3652  111    1998   all
-## 112                back      3651  112    2040   all
-## 113               since      3559  113    2191   all
-## 114                then      3548  114    2018   all
-## 115                work      3511  115    1792   all
-## 116                even      3508  116    2008   all
-## 117               these      3483  117    1959   all
-## 118                down      3472  118    2029   all
-## 119             related      3472  119    2051   all
-## 120               state      3427  120    1529   all
-## 121              public      3405  121    1749   all
-## 122                 way      3398  122    2079   all
-## 123               still      3315  123    1984   all
-## 124                 gmt      3298  124     119   all
-## 125             between      3290  125    2030   all
-## 126               world      3286  126    1682   all
-## 127               trump      3269  127     306   all
-## 128                  eu      3261  128     683   all
-## 129                 say      3164  129    1851   all
-## 130              labour      3153  130     871   all
-## 131                 did      3146  131    1858   all
-## 132            business      3145  132    1334   all
-## 133                take      3125  133    1999   all
-## 134             country      3071  134    1641   all
-## 135               three      3061  135    1932   all
-## 136                need      3040  136    1718   all
-## 137               think      3040  137    1587   all
-## 138               going      3037  138    1655   all
-## 139                week      3033  139    1859   all
-## 140               don't      2975  140    1611   all
-## 141                much      2973  141    1852   all
-## 142             support      2958  142    1597   all
-## 143            campaign      2951  143    1117   all
-## 144                your      2949  144    1133   all
-## 145              around      2927  145    1813   all
-## 146               under      2903  146    1891   all
-## 147             through      2883  147    1803   all
-## 148              former      2875  148    1566   all
-## 149           including      2859  149    2012   all
-## 150                 day      2823  150    1608   all
-## 151              london      2817  151    1266   all
-## 152                want      2814  152    1601   all
-## 153                  me      2794  153    1235   all
-## 154            national      2786  154    1616   all
-## 155                home      2774  155    1436   all
-## 156                 off      2770  156    1663   all
-## 157                well      2724  157    1823   all
-## 158              report      2701  158    1182   all
-## 159                  go      2692  159    1615   all
-## 160                next      2673  160    1684   all
-## 161                 see      2628  161    1658   all
-## 162             another      2616  162    1698   all
-## 163                part      2580  163    1803   all
-## 164              during      2560  164    1633   all
-## 165               group      2559  165    1530   all
-## 166           president      2558  166    1123   all
-## 167              change      2555  167    1308   all
-## 168                know      2510  168    1454   all
-## 169              number      2482  169    1565   all
-## 170                 tax      2482  170     608   all
-## 171                vote      2464  171     845   all
-## 172             company      2440  172    1110   all
-## 173             british      2412  173    1156   all
-## 174               right      2403  174    1392   all
-## 175           according      2401  175    1566   all
-## 176           political      2399  176    1279   all
-## 177               house      2331  177    1150   all
-## 178                 too      2316  178    1433   all
-## 179               money      2315  179    1174   all
-## 180                here      2311  180    1138   all
-## 181                 own      2304  181    1484   all
-## 182                come      2298  182    1571   all
-## 183                both      2294  183    1587   all
-## 184              family      2284  184    1054   all
-## 185                bank      2280  185     744   all
-## 186               prime      2273  186     984   all
-## 187                deal      2268  187     953   all
-## 188               found      2262  188    1420   all
-## 189                 end      2232  189    1519   all
-## 190              health      2228  190     826   all
-## 191                good      2226  191    1424   all
-## 192              months      2208  192    1444   all
-## 193            guardian      2182  193    1345   all
-## 194                 pay      2179  194    1057   all
-## 195                case      2179  195    1250   all
-## 196                 bst      2172  196      86   all
-## 197               women      2160  197     708   all
-## 198            election      2150  198     838   all
-## 199             whether      2127  199    1407   all
-## 200                help      2118  200    1358   all
-## 201            children      2117  201     864   all
-## 202               court      2103  202     781   all
-## 203                city      2099  203    1009   all
-## 204               local      2094  204    1121   all
-## 205              policy      2093  205    1103   all
-## 206               chief      2080  206    1337   all
-## 207             cameron      2079  207     628   all
-## 208            european      2077  208     798   all
-## 209                 put      2071  209    1474   all
-## 210             however      2063  210    1528   all
-## 211              market      2061  211     939   all
-## 212                life      2032  212    1175   all
-## 213            security      2026  213     943   all
-## 214                2016      2023  214     538   all
-## 215                 use      2022  215    1277   all
-## 216           countries      2022  216     901   all
-## 217                used      2005  217    1388   all
-## 218              social      2000  218     970   all
-## 219                same      1995  219    1378   all
-## 220               place      1991  220    1423   all
-## 221                2015      1977  221     829   all
-## 222              office      1963  222    1162   all
-## 223                 set      1959  223    1349   all
-## 224               every      1957  224    1289   all
-## 225              called      1951  225    1349   all
-## 226             working      1945  226    1206   all
-## 227             clinton      1940  227     247   all
-## 228               asked      1934  228    1206   all
-## 229                news      1924  229    1062   all
-## 230               today      1916  230    1015   all
-## 231             without      1916  231    1362   all
-## 232                  10      1913  232    1248   all
-## 233             britain      1890  233     828   all
-## 234                long      1887  234    1311   all
-## 235               never      1886  235    1213   all
-## 236               month      1885  236    1311   all
-## 237           secretary      1881  237    1017   all
-## 238              across      1876  238    1324   all
-## 239              leader      1871  239     972   all
-## 240           financial      1871  240     972   all
-## 241             economy      1865  241     810   all
-## 242             already      1862  242    1306   all
-## 243              system      1849  243    1000   all
-## 244            services      1824  244     973   all
-## 245       international      1823  245    1054   all
-## 246                 why      1823  246    1134   all
-## 247                left      1820  247    1238   all
-## 248               added      1805  248    1342   all
-## 249                high      1785  249    1224   all
-## 250               david      1783  250    1100   all
-## 251               clear      1780  251    1262   all
-## 252                four      1775  252    1253   all
-## 253                days      1770  253    1225   all
-## 254                does      1766  254    1219   all
-## 255              saying      1763  255    1226   all
-## 256               among      1756  256    1232   all
-## 257              growth      1756  257     661   all
-## 258              that's      1755  258    1018   all
-## 259               south      1749  259     836   all
-## 260                 law      1747  260     862   all
-## 261                 far      1739  261    1270   all
-## 262            expected      1733  262    1138   all
-## 263            economic      1729  263     927   all
-## 264              likely      1718  264    1159   all
-## 265             further      1717  265    1240   all
-## 266           companies      1714  266     781   all
-## 267            decision      1707  267    1008   all
-## 268               media      1706  268     980   all
-## 269               until      1703  269    1224   all
-## 270              really      1702  270    1082   all
-## 271               might      1700  271    1132   all
-## 272                 i'm      1698  272     911   all
-## 273                five      1696  273    1199   all
-## 274             members      1695  274    1029   all
-## 275               given      1690  275    1227   all
-## 276              rights      1670  276     738   all
-## 277                seen      1661  277    1236   all
-## 278                 big      1660  278    1053   all
-## 279                 few      1655  279    1175   all
-## 280                 man      1651  280     946   all
-## 281               later      1645  281    1160   all
-## 282              better      1636  282    1148   all
-## 283              second      1628  283    1112   all
-## 284                 got      1620  284    1020   all
-## 285                show      1620  285    1108   all
-## 286                must      1614  286    1084   all
-## 287              future      1608  287    1062   all
-## 288                came      1595  288    1179   all
-## 289               leave      1594  289     805   all
-## 290                less      1583  290    1170   all
-## 291               issue      1580  291    1017   all
-## 292              recent      1579  292    1175   all
-## 293              europe      1578  293     720   all
-## 294               power      1567  294     896   all
-## 295             meeting      1546  295     779   all
-## 296                best      1546  296    1017   all
-## 297               least      1543  297    1176   all
-## 298               taken      1541  298    1189   all
-## 299              within      1538  299    1133   all
-## 300              school      1538  300     675   all
-## 301               young      1538  301     825   all
-## 302              become      1537  302    1171   all
-## 303           executive      1526  303     988   all
-## 304              states      1521  304     752   all
-## 305                 yet      1519  305    1135   all
-## 306             climate      1517  306     379   all
-## 307             general      1517  307    1011   all
-## 308            director      1513  308    1070   all
-## 309               point      1512  309    1074   all
-## 310              global      1511  310     794   all
-## 311             service      1508  311     892   all
-## 312                 war      1502  312     770   all
-## 313               times      1500  313    1047   all
-## 314                2014      1492  314     861   all
-## 315           statement      1487  315     924   all
-## 316            evidence      1483  316     886   all
-## 317                past      1481  317    1103   all
-## 318                find      1478  318    1009   all
-## 319              having      1477  319    1121   all
-## 320                care      1475  320     603   all
-## 321                away      1469  321    1069   all
-## 322              making      1466  322    1145   all
-## 323               price      1466  323     675   all
-## 324                 ago      1464  324    1112   all
-## 325               early      1463  325    1034   all
-## 326               night      1462  326     896   all
-## 327              crisis      1460  327     811   all
-## 328               staff      1459  328     776   all
-## 329           community      1458  329     810   all
-## 330                each      1456  330    1039   all
-## 331              almost      1443  331    1098   all
-## 332                took      1440  332    1096   all
-## 333                look      1434  333    1049   all
-## 334                john      1430  334     876   all
-## 335 updated-timeupdated      1429  335     173   all
-## 336              little      1428  336    1033   all
-## 337              things      1416  337     944   all
-## 338               obama      1411  338     407   all
-## 339          photograph      1410  339     605   all
-## 340           something      1408  340     965   all
-## 341               again      1396  341    1009   all
-## 342             despite      1395  342    1105   all
-## 343                give      1390  343    1063   all
-## 344            industry      1388  344     740   all
-## 345             morning      1386  345     680   all
-## 346           important      1384  346    1014   all
-## 347               small      1383  347     961   all
-## 348                plan      1382  348     830   all
-## 349                bill      1373  349     612   all
-## 350               great      1371  350     936   all
-## 351          parliament      1370  351     650   all
-## 352             foreign      1364  352     714   all
-## 353                able      1363  353     993   all
-## 354              action      1363  354     858   all
-## 355                data      1363  355     584   all
-## 356           different      1356  356     955   all
-## 357           committee      1352  357     703   all
-## 358                head      1339  358    1016   all
-## 359                move      1335  359     978   all
-## 360                 lot      1331  360     878   all
-## 361               hours      1327  361     847   all
-## 362              though      1325  362     973   all
-## 363              energy      1325  363     459   all
-## 364               death      1324  364     665   all
-## 365               legal      1320  365     756   all
-## 366                food      1318  366     493   all
-## 367          republican      1316  367     375   all
-## 368                live      1314  368     867   all
-## 369             earlier      1311  369     991   all
-## 370             workers      1310  370     600   all
-## 371             leaders      1307  371     718   all
-## 372               white      1306  372     674   all
-## 373                 men      1301  373     651   all
-## 374             council      1300  374     636   all
-## 375             sanders      1299  375     133   all
-## 376         information      1298  376     742   all
-## 377              friday      1293  377     673   all
-## 378                 job      1293  378     798   all
-## 379                 mps      1287  379     551   all
-## 380               major      1283  380     940   all
-## 381          university      1281  381     692   all
-## 382             believe      1281  382     928   all
-## 383            officers      1280  383     447   all
-## 384           officials      1279  384     754   all
-## 385               march      1275  385     704   all
-## 386              taking      1275  386    1031   all
-## 387           following      1275  387    1010   all
-## 388           australia      1270  388     439   all
-## 389              attack      1269  389     647   all
-## 390                once      1267  390     977   all
-## 391              debate      1260  391     675   all
-## 392               plans      1260  392     867   all
-## 393              rather      1257  393     988   all
-## 394            february      1254  394     507   all
-## 395            although      1250  395    1006   all
-## 396              street      1245  396     760   all
-## 397             figures      1243  397     771   all
-## 398              others      1242  398     970   all
-## 399                rate      1238  399     600   all
-## 400                real      1236  400     884   all
-## 401                risk      1233  401     814   all
-## 402                  20      1230  402     901   all
-## 403              voters      1226  403     474   all
-## 404                open      1225  404     879   all
-## 405                 top      1224  405     867   all
-## 406                 cut      1224  406     772   all
-## 407               union      1221  407     608   all
-## 408               april      1221  408     608   all
-## 409                face      1220  409     931   all
-## 410               trade      1217  410     579   all
-## 411            question      1215  411     766   all
-## 412              always      1213  412     879   all
-## 413                call      1207  413     858   all
-## 414               we're      1205  414     715   all
-## 415                 due      1198  415     948   all
-## 416                 six      1197  416     927   all
-## 417                  am      1191  417     758   all
-## 418              issues      1191  418     811   all
-## 419                full      1189  419     823   all
-## 420              monday      1189  420     776   all
-## 421               human      1185  421     637   all
-## 422             outside      1184  422     872   all
-## 423                cost      1182  423     748   all
-## 424                done      1180  424     871   all
-## 425             several      1180  425     926   all
-## 426               known      1179  426     910   all
-## 427              enough      1178  427     862   all
-## 428               using      1171  428     874   all
-## 429                 oil      1171  429     343   all
-## 430               close      1171  430     867   all
-## 431                jobs      1167  431     665   all
-## 432               often      1166  432     845   all
-## 433        conservative      1166  433     624   all
-## 434            increase      1161  434     794   all
-## 435            interest      1159  435     672   all
-## 436               sales      1159  436     419   all
-## 437               black      1158  437     491   all
-## 438             thought      1157  438     859   all
-## 439            reported      1157  439     828   all
-## 440               weeks      1154  440     870   all
-## 441          department      1154  441     712   all
-## 442               start      1154  442     869   all
-## 443                rise      1154  443     711   all
-## 444                keep      1148  444     845   all
-## 445             there's      1148  445     763   all
-## 446            military      1146  446     529   all
-## 447              killed      1146  447     634   all
-## 448           yesterday      1143  448     751   all
-## 449             current      1142  449     838   all
-## 450                ever      1141  450     883   all
-## 451             biggest      1141  451     870   all
-## 452              senior      1138  452     808   all
-## 453                held      1137  453     844   all
-## 454               means      1137  454     867   all
-## 455               doing      1136  455     831   all
-## 456             process      1136  456     792   all
-## 457                free      1136  457     733   all
-## 458              groups      1131  458     714   all
-## 459                 run      1131  459     853   all
-## 460                 act      1127  460     763   all
-## 461                york      1126  461     523   all
-## 462            research      1123  462     653   all
-## 463             problem      1117  463     748   all
-## 464                half      1117  464     855   all
-## 465              donald      1117  465     329   all
-## 466            possible      1114  466     877   all
-## 467            continue      1114  467     856   all
-## 468               china      1113  468     409   all
-## 469            november      1110  469     583   all
-## 470              remain      1108  470     787   all
-## 471             england      1108  471     647   all
-## 472                 key      1107  472     814   all
-## 473             tuesday      1107  473     694   all
-## 474                team      1107  474     667   all
-## 475              budget      1102  475     487   all
-## 476               press      1101  476     677   all
-## 477             justice      1101  477     600   all
-## 478             million      1100  478     639   all
-## 479             private      1100  479     677   all
-## 480            american      1099  480     594   all
-## 481               water      1094  481     410   all
-## 482            violence      1092  482     430   all
-## 483               north      1091  483     627   all
-## 484           announced      1087  484     860   all
-## 485              didn't      1087  485     728   all
-## 486                went      1084  486     801   all
-## 487               syria      1084  487     333   all
-## 488                area      1084  488     716   all
-## 489              member      1083  489     750   all
-## 490              centre      1079  490     677   all
-## 491                cuts      1079  491     498   all
-## 492               can't      1078  492     782   all
-## 493              trying      1076  493     791   all
-## 494               third      1071  494     761   all
-## 495               thing      1069  495     795   all
-## 496              living      1069  496     685   all
-## 497       investigation      1069  497     590   all
-## 498              strong      1067  498     773   all
-## 499              online      1065  499     562   all
-## 500             attacks      1064  500     481   all
+##                                               feature frequency rank
+## 1                                            #twitter         1    1
+## 2                                      #canviemeuropa         1    2
+## 3                                              #prest         1    3
+## 4                                            #psifizo         1    4
+## 5                                      #ekloges2014gr         1    5
+## 6                                          #ekloges14         1    6
+## 7                                        #ekloges2014         1    7
+## 8                                        #mmkisat2014         1    8
+## 9                                               #iihf         1    9
+## 10                                            #ep2014         1    1
+## 11                                         #yourvoice         1    2
+## 12                                      #eudebate2014         1    3
+## 13  #<U+0432><U+0435><U+043B><U+0438><U+043A><U+043E>         1    4
+## 14                                  #savedonbaspeople         1    1
+## 15                                    #vitoriagasteiz         1    2
+## 16                                            #ep14dk        31    1
+## 17                                             #dkpol        18    2
+## 18                                             #eupol         7    3
+## 19                                         #vindtilep         6    4
+## 20                                     #patentdomstol         4    5
+## 21                                          #cymru1af         2    6
+## 22                                  #huskdetnu-tagget         1    7
+## 23                                              #ep14         1    8
+## 24                                             #swpat         1    9
+## 25                                           #karenep         1   10
+## 26                                            #ep2014        34    1
+## 27                                               #vvd        10    2
+## 28                                                #eu         8    3
+## 29                                               #pvv         8    4
+## 30                                               #d66         7    5
+## 31                                              #pvda         7    6
+## 32                                              #vk14         5    7
+## 33                                              #ttip         5    8
+## 34                                               #cda         4    9
+## 35                                    #sterknlsterkeu         4   10
+## 36                                              #ukip       108    1
+## 37                                            #ep2014        87    2
+## 38                                        #telleurope        31    3
+## 39                                     #votegreen2014        23    4
+## 40                                              #ep14        19    5
+## 41                                             #bbcqt        18    6
+## 42                                                #eu        14    7
+## 43                                              #vinb        13    8
+## 44                                      #knockthevote        11    9
+## 45                                        #votepirate        10   10
+## 46                                          #wales1st         2    1
+## 47                                            #ep2014         1    2
+## 48                                          #cymru1af         1    3
+## 49                                      #häkkänen2014         1    4
+## 50                                        #eurovaalit        22    1
+## 51                                          #kokoomus         5    2
+## 52                                           #vihreät         3    3
+## 53                                          #euvaalit         3    4
+## 54                                               #209         2    5
+## 55                                           #sdp2014         2    6
+## 56                                        #vasemmisto         2    7
+## 57                                               #sdp         2    8
+## 58                                                #eu         1    9
+## 59                                  #debateuropeestv3         1   10
+## 60                                            #ep2014       128    1
+## 61                                            #ee2014        66    2
+## 62                                   #europeennes2014        43    3
+## 63                                                #fn        43    4
+## 64                                       #notreeurope        37    5
+## 65                                        #telleurope        24    6
+## 66                                               #fdg        23    7
+## 67                                               #ump        21    8
+## 68                                   #européennes2014        20    9
+## 69                                            #europe        17   10
+## 70                                            #ep2014        26    1
+## 71                                           #piraten        12    2
+## 72                                        #telleurope         8    3
+## 73                                              #ttip         7    4
+## 74                                           #tvduell         6    5
+## 75                                         #votegreen         5    6
+## 76                                               #afd         5    7
+## 77                                        #europawahl         4    8
+## 78                                      #knockthevote         4    9
+## 79                                               #spd         4   10
+## 80                                            #ep2014         1    1
+## 81                                        #telleurope         1    2
+## 82                                       #withjuncker         1    3
+## 83                                          #conchita         1    4
+## 84                                      #naftemporiki         1    5
+## 85                                        #vouliwatch         1    6
+## 86                                            #cyprus         1    7
+## 87                                     #live_newsroom         1    8
+## 88                                        #votepirate         1    1
+## 89             #toiaussiaidenadinearetrouversamalette         1    2
+## 90                                               #ftw         1    1
+## 91                                           #salvini       235    1
+## 92                                             #fdian       202    2
+## 93                                              #lega        95    3
+## 94                                       #alzalatesta        88    4
+## 95                                        #votameloni        83    5
+## 96                                     #quota96scuola        74    6
+## 97                                    #iovotoitaliano        61    7
+## 98                                         #bastaeuro        51    8
+## 99                                     #scelgogiorgia        46    9
+## 100                                      #europee2014        43   10
+##     docfreq     group
+## 1         1    Basque
+## 2         1    Basque
+## 3         1    Basque
+## 4         1    Basque
+## 5         1    Basque
+## 6         1    Basque
+## 7         1    Basque
+## 8         1    Basque
+## 9         1    Basque
+## 10        1 Bulgarian
+## 11        1 Bulgarian
+## 12        1 Bulgarian
+## 13        1 Bulgarian
+## 14        1  Croatian
+## 15        1  Croatian
+## 16       31    Danish
+## 17       18    Danish
+## 18        7    Danish
+## 19        6    Danish
+## 20        4    Danish
+## 21        2    Danish
+## 22        1    Danish
+## 23        1    Danish
+## 24        1    Danish
+## 25        1    Danish
+## 26       34     Dutch
+## 27       10     Dutch
+## 28        6     Dutch
+## 29        8     Dutch
+## 30        7     Dutch
+## 31        7     Dutch
+## 32        5     Dutch
+## 33        4     Dutch
+## 34        4     Dutch
+## 35        4     Dutch
+## 36      105   English
+## 37       87   English
+## 38       31   English
+## 39       22   English
+## 40       19   English
+## 41       18   English
+## 42       14   English
+## 43       13   English
+## 44       11   English
+## 45       10   English
+## 46        2  Estonian
+## 47        1  Estonian
+## 48        1  Estonian
+## 49        1  Estonian
+## 50       22   Finnish
+## 51        5   Finnish
+## 52        3   Finnish
+## 53        3   Finnish
+## 54        2   Finnish
+## 55        2   Finnish
+## 56        2   Finnish
+## 57        2   Finnish
+## 58        1   Finnish
+## 59        1   Finnish
+## 60      128    French
+## 61       66    French
+## 62       43    French
+## 63       43    French
+## 64       37    French
+## 65       24    French
+## 66       23    French
+## 67       20    French
+## 68       20    French
+## 69       17    French
+## 70       26    German
+## 71       12    German
+## 72        8    German
+## 73        7    German
+## 74        6    German
+## 75        5    German
+## 76        5    German
+## 77        4    German
+## 78        4    German
+## 79        4    German
+## 80        1     Greek
+## 81        1     Greek
+## 82        1     Greek
+## 83        1     Greek
+## 84        1     Greek
+## 85        1     Greek
+## 86        1     Greek
+## 87        1     Greek
+## 88        1   Haitian
+## 89        1   Haitian
+## 90        1 Hungarian
+## 91      235   Italian
+## 92      202   Italian
+## 93       95   Italian
+## 94       88   Italian
+## 95       83   Italian
+## 96       73   Italian
+## 97       61   Italian
+## 98       51   Italian
+## 99       46   Italian
+## 100      43   Italian
 ```
 
 

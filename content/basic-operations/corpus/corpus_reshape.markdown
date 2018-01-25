@@ -9,84 +9,15 @@ draft: false
 
 ```r
 require(quanteda)
+require(quanteda.corpora)
 ```
 
 Once you have created a corpus, you can change the units of texts. This can be either done on a pattern match through `corpus_segment()` or by recasting the units of a corpus to sentences or paragraphs through `corpus_reshape()`.
 
-## Segmenting a corpus
-
-Segment a corpus using tags. 
-
-
-
-```r
-corpus_tags <- corpus(c("##INTRO This is the introduction.
-                  ##DOC1 This is the first document.  Second sentence in Doc 1.
-                  ##DOC3 Third document starts here.  End of third document.",
-                 "##INTRO Document ##NUMBER Two starts before ##NUMBER Three."))
-
-corp_seg_tags <- corpus_segment(corpus_tags, "##*")
-
-cbind(texts(corp_seg_tags), docvars(corp_seg_tags), metadoc(corp_seg_tags))
-```
-
-```
-##                                           texts(corp_seg_tags)  pattern
-## text1.1                              This is the introduction.  ##INTRO
-## text1.2 This is the first document.  Second sentence in Doc 1.   ##DOC1
-## text1.3    Third document starts here.  End of third document.   ##DOC3
-## text2.1                                               Document  ##INTRO
-## text2.2                                      Two starts before ##NUMBER
-## text2.3                                                 Three. ##NUMBER
-##         _document _docid _segid
-## text1.1     text1      1      1
-## text1.2     text1      1      2
-## text1.3     text1      1      3
-## text2.1     text2      2      1
-## text2.2     text2      2      2
-## text2.3     text2      2      3
-```
-
-Segmenting a transcript based on speaker identifiers
-
-
-```r
-corpus_speakers <- corpus("Mr. Smith: Text.\nMrs. Jones: More text.\nMr. Smith: I'm speaking, again.")
-
-corpus_speakers_tags <- corpus_segment(corpus_speakers, pattern = "\\b[A-Z].+\\s[A-Z][a-z]+:",
-                            valuetype = "regex")
-
-cbind(texts(corpus_speakers_tags), docvars(corpus_speakers_tags), metadoc(corpus_speakers_tags))
-```
-
-```
-##         texts(corpus_speakers_tags)     pattern _document _docid _segid
-## text1.1                       Text.  Mr. Smith:     text1      1      1
-## text1.2                  More text. Mrs. Jones:     text1      1      2
-## text1.3        I'm speaking, again.  Mr. Smith:     text1      1      3
-```
-
-You can also segment character values. Here we segment a text into clauses
-
-
-```r
-txt <- c(d1 = "This, is a sentence?  You: come here.", 
-         d2 = "Yes, yes okay.")
-
-char_segment(txt, pattern = "\\p{P}", valuetype = "regex", 
-             pattern_position = "after", remove_pattern = FALSE)
-```
-
-```
-##             d1.1             d1.2             d1.3             d1.4 
-##          "This," "is a sentence?"           "You:"     "come here." 
-##             d2.1             d2.2 
-##           "Yes,"      "yes okay."
-```
 
 ## Reshaping a corpus
 
-For a corpus, you can reshape (or recast) the documents to a different level of aggregation. Units of aggregation can be defined as documents, paragraphs, or sentences. Because the corpus object records its current "units" status, it is possible to move from recast units back to original units, for example from documents, to sentences, and then back to documents (possibly after modifying the sentences). We use the Guardian corpus as an example.
+The `corpus_reshape()` function allows to reshape (or recast) the documents of a corpus to a different level of aggregation which can be documents, paragraphs, or sentences. Because the corpus object records its current "units" status, it is possible to move from recast units back to original units, for example from documents, to sentences, and then back to documents (possibly after modifying the sentences). We use the Guardian corpus as an example.
 
 
 ```r
@@ -126,7 +57,7 @@ summary(news_corp_sentences, 5)
 ##  f0f8e302fc9886bb0a8472a02974b336
 ## 
 ## Source:  Combination of corpuses x[[1]] and x[[2]]
-## Created: Wed Jan 24 22:38:41 2018
+## Created: Thu Jan 25 16:55:48 2018
 ## Notes:   corpus_reshape.corpus(news_corp, to = "sentences")
 ```
 

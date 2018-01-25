@@ -10,13 +10,12 @@ draft: false
 require(quanteda)
 ```
 
-By collocation analysis, we can identify multi-word expressions that are very frequent in newspapers articles. One of the most common type of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
+By collocation analysis, we can identify contiguous collocations of words. One of the most common type of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
 
 
 ```r
 news_corp <- quanteda.corpora::download('data_corpus_guardian')
 news_toks <- tokens(news_corp, remove_punct = TRUE)
-
 cap_col <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
            textstat_collocations(min_count = 5)
 head(cap_col, 20)

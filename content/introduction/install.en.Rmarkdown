@@ -1,5 +1,5 @@
 ---
-title: "Install Quanteda"
+title: "Install packages"
 weight: 10
 draft: false
 ---

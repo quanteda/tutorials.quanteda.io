@@ -1,0 +1,61 @@
+---
+title: Compound multi-word expressions
+weight: 30
+chapter: false
+draft: false
+---
+
+```{r}
+require(quanteda)
+```
+
+This corpus contains 6,000 Guardian news articles from 2012 to 2016.
+
+```{r}
+news_corp <- quanteda.corpora::download('data_corpus_guardian')
+ndoc(news_corp)
+range(docvars(news_corp, 'date'))
+```
+
+Create new document variables and tokenize texts:
+
+```{r}
+docvars(news_corp, 'month') <- format(docvars(news_corp, 'date'), '%Y-%m')
+docvars(news_corp, 'year') <- format(docvars(news_corp, 'date'), '%Y')
+
+news_toks <- tokens(news_corp)
+news_toks <- tokens_select(news_toks, stopwords('english'), select = 'remove', padding = TRUE) 
+news_toks <- tokens_select(news_toks, '^[\\p{P}\\p{S}]$', select = 'remove', valuetype = 'regex', padding = TRUE)
+```
+
+## Collocation analysis
+
+By collocation analysis, we can identify multi-word expressions that are very frequent in newspapers articles. One of the most common type of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
+
+```{r}
+cap_toks <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE)
+cap_col <- textstat_collocations(cap_toks, min_count = 5, tolower = FALSE)
+head(cap_col, 20)
+```
+
+### Compound multi-word expressions
+
+The result of collocation analysis is not only interesting but useful: you can be use it to compound tokens. Compounding makes tokens less ambiguous and significantly improves quality of statistical analysis in the downstream. We will only compound strongly associated (p<0.998) multi-word expressions here by sub-setting `cap_col$collocation`.
+
+{{% notice %}}
+Collocations are automatically recognized as multi-word expressions by `tokens_compound()` in *case-sensitive fixed pattern matching*. This is the fastest way to compound large numbers of multi-word expressions, but make sure that tolower = FALSE in textstat_collocations() to do this.
+{{% /notice %}}
+
+```{r}
+comp_toks <- tokens_compound(news_toks, cap_col[cap_col$z > 3])
+news_toks[['text7005']][370:450] # before compounding
+comp_toks[['text7005']][370:450] # after compounding
+```
+
+Alternatively, wrap the whitespace-separated character vector by `phrase()` to compound multi-word expressions:
+
+```{r}
+comp_toks <- tokens_compound(news_toks, phrase(cap_col$collocation[cap_col$z > 3]))
+news_toks[['text7005']][370:450] # before compounding
+comp_toks[['text7005']][370:450] # after compounding
+```
