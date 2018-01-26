@@ -8,15 +8,50 @@ knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 ```
 
-Poisson scaling
+
+
+{{% notice note %}}
+Wordfish is Poisson scaling model of one-dimensional document positions (Slapin and Proksch 2008). Wordfish also allows for scaling documents, but compared to Wordscores reference scores/texts are not required. Wordfish is an unsupervised text scaling method, meaning that it estimates the positions of documents solely based on the observed word frequencies. Texts are positioned on a single dimension based on these word frequencies. Documents with similar word frequencies are placed on similar positions while documents with large differences in word usage are placed on very distant positions on the dimension.
+
+Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_  52(3): 705-772.
+{{% /notice %}}
+
+In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.
 
 ```{r eval=FALSE}
-ieWF <- dfm(data_corpus_irishbudget2010, removePunct = TRUE) %>%
-    textmodel_wordfish(dir = c(6,5))
-textplot_scale1d(ieWF)
-summary(ieWF)
+dfm_irishbudget <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+
+wf_irishbudget <- textmodel_wordfish(dfm_irishbudget, dir = c(6,5))
 ```
 
+
 ```{r kable, results = 'asis', eval=FALSE}
-knitr::kable(summary(ieWF))
+knitr::kable(summary(wf_irishbudget))
 ```
+
+We can plot the results of a fitted scaling model using `textplot_scale1d()`.
+
+```{r}
+doclab <- apply(docvars(data_corpus_irishbudget2010, c("name", "party")), 
+                1, paste, collapse = " ")
+
+textplot_scale1d(wf_irishbudget, doclabels = doclab)
+```
+
+The function also allows to plot scores by a grouping variable, in this case the party affiliation of the speakers.
+
+```{r}
+textplot_scale1d(wf_irishbudget, doclabels = doclab,
+                 groups = docvars(data_corpus_irishbudget2010, "party"))
+```
+
+Finally, we can plot the estimated word positions.
+
+```{r}
+textplot_scale1d(wf_irishbudget, margin = "features", 
+                 highlighted = c("government", "global", "children", 
+                                 "bank", "economy", "the", "citizenship",
+                                 "productivity", "deficit"))
+```
+
+

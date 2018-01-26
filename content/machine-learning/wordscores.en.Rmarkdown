@@ -8,7 +8,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
 ```
 
-Baysian
+
 
 ```{r}
 data(data_corpus_amicus, package = "quanteda.corpora")

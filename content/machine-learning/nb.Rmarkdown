@@ -10,6 +10,7 @@ knitr::opts_chunk$set(collapse = TRUE)
 
 require(quanteda)
 require(quanteda.corpora)
+library(caret)
 ```
 
 Naive Bayes can be used to classify documents into two or more categories given a `dfm` and some training labels. 
@@ -31,23 +32,32 @@ summary(data_corpus_movies, 5)
 
 The `docvar` Sentiment shows whether a movie review was classified as positive or negative. In this example we use the fist 1500 revivews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the test set (the remaining reviews).
 
+Because the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents (instead of choosing just by position).
+
 ```{r}
+# generate 1500 numbers without replacement
+set.seed(300)
+sample_use <- sample(1:2000, 1500, replace = FALSE)
+
+head(sample_use, 10)
+
 # create docvar with ID
 docvars(data_corpus_movies, "id_numeric") <- 1:ndoc(data_corpus_movies)
 
-# get training set
-dfm_nb_training <- corpus_subset(data_corpus_movies, id_numeric <= 1500) %>% 
-  dfm(remove = stopwords("en"))
 
-# get test set
-dfm_nb_test <- corpus_subset(data_corpus_movies, id_numeric > 1500) %>% 
-  dfm(remove = stopwords("en"))
+# get training set
+dfm_nb_training <- corpus_subset(data_corpus_movies, id_numeric %in% sample_use) %>% 
+  dfm(stem = TRUE)
+
+# get test set (documents not in sample_use)
+dfm_nb_test <- corpus_subset(data_corpus_movies, !id_numeric %in% sample_use) %>% 
+  dfm(stem = TRUE)
 ```
 
 Next we train the Naive Bayes classifier using `textmodel_nb()`.
 
 ```{r}
-nb_training <- textmodel_nb(dfm_nb_training, docvars(corpus_subset(data_corpus_movies, id_numeric > 1500), "Sentiment"))
+nb_training <- textmodel_nb(dfm_nb_training, docvars(corpus_subset(data_corpus_movies, id_numeric %in% sample_use), "Sentiment"))
 
 summary(nb_training)
 ```
@@ -59,5 +69,30 @@ Naive Bayes can only take features into consideration that occur both in the tra
 data_nb_select <- dfm_select(dfm_nb_test, dfm_nb_training)
 
 data_test_predicted <- predict(nb_training, data_nb_select)
+```
+
+Let's inspect how well the classification worked.
+
+```{r}
+actual_class <- data_corpus_movies %>% 
+  corpus_subset(!id_numeric %in% sample_use) %>% 
+  docvars("Sentiment")
+
+predicted_class <- data_test_predicted$nb.predicted 
+
+(table_classification <- table(actual_class, predicted_class))
+```
+
+From the table we see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or underestimate one class.
+
+We can use the function `confusionMatrix` from the **caret** package to assess the performance of the classification.
+
+{{% notice note %}}
+Precision, recall and the F1 score are frequently used to assess the classification performance. Precision is measured as $\frac{TP}{TP+FP}$, where _TP_ are the number of true positives and  _FP_  the false positives. Recall divides the false positives by the sum of true positives and false negatives ($\frac{TP}{TP+FN}$). Finally, the F1 score is a harmonic mean of precision and recall ($\frac{2\times TP}{2\times TP + FP + FN}).$
+{{% /notice %}}
+
+
+```{r}
+caret::confusionMatrix(table_classification, mode = "everything")
 ```
 
