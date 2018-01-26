@@ -1,0 +1,63 @@
+---
+title: Naive Bayes classification
+weight: 70
+chapter: false
+draft: true
+---
+
+```{r,  message=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+
+require(quanteda)
+require(quanteda.corpora)
+```
+
+Naive Bayes can be used to classify documents into two or more categories given a `dfm` and some training labels. 
+
+{{% notice note %}}
+Naive Bayes is a probabilistic classifier. This means that for a document, out of all classes the classifier returns the class which has the maximum posterior probability given the document.
+
+For a comprehensible introduction to Naive Bayes and the assumptions underlying the method see [Chapter 6](https://web.stanford.edu/~jurafsky/slp3/6.pdf) of Jurafsky and Martin (2017).
+
+Jurafsky, Daniel and James H. Martin. (2017) Speech and Language Processing. Draft of August 7, 2017. https://web.stanford.edu/~jurafsky/slp3/6.pdf
+{{% /notice %}}
+
+We use corpus object containing 2000 movie reviews classified by positive or negative sentiment from the **quanteda.corpora** package. 
+
+
+```{r}
+summary(data_corpus_movies, 5)
+```
+
+The `docvar` Sentiment shows whether a movie review was classified as positive or negative. In this example we use the fist 1500 revivews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the test set (the remaining reviews).
+
+```{r}
+# create docvar with ID
+docvars(data_corpus_movies, "id_numeric") <- 1:ndoc(data_corpus_movies)
+
+# get training set
+dfm_nb_training <- corpus_subset(data_corpus_movies, id_numeric <= 1500) %>% 
+  dfm(remove = stopwords("en"))
+
+# get test set
+dfm_nb_test <- corpus_subset(data_corpus_movies, id_numeric > 1500) %>% 
+  dfm(remove = stopwords("en"))
+```
+
+Next we train the Naive Bayes classifier using `textmodel_nb()`.
+
+```{r}
+nb_training <- textmodel_nb(dfm_nb_training, docvars(corpus_subset(data_corpus_movies, id_numeric > 1500), "Sentiment"))
+
+summary(nb_training)
+```
+
+
+Naive Bayes can only take features into consideration that occur both in the training set and the test set. Thus, we first need to use `dfm_select()` to ensure that the features in the test and training set are identical. 
+
+```{r}
+data_nb_select <- dfm_select(dfm_nb_test, dfm_nb_training)
+
+data_test_predicted <- predict(nb_training, data_nb_select)
+```
+
