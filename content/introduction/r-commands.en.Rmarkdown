@@ -3,3 +3,75 @@ title: "R commands"
 weight: 5
 draft: false
 ---
+
+You do not need to write a program to perfrom text analysis with **quanteda**, becasue the package has wide range of functions. However, you still have to understand the basic R commands.
+
+## Basic R objects
+
+R has three
+
+### Vector
+
+```{r}
+
+num_vec <- c(1, 5, 6, 3)
+print(num_vec)
+
+char_vec <- c('apple', 'banana', 'mandarin', 'melon')
+print(char_vec)
+```
+
+
+```{r}
+num_vec2 <- num_vec * 2
+print(num_vec2)
+```
+
+```{r}
+
+```
+
+
+```{r}
+char_vec2 <- paste(c('red', 'yellow', 'orange', 'green'), char_vec)
+print(char_vec2)
+```
+
+Finally, you can set names to elements of numeric vectors using `names()`.
+
+```{r}
+names(num_vec) <- char_vec
+print(num_vec)
+```
+
+
+
+
+### Matrix
+
+```{r}
+mat <- matrix(c(1,3,6,8,3,5,2,7), nrow = 2)
+print(mat)
+
+colnames(mat) <- char_vec
+print(mat)
+rownames(mat) <- c('bag1', 'bag2') 
+print(mat)
+```
+
+```{r}
+
+mat['bag1',]
+
+mat[,'banana']
+
+```
+
+
+
+## Open help file
+
+```{r}
+
+```
+
