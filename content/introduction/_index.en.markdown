@@ -6,7 +6,7 @@ chapter: true
 draft: false
 ---
 
-# Overview
+# Introduction
 
-Discover what you can do using **quanteda**.
+Introduction to quantitative text analysis using **quanteda**.
 

@@ -33,6 +33,33 @@ print(char_vec)
 ## [1] "apple"    "banana"   "mandarin" "melon"
 ```
 
+When you want to extract elements of vectors, use the `[]` operator with index number of the elements.
+
+
+```r
+print(num_vec[1])
+```
+
+```
+## [1] 1
+```
+
+```r
+print(num_vec[1:2])
+```
+
+```
+## [1] 1 5
+```
+
+```r
+print(char_vec[c(1, 3)])
+```
+
+```
+## [1] "apple"    "mandarin"
+```
+
 On numeric vectors, you can apply alrithmatic operartions such as addition, subtraction, multiplication or division. If only a single values is given for multiplication, for example, each elelent of the vector will be multiplied.  
 
 
@@ -94,16 +121,46 @@ print(num_vec)
 ##        1        5        6        3
 ```
 
-
 ### Data frames
 
-R basi
+A data frame combines multiple vectors for variables. Vectors for a data frame must have the same lengths but can be different types. `nrow()` and `ncol()` show the number of records and variables in a data frame.
 
 
 ```r
-df <- data.frame(name = char_vec, count = num_vec )
+friut_df <- data.frame(name = char_vec, count = num_vec )
+print(friut_df)
+```
 
-subset(df, count >= 5)
+```
+##              name count
+## apple       apple     1
+## banana     banana     5
+## mandarin mandarin     6
+## melon       melon     3
+```
+
+```r
+print(nrow(friut_df))
+```
+
+```
+## [1] 4
+```
+
+```r
+print(ncol(friut_df))
+```
+
+```
+## [1] 2
+```
+
+You can use `subset()` to select records in the data frame. 
+
+
+```r
+friut_df2 <- subset(friut_df, count >= 5)
+print(friut_df2)
 ```
 
 ```
@@ -112,12 +169,33 @@ subset(df, count >= 5)
 ## mandarin mandarin     6
 ```
 
+```r
+print(nrow(friut_df2))
+```
+
+```
+## [1] 2
+```
+
+```r
+print(ncol(friut_df2))
+```
+
+```
+## [1] 2
+```
+
+{{% notice note %}}
+We use `print()` to show values and structures of objects for the sake of clarity in the examples, but you do not need to use the command in the console, becasue R automatically triggers it when objects are returned to the global environment.
+{{% /notice %}}
 
 ### Matrices
 
+Similar to a data frame, a matrix contains multi-dimensional data but its variables are all in the same type.
+
 
 ```r
-mat <- matrix(c(1,3,6,8,3,5,2,7), nrow = 2)
+mat <- matrix(c(1, 3, 6, 8, 3, 5, 2, 7), nrow = 2)
 print(mat)
 ```
 
@@ -126,6 +204,9 @@ print(mat)
 ## [1,]    1    6    3    2
 ## [2,]    3    8    5    7
 ```
+
+You can use `colnames()` or `rownames()` to set/retrieve names to rows or columns of a matrix.
+
 
 ```r
 colnames(mat) <- char_vec
@@ -149,9 +230,22 @@ print(mat)
 ## bag2     3      8        5     7
 ```
 
+You can get the size of a matrix by `dim()` that returns a two-element numeric vector.
+
 
 ```r
-mat['bag1',]
+print(dim(mat))
+```
+
+```
+## [1] 2 4
+```
+
+If a matrix has column and row names, you can extract rows or columns by their names.
+
+
+```r
+print(mat['bag1',])
 ```
 
 ```
@@ -160,7 +254,7 @@ mat['bag1',]
 ```
 
 ```r
-mat[,'banana']
+print(mat[,'banana'])
 ```
 
 ```
@@ -168,10 +262,11 @@ mat[,'banana']
 ##    6    8
 ```
 
+Finally, you can obtain marginals of matrix by `colSums()` and `rowSums()`.
 
 
 ```r
-rowSums(mat)
+print(rowSums(mat))
 ```
 
 ```
@@ -180,7 +275,7 @@ rowSums(mat)
 ```
 
 ```r
-colSums(mat)
+print(colSums(mat))
 ```
 
 ```
@@ -188,9 +283,6 @@ colSums(mat)
 ##        4       14        8        9
 ```
 
-
-
-## Open help file
-
-
-
+{{% notice note %}}
+If you want to know the dtails of R commands, prepend `?` to the command and execute. For example, `?subset()` will show you how to use it with different types of objects.
+{{% /notice %}}
