@@ -1,7 +1,7 @@
 ---
 title: "R commands"
 weight: 5
-draft: true
+draft: false
 ---
 
 You do not need to write an R program to perform text analysis with **quanteda**, because the package has wide range of functions. However, you still have to understand the basic R commands.
