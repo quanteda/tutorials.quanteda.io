@@ -5,12 +5,10 @@ chapter: false
 draft: true
 ---
 
-```{r,  message=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
-
+```{r, message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
-library(caret)
+require(caret)
 ```
 
 Naive Bayes can be used to classify documents into two or more categories given a `dfm` and some training labels. 

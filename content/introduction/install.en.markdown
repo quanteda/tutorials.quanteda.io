@@ -4,11 +4,11 @@ weight: 10
 draft: false
 ---
 
-## Install R Studio
+## R Studio
 
-**quanteda** runs solely on [base R](https://cran.r-project.org/), but [RStudio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your data.
+**quanteda** runs solely on [base R](https://cran.r-project.org/), but [RStudio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your objects.
 
-## Install quanteda
+## Quanteda
 
 First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or execting a command:
 
@@ -21,7 +21,7 @@ If you are feeling adventurous, you can install the latest build of **quanteda**
 Note that on **Windows platforms**, it is also recommended that you install the [RTools suite](https://cran.r-project.org/bin/windows/Rtools/), and for **OS X**, that you install [XCode](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12) from the App Store.
 
 
-## Install other packages
+## Other packages
 
 We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this from inside RStudio, from the Tools... Install Packages menu, or execting a command:
 

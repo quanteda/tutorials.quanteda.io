@@ -3,13 +3,13 @@ title: Topic models
 draft: true
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+```{r message=FALSE}
 require(quanteda)
+require(topicmodels)
 ```
 
 ```{r}
-require(topicmodels)
+
 mycorpus <- corpus_subset(data_corpus_inaugural, Year > 1950)
 quantdfm <- dfm(mycorpus, verbose = FALSE, remove_punct = TRUE,
                 remove = c(stopwords('english'), 'will', 'us', 'nation', 'can', 'peopl*', 'americ*'))

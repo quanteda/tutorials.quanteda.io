@@ -4,15 +4,15 @@ weight: 5
 draft: true
 ---
 
-You do not need to write a program to perfrom text analysis with **quanteda**, becasue the package has wide range of functions. However, you still have to understand the basic R commands.
+You do not need to write an R program to perfrom text analysis with **quanteda**, becasue the package has wide range of functions. However, you still have to understand the basic R commands.
 
 ## Basic R objects and operations
 
-R has three
+R has three types of objects vector, data frame and matrix. Since many of the **quanteda** objects behaves similarly to these objects, it is essential for you to understand how to interact with them.
 
 ### Vectors
 
-As a language for statistical analysis, R's most basic objects are vectors that containe a set values. In the example below, `num_vec` is a *numeric vector* and `char_vec` is a *chracter vector*, and `c()` is used to combine elements of vectors and `<-` is to assign the vector to the variables. 
+As a language for statistical analysis, R's most basic objects are vectors. Vectors containe a set values, and `num_vec` is a *numeric vector* and `char_vec` is a *chracter vector* in the example below. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
 
 
 ```r
@@ -33,7 +33,7 @@ print(char_vec)
 ## [1] "apple"    "banana"   "mandarin" "melon"
 ```
 
-When you want to extract elements of vectors, use the `[]` operator with index number of the elements.
+Once a vector is created, you can extract elements of vectors by the `[]` operator with index numbers of desired elements.
 
 
 ```r
@@ -60,7 +60,7 @@ print(char_vec[c(1, 3)])
 ## [1] "apple"    "mandarin"
 ```
 
-On numeric vectors, you can apply alrithmatic operartions such as addition, subtraction, multiplication or division. If only a single values is given for multiplication, for example, each elelent of the vector will be multiplied.  
+You can apply alrithmatic operartions such as addition, subtraction, multiplication or division On numeric vectors. If only a single value is given for multiplication, for example, each elelent of the vector will be multiplied by the same value.  
 
 
 ```r
@@ -72,7 +72,7 @@ print(num_vec2)
 ## [1]  2 10 12  6
 ```
 
-You can also evaluate the values of vectors by relational operators such as `==`, `>=`, `>`, `<=`, `<`. The ressult of the operation will be a *logical vector*.
+You can also compare elements of a vector by relational operators such as `==`, `>=`, `>`, `<=`, `<`. The ressult of these operations will be a *logical vector* that contains either `TRUE` or `FALSE`.
 
 
 ```r
@@ -96,7 +96,7 @@ print(logi_apple_vec)
 ## [1]  TRUE FALSE FALSE FALSE
 ```
 
-You can also concatenate elements of character vectors by `paste()`. Since the two vectors have the same length, elements in the same positions of the vectors are concatenated. 
+You can also concatenate elements of character vectors by `paste()`. Since the two vectors in the example have the same length, elements at the same positions of the vectors are concatenated. 
 
 
 ```r
@@ -108,7 +108,7 @@ print(char_vec2)
 ## [1] "red apple"       "yellow banana"   "orange mandarin" "green melon"
 ```
 
-Finally, you can set names to elements of numeric vectors using `names()`.
+Finally, you can set names to elements of a numeric vector using `names()`.
 
 
 ```r
@@ -123,12 +123,12 @@ print(num_vec)
 
 ### Data frames
 
-A data frame combines multiple vectors for variables. Vectors for a data frame must have the same lengths but can be different types. `nrow()` and `ncol()` show the number of records and variables in a data frame.
+A data frame combines multiple vectors to construct a dataset. Vectors for a data frame must have the same lengths but can be different types. `nrow()` and `ncol()` show the number of records and variables in a data frame.
 
 
 ```r
-friut_df <- data.frame(name = char_vec, count = num_vec )
-print(friut_df)
+fruit_df <- data.frame(name = char_vec, count = num_vec )
+print(fruit_df)
 ```
 
 ```
@@ -140,7 +140,7 @@ print(friut_df)
 ```
 
 ```r
-print(nrow(friut_df))
+print(nrow(fruit_df))
 ```
 
 ```
@@ -148,7 +148,7 @@ print(nrow(friut_df))
 ```
 
 ```r
-print(ncol(friut_df))
+print(ncol(fruit_df))
 ```
 
 ```
@@ -159,8 +159,8 @@ You can use `subset()` to select records in the data frame.
 
 
 ```r
-friut_df2 <- subset(friut_df, count >= 5)
-print(friut_df2)
+fruit_df2 <- subset(fruit_df, count >= 5)
+print(fruit_df2)
 ```
 
 ```
@@ -170,7 +170,7 @@ print(friut_df2)
 ```
 
 ```r
-print(nrow(friut_df2))
+print(nrow(fruit_df2))
 ```
 
 ```
@@ -178,20 +178,20 @@ print(nrow(friut_df2))
 ```
 
 ```r
-print(ncol(friut_df2))
+print(ncol(fruit_df2))
 ```
 
 ```
 ## [1] 2
 ```
 
-{{% notice note %}}
-We use `print()` to show values and structures of objects for the sake of clarity in the examples, but you do not need to use the command in the console, becasue R automatically triggers it when objects are returned to the global environment.
+{{% notice tip %}}
+We use `print()` to show values and structures of objects in the examples, but you do not need to use the command in the console, becasue it is triggered automatically when objects are returned to the global environment.
 {{% /notice %}}
 
 ### Matrices
 
-Similar to a data frame, a matrix contains multi-dimensional data but its variables are all in the same type.
+Similar to a data frame, a matrix contains multi-dimensional data but its values are all in the same type.
 
 
 ```r
@@ -230,7 +230,7 @@ print(mat)
 ## bag2     3      8        5     7
 ```
 
-You can get the size of a matrix by `dim()` that returns a two-element numeric vector.
+You can obtaine the size of a matrix by `dim()` that returns a two-element numeric vector.
 
 
 ```r
@@ -262,7 +262,7 @@ print(mat[,'banana'])
 ##    6    8
 ```
 
-Finally, you can obtain marginals of matrix by `colSums()` and `rowSums()`.
+Finally, you can obtaine marginals of matrix by `colSums()` or `rowSums()`.
 
 
 ```r
@@ -283,6 +283,6 @@ print(colSums(mat))
 ##        4       14        8        9
 ```
 
-{{% notice note %}}
+{{% notice info %}}
 If you want to know the dtails of R commands, prepend `?` to the command and execute. For example, `?subset()` will show you how to use it with different types of objects.
 {{% /notice %}}

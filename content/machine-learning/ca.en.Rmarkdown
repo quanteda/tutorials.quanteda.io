@@ -3,8 +3,7 @@ title: Correspondence analysis
 draft: true
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+```{r, message=FALSE}
 require(quanteda)
 ```
 

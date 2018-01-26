@@ -10,6 +10,6 @@ draft: true
 
 # Advanced operations
 
-Learn how to combine operations and analysis in **quanted**
+Learn how to combine operations and analysis in **quanteda**
 
 

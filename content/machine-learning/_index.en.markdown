@@ -8,6 +8,6 @@ draft: true
 
 
 
-# Supervised and unsupervised machine learning
+# Mmachine learning
 
-Perform advanced analysis using **quanteda** (coming soon).
+How to use supervised and unsupervised machine learning using **quanteda**

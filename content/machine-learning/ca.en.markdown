@@ -4,6 +4,9 @@ draft: true
 ---
 
 
+```r
+require(quanteda)
+```
 
 
 ```r

@@ -3,8 +3,7 @@ title: Wordfish
 draft: true
 ---
 
-```{r, echo=FALSE, results='hide', message=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+```{r message=FALSE}
 require(quanteda)
 ```
 
@@ -17,15 +16,14 @@ Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating 
 
 In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.
 
-```{r eval=FALSE}
-dfm_irishbudget <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-
-wf_irishbudget <- textmodel_wordfish(dfm_irishbudget, dir = c(6,5))
+```{r}
+irishbudget_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+irishbudget_wf <- textmodel_wordfish(irishbudget_dfm, dir = c(6,5))
 ```
 
 
-```{r kable, results = 'asis', eval=FALSE}
-knitr::kable(summary(wf_irishbudget))
+```{r}
+summary(irishbudget_wf)
 ```
 
 We can plot the results of a fitted scaling model using `textplot_scale1d()`.
@@ -34,20 +32,20 @@ We can plot the results of a fitted scaling model using `textplot_scale1d()`.
 doclab <- apply(docvars(data_corpus_irishbudget2010, c("name", "party")), 
                 1, paste, collapse = " ")
 
-textplot_scale1d(wf_irishbudget, doclabels = doclab)
+textplot_scale1d(irishbudget_wf, doclabels = doclab)
 ```
 
 The function also allows to plot scores by a grouping variable, in this case the party affiliation of the speakers.
 
 ```{r}
-textplot_scale1d(wf_irishbudget, doclabels = doclab,
+textplot_scale1d(irishbudget_wf, doclabels = doclab,
                  groups = docvars(data_corpus_irishbudget2010, "party"))
 ```
 
 Finally, we can plot the estimated word positions.
 
 ```{r}
-textplot_scale1d(wf_irishbudget, margin = "features", 
+textplot_scale1d(irishbudget_wf, margin = "features", 
                  highlighted = c("government", "global", "children", 
                                  "bank", "economy", "the", "citizenship",
                                  "productivity", "deficit"))
