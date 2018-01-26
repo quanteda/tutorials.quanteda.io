@@ -3,7 +3,7 @@ title: Basic operations
 weight: 30
 pre: "<b>3. </b>"
 chapter: true
-draft: false
+draft: true
 ---
 
 ### Chapter 3

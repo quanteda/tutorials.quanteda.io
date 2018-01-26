@@ -1,7 +1,6 @@
 ---
 title: Workflow
 weight: 5
-chapter: false
 draft: false
 ---
 

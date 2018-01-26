@@ -6,6 +6,6 @@ chapter: true
 draft: false
 ---
 
-# Import data into R
+# Import text data into R
 
 
