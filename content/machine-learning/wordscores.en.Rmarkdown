@@ -6,26 +6,65 @@ draft: true
 ```{r, echo=FALSE, results='hide', message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 require(quanteda)
+library(quanteda.corpora)
+library(ggplot2)
 ```
 
 
+{{% notice note %}}
+Wordscores is a  scaling modelfor estimating the positions (mostly of political actors) for dimensions that are specified a priori developed by Laver, Benoit and Garry (2003). Wordscores is widely used among political scientists.
+
+To score the documents (they need to be converted to a `dfm` first), you need to specify so called reference texts in your text corpus. These texts require reference scores that are stored in a Scoring Variable.Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
+{{% /notice %}}
+
+We use texts of amicus curiae briefs labelled as being either pro-petitioner or pro-respondent in US Supreme court cases on affirmative action to exemplify Wordscores. 
 
 ```{r}
-data(data_corpus_amicus, package = "quanteda.corpora")
-refs <- docvars(data_corpus_amicus, "trainclass")
+(refs <- docvars(data_corpus_amicus, "trainclass"))
+```
+
+We see that the first two documents are labelled as P (petitioner), the third and fourth documents are labelled as R (respondent).
+
+The `docvar` contains the class of the remaining 96 documents.
+
+Next, we transform the reference scores to a numeric variable that takes the value -1 for the petitioners and +1 for the respondents.
+
+```{r}
 refs <- (as.numeric(refs) - 1.5) * 2
-amicusDfm <- dfm(data_corpus_amicus)
-wm <- textmodel_wordscores(amicusDfm, y = refs)
 ```
 
+Now we can apply the Wordscores algorithm to the document-feature matrix
+
 ```{r}
-preds <- predict(wm, newdata = amicusDfm)
+dfm_amicus <- dfm(data_corpus_amicus)
+
+wm <- textmodel_wordscores(dfm_amicus, y = refs)
+```
+
+Next, we predict the Wordscores for the unknown virgin texts.
+
+```{r}
+preds <- predict(wm, newdata = dfm_amicus)
+
 summary(preds)
-plot(preds ~ docvars(amicusDfm, "testclass"),
-     horizontal = TRUE, xlab = "Predicted document score",
-     ylab = "Test class", las = 1)
 ```
 
+Finally, we can plot the distribution of the Wordscores for the virgin texts with **ggplot2**. 
+
 ```{r}
-summary(wm)
+# create data frame
+preds_data_frame <- data.frame(
+  predictions = preds,
+  document_class = docvars(amicusDfm, "testclass")
+)
+
+# remove training texts
+preds_data_frame <- subset(preds_data_frame, !is.na(document_class))
+
+ggplot(preds_data_frame, aes(x = document_class, y = predictions)) +
+  geom_boxplot() +
+  coord_flip() + 
+  labs(x = "Test class", y = "Predicted document class") + 
+  theme_minimal()
 ```
+
