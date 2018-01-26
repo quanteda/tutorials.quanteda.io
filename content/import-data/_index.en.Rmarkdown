@@ -3,9 +3,11 @@ title: Data import
 weight: 20
 pre: "<b>2. </b>"
 chapter: true
-draft: false
+draft: true
 ---
 
-# Import text data into R
+# Data import
+
+How to import various types of text data into R
 
 
