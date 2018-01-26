@@ -4,26 +4,16 @@ weight: 10
 draft: false
 ---
 
-
-
 ## Install R Studio
 
-**quanteda** runs solely on [base R](https://cran.r-project.org/), but [R Studio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your data.
+**quanteda** runs solely on [base R](https://cran.r-project.org/), but [RStudio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your data.
 
 ## Install quanteda
 
-First, you need to have **quanteda** installed.  You can do this from inside RStudio, from the Tools... Install Packages menu, or simply using
+First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or execting a command:
 
 ```r
 install.packages("quanteda")
-```
-
-Optionally, you can install some additional corpus data from **quanteda.corpora** using
-
-
-```r
-## the devtools package is required to install quanteda from Github
-devtools::install_github("quanteda/quanteda.corpora")
 ```
 
 If you are feeling adventurous, you can install the latest build of **quanteda** from its [GitHub code page](https://github.com/quanteda/quanteda).
@@ -31,47 +21,28 @@ If you are feeling adventurous, you can install the latest build of **quanteda**
 Note that on **Windows platforms**, it is also recommended that you install the [RTools suite](https://cran.r-project.org/bin/windows/Rtools/), and for **OS X**, that you install [XCode](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12) from the App Store.
 
 
-### Load your quanteda
+## Install other packages
 
-Run the rest of this file to test your setup. You must have quanteda installed in order for this next step to succeed.
-
-```r
-require(quanteda)
-## Loading required package: quanteda
-## quanteda version 1.0.0
-## Using 3 of 4 threads for parallel computing
-## 
-## Attaching package: 'quanteda'
-## The following object is masked from 'package:utils':
-## 
-##     View
-```
-
-## Install readtext
-
-We will use the **readtext** package to read in different types of text data. Again, you can do this from inside RStudio, from the Tools... Install Packages menu, or simply using
+We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this from inside RStudio, from the Tools... Install Packages menu, or execting a command:
 
 
 ```r
 install.packages("readtext")
 ```
 
-## Additional recommended packages
+We will also use extra dataset in tutorials that are available in **quanteda.corpora**:
 
-The following packages work well with or extend quanteda and we recommend that you also install them:
 
-**spacyr**: NLP using the spaCy library, including part-of-speech tagging, entity recognition, and dependency parsing. Note that you need to have Python installed to use the **spacyr** package. See the [package description](https://github.com/quanteda/spacyr/blob/master/README.md) for more information.
+```r
+install.packages("devtools")
+devtools::install_github("quanteda/quanteda.corpora")
+```
+
+## Extra packages
+
+This tutorials do not cover syntactical analysis, but you should install **spacyr** to perfrom part-of-speech tagging, entity recognition, and dependency parsing. It provides interface to the spaCy library and works well with **quanteda**. Note that you need to have Python installed to use the **spacyr** package. See the [package description](https://github.com/quanteda/spacyr/blob/master/README.md) for more information.
 
 
 ```r
 install.packages("spacyr")
 ```
-
-
-**quanteda.corpora**: Additional textual data for use with quanteda. We will use some of these corpora throughout these tutorials.
-
-
-```r
-devtools::install_github("quanteda/quanteda.corpora")
-```
-

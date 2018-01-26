@@ -6,20 +6,13 @@ draft: false
 
 ## Install R Studio
 
-**quanteda** runs solely on [base R](https://cran.r-project.org/), but [R Studio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your data.
+**quanteda** runs solely on [base R](https://cran.r-project.org/), but [RStudio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your data.
 
 ## Install quanteda
 
-First, you need to have **quanteda** installed.  You can do this from inside RStudio, from the Tools... Install Packages menu, or simply using
+First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or execting a command:
 ```{r, eval=FALSE}
 install.packages("quanteda")
-```
-
-Optionally, you can install some additional corpus data from **quanteda.corpora** using
-
-```{r, eval=FALSE}
-install.packages("devtools")
-devtools::install_github("quanteda/quanteda.corpora")
 ```
 
 If you are feeling adventurous, you can install the latest build of **quanteda** from its [GitHub code page](https://github.com/quanteda/quanteda).
@@ -29,13 +22,13 @@ Note that on **Windows platforms**, it is also recommended that you install the 
 
 ## Install other packages
 
-We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this from inside RStudio, from the Tools... Install Packages menu, or simply using
+We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this from inside RStudio, from the Tools... Install Packages menu, or execting a command:
 
 ```{r, eval=FALSE}
 install.packages("readtext")
 ```
 
-We will also use extra dataset in tutorials that are available in **quanteda.corpora***
+We will also use extra dataset in tutorials that are available in **quanteda.corpora**:
 
 ```{r, eval=FALSE}
 install.packages("devtools")
