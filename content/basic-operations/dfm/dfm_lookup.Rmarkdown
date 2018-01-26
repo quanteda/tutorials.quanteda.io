@@ -23,10 +23,12 @@ my_dict <- dictionary(list(christmas = c("Christmas", "Santa", "holiday"),
                           taxglob = "tax*",
                           taxregex = "tax.+$",
                           country = c("United_States", "Sweden")))
+
 my_dfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
                "Does the United_States or Sweden have more progressive taxation?"),
              remove = stopwords("english"), verbose = FALSE)
-my_dfm
+
+summary(my_dfm)
 
 # glob format
 dfm_lookup(my_dfm, my_dict, valuetype = "glob")
@@ -86,14 +88,15 @@ data_sentiment$speech <- rownames(data_sentiment)
 # get number of tokens for each speech
 data_sentiment$tokens_speech <- ntoken(data_corpus_inaugural)
 
-# get net positive sentiment: 100 * (positive - negative) / tokens_speech)
+# get net positive sentiment: 100 * (positive - negative) / tokens_speech
 data_sentiment$net_positive_sentiment <- with(data_sentiment, 100 * (positive - negative) / tokens_speech)
 ```
 
-Now we can plot the net positive sentiment for each text in ascendingn order.
+Now we can plot the net positive sentiment for each text in ascending order.
 
 ```{r, fig.width = 8, fig.height = 10}
-ggplot(data_sentiment, aes(x = reorder(speech, net_positive_sentiment), y = net_positive_sentiment)) +
+ggplot(data_sentiment, aes(x = reorder(speech, net_positive_sentiment), 
+                           y = net_positive_sentiment)) +
   geom_point() + 
   coord_flip() +
   labs(x = NULL, y = "Positive sentiment") +

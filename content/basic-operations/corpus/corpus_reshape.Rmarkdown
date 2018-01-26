@@ -26,9 +26,7 @@ news_corp_sentences <- corpus_reshape(news_corp, to = "sentences")
 summary(news_corp_sentences, 5)
 ```
 
-The corpus now increased from 6,000 documents (i.e. newspaper articles) to 201,097 documents (i.e. sentences).
-
-Now we could, for instance, select only sentences that contain at least 10 words and reshape the corpus back to documents. For this, we use `corpus_subset()` and apply `corpus_reshape()` to the subsetted corpus
+The corpus now increased from 6,000 documents (i.e. newspaper articles) to 201,097 documents (i.e. sentences). In a next step, we could, for instance, select only sentences that contain at least 10 words and reshape the corpus back to documents. For this, we use `corpus_subset()` and apply `corpus_reshape()` to the subsetted corpus.
 
 ```{r}
 # create document-level variable with number of tokens

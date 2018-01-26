@@ -11,7 +11,7 @@ require(quanteda.corpora)
 require(stopwords)
 ```
 
-Tokenizing texts, as dicussed in the previous section, is an intermediate option, and most users will want to skip straight to constructing a document-feature matrix. For this, we have a Swiss-army knife function, called `dfm()`, which performs tokenization and tabulates the extracted features into a matrix of documents by features. 
+Tokenizing texts, as dicussed in the previous section, is an intermediate option, and many users might want to skip straight to constructing a document-feature matrix. For this, we have a Swiss-army knife function, called `dfm()`, which performs tokenization and tabulates the extracted features into a matrix of documents by features. 
 
 
 ## Construct a document-feature matrix
@@ -21,11 +21,11 @@ Tokenizing texts, as dicussed in the previous section, is an intermediate option
 news_corp <- quanteda.corpora::download('data_corpus_guardian')
 
 # construct a dfm
-
 news_dfm <- dfm(news_corp, verbose = TRUE)
 ```
 
-From `verbose = TRUE` we can see that all words were transformed to lowercase which is the default. All of the options to tokens() can be passed to dfm(), however. For instance, this `dfm` contains punctuation and so called stopwords as we can see when we plot the 10 most frequent words in the corpus using `textstat_frequency()`. 
+
+From `verbose = TRUE` we can see that all words were transformed to lowercase which is the default. Note that all of the `tokens()` options can be passed to `dfm()`. For instance, this `dfm` contains punctuation and so called stopwords which we can see when we plot the 10 most frequent words in the `dfm` using `textstat_frequency()`. 
 
 ```{r}
 textstat_frequency(news_dfm, n = 10)
@@ -58,7 +58,7 @@ head(stopwords("ru"))
 
 ## Stemming
 
-Stemming relies on the **SnowballC** package's implementation of the Porter stemmer, and is available for the following languages (it does not work perfectly, but it is very fast). When constructing a corpus, you can use `stem = TRUE` to stem the words in the corpus.
+Stemming relies on the **SnowballC** package's implementation of the Porter stemmer, and is available several languages (it does not work perfectly, but it is very fast). When constructing a corpus, you can use `stem = TRUE` to stem words in the `corpus` or `dfm`.
 
 ```{r}
 news_dfm_stem <- dfm(news_dfm_small, stem = TRUE)

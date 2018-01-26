@@ -1,6 +1,8 @@
 ---
 title: Wordfish
-draft: true
+weight: 20
+draft: false
+chapter: false
 ---
 
 ```{r message=FALSE}
@@ -9,9 +11,9 @@ require(quanteda)
 
 
 {{% notice note %}}
-Wordfish is Poisson scaling model of one-dimensional document positions (Slapin and Proksch 2008). Wordfish also allows for scaling documents, but compared to Wordscores reference scores/texts are not required. Wordfish is an unsupervised text scaling method, meaning that it estimates the positions of documents solely based on the observed word frequencies. Texts are positioned on a single dimension based on these word frequencies. Documents with similar word frequencies are placed on similar positions while documents with large differences in word usage are placed on very distant positions on the dimension.
+Wordfish is Poisson scaling model of one-dimensional document positions (Slapin and Proksch 2008). Wordfish also allows for scaling documents, but compared to Wordscores reference scores/texts are not required. Wordfish is an unsupervised one-dimensional text scaling method, meaning that it estimates the positions of documents solely based on the observed word frequencies. 
 
-Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_  52(3): 705-772.
+Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_ 52(3): 705-772.
 {{% /notice %}}
 
 In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.
@@ -19,10 +21,7 @@ In this example, we show how to apply Wordfish to the Irish budget speeches from
 ```{r}
 irishbudget_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
 irishbudget_wf <- textmodel_wordfish(irishbudget_dfm, dir = c(6,5))
-```
 
-
-```{r}
 summary(irishbudget_wf)
 ```
 
