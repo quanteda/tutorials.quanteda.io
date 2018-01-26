@@ -4,15 +4,15 @@ weight: 5
 draft: true
 ---
 
-You do not need to write an R program to perfrom text analysis with **quanteda**, becasue the package has wide range of functions. However, you still have to understand the basic R commands.
+You do not need to write an R program to perform text analysis with **quanteda**, because the package has wide range of functions. However, you still have to understand the basic R commands.
 
-## Basic R objects and operations
+## Basic R objects and commands
 
-R has three types of objects vector, data frame and matrix. Since many of the **quanteda** objects behaves similarly to these objects, it is essential for you to understand how to interact with them.
+R has three types of objects, *vector*, *data frame* and *matrix*. Since many of the **quanteda** objects behaves similarly to these objects, it is essential for you to understand how to interact with them.
 
 ### Vectors
 
-As a language for statistical analysis, R's most basic objects are vectors. Vectors containe a set values, and `num_vec` is a *numeric vector* and `char_vec` is a *chracter vector* in the example below. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
+As a language for statistical analysis, R's most basic objects are vectors. Vectors contain a set values, and `num_vec` is a *numeric vector* and `char_vec` is a *chracter vector* in the example below. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
 
 
 ```r
@@ -60,7 +60,7 @@ print(char_vec[c(1, 3)])
 ## [1] "apple"    "mandarin"
 ```
 
-You can apply alrithmatic operartions such as addition, subtraction, multiplication or division On numeric vectors. If only a single value is given for multiplication, for example, each elelent of the vector will be multiplied by the same value.  
+You can apply arithmetical operations such as addition, subtraction, multiplication or division On numeric vectors. If only a single value is given for multiplication, for example, each element of the vector will be multiplied by the same value.  
 
 
 ```r
@@ -72,7 +72,7 @@ print(num_vec2)
 ## [1]  2 10 12  6
 ```
 
-You can also compare elements of a vector by relational operators such as `==`, `>=`, `>`, `<=`, `<`. The ressult of these operations will be a *logical vector* that contains either `TRUE` or `FALSE`.
+You can also compare elements of a vector by relational operators such as `==`, `>=`, `>`, `<=`, `<`. The result of these operations will be a *logical vector* that contains either `TRUE` or `FALSE`.
 
 
 ```r
@@ -84,7 +84,7 @@ print(logi_gt5_vec)
 ## [1] FALSE  TRUE  TRUE FALSE
 ```
 
-You cannot apply alrithmatic operations on character vectors, but can apply equality operator.
+You cannot apply arithmetical operations on character vectors, but can apply equality operator.
 
 
 ```r
@@ -186,7 +186,7 @@ print(ncol(fruit_df2))
 ```
 
 {{% notice tip %}}
-We use `print()` to show values and structures of objects in the examples, but you do not need to use the command in the console, becasue it is triggered automatically when objects are returned to the global environment.
+We use `print()` to show values and structures of objects in the examples, but you do not need to use the command in the console, because it is triggered automatically when objects are returned to the global environment.
 {{% /notice %}}
 
 ### Matrices
@@ -230,7 +230,7 @@ print(mat)
 ## bag2     3      8        5     7
 ```
 
-You can obtaine the size of a matrix by `dim()` that returns a two-element numeric vector.
+You can obtain the size of a matrix by `dim()` that returns a two-element numeric vector.
 
 
 ```r
@@ -262,7 +262,7 @@ print(mat[,'banana'])
 ##    6    8
 ```
 
-Finally, you can obtaine marginals of matrix by `colSums()` or `rowSums()`.
+Finally, you can obtain marginals of matrix by `colSums()` or `rowSums()`.
 
 
 ```r
@@ -284,5 +284,5 @@ print(colSums(mat))
 ```
 
 {{% notice info %}}
-If you want to know the dtails of R commands, prepend `?` to the command and execute. For example, `?subset()` will show you how to use it with different types of objects.
+If you want to know the details of R commands, prepend `?` to the command and execute. For example, `?subset()` will show you how to use it with different types of objects.
 {{% /notice %}}

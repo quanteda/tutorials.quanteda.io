@@ -10,7 +10,7 @@ draft: false
 
 ## Quanteda
 
-First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or execting a command:
+First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or executing a command:
 
 ```r
 install.packages("quanteda")
@@ -23,7 +23,7 @@ Note that on **Windows platforms**, it is also recommended that you install the 
 
 ## Other packages
 
-We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this from inside RStudio, from the Tools... Install Packages menu, or execting a command:
+We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this from inside RStudio, from the Tools... Install Packages menu, or executing a command:
 
 
 ```r
@@ -40,7 +40,7 @@ devtools::install_github("quanteda/quanteda.corpora")
 
 ## Extra packages
 
-This tutorials do not cover syntactical analysis, but you should install **spacyr** to perfrom part-of-speech tagging, entity recognition, and dependency parsing. It provides interface to the spaCy library and works well with **quanteda**. Note that you need to have Python installed to use the **spacyr** package. See the [package description](https://github.com/quanteda/spacyr/blob/master/README.md) for more information.
+This tutorials do not cover syntactical analysis, but you should install **spacyr** to  part-of-speech tagging, entity recognition, and dependency parsing. It provides interface to the spaCy library and works well with **quanteda**. Note that you need to have Python installed to use the **spacyr** package. See the [package description](https://github.com/quanteda/spacyr/blob/master/README.md) for more information.
 
 
 ```r
