@@ -5,7 +5,7 @@ chapter: false
 draft: false
 ---
 
-In this section we show you how to import multiple text files from one or more folders. In contrast to the pre-formatted files from the previous sections, these files usually do not contain document-level variables (`docvars`). However, you can use the filenames as `docvars` or use a data frame that contains document-level variables and merge them with the text data. 
+In this section we show you how to import multiple text files from one or more folders. In contrast to the pre-formatted files from the previous section, these files usually do not contain document-level variables (`docvars`). However, you can use the filenames as `docvars` or use a data frame that contains document-level variables and merge them with the text data. 
 
 ```{r, message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
@@ -27,7 +27,7 @@ The folder "txt" contains a subfolder named UDHR with .txt files of the Universa
 data_udhr <- readtext(paste0(data_dir, "/txt/UDHR/*"))
 ```
 
-We can specify document-level metadata (`docvars`) based on the file names or on a separate data.frame. Below we take the docvars from the filenames (`docvarsfrom = "filenames"`) and set the names for each variable (`docvarnames = c("unit", "context", "year", "language", "party")`). The command `dvsep = "_"` determines the separator (a regular expression character string) included in the filenames to delimit the `docvar` elements. `encoding = "ISO-8859-1"` specifies the encoding of the text. Below we describe how you can find out how your text is encoded.
+We can specify document-level metadata (`docvars`) based on the file names or on a separate data.frame. Below we take the docvars from the filenames (`docvarsfrom = "filenames"`) and set the names for each variable (`docvarnames = c("unit", "context", "year", "language", "party")`). The command `dvsep = "_"` determines the separator (a regular expression character string) included in the filenames to delimit the `docvar` elements. `encoding = "ISO-8859-1"` specifies the encoding of the text. 
 
 ```{r}
 # manifestos with docvars from filenames
@@ -62,7 +62,7 @@ names(twitter_data)
 
 ## PDF files
 
-**readtext** can also read in and convert .pdf files. In the example below we load all .pdf files stored in the `UDHR` folder, and determine that the `docvars` shall be taken from the filenames. We call the document-level variables `document` and `language`, and specify the delimiter (`dvsep`).
+**readtext** can also read and convert .pdf files. In the example below we load all .pdf files stored in the `UDHR` folder, and determine that the `docvars` shall be taken from the filenames. We call the document-level variables `document` and `language`, and specify the delimiter (`dvsep`).
 
 
 ```{r}
@@ -76,7 +76,7 @@ data_udhr <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"),
 
 ## Microsoft Word files (.doc, .docx)
 
-Microsoft Word formatted files are converted through the package **antiword** for older `.doc` files, and using **XML** for newer `.docx` files.
+Microsoft Word formatted files are converted through the package **antiword** for older `.doc` files and **XML** for newer `.docx` files.
 
 ```{r}
 # read in Word data (.docx)

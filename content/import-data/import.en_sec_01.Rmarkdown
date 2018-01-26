@@ -9,12 +9,10 @@ Sometimes, your text data might be stored in a pre-formatted file where one colu
 
 You can use basic R functions to import such files, for example `read.csv()` for pre-formatted files.
 
-In this chapter, we use various text files in different formats which are part of the **readtext** package. First, we import a `csv` file with base R tools. 
-
 ```{r,  message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 
-# load the readtext package
+# load the readtext package for sample texts
 require(readtext)
 
 # get the data directory with text data from readtext
