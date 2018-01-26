@@ -1,18 +1,18 @@
 ---
 title: "R commands"
-weight: 5
+weight: 10
 draft: false
 ---
 
-You do not need to write an R program to perform text analysis with **quanteda**, because the package has wide range of functions. However, you still have to understand the basic R commands.
+You do not need to have advanced knowledge of the R programming language to perform text analysis with **quanteda** because the package has wide range of functions. However, you still have to understand the basic R commands.
 
 ## Basic R objects and commands
 
-R has three types of objects, *vector*, *data frame* and *matrix*. Since many of the **quanteda** objects behaves similarly to these objects, it is essential for you to understand how to interact with them.
+R has three types of objects: *vector*, *data frame* and *matrix*. Since many of the **quanteda** objects behaves similarly to these objects, it is essential for you to understand how to interact with them.
 
 ### Vectors
 
-As a language for statistical analysis, R's most basic objects are vectors. Vectors contain a set values, and `num_vec` is a *numeric vector* and `char_vec` is a *chracter vector* in the example below. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
+As a language for statistical analysis, R's most basic objects are vectors. Vectors contain a set values. In the examples below, `num_vec` is a *numeric vector*, while `char_vec` is a *chracter vector*. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
 
 
 ```r
@@ -33,7 +33,7 @@ print(char_vec)
 ## [1] "apple"    "banana"   "mandarin" "melon"
 ```
 
-Once a vector is created, you can extract elements of vectors by the `[]` operator with index numbers of desired elements.
+Once a vector is created, you can extract elements of vectors with the `[]` operator and index numbers of desired elements.
 
 
 ```r
@@ -60,7 +60,7 @@ print(char_vec[c(1, 3)])
 ## [1] "apple"    "mandarin"
 ```
 
-You can apply arithmetical operations such as addition, subtraction, multiplication or division On numeric vectors. If only a single value is given for multiplication, for example, each element of the vector will be multiplied by the same value.  
+You can apply arithmetical operations such as addition, subtraction, multiplication or division on numeric vectors. If only a single value is given for multiplication, for example, each element of the vector will be multiplied by the same value.  
 
 
 ```r
@@ -84,7 +84,7 @@ print(logi_gt5_vec)
 ## [1] FALSE  TRUE  TRUE FALSE
 ```
 
-You cannot apply arithmetical operations on character vectors, but can apply equality operator.
+You cannot apply arithmetical operations on character vectors, but can apply the equality operator.
 
 
 ```r
@@ -96,7 +96,7 @@ print(logi_apple_vec)
 ## [1]  TRUE FALSE FALSE FALSE
 ```
 
-You can also concatenate elements of character vectors by `paste()`. Since the two vectors in the example have the same length, elements at the same positions of the vectors are concatenated. 
+You can also concatenate elements of character vectors using `paste()`. Since the two vectors in the example have the same length, elements at the same positions of the vectors are concatenated. 
 
 
 ```r
@@ -123,7 +123,7 @@ print(num_vec)
 
 ### Data frames
 
-A data frame combines multiple vectors to construct a dataset. Vectors for a data frame must have the same lengths but can be different types. `nrow()` and `ncol()` show the number of records and variables in a data frame.
+A data frame combines multiple vectors to construct a dataset. Vectors can only be combined into a data frame if they have the same length. However, they can be different types. `nrow()` and `ncol()` show the number of rows (observations) and variables in a data frame.
 
 
 ```r
@@ -186,12 +186,12 @@ print(ncol(fruit_df2))
 ```
 
 {{% notice tip %}}
-We use `print()` to show values and structures of objects in the examples, but you do not need to use the command in the console, because it is triggered automatically when objects are returned to the global environment.
+We use `print()` to show values and structures of objects in the examples, but you do not need to use the `print()` command in the console, because it is triggered automatically when objects are returned to the global environment.
 {{% /notice %}}
 
 ### Matrices
 
-Similar to a data frame, a matrix contains multi-dimensional data but its values are all in the same type.
+Similar to a data frame, a matrix contains multi-dimensional data. In contrast to a data frame, its values must all be the same type.
 
 
 ```r
@@ -245,7 +245,7 @@ If a matrix has column and row names, you can extract rows or columns by their n
 
 
 ```r
-print(mat['bag1',])
+print(mat['bag1', ])
 ```
 
 ```
@@ -254,7 +254,7 @@ print(mat['bag1',])
 ```
 
 ```r
-print(mat[,'banana'])
+print(mat[, 'banana'])
 ```
 
 ```
@@ -284,5 +284,5 @@ print(colSums(mat))
 ```
 
 {{% notice info %}}
-If you want to know the details of R commands, prepend `?` to the command and execute. For example, `?subset()` will show you how to use it with different types of objects.
+If you want to know the details of R commands, prepend `?` to the command and execute. For example, `?subset()` will show you how to use the subset function with different types of objects.
 {{% /notice %}}
