@@ -3,7 +3,7 @@ title: Scaling and classification
 weight: 60
 pre: "<b>6. </b>"
 chapter: true
-draft: true
+draft: false
 ---
 
 ```{r, echo=FALSE, results='hide', message=FALSE}

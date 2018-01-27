@@ -1,7 +1,6 @@
 ---
 title: Compound multi-word expressions
 weight: 30
-chapter: false
 draft: false
 ---
 
