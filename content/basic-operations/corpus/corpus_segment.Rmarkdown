@@ -15,7 +15,7 @@ require(quanteda.corpora)
 The function `corpus_segment()` allows you to segment a `corpus` object or character vector. With `corpus_segment()` you can break texts into smaller documents based on a regular pattern (for example a speaker identifier in a transcript) or a user-supplied annotation (a "tag").
 
 
-## Segment a corpus using tags. 
+## Segment a corpus using tags
 
 ```{r}
 corpus_tags <- corpus(c("##INTRO This is the introduction.

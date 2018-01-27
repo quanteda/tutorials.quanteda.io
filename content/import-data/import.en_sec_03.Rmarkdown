@@ -18,7 +18,7 @@ data_dir <- system.file("extdata/", package = "readtext")
 
 ## Read files with different encodings
 
-Sometimes files of the same type have different encodings. If the encoding of a file is included in the file name, we can extract this information and import the texts correctly. 
+We recommend to store all of your text data in the UTF-8 format. However, often files of the same type have different encodings. If the encoding of a file is included in the file name, we can extract this information and import the texts correctly. 
 
 ```{r}
 # create a temporary directory to extract the .zip file
@@ -43,11 +43,11 @@ fileencodings <- sapply(parts, "[", 3)
 head(fileencodings)
 
 # Check whether certain file encodings are not supported
-notAvailableIndex <- which(!(fileencodings %in% iconvlist()))
-fileencodings[notAvailableIndex]
+not_available_index <- which(!(fileencodings %in% iconvlist()))
+fileencodings[not_available_index]
 ```
 
-If we read the text files without specifying the encoding, we get erroneously formatted text. To avoid this, we determine the `encoding` using the character object `fileencoding` created above. 
+If we read the text files without specifying the encoding, we get erroneously formatted text. To avoid this, we determine the `encoding` using the character object `fileencoding` created above.
 
 We can also add `docvars` based on the filenames.
 
@@ -59,9 +59,4 @@ data_txts <- readtext(paste0(data_dir, "/data_files_encodedtexts.zip"),
 print(data_txts, n = 50)
 ```
 
-From this file we can easily create a **quanteda** `corpus` object.
-
-```{r}
-corpus_txts <- corpus(data_txts)
-summary(corpus_txts, 5)
-```
+In the next chapter, we show how to construct a **quanteda** `corpus` object after you have read in your text files.
