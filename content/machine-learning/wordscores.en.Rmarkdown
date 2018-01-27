@@ -2,7 +2,6 @@
 title: Wordscores
 weight: 10
 draft: false
-chapter: false
 ---
 
 ```{r message=FALSE}
@@ -47,7 +46,6 @@ Next, we predict the Wordscores for the unknown virgin texts.
 
 ```{r}
 ws_preds <- predict(ws_amicus, newdata = dfm_amicus)
-
 summary(ws_preds)
 ```
 
@@ -55,15 +53,15 @@ Finally, we can plot the distribution of the Wordscores for the virgin texts wit
 
 ```{r}
 # create data frame
-preds_data_frame <- data.frame(
+preds_data <- data.frame(
   predictions = ws_preds,
   document_class = docvars(dfm_amicus, "testclass")
 )
 
 # remove training texts
-preds_data_frame <- subset(preds_data_frame, !is.na(document_class))
+preds_data <- subset(preds_data, !is.na(document_class))
 
-ggplot(preds_data_frame, aes(x = document_class, y = predictions)) +
+ggplot(preds_data, aes(x = document_class, y = predictions)) +
   geom_boxplot() +
   coord_flip() + 
   labs(x = "Test class", y = "Predicted document class") + 

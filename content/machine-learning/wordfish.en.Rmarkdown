@@ -2,13 +2,11 @@
 title: Wordfish
 weight: 20
 draft: false
-chapter: false
 ---
 
 ```{r message=FALSE}
 require(quanteda)
 ```
-
 
 {{% notice note %}}
 Wordfish is Poisson scaling model of one-dimensional document positions (Slapin and Proksch 2008). Wordfish also allows for scaling documents, but compared to Wordscores reference scores/texts are not required. Wordfish is an unsupervised one-dimensional text scaling method, meaning that it estimates the positions of documents solely based on the observed word frequencies. 

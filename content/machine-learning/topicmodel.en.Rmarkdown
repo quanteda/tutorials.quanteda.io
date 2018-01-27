@@ -1,6 +1,6 @@
 ---
 title: Topic models
-draft: true
+draft: false
 ---
 
 ```{r message=FALSE}
@@ -9,14 +9,12 @@ require(topicmodels)
 ```
 
 ```{r}
-
 mycorpus <- corpus_subset(data_corpus_inaugural, Year > 1950)
 quantdfm <- dfm(mycorpus, verbose = FALSE, remove_punct = TRUE,
-                remove = c(stopwords('english'), 'will', 'us', 'nation', 'can', 'peopl*', 'americ*'))
+                remove = c(stopwords('en'), 'will', 'us', 'nation', 'can', 'peopl*', 'americ*'))
 ldadfm <- convert(quantdfm, to = "topicmodels")
 lda <- LDA(ldadfm, control = list(alpha = 0.1), k = 10)
 terms(lda, 10)
-
 ```
 
 ```{r kable, results = 'asis'}

@@ -6,8 +6,6 @@ chapter: true
 draft: false
 ---
 
-
-
 # Text scaling and document classification
 
 How to derive latent positions from text data and how to classify documents

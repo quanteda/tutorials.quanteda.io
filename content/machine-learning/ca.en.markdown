@@ -1,6 +1,6 @@
 ---
 title: Correspondence analysis
-draft: true
+draft: false
 ---
 
 
