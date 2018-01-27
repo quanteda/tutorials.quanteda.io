@@ -1,75 +1,78 @@
 ---
 title: Different encodings
 weight: 40
-chapter: false
 draft: false
 ---
 
 
 ```r
-knitr::opts_chunk$set(collapse = TRUE)
-library(quanteda)
-
-# Load the readtext package
+require(quanteda)
 require(readtext)
-
-# Get the data directory from readtext
-data_dir <- system.file("extdata/", package = "readtext")
 ```
 
-## Read files with different encodings
-
-We recommend to store all of your text data in the UTF-8 format. However, often files of the same type have different encodings. If the encoding of a file is included in the file name, we can extract this information and import the texts correctly. 
+Even if files are not saved in UTF8, you can can extract encoding information from the file names and import the texts correctly. `temp_dir` contains the example files in various character encodings.
 
 
 ```r
-# create a temporary directory to extract the .zip file
-FILEDIR <- tempdir()
-# unzip file
-unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"), exdir = FILEDIR)
+temp_dir <- tempdir()
+unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"), exdir = temp_dir)
 ```
 
-Here, we will get the encoding from the filenames themselves.
+`list.files` returns names of all the text files (.txt) in the directory
 
 
 ```r
-# get encoding from filename
-filenames <- list.files(FILEDIR, "^(Indian|UDHR_).*\\.txt$")
+filename <- list.files(temp_dir, "^(Indian|UDHR_).*\\.txt$")
+head(filename)
+```
 
-head(filenames)
+```
 ## [1] "IndianTreaty_English_UTF-16LE.txt" 
 ## [2] "IndianTreaty_English_UTF-8-BOM.txt"
 ## [3] "UDHR_Arabic_ISO-8859-6.txt"        
 ## [4] "UDHR_Arabic_UTF-8.txt"             
 ## [5] "UDHR_Arabic_WINDOWS-1256.txt"      
 ## [6] "UDHR_Chinese_GB2312.txt"
-
-# Strip the extension
-filenames <- gsub(".txt$", "", filenames)
-parts <- strsplit(filenames, "_")
-fileencodings <- sapply(parts, "[", 3)
-
-head(fileencodings)
-## [1] "UTF-16LE"     "UTF-8-BOM"    "ISO-8859-6"   "UTF-8"       
-## [5] "WINDOWS-1256" "GB2312"
-
-# Check whether certain file encodings are not supported
-not_available_index <- which(!(fileencodings %in% iconvlist()))
-fileencodings[not_available_index]
-## [1] "UTF-8-BOM"
 ```
 
-If we read the text files without specifying the encoding, we get erroneously formatted text. To avoid this, we determine the `encoding` using the character object `fileencoding` created above.
-
-We can also add `docvars` based on the filenames.
+You can extract chracter encoding from the file using the folloing command. 
 
 
 ```r
-data_txts <- readtext(paste0(data_dir, "/data_files_encodedtexts.zip"), 
-                 encoding = fileencodings,
-                 docvarsfrom = "filenames", 
-                 docvarnames = c("document", "language", "input_encoding"))
-print(data_txts, n = 50)
+filename <- gsub(".txt$", "", filename)
+encoding <- sapply(strsplit(filename, "_"), "[", 3)
+head(encoding)
+```
+
+```
+## [1] "UTF-16LE"     "UTF-8-BOM"    "ISO-8859-6"   "UTF-8"       
+## [5] "WINDOWS-1256" "GB2312"
+```
+
+There is a character encoding not supported by R.
+
+
+```r
+setdiff(encoding, iconvlist())
+```
+
+```
+## [1] "UTF-8-BOM"
+```
+
+You then pass `encoding` to `readtext()` to correctly convert character strings into UTF8.
+
+
+```r
+data_dir <- system.file("extdata/", package = "readtext")
+txt_data <- readtext(paste0(data_dir, "/data_files_encodedtexts.zip"), 
+                     encoding = encoding,
+                     docvarsfrom = "filenames", 
+                     docvarnames = c("document", "language", "input_encoding"))
+print(txt_data, n = 50)
+```
+
+```
 ## readtext object consisting of 36 documents and 3 docvars.
 ## # data.frame [36 × 5]
 ##    doc_id                             text          docume… langu… input_…
@@ -111,5 +114,3 @@ print(data_txts, n = 50)
 ## 35 UDHR_Russian_WINDOWS-1251.txt      "\"Всеобщая … UDHR    Russi… WINDOW…
 ## 36 UDHR_Thai_UTF-8.txt                "\"ปฏิญญาสาก…  UDHR    Thai   UTF-8
 ```
-
-In the next chapter, we show how to construct a **quanteda** `corpus` object after you have read in your text files.
