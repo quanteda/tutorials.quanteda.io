@@ -1,5 +1,5 @@
 ---
-title: Dictionary lookup
+title: Look up dictionary
 weight: 30
 draft: false
 ---
@@ -9,7 +9,7 @@ draft: false
 require(quanteda)
 ```
 
-`laver-garry.cat` is a Wordstat dictionary that contain lef-righ political ideology keywords (Laver & Garry 2000). 
+`laver-garry.cat` is a Wordstat dictionary that contain left-right political ideology keywords (Laver and Garry 2000). 
 
 
 ```r
@@ -35,7 +35,7 @@ lsd_dfm <- dfm(data_corpus_irishbudget2010, dictionary = lg_dict, remove_punct =
 ```
 
 {{% notice note %}}
-`dfm_lookup()` cannot find multi-word expressions since a DFM does not have an information about positions of words, but `dfm()` can because dictionary lookup is performed internally on tokens using `tokens_lookup()`.
+`dfm_lookup()` cannot find multi-word expressions since a document-feature matrix does not store information about positions of words. Yet, `dfm()` can handle multi-word expressions because dictionary lookup is performed internally on tokens using `tokens_lookup()`.
 {{% /notice %}}
 
 
