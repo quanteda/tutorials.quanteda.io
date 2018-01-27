@@ -1,7 +1,6 @@
 ---
-title: Dictionary lookup
-weight: 40
-chapter: false
+title: Look up dictionary
+weight: 50
 draft: false
 ---
 
@@ -9,12 +8,61 @@ draft: false
 require(quanteda)
 ```
 
-
-
 ```{r}
+toks <- tokens(data_char_ukimmig2010)
+```
+
+`tokens_lookup()` is the most flexible dictionary lookup function in **quanteda**. We use geographical dictionary from the [**newsmap** package](https://github.com/koheiw/newsmap) as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats.
+
+```{r, eval=FALSE}
+newsmap_dict <- dictionary(file = "content/dictionary/newsmap.yml")
+```
+
+```{r include=FALSE}
+# This code is only for website generation
 newsmap_dict <- dictionary(file = "../../dictionary/newsmap.yml")
 ```
 
+The geographical dictionary comprises of names of countries and cities (and their demonyms) in a hierachical structure ( which countries are nested in world regions and sub-regions).
+
 ```{r}
-lsd_dict <- data_dictionary_LSD2015
+length(newsmap_dict)
+names(newsmap_dict)
+names(newsmap_dict[['AFRICA']])
+newsmap_dict[['AFRICA']][['NORTH']]
 ```
+
+
+```{r}
+region_toks <- tokens_lookup(toks, newsmap_dict, levels = 1)
+head(region_toks)
+dfm(region_toks)
+```
+
+```{r}
+country_toks <- tokens_lookup(toks, newsmap_dict, levels = 3)
+head(country_toks)
+dfm(country_toks)
+```
+
+
+```{r}
+kwic(toks, newsmap_dict['AFRICA'])
+```
+
+
+You can define your own dictionary by passing a named list of characters to `dictionary()`.
+
+```{r}
+dict <- dictionary(list(refugee = c('refgee*', 'asylum*'),
+                        worker = c('worker*', 'employee*')))
+print(dict)
+dict_toks <- tokens_lookup(toks, dict)
+head(dict_toks)
+dfm(dict_toks)
+```
+
+{{% notice tip %}}
+To avoide double counting, `tokens_lookup()` ignores multiple matches of dicitonary values for the same key with the same token. For example, if `US = c('United States of America', 'United States')` is in your dictionary, you get 'US' only once for a sequence of tokens `'United' 'States' 'of' 'America'`.
+{{% /notice %}}
+

@@ -1,6 +1,41 @@
 ---
 title: Keyword-in-contexts
 weight: 20
-chapter: false
 draft: false
 ---
+
+```{r message=FALSE}
+require(quanteda)
+```
+
+```{r}
+toks <- tokens(data_char_ukimmig2010)
+```
+
+You can see how keywords are in the actual contexts using `kwic()`. 
+
+```{r}
+immig_kw <- kwic(toks, 'immig*')
+head(immig_kw, 10)
+```
+
+`kwic()` also takes multiple keywords in a character vector.
+
+```{r}
+immig2_kw <- kwic(toks, c('immig*', 'migra*'))
+head(immig2_kw, 10)
+```
+
+If you want to find multi-word expressions, separate words by whitespace and wrap the character vector by `phrase()`.
+
+```{r}
+asylum_kw <- kwic(toks, phrase('asylum seeker*'))
+head(asylum_kw)
+```
+
+Texts does do not alwasy do not appear nicely in R console, so you can use `View()` to see in an interactive HTML table.
+
+```{r eval=FALSE}
+View(immig2_kw)
+```
+

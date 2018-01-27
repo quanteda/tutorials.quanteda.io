@@ -5,7 +5,7 @@ chapter: false
 draft: false
 ---
 
-```{r}
+```{r message=FALSE}
 require(quanteda)
 ```
 

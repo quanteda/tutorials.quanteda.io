@@ -1,0 +1,35 @@
+---
+title: Compound tokens
+weight: 40
+draft: false
+---
+
+```{r message=FALSE}
+require(quanteda)
+```
+
+```{r}
+toks <- tokens(data_char_ukimmig2010)
+```
+
+There are several multi-word expressions that are important in social scientific reserach.
+
+```{r}
+multi_kw <- kwic(toks, phrase(c('asylum seeker*', 'british citizen*')))
+head(multi_kw, 10)
+```
+
+To preserve these expressions in bag-of-word analysis, we have to compound them uisng `tokens_compound()`.
+
+```{r}
+comp_toks <- tokens_compound(toks, phrase(c('asylum seeker*', 'british citizen*')))
+compu_kw <- kwic(comp_toks, c('asylum_seeker*', 'british_citizen*'))
+head(compu_kw, 10)
+```
+
+{{% notice tip %}}
+You can discover muti-words expressions in your tokens using `textstat_collocations()`. See [Compunding multi-word expressions](../../../advanced-operations/compund-mutiword-expressions/) to learn how to do it.
+{{% /notice %}}
+
+
+

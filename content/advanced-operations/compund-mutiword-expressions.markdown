@@ -10,29 +10,6 @@ draft: false
 require(quanteda)
 ```
 
-```
-## Loading required package: quanteda
-```
-
-```
-## quanteda version 1.0.0
-```
-
-```
-## Using 3 of 4 threads for parallel computing
-```
-
-```
-## 
-## Attaching package: 'quanteda'
-```
-
-```
-## The following object is masked from 'package:utils':
-## 
-##     View
-```
-
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
