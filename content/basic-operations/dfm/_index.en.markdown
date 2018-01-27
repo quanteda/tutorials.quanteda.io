@@ -7,4 +7,4 @@ draft: false
 
 # Document-feature matrix
 
-Learn how to make and modify **quanteda**'s Document-feature matrix
+Learn how to make and modify **quanteda**'s document-feature matrix

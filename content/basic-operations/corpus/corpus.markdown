@@ -11,7 +11,7 @@ Having shown how to read various text files, we turn to constructing a text corp
 
 1. a `character` vector, consisting of one document per element; if the elements are named, these names will be used as document names.
 
-2. a `data.frame` (or a **tibble** `tbl_df`), whose default document id is a variable identified by `docid_field`; the text of the document is a variable identified by `textid_field`; other variables are imported as document-level meta-data. This matches the format of data.frames constructed by the the **readtext** package.
+2. a `data.frame` (or a **tibble** `tbl_df`), whose default document id is a variable identified by `docid_field`; the text of the document is a variable identified by `textid_field`; other variables are imported as document-level meta-data. This matches the format of data frames constructed by the the **readtext** package.
 
 3. a **tm** `VCorpus` or `SimpleCorpus` class object, with the fixed metadata fields imported as docvars and corpus-level metadata imported as metacorpus information.
 
@@ -20,7 +20,7 @@ Having shown how to read various text files, we turn to constructing a text corp
 
 ## Construct a corpus from a character vector
 
-The file `data_char_ukimmig2010` is a named character vector of extracts of election manifestos from UK political parties on immigration and asylum-seekers.
+The file `data_char_ukimmig2010` is a named character vector of subsets of election manifestos from UK political parties on immigration and asylum.
 
 
 ```r
@@ -46,8 +46,8 @@ summary(data_corpus_ukimmig2010)
 ##           SNP    88    134         4          SNP
 ##          UKIP   346    723        27         UKIP
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Thu Jan 25 17:51:17 2018
+## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
+## Created: Sat Jan 27 11:53:07 2018
 ## Notes:
 ```
 
@@ -83,12 +83,12 @@ summary(data_corpus_inaugural, 5)
 ##  text4   717   1927        41 inaugCorpus.csv.4 1801  Jefferson    Thomas
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Thu Jan 25 17:51:17 2018
+## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
+## Created: Sat Jan 27 11:53:07 2018
 ## Notes:
 ```
 
-You can change the `docnames` for a corpus to change them from `text1`, `text2` etc to a meaningful identifier. 
+You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc to a meaningful identifier. 
 
 
 ```r
@@ -117,8 +117,8 @@ summary(data_corpus_inaugural, 5)
 ##   Jefferson    Thomas
 ##   Jefferson    Thomas
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Thu Jan 25 17:51:17 2018
+## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
+## Created: Sat Jan 27 11:53:07 2018
 ## Notes:
 ```
 

@@ -24,23 +24,17 @@ my_dict <- dictionary(list(christmas = c("Christmas", "Santa", "holiday"),
                           taxglob = "tax*",
                           taxregex = "tax.+$",
                           country = c("United_States", "Sweden")))
+
 my_dfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
                "Does the United_States or Sweden have more progressive taxation?"),
              remove = stopwords("english"), verbose = FALSE)
-my_dfm
+
+summary(my_dfm)
 ```
 
 ```
-## Document-feature matrix of: 2 documents, 11 features (50% sparse).
-## 2 x 11 sparse Matrix of class "dfm"
-##        features
-## docs    christmas ruined opposition tax plan . united_states sweden
-##   text1         1      1          1   1    1 1             0      0
-##   text2         0      0          0   0    0 0             1      1
-##        features
-## docs    progressive taxation ?
-##   text1           0        0 0
-##   text2           1        1 1
+## Length  Class   Mode 
+##     22    dfm     S4
 ```
 
 ```r
@@ -199,15 +193,16 @@ data_sentiment$speech <- rownames(data_sentiment)
 # get number of tokens for each speech
 data_sentiment$tokens_speech <- ntoken(data_corpus_inaugural)
 
-# get net positive sentiment: 100 * (positive - negative) / tokens_speech)
+# get net positive sentiment: 100 * (positive - negative) / tokens_speech
 data_sentiment$net_positive_sentiment <- with(data_sentiment, 100 * (positive - negative) / tokens_speech)
 ```
 
-Now we can plot the net positive sentiment for each text in ascendingn order.
+Now we can plot the net positive sentiment for each text in ascending order.
 
 
 ```r
-ggplot(data_sentiment, aes(x = reorder(speech, net_positive_sentiment), y = net_positive_sentiment)) +
+ggplot(data_sentiment, aes(x = reorder(speech, net_positive_sentiment), 
+                           y = net_positive_sentiment)) +
   geom_point() + 
   coord_flip() +
   labs(x = NULL, y = "Positive sentiment") +

@@ -57,13 +57,11 @@ summary(news_corp_sentences, 5)
 ##  f0f8e302fc9886bb0a8472a02974b336
 ## 
 ## Source:  Combination of corpuses x[[1]] and x[[2]]
-## Created: Thu Jan 25 17:51:31 2018
+## Created: Sat Jan 27 11:52:48 2018
 ## Notes:   corpus_reshape.corpus(news_corp, to = "sentences")
 ```
 
-The corpus now increased from 6,000 documents (i.e. newspaper articles) to 201,097 documents (i.e. sentences).
-
-Now we could, for instance, select only sentences that contain at least 10 words and reshape the corpus back to documents. For this, we use `corpus_subset()` and apply `corpus_reshape()` to the subsetted corpus
+The corpus now increased from 6,000 documents (i.e. newspaper articles) to 201,097 documents (i.e. sentences). In a next step, we could, for instance, select only sentences that contain at least 10 words and reshape the corpus back to documents. For this, we use `corpus_subset()` and apply `corpus_reshape()` to the subsetted corpus.
 
 
 ```r

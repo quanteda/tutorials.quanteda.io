@@ -11,13 +11,14 @@ require(quanteda)
 require(lubridate)
 ```
 
-`textstat_keyness()` compares frequencies of words between two groups of documents by the kyeness statistics. This statistical measure was originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to discover frequent words in target documents. Kyeness is essentially a signed chi-square, where words more frequent than expected are given positive sign. 
+`textstat_keyness()` compares frequencies of words between two groups of documents by their  keyness statistics. This statistical measure was originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to discover frequent words in target documents. Keyness is essentially a signed chi-square, where words more frequent than expected are given positive sign. 
 
 
 ```r
 news_corp <- quanteda.corpora::download('data_corpus_guardian')
 news_toks <- tokens(news_corp, remove_punct = TRUE) 
 news_dfm <- dfm(news_toks)
+
 key <- textstat_keyness(news_dfm, 2016 <= year(docvars(news_dfm, 'date'))) 
 head(key, 20)
 ```
@@ -47,7 +48,7 @@ head(key, 20)
 ```
 
 ```r
-textplot_keyness(key)
+textplot_keyness(key) 
 ```
 
 <img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-2-1.svg" width="768" />

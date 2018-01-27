@@ -7,7 +7,7 @@ draft: false
 
 
 
-Tokenizing texts, as dicussed in the previous section, is an intermediate option, and most users will want to skip straight to constructing a document-feature matrix. For this, we have a Swiss-army knife function, called `dfm()`, which performs tokenization and tabulates the extracted features into a matrix of documents by features. 
+Tokenizing texts, as dicussed in the previous section, is an intermediate option, and many users might want to skip straight to constructing a document-feature matrix. For this, we have a Swiss-army knife function, called `dfm()`, which performs tokenization and tabulates the extracted features into a matrix of documents by features. 
 
 
 ## Construct a document-feature matrix
@@ -18,7 +18,6 @@ Tokenizing texts, as dicussed in the previous section, is an intermediate option
 news_corp <- quanteda.corpora::download('data_corpus_guardian')
 
 # construct a dfm
-
 news_dfm <- dfm(news_corp, verbose = TRUE)
 ```
 
@@ -37,10 +36,11 @@ news_dfm <- dfm(news_corp, verbose = TRUE)
 ```
 ##    ... created a 6,000 x 99,360 sparse dfm
 ##    ... complete. 
-## Elapsed time: 9.02 seconds.
+## Elapsed time: 8.56 seconds.
 ```
 
-From `verbose = TRUE` we can see that all words were transformed to lowercase which is the default. All of the options to tokens() can be passed to dfm(), however. For instance, this `dfm` contains punctuation and so called stopwords as we can see when we plot the 10 most frequent words in the corpus using `textstat_frequency()`. 
+
+From `verbose = TRUE` we can see that all words were transformed to lowercase which is the default. Note that all of the `tokens()` options can be passed to `dfm()`. For instance, this `dfm` contains punctuation and so called stopwords which we can see when we plot the 10 most frequent words in the `dfm` using `textstat_frequency()`. 
 
 
 ```r
@@ -89,7 +89,7 @@ news_dfm_small <- dfm(news_corp, remove = stopwords("en"),
 ##    ... removed 174 features
 ##    ... created a 6,000 x 94,188 sparse dfm
 ##    ... complete. 
-## Elapsed time: 4.92 seconds.
+## Elapsed time: 6 seconds.
 ```
 
 ```r
@@ -135,13 +135,13 @@ head(stopwords("ru"))
 ```
 
 ```
-## [1] "<U+0438>" "<U+0432>" "<U+0432><U+043E>" "<U+043D><U+0435>" "<U+0447><U+0442><U+043E>" "<U+043E><U+043D>"
+## [1] "и"   "в"   "во"  "не"  "что" "он"
 ```
 
 
 ## Stemming
 
-Stemming relies on the **SnowballC** package's implementation of the Porter stemmer, and is available for the following languages (it does not work perfectly, but it is very fast). When constructing a corpus, you can use `stem = TRUE` to stem the words in the corpus.
+Stemming relies on the **SnowballC** package's implementation of the Porter stemmer, and is available several languages (it does not work perfectly, but it is very fast). When constructing a corpus, you can use `stem = TRUE` to stem words in the `corpus` or `dfm`.
 
 
 ```r

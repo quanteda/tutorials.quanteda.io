@@ -1,5 +1,5 @@
 ---
-title: Token selection
+title: Select tokens
 weight: 30
 draft: false
 ---
