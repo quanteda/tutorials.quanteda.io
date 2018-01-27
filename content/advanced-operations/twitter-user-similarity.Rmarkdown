@@ -6,4 +6,59 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+require(readtext)
 ```
+
+Import Tweets from JSON (.json) file.
+
+```{r, eval=FALSE}
+twitter_data <- readtext("../../content/data/twitter.json")
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+twitter_data <- readtext("../../content/data/twitter.json")
+```
+
+Construct a corpus of Tweets.
+
+```{r}
+tweet_corp <- corpus(twitter_data)
+```
+
+Construct a DFM removing tags and links.
+
+```{r}
+tweet_dfm <- dfm(tweet_corp,
+                 remove_punct = TRUE, remove_url = TRUE,
+                 remove = c('*.tt', '*.uk', '*.com', 'rt', '#*', '@*')) %>% 
+             dfm_remove(stopwords('en'))
+
+ndoc(tweet_dfm)
+topfeatures(tweet_dfm)
+```
+
+Group documents by usernames.
+
+```{r}
+user_dfm <- dfm_group(tweet_dfm, groups = docvars(tweet_dfm, 'screen_name'))
+ndoc(user_dfm)
+```
+
+Remove rare (less than 10 times) and short (one character) features, and convert count to proportion using `dfm_weight()`. 
+
+```{r}
+prop_user_dfm <- user_dfm %>% 
+                 dfm_select(min_nchar = 2) %>% 
+                 dfm_trim(min_count = 10) %>% 
+                 dfm_weight('prop')
+```
+
+Calculate user-user similarity using `textstat_dist()`.
+
+```{r}
+user_dist <- textstat_dist(prop_user_dfm)
+user_clust <- hclust(user_dist)
+plot(user_clust, labels = FALSE)
+```
+

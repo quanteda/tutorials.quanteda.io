@@ -1,13 +1,13 @@
 ---
-title: Machine learning
+title: Scaling and classification
 weight: 60
 pre: "<b>6. </b>"
 chapter: true
-draft: true
+draft: false
 ---
 
 
 
-# Mmachine learning
+# Text scaling and document classification
 
-How to use supervised and unsupervised machine learning using **quanteda**
+How to derive latent positions from text data and how to classify documents

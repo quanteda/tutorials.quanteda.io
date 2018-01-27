@@ -1,13 +1,12 @@
 ---
 title: Construct a corpus
 weight: 10
-chapter: false
 draft: false
 ---
 
 
 
-Having shown how to read various text files, we turn to constructing a text corpus from these text data. You can create a corpus object in **quanteda** from various available sources:
+You can create a corpus object in **quanteda** from various available sources:
 
 1. a `character` vector, consisting of one document per element; if the elements are named, these names will be used as document names.
 
@@ -18,18 +17,15 @@ Having shown how to read various text files, we turn to constructing a text corp
 4. (a keywords-in-context object constructed by `kwic`).
 
 
-## Construct a corpus from a character vector
+## Character vector
 
 The file `data_char_ukimmig2010` is a named character vector of subsets of election manifestos from UK political parties on immigration and asylum.
 
 
 ```r
-# transform data_char_ukimmig2010 to corpus and specify document-level variables
-
-data_corpus_ukimmig2010 <- corpus(data_char_ukimmig2010, 
-                                  docvars = data.frame(party = names(data_char_ukimmig2010)))
-
-summary(data_corpus_ukimmig2010)
+immig_corp <- corpus(data_char_ukimmig2010, 
+                     docvars = data.frame(party = names(data_char_ukimmig2010)))
+summary(immig_corp)
 ```
 
 ```
@@ -47,30 +43,32 @@ summary(data_corpus_ukimmig2010)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sat Jan 27 11:53:07 2018
+## Created: Sat Jan 27 18:18:06 2018
 ## Notes:
 ```
 
 
-## Construct a corpus from a data frame
+## Data frame
 
-To construct a corpus from a data frame or a **readtext** object.
+Using **readtext**, loead an example file from `data_dir` as a data frame called `inaug_data`.
 
 
 ```r
-# get the data directory from readtext
 data_dir <- system.file("extdata/", package = "readtext")
+inaug_data <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
+names(inaug_data)
 ```
 
+```
+## [1] "doc_id"    "text"      "Year"      "President" "FirstName"
+```
+
+Construct a corpus from `inaug_data`.
+
 
 ```r
-# read in comma-separated values with readtext
-data_inaugural <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
-
-# create quanteda corpus
-data_corpus_inaugural <- corpus(data_inaugural)
-
-summary(data_corpus_inaugural, 5)
+inaug_corp <- corpus(inaug_data)
+summary(inaug_corp, 5)
 ```
 
 ```
@@ -84,7 +82,7 @@ summary(data_corpus_inaugural, 5)
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sat Jan 27 11:53:07 2018
+## Created: Sat Jan 27 18:18:07 2018
 ## Notes:
 ```
 
@@ -92,13 +90,11 @@ You can edit the `docnames` for a corpus to change them from `text1`, `text2` et
 
 
 ```r
-doc_id <- paste(data_inaugural$Year, 
-                data_inaugural$FirstName, 
-                data_inaugural$President, sep = " ")
-
-docnames(data_corpus_inaugural) <- doc_id
-
-summary(data_corpus_inaugural, 5)
+docid <- paste(inaug_data$Year, 
+                inaug_data$FirstName, 
+                inaug_data$President, sep = " ")
+docnames(inaug_corp) <- docid
+summary(inaug_corp, 5)
 ```
 
 ```
@@ -118,23 +114,17 @@ summary(data_corpus_inaugural, 5)
 ##   Jefferson    Thomas
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sat Jan 27 11:53:07 2018
+## Created: Sat Jan 27 18:18:07 2018
 ## Notes:
 ```
 
 
-## Import a Vcorpus from the tm package
+## Vcorpus
 
 **quanteda** also allows to import a **tm** `VCorpus` object
 
 
 ```r
-# load in a tm example VCorpus
-data(crude, package = "tm")
-
-tm_corpus <- corpus(crude)
-
-corpus_tm <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
-
-corpus_quanteda <- corpus(corpus_tm)
+vcorp <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
+corp <- corpus(vcorp)
 ```

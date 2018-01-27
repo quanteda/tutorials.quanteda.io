@@ -1,48 +1,41 @@
 ---
 title: Change units of texts
-weight: 20
-chapter: false
+weight: 30
 draft: false
 ---
 
-
 ```{r message=FALSE}
 require(quanteda)
-require(quanteda.corpora)
 ```
 
-Once you have created a corpus, you can change the units of texts. This can be either done on a pattern match through `corpus_segment()` or by recasting the units of a corpus to sentences or paragraphs through `corpus_reshape()`.
-
-
-## Reshaping a corpus
-
-The `corpus_reshape()` function allows to reshape (or recast) the documents of a corpus to a different level of aggregation which can be documents, paragraphs, or sentences. Because the corpus object records its current "units" status, it is possible to move from recast units back to original units, for example from documents, to sentences, and then back to documents (possibly after modifying the sentences). We use the Guardian corpus as an example.
+`corpus_reshape()` allows to change the unit of texts between documents paragraphs and sentences. Since it records document identifiers, texts can be restored to the original units even after mofdification of corpus.
 
 ```{r}
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
-
-news_corp_sentences <- corpus_reshape(news_corp, to = "sentences")
-
-summary(news_corp_sentences, 5)
+corp <- corpus(data_char_ukimmig2010)
+ndoc(corp)
 ```
 
-The corpus now increased from 6,000 documents (i.e. newspaper articles) to 201,097 documents (i.e. sentences). In a next step, we could, for instance, select only sentences that contain at least 10 words and reshape the corpus back to documents. For this, we use `corpus_subset()` and apply `corpus_reshape()` to the subsetted corpus.
+Change the unit of texts to sentences.
 
 ```{r}
-# create document-level variable with number of tokens
-docvars(news_corp_sentences, "ntoken") <- ntoken(news_corp_sentences, remove_punct = TRUE)
+sent_corp <- corpus_reshape(corp, 'sentences')
+ndoc(sent_corp)
+```
 
-ndoc(news_corp_sentences)
+Restore the original documents.
 
-# subset the corpus
-news_corp_sentences_subset <- corpus_subset(news_corp_sentences, ntoken >= 10)
+```{r}
+corp2 <- corpus_reshape(sent_corp, 'documents')
+ndoc(corp2)
+```
 
-ndoc(news_corp_sentences_subset)
+If you apply `corpus_subset()` to `sent_corp`, you can only keep long senteces (more than 10 words).
 
-# reshape back to the level of documents
+```{r}
+longsent_corp <- corpus_subset(sent_corp, ntoken(sent_corp) >= 10)
+ndoc(longsent_corp)
 
-news_corp_documens_subset <- corpus_reshape(news_corp_sentences_subset, to = "documents")
-
-ndoc(news_corp_documens_subset)
+corp3 <- corpus_reshape(longsent_corp, 'documents')
+ndoc(corp3)
 ```
 

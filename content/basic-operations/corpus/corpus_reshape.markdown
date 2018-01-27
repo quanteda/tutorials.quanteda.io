@@ -1,100 +1,68 @@
 ---
 title: Change units of texts
-weight: 20
-chapter: false
+weight: 30
 draft: false
 ---
 
 
-
 ```r
 require(quanteda)
-require(quanteda.corpora)
 ```
 
-Once you have created a corpus, you can change the units of texts. This can be either done on a pattern match through `corpus_segment()` or by recasting the units of a corpus to sentences or paragraphs through `corpus_reshape()`.
-
-
-## Reshaping a corpus
-
-The `corpus_reshape()` function allows to reshape (or recast) the documents of a corpus to a different level of aggregation which can be documents, paragraphs, or sentences. Because the corpus object records its current "units" status, it is possible to move from recast units back to original units, for example from documents, to sentences, and then back to documents (possibly after modifying the sentences). We use the Guardian corpus as an example.
+`corpus_reshape()` allows to change the unit of texts between documents paragraphs and sentences. Since it records document identifiers, texts can be restored to the original units even after mofdification of corpus.
 
 
 ```r
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
-
-news_corp_sentences <- corpus_reshape(news_corp, to = "sentences")
-
-summary(news_corp_sentences, 5)
+corp <- corpus(data_char_ukimmig2010)
+ndoc(corp)
 ```
 
 ```
-## Corpus consisting of 201097 documents, showing 5 documents:
-## 
-##          Text Types Tokens Sentences    tid          pub      edition
-##  text136751.1    14     16         1 136751 The Guardian  4:44 PM GMT
-##  text136751.2    20     21         1 136751 The Guardian  4:44 PM GMT
-##  text136751.3    22     26         1 136751 The Guardian  4:44 PM GMT
-##  text136751.4     3      5         1 136751 The Guardian  4:44 PM GMT
-##  text118588.1    28     28         1 118588 The Guardian 11:47 AM GMT
-##        date by len section
-##  2016-02-26 NA 364      NA
-##  2016-02-26 NA 364      NA
-##  2016-02-26 NA 364      NA
-##  2016-02-26 NA 364      NA
-##  2015-11-22 NA 858      NA
-##                                                                                                                                                                                                                               head
-##  Green news roundup: Air pollution, coral bleaching and whaling; The week's top environment news stories and green events. If you are not already receiving this roundup, sign up here to get the briefing delivered to your inbox
-##  Green news roundup: Air pollution, coral bleaching and whaling; The week's top environment news stories and green events. If you are not already receiving this roundup, sign up here to get the briefing delivered to your inbox
-##  Green news roundup: Air pollution, coral bleaching and whaling; The week's top environment news stories and green events. If you are not already receiving this roundup, sign up here to get the briefing delivered to your inbox
-##  Green news roundup: Air pollution, coral bleaching and whaling; The week's top environment news stories and green events. If you are not already receiving this roundup, sign up here to get the briefing delivered to your inbox
-##   The innovators: the lightweight tank that turns snorkellers into divers; Dyson Award runner-up Cathal Redmond has invented the Express Dive air tank which can treble the length of time humans can hold their breath underwater
-##                              hash
-##  4dbbc870c56d9ac66cd5d2849b9500ff
-##  4dbbc870c56d9ac66cd5d2849b9500ff
-##  4dbbc870c56d9ac66cd5d2849b9500ff
-##  4dbbc870c56d9ac66cd5d2849b9500ff
-##  f0f8e302fc9886bb0a8472a02974b336
-## 
-## Source:  Combination of corpuses x[[1]] and x[[2]]
-## Created: Sat Jan 27 11:52:48 2018
-## Notes:   corpus_reshape.corpus(news_corp, to = "sentences")
+## [1] 9
 ```
 
-The corpus now increased from 6,000 documents (i.e. newspaper articles) to 201,097 documents (i.e. sentences). In a next step, we could, for instance, select only sentences that contain at least 10 words and reshape the corpus back to documents. For this, we use `corpus_subset()` and apply `corpus_reshape()` to the subsetted corpus.
+Change the unit of texts to sentences.
 
 
 ```r
-# create document-level variable with number of tokens
-docvars(news_corp_sentences, "ntoken") <- ntoken(news_corp_sentences, remove_punct = TRUE)
-
-ndoc(news_corp_sentences)
+sent_corp <- corpus_reshape(corp, 'sentences')
+ndoc(sent_corp)
 ```
 
 ```
-## [1] 201097
+## [1] 207
+```
+
+Restore the original documents.
+
+
+```r
+corp2 <- corpus_reshape(sent_corp, 'documents')
+ndoc(corp2)
+```
+
+```
+## [1] 9
+```
+
+If you apply `corpus_subset()` to `sent_corp`, you can only keep long senteces (more than 10 words).
+
+
+```r
+longsent_corp <- corpus_subset(sent_corp, ntoken(sent_corp) >= 10)
+ndoc(longsent_corp)
+```
+
+```
+## [1] 183
 ```
 
 ```r
-# subset the corpus
-news_corp_sentences_subset <- corpus_subset(news_corp_sentences, ntoken >= 10)
-
-ndoc(news_corp_sentences_subset)
+corp3 <- corpus_reshape(longsent_corp, 'documents')
+ndoc(corp3)
 ```
 
 ```
-## [1] 172290
-```
-
-```r
-# reshape back to the level of documents
-
-news_corp_documens_subset <- corpus_reshape(news_corp_sentences_subset, to = "documents")
-
-ndoc(news_corp_documens_subset)
-```
-
-```
-## [1] 5986
+## [1] 9
 ```
 

@@ -1,7 +1,6 @@
 ---
 title: Targeted dictionary analysis
 weight: 20
-chapter: false
 draft: false
 ---
 
@@ -15,7 +14,13 @@ This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
 ```r
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
+news_corp <- download('data_corpus_guardian')
+```
+
+
+
+
+```r
 docvars(news_corp, 'year') <- year(docvars(news_corp, 'date'))
 docvars(news_corp, 'month') <- month(docvars(news_corp, 'date'))
 docvars(news_corp, 'week') <- week(docvars(news_corp, 'date'))
@@ -88,7 +93,7 @@ axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1)
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-4-1.svg" width="768" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
 
 
 ```r
@@ -100,7 +105,7 @@ grid()
 abline(h = 0, lty = 2)
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-5-1.svg" width="768" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
 
 ### Immigration
 
@@ -117,7 +122,7 @@ axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(imm
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1)
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-8-1.svg" width="768" />
 
 
 ```r
@@ -129,5 +134,5 @@ grid()
 abline(h = 0, lty = 2)
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-9-1.svg" width="768" />
 

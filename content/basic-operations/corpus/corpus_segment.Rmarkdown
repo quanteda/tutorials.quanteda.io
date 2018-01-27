@@ -1,51 +1,44 @@
 ---
-title: Segment texts
-weight: 30
-chapter: false
+title: Extract tags from texts
+weight: 40
 draft: false
 ---
 
-
 ```{r message=FALSE}
 require(quanteda)
-require(quanteda.corpora)
 ```
 
+Using `corpus_segment()`, you can extract segments of texts and tags from documents. This is particular useful when you analyze sections of documents or transcripts separately.
 
-The function `corpus_segment()` allows you to segment a `corpus` object or character vector. With `corpus_segment()` you can break texts into smaller documents based on a regular pattern (for example a speaker identifier in a transcript) or a user-supplied annotation (a "tag").
-
-
-## Segment a corpus using tags
+### Document sections
 
 ```{r}
-corpus_tags <- corpus(c("##INTRO This is the introduction.
-                  ##DOC1 This is the first document.  Second sentence in Doc 1.
-                  ##DOC3 Third document starts here.  End of third document.",
-                 "##INTRO Document ##NUMBER Two starts before ##NUMBER Three."))
+tagged_corp <- corpus(c("##INTRO This is the introduction.
+                         ##DOC1 This is the first document.  Second sentence in Doc 1.
+                         ##DOC3 Third document starts here.  End of third document.",
+                        "##INTRO Document ##NUMBER Two starts before ##NUMBER Three."))
+sect_corp <- corpus_segment(tagged_corp, "##*")
 
-corp_seg_tags <- corpus_segment(corpus_tags, "##*")
-
-cbind(texts(corp_seg_tags), docvars(corp_seg_tags), metadoc(corp_seg_tags))
+cbind(texts(sect_corp), docvars(sect_corp))
 ```
 
-
-## Segmenting a transcript based on speaker identifiers
+### Speaker identifiers
 
 ```{r}
-corpus_speakers <- corpus("Mr. Smith: Text.\nMrs. Jones: More text.\nMr. Smith: I'm speaking, again.")
-
-corpus_speakers_tags <- corpus_segment(corpus_speakers, pattern = "\\b[A-Z].+\\s[A-Z][a-z]+:",
-                            valuetype = "regex")
-
-cbind(texts(corpus_speakers_tags), docvars(corpus_speakers_tags), metadoc(corpus_speakers_tags))
+speach_corp <- corpus("Mr. Smith: Text.
+                       Mrs. Jones: More text.
+                       Mr. Smith: I'm speaking, again.")
+speaker_corp <- corpus_segment(speach_corp, pattern = "\\b[A-Z].+\\s[A-Z][a-z]+:", valuetype = "regex")
+cbind(texts(speaker_corp), docvars(speaker_corp))
 ```
 
-## Segment a character vector
+You should use `corpus_reshape()` to split documents into sentences, but you can do similar operations using `corpus_segment()` by setting `pattern_position = "after"`.
 
 ```{r}
-txt <- c(d1 = "This, is a sentence?  You: come here.", 
-         d2 = "Yes, yes okay.")
-
-char_segment(txt, pattern = "\\p{P}", valuetype = "regex", 
-             pattern_position = "after", remove_pattern = FALSE)
+corp <- corpus(c(d1 = "This, is a sentence?  You: come here.", 
+                 d2 = "Yes, yes okay."))
+sent_corp <- corpus_segment(corp, pattern = "\\p{P}", valuetype = "regex", 
+                            extract_pattern = FALSE, pattern_position = "after")
+texts(sent_corp)
 ```
+

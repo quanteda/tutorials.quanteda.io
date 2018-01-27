@@ -3,7 +3,7 @@ title: Advanced operations
 weight: 50
 pre: "<b>5. </b>"
 chapter: true
-draft: true
+draft: false
 ---
 
 ### Chapter 5
