@@ -1,78 +1,49 @@
 ---
-title: Constructor
+title: Construct a DFM
 weight: 10
-chapter: false
 draft: false
 ---
 
-```{r, echo=FALSE, message=FALSE}
+```{r message=FALSE}
 require(quanteda)
-require(quanteda.corpora)
-require(stopwords)
 ```
 
-Tokenizing texts, as dicussed in the previous section, is an intermediate option, and many users might want to skip straight to constructing a document-feature matrix. For this, we have a Swiss-army knife function, called `dfm()`, which performs tokenization and tabulates the extracted features into a matrix of documents by features. 
-
-
-## Construct a document-feature matrix
+`dfm()` constructs a document-feature matrix (DFM) from a tokens.
 
 ```{r}
-# load Guardian corpus
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
-
-# construct a dfm
-news_dfm <- dfm(news_corp, verbose = TRUE)
+ie_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+ie_dfm <- dfm(ie_toks)
 ```
 
+If corpus is given to `dfm()`, it tokenize texts internally with the same level of control through the remove_* options. Therefore, the code above and below are equivalent:
 
-From `verbose = TRUE` we can see that all words were transformed to lowercase which is the default. Note that all of the `tokens()` options can be passed to `dfm()`. For instance, this `dfm` contains punctuation and so called stopwords which we can see when we plot the 10 most frequent words in the `dfm` using `textstat_frequency()`. 
+```{r eval=FALSE}
+ie_dfm <- tokens(ie_corp, remove_punct = TRUE)
+```
+
+You can get the number of documents and features `ndoc()` and `nfeat()` 
+```{r}
+ndoc(ie_dfm)
+nfeat(ie_dfm)
+```
+
+You can also get names of the documents and features by `docnames()` and `featnames()`.
 
 ```{r}
-textstat_frequency(news_dfm, n = 10)
+head(docnames(ie_dfm), 20)
+head(featnames(ie_dfm), 20)
 ```
 
-## Remove features
-
-We repeat the step above, but specify in the options to remove punctuation, English stopwords and numbers.
+You can use`rowSums()` and `colSums()` to calculate marginals. 
 
 ```{r}
-news_dfm_small <- dfm(news_corp, remove = stopwords("en"),
-                remove_punct = TRUE,
-                remove_numbers = TRUE,
-                verbose = TRUE)
-
-# check most frequent words again
-textstat_frequency(news_dfm_small, n = 10)
+head(rowSums(ie_dfm), 10)
+head(colSums(ie_dfm), 10)
 ```
 
-The **stopwords** package includes stopwords for several languages. For instance:
+The most frequent features can be found using `topfeatures()`.
 
 ```{r}
-head(stopwords("en"))
-
-head(stopwords("de"))
-
-head(stopwords("ru"))
+topfeatures(ie_dfm, 10)
 ```
-
-
-## Stemming
-
-Stemming relies on the **SnowballC** package's implementation of the Porter stemmer, and is available several languages (it does not work perfectly, but it is very fast). When constructing a corpus, you can use `stem = TRUE` to stem words in the `corpus` or `dfm`.
-
-```{r}
-news_dfm_stem <- dfm(news_dfm_small, stem = TRUE)
-```
-
-Let's compare the differences:
-
-```{r}
-head(featnames(news_dfm_small))
-
-head(featnames(news_dfm_stem))
-```
-
-
-
-
 

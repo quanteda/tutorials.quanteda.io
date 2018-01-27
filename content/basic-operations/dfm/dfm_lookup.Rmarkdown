@@ -1,104 +1,43 @@
 ---
 title: Dictionary lookup
-weight: 20
-chapter: false
+weight: 30
 draft: false
 ---
 
-```{r, message=FALSE}
+```{r message=FALSE}
 require(quanteda)
-require(ggplot2)
 ```
 
+`laver-garry.cat` is a Wordstat dictionary that contain lef-righ political ideology keywords (Laver & Garry 2000). 
 
-## Applying equivalency classes: dictionaries, thesaruses
-
-Dictionary creation is done through the `dictionary()` function, which classes a named list of characters as a dictionary.
-
-We apply dictionaries to a dfm using the `dfm_lookup()` function.  Through the `valuetype`, argument, we can match patterns of one of three types: `"glob"`, `"regex"`, or `"fixed"`.
-```{r}
-
-my_dict <- dictionary(list(christmas = c("Christmas", "Santa", "holiday"),
-                          opposition = c("Opposition", "reject", "notincorpus"),
-                          taxglob = "tax*",
-                          taxregex = "tax.+$",
-                          country = c("United_States", "Sweden")))
-
-my_dfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
-               "Does the United_States or Sweden have more progressive taxation?"),
-             remove = stopwords("english"), verbose = FALSE)
-
-summary(my_dfm)
-
-# glob format
-dfm_lookup(my_dfm, my_dict, valuetype = "glob")
-dfm_lookup(my_dfm, my_dict, valuetype = "glob", case_insensitive = FALSE)
-
-# regex v. glob format: note that "united_states" is a regex match for "tax*"
-dfm_lookup(my_dfm, my_dict, valuetype = "glob")
-dfm_lookup(my_dfm, my_dict, valuetype = "regex", case_insensitive = TRUE)
-
-# fixed format: no pattern matching
-dfm_lookup(my_dfm, my_dict, valuetype = "fixed")
-dfm_lookup(my_dfm, my_dict, valuetype = "fixed", case_insensitive = FALSE)
+```{r eval=FALSE}
+lg_dict <- dictionary(file = "content/dictionary/laver-garry.cat")
 ```
 
-It is also possible to pass through a dictionary at the time of `dfm()` creation.
-```{r}
-# dfm with dictionaries
-my_corpus <- corpus_subset(data_corpus_inaugural, Year > 1900)
-my_dict <- dictionary(list(christmas = c("Christmas", "Santa", "holiday"),
-                          opposition = c("Opposition", "reject", "notincorpus"),
-                          taxing = "taxing",
-                          taxation = "taxation",
-                          taxregex = "tax*",
-                          country = "united states"))
-dict_dfm <- dfm(my_corpus, dictionary = my_dict)
-head(dict_dfm)
+```{r include=FALSE}
+# This code is only for website generation
+lg_dict <- dictionary(file = "../../dictionary/laver-garry.cat")
 ```
 
-There is also a related "thesaurus" feature, which collapses words in a dictionary but is not exclusive.
-```{r}
-my_texts <- c("British English tokenises differently, with more colour.",
-             "American English tokenizes color as one word.")
-
-my_dict <- dictionary(list(color = "colo*r", tokenize = "tokeni?e*"))
-
-dfm(my_texts, thesaurus = my_dict)
-```
-
-
-## Using the Lexicoder Sentiment Dictionary
-
-**quanteda** includes the 2015 Lexicoder Sentiment Dictionary (Young annd Soroka, 2012) which can be used for sentiment analysis of English text. 
+`dfm_lookup()` translates dictionary values to keys in a DFM.
 
 ```{r}
-dfm_inaug <- dfm(data_corpus_inaugural, remove_punct = TRUE)
-
-inaugural_sentiment <- dfm_lookup(dfm_inaug, data_dictionary_LSD2015)
+ie_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+ie_dfm <- dfm(ie_toks)
+lg_dfm <- dfm_lookup(ie_dfm, lg_dict)
 ```
 
-To plot the sentiment of each text, we can use the `convert()` function and export the `dfm` to a data.frame.
+You can also pass a dictionary to `dfm()` to simplify your code. Therefore, the code above and below are equivalent.
+
+```{r eval=FALSE}
+lsd_dfm <- dfm(data_corpus_irishbudget2010, dictionary = lg_dict, remove_punct = TRUE)
+```
+
+{{% notice note %}}
+`dfm_lookup()` cannot find multi-word expressions since a DFM does not have an information about positions of words, but `dfm()` can because dictionary lookup is performed internally on tokens using `tokens_lookup()`.
+{{% /notice %}}
 
 ```{r}
-data_sentiment <- convert(inaugural_sentiment, to = "data.frame")
-
-data_sentiment$speech <- rownames(data_sentiment)
-
-# get number of tokens for each speech
-data_sentiment$tokens_speech <- ntoken(data_corpus_inaugural)
-
-# get net positive sentiment: 100 * (positive - negative) / tokens_speech
-data_sentiment$net_positive_sentiment <- with(data_sentiment, 100 * (positive - negative) / tokens_speech)
+topfeatures(lg_dfm)
 ```
 
-Now we can plot the net positive sentiment for each text in ascending order.
-
-```{r, fig.width = 8, fig.height = 10}
-ggplot(data_sentiment, aes(x = reorder(speech, net_positive_sentiment), 
-                           y = net_positive_sentiment)) +
-  geom_point() + 
-  coord_flip() +
-  labs(x = NULL, y = "Positive sentiment") +
-  theme_minimal()
-```

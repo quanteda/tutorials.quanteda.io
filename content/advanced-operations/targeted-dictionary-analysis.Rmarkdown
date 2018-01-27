@@ -12,8 +12,16 @@ require(lubridate)
 
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
+```{r eval=FALSE}
+news_corp <- download('data_corpus_guardian')
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+news_corp <- readRDS("../../data/data_corpus_guardian.rds")
+```
+
 ```{r}
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
 docvars(news_corp, 'year') <- year(docvars(news_corp, 'date'))
 docvars(news_corp, 'month') <- month(docvars(news_corp, 'date'))
 docvars(news_corp, 'week') <- week(docvars(news_corp, 'date'))

@@ -1,7 +1,6 @@
 ---
-title: Feature selection
-weight: 30
-chapter: false
+title: Select features
+weight: 20
 draft: false
 ---
 
@@ -10,47 +9,44 @@ draft: false
 require(quanteda)
 ```
 
-## Select features from a dfm
-
-`dfm_select()` selects or removes features from a dfm, based on feature name matches with pattern. Often, `dfm_select()` is used to eliminate features from a `dfm` already constructed, such as stopwords, or to select only terms of interest from a dictionary.
-
 
 ```{r}
-# create a dfm
-my_dfm <- dfm(c("My Christmas was ruined by your opposition tax plan.",
-               "Does the United_States or Sweden have more progressive taxation?"),
-             tolower = FALSE)
-
-# construct a dictionary
-my_dict <- dictionary(list(countries = c("United_States", "Sweden", "France"),
-                          words_ending_in_y = c("by", "my"),
-                          not_in_text = "blahblah"))
+ie_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+nfeat(ie_dfm)
 ```
 
-First, we select only those features from `my_dfm` that also occur in `my_dict`.
+You can select features from a DFM using `dfm_select()`.
 
 ```{r}
-dfm_select(my_dfm, my_dict)
-
-dfm_select(my_dfm, my_dict, case_insensitive = FALSE)
+nostop_ie_dfm <- dfm_select(ie_dfm, stopwords('en'), selection = 'remove')
+nfeat(nostop_ie_dfm)
 ```
 
-The `selection` argument allows to specifiy whether the features that occur both in the `dfm` and the `dictionary` should be kept or removed. `valuetype` specifies the type of pattern matching.
+`dfm_remove()` is an alias to `dfm_select(selection = 'remove')`. Therefore, the code above and below are equivalent.
 
 ```{r}
-dfm_select(my_dfm, c("s$", ".y"), selection = "keep", valuetype = "regex")
-
-dfm_select(my_dfm, c("s$", ".y"), selection = "remove", valuetype = "regex")
-
-dfm_select(my_dfm, stopwords("english"), selection = "keep", valuetype = "fixed")
-
-dfm_select(my_dfm, stopwords("english"), selection = "remove", valuetype = "fixed")
+nostop_ie_dfm <- dfm_remove(ie_dfm, stopwords('en'))
+nfeat(nostop_ie_dfm)
 ```
 
-You can also select based on character length.
+You can also select features based on the length of features. 
 
 ```{r}
-dfm_select(my_dfm, min_nchar = 5)
+long_ie_dfm <- dfm_select(ie_dfm, min_nchar = 5)
+nfeat(long_ie_dfm)
+topfeatures(long_ie_dfm, 10)
 ```
 
-Note that you can use the same functions for feature co-occurrence matrix using `fcm_select()`. 
+While `dfm_select()` selects features based on patters, `dfm_trim()` does based on feature frequencies. If `min_count = 10`, features that occur less than 10 times in the corpus are removed.
+
+```{r}
+freq_ie_dfm <- dfm_trim(ie_dfm, min_count = 10)
+nfeat(long_ie_dfm)
+```
+
+If `max_docfreq = 0.5`, features that occur in more than half of the documents are removed.
+
+```{r}
+docfreq_ie_dfm <- dfm_trim(ie_dfm, max_docfreq = 0.5)
+nfeat(docfreq_ie_dfm)
+```

@@ -1,7 +1,6 @@
 ---
 title: Group documents
 weight: 40
-chapter: false
 draft: false
 ---
 
@@ -11,38 +10,58 @@ require(quanteda)
 ```
 
 
-## Combine documents in a dfm
+```r
+ie_dfm <- dfm(data_corpus_irishbudget2010)
+ndoc(ie_dfm)
+```
 
-Often, it might be useful to combine documents in a `dfm` by a grouping variable. `dfm_group()` returns a `dfm` whose documents are equal to the unique group combinations, and whose cell values are the sums of the previous values summed by group. 
+```
+## [1] 14
+```
 
-In this example, we use the Irish budget speeches from 2010 and group the documents by party.
+```r
+head(colSums(ie_dfm), 10)
+```
+
+```
+##          when             i     presented           the supplementary 
+##            90           272             3          3598            10 
+##        budget            to          this         house          last 
+##           260          1633           559            49            47
+```
+
+`dfm_group()` merge documents by taking the sums of feature frequencies.
 
 
 ```r
-dfm_irishbudget <- dfm(data_corpus_irishbudget2010)
+paty_ie_dfm <- dfm_group(ie_dfm, groups = docvars(ie_dfm, 'party'))
+ndoc(paty_ie_dfm)
 ```
 
-The `dfm` contains 14 documents (1 document per speech).
+```
+## [1] 5
+```
+
+```r
+head(colSums(paty_ie_dfm), 10)
+```
+
+```
+##          when             i     presented           the supplementary 
+##            90           272             3          3598            10 
+##        budget            to          this         house          last 
+##           260          1633           559            49            47
+```
+
+You can also use `groups` argument in `dfm()` to simplify your code. 
 
 
 ```r
-dfm_group(dfm_irishbudget, groups = docvars(data_corpus_irishbudget2010, "party") )
+paty_ie_dfm <- dfm(data_corpus_irishbudget2010, groups = docvars(ie_dfm, "party"))
+ndoc(paty_ie_dfm)
 ```
 
 ```
-## Document-feature matrix of: 5 documents, 5,140 features (61.9% sparse).
-```
-
-The grouped `dfm` consists of 5 documents (1 for each party).
-
-Note that the grouping can also be done by specifying `group` when constructing a `dfm`.
-
-
-```r
-dfm(data_corpus_irishbudget2010, groups = docvars(data_corpus_irishbudget2010, "party"))
-```
-
-```
-## Document-feature matrix of: 5 documents, 5,140 features (61.9% sparse).
+## [1] 5
 ```
 

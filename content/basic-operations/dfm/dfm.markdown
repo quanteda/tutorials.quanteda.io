@@ -1,175 +1,123 @@
 ---
-title: Constructor
+title: Construct a DFM
 weight: 10
-chapter: false
 draft: false
 ---
 
 
+```r
+require(quanteda)
+```
 
-Tokenizing texts, as dicussed in the previous section, is an intermediate option, and many users might want to skip straight to constructing a document-feature matrix. For this, we have a Swiss-army knife function, called `dfm()`, which performs tokenization and tabulates the extracted features into a matrix of documents by features. 
-
-
-## Construct a document-feature matrix
+`dfm()` constructs a document-feature matrix (DFM) from a tokens.
 
 
 ```r
-# load Guardian corpus
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
-
-# construct a dfm
-news_dfm <- dfm(news_corp, verbose = TRUE)
+ie_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+ie_dfm <- dfm(ie_toks)
 ```
 
-```
-## Creating a dfm from a corpus input...
-```
-
-```
-##    ... lowercasing
-```
-
-```
-##    ... found 6,000 documents, 99,360 features
-```
-
-```
-##    ... created a 6,000 x 99,360 sparse dfm
-##    ... complete. 
-## Elapsed time: 8.56 seconds.
-```
-
-
-From `verbose = TRUE` we can see that all words were transformed to lowercase which is the default. Note that all of the `tokens()` options can be passed to `dfm()`. For instance, this `dfm` contains punctuation and so called stopwords which we can see when we plot the 10 most frequent words in the `dfm` using `textstat_frequency()`. 
+If corpus is given to `dfm()`, it tokenize texts internally with the same level of control through the remove_* options. Therefore, the code above and below are equivalent:
 
 
 ```r
-textstat_frequency(news_dfm, n = 10)
+ie_dfm <- tokens(ie_corp, remove_punct = TRUE)
 ```
 
-```
-##    feature frequency rank docfreq group
-## 1      the    282794    1    5966   all
-## 2        ,    227480    2    5965   all
-## 3        .    203215    3    5959   all
-## 4       to    135020    4    5949   all
-## 5        |    120731    5    5920   all
-## 6       of    120626    6    5943   all
-## 7        a    106730    7    5937   all
-## 8        "    105513    8    5463   all
-## 9      and    103822    9    5933   all
-## 10      in     96986   10    5931   all
-```
-
-## Remove features
-
-We repeat the step above, but specify in the options to remove punctuation, English stopwords and numbers.
-
+You can get the number of documents and features `ndoc()` and `nfeat()` 
 
 ```r
-news_dfm_small <- dfm(news_corp, remove = stopwords("en"),
-                remove_punct = TRUE,
-                remove_numbers = TRUE,
-                verbose = TRUE)
+ndoc(ie_dfm)
 ```
 
 ```
-## Creating a dfm from a corpus input...
-```
-
-```
-##    ... lowercasing
-```
-
-```
-##    ... found 6,000 documents, 94,362 features
-```
-
-```
-##    ... removed 174 features
-##    ... created a 6,000 x 94,188 sparse dfm
-##    ... complete. 
-## Elapsed time: 6 seconds.
+## [1] 14
 ```
 
 ```r
-# check most frequent words again
-textstat_frequency(news_dfm_small, n = 10)
+nfeat(ie_dfm)
 ```
 
 ```
-##       feature frequency rank docfreq group
-## 1        said     28413    1    4809   all
-## 2      people     11169    2    3363   all
-## 3         one      9884    3    3859   all
-## 4         new      8024    4    3072   all
-## 5        also      7901    5    3684   all
-## 6          us      7091    6    2549   all
-## 7         can      6972    7    2985   all
-## 8  government      6821    8    2354   all
-## 9        year      6570    9    2927   all
-## 10       last      6335   10    3129   all
+## [1] 5127
 ```
 
-The **stopwords** package includes stopwords for several languages. For instance:
+You can also get names of the documents and features by `docnames()` and `featnames()`.
 
 
 ```r
-head(stopwords("en"))
+head(docnames(ie_dfm), 20)
 ```
 
 ```
-## [1] "i"      "me"     "my"     "myself" "we"     "our"
-```
-
-```r
-head(stopwords("de"))
-```
-
-```
-## [1] "aber"  "alle"  "allem" "allen" "aller" "alles"
-```
-
-```r
-head(stopwords("ru"))
-```
-
-```
-## [1] "и"   "в"   "во"  "не"  "что" "он"
-```
-
-
-## Stemming
-
-Stemming relies on the **SnowballC** package's implementation of the Porter stemmer, and is available several languages (it does not work perfectly, but it is very fast). When constructing a corpus, you can use `stem = TRUE` to stem words in the `corpus` or `dfm`.
-
-
-```r
-news_dfm_stem <- dfm(news_dfm_small, stem = TRUE)
-```
-
-Let's compare the differences:
-
-
-```r
-head(featnames(news_dfm_small))
-```
-
-```
-## [1] "london"      "masterclass" "climate"     "change"      "want"       
-## [6] "understand"
+##  [1] "2010_BUDGET_01_Brian_Lenihan_FF"      
+##  [2] "2010_BUDGET_02_Richard_Bruton_FG"     
+##  [3] "2010_BUDGET_03_Joan_Burton_LAB"       
+##  [4] "2010_BUDGET_04_Arthur_Morgan_SF"      
+##  [5] "2010_BUDGET_05_Brian_Cowen_FF"        
+##  [6] "2010_BUDGET_06_Enda_Kenny_FG"         
+##  [7] "2010_BUDGET_07_Kieran_ODonnell_FG"    
+##  [8] "2010_BUDGET_08_Eamon_Gilmore_LAB"     
+##  [9] "2010_BUDGET_09_Michael_Higgins_LAB"   
+## [10] "2010_BUDGET_10_Ruairi_Quinn_LAB"      
+## [11] "2010_BUDGET_11_John_Gormley_Green"    
+## [12] "2010_BUDGET_12_Eamon_Ryan_Green"      
+## [13] "2010_BUDGET_13_Ciaran_Cuffe_Green"    
+## [14] "2010_BUDGET_14_Caoimhghin_OCaolain_SF"
 ```
 
 ```r
-head(featnames(news_dfm_stem))
+head(featnames(ie_dfm), 20)
 ```
 
 ```
-## [1] "london"      "masterclass" "climat"      "chang"       "want"       
-## [6] "understand"
+##  [1] "when"          "i"             "presented"     "the"          
+##  [5] "supplementary" "budget"        "to"            "this"         
+##  [9] "house"         "last"          "april"         "said"         
+## [13] "we"            "could"         "work"          "our"          
+## [17] "way"           "through"       "period"        "of"
 ```
 
+You can use`rowSums()` and `colSums()` to calculate marginals. 
 
 
+```r
+head(rowSums(ie_dfm), 10)
+```
 
+```
+##    2010_BUDGET_01_Brian_Lenihan_FF   2010_BUDGET_02_Richard_Bruton_FG 
+##                               7916                               4086 
+##     2010_BUDGET_03_Joan_Burton_LAB    2010_BUDGET_04_Arthur_Morgan_SF 
+##                               5790                               6510 
+##      2010_BUDGET_05_Brian_Cowen_FF       2010_BUDGET_06_Enda_Kenny_FG 
+##                               5964                               3896 
+##  2010_BUDGET_07_Kieran_ODonnell_FG   2010_BUDGET_08_Eamon_Gilmore_LAB 
+##                               2086                               3807 
+## 2010_BUDGET_09_Michael_Higgins_LAB    2010_BUDGET_10_Ruairi_Quinn_LAB 
+##                               1149                               1181
+```
+
+```r
+head(colSums(ie_dfm), 10)
+```
+
+```
+##          when             i     presented           the supplementary 
+##            90           272             3          3598            10 
+##        budget            to          this         house          last 
+##           260          1633           559            49            47
+```
+
+The most frequent features can be found using `topfeatures()`.
+
+
+```r
+topfeatures(ie_dfm, 10)
+```
+
+```
+##  the   to   of  and   in    a   is that   we  for 
+## 3598 1633 1537 1359 1231 1013  868  804  618  578
+```
 
