@@ -7,17 +7,36 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+require(ggplot2)
 ```
 
-Unlike `topfeatures()`,`textstat_frequency() shows term and document frequencies. It can also be used to find the most frequent features within groups.
+Unlike `topfeatures()`,`textstat_frequency()` shows term and document frequencies. It can also be used to find the most frequent features within groups.
 
 ```{r}
 
 tweet_corp <- quanteda.corpora::download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')
 tweet_toks <- tokens(tweet_corp, remove_punct = TRUE) 
 tweet_dfm <- dfm(tweet_toks, select = "#*")
-freq <- textstat_frequency(tweet_dfm, n = 10, groups = docvars(tweet_dfm, 'lang'))
+freq <- textstat_frequency(tweet_dfm, n = 5, groups = docvars(tweet_dfm, 'lang'))
 head(freq, 100)
 ```
 
+You can also plot the frequencies easily.
+
+```{r}
+tweet_dfm %>% 
+  textstat_frequency(n = 15) %>% 
+  ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Frequency") +
+  theme_minimal()
+```
+
+
+{{% notice note %}}
+Often, it might make sense to weight the features of `dfm` before analysing frequencies. `dfm_weight()` contains several options for weighting a document-feature matrix. For instance, to control for the length of each document, `scheme  = "prop"` estimates the proportion of the total feature counts.
+
+The option `dfm_tfidf()` allows you to weight a dfm by term frequency-inverse documentn frequency, a commonly used measure in quantitative text analysis.
+{{% /notice %}}
 
