@@ -2,7 +2,7 @@ baseURL = "/"
 languageCode = "en-US"
 defaultContentLanguage = "en"
 
-title = "quaneda tutorials"
+title = "Tutorials for quanteda"
 theme = "hugo-theme-learn"
 themesdir = "./themes"
 metaDataFormat = "yaml"
@@ -22,7 +22,7 @@ home = [ "HTML", "RSS", "JSON"]
 
 [Languages]
 [Languages.en]
-title = "Tutorials for quanteda"
+# title = "Tutorials for quanteda"
 weight = 1
 languageName = "English"
 
