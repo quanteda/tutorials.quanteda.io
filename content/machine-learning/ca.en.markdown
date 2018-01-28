@@ -3,17 +3,57 @@ title: Correspondence analysis
 draft: false
 ---
 
+Correspondence analysis is a technique to scale documents on multiple dimensions. Correspondence analysis is similar to principal component analysis but works categorical variables (contigency table).
+
 
 ```r
 require(quanteda)
 ```
 
+`textmodel_ca()` provides similar funcitonality to the **ca** package, but more efficient especially for textual data.
+
+For visualization, we change the document names. 
+
 
 ```r
-require(quanteda)
-dfm(data_corpus_irishbudget2010) %>%
-    textmodel_ca() %>% 
-    textplot_scale1d()
+corp <- data_corpus_irishbudget2010
+docnames(corp) <- sub('2010_BUDGET_', '', docnames(corp))
 ```
 
-<img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-2-1.svg" width="768" />
+You can plot positions of documents on a one-dimensional scale using `textplot_scale1d()`.
+
+
+```r
+ca <- dfm(corp, remove_punct = TRUE, remove = stopwords('en')) %>% textmodel_ca()
+textplot_scale1d(ca)
+```
+
+<img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-3-1.svg" width="768" />
+
+If you plot documents on multi-dimensional scale, you use `coef()` to obtain cordinates of lower dimensions.  
+
+
+```r
+ca_data <- data.frame(dim1 = coef(ca, doc_dim = 1)$coef_document, 
+                      dim2 = coef(ca, doc_dim = 2)$coef_document)
+head(ca_data)
+```
+
+```
+##                            dim1        dim2
+## 01_Brian_Lenihan_FF   1.3947058  0.07857887
+## 02_Richard_Bruton_FG -0.7102673  0.75538166
+## 03_Joan_Burton_LAB   -1.0420867  1.82837918
+## 04_Arthur_Morgan_SF  -0.2428268 -0.09447121
+## 05_Brian_Cowen_FF     1.4579375 -0.12655387
+## 06_Enda_Kenny_FG     -0.9269172 -0.24479883
+```
+
+```r
+plot(1, xlim = c(-3, 3), ylim = c(-3, 3), type = 'n', xlab = 'Dimension 1', ylab = 'Dimension 2')
+grid()
+text(ca_data$dim1, ca_data$dim2, labels = rownames(ca_data), cex = 0.8, col = rgb(0, 0, 0, 0.7))
+```
+
+<img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-4-1.svg" width="672" />
+
