@@ -22,7 +22,7 @@ news_corp <- download('data_corpus_guardian')
 news_corp <- readRDS("../../content/data/data_corpus_guardian.rds")
 ```
 
-We only select news stories publihsed in 2016 using `corpus_subset()`. 
+We only select news stories published in 2016 using `corpus_subset()`. 
 
 ```{r}
 news_corp <- corpus_subset(news_corp, year(docvars(news_corp, 'date')) >= 2016)
@@ -49,10 +49,16 @@ You can extract most important terms from the model using `terms()`.
 terms(lda, 10)
 ```
 
-You can then obtaine the most likely topics using `topics()` and save as a document-level variable.
+You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
 
 ```{r}
 docvars(news_dfm, 'topic') <- topics(lda)
 head(topics(lda), 20)
 ```
+
+{{% notice info %}}
+If you want to learn more about Topic Models, see 
+
+Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation."" _The Journal of Machine Learning Research_ 3(1): 993-1022.
+{{% /notice %}}
 
