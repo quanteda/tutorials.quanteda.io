@@ -22,9 +22,9 @@ lg_dict <- dictionary(file = "../../dictionary/laver-garry.cat")
 `dfm_lookup()` translates dictionary values to keys in a DFM.
 
 ```{r}
-ie_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
-ie_dfm <- dfm(ie_toks)
-lg_dfm <- dfm_lookup(ie_dfm, lg_dict)
+irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+irish_dfm <- dfm(irish_toks)
+lg_dfm <- dfm_lookup(irish_dfm, lg_dict)
 ```
 
 You can also pass a dictionary to `dfm()` to simplify your code. Therefore, the code above and below are equivalent.

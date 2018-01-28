@@ -37,8 +37,8 @@ lengths(data_dictionary_LSD2015)
 lsd_toks <- tokens_lookup(news_toks, data_dictionary_LSD2015[1:2])
 head(lsd_toks, 2)
 
-dfm_lsd <- dfm(lsd_toks)
-head(dfm_lsd, 2)
+lsd_dfm <- dfm(lsd_toks)
+head(lsd_dfm, 2)
 ```
 
 ## Targeted analysis

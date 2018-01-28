@@ -5,6 +5,8 @@ chapter: false
 draft: false
 ---
 
+Naive Bayes is a supervised model usually used to classify documents into two or more categories. We train the classifier using class labels attached to documents, and predict most likely classes of new documents.
+
 
 ```r
 require(quanteda)
@@ -15,8 +17,6 @@ require(caret)
 ```
 ## Warning: package 'caret' was built under R version 3.4.3
 ```
-
-Naive Bayes is a supervised model usually used to classify documents into two or more categories. We train the classifier using class labels attached to documents, and predict most likely classes of new documents.
 
 `data_corpus_movies` from the **quanteda.corpora** package containes 2000 movie reviews classified either as "positive" or "negative".
 

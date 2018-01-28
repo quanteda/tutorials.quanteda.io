@@ -13,21 +13,21 @@ require(quanteda)
 
 
 ```r
-ie_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
-ie_dfm <- dfm(ie_toks)
+irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+irish_dfm <- dfm(irish_toks)
 ```
 
 If corpus is given to `dfm()`, it tokenize texts internally with the same level of control through the remove_* options. Therefore, the code above and below are equivalent:
 
 
 ```r
-ie_dfm <- tokens(ie_corp, remove_punct = TRUE)
+irish_dfm <- tokens(irish_corp, remove_punct = TRUE)
 ```
 
 You can get the number of documents and features `ndoc()` and `nfeat()` 
 
 ```r
-ndoc(ie_dfm)
+ndoc(irish_dfm)
 ```
 
 ```
@@ -35,7 +35,7 @@ ndoc(ie_dfm)
 ```
 
 ```r
-nfeat(ie_dfm)
+nfeat(irish_dfm)
 ```
 
 ```
@@ -46,7 +46,7 @@ You can also get names of the documents and features by `docnames()` and `featna
 
 
 ```r
-head(docnames(ie_dfm), 20)
+head(docnames(irish_dfm), 20)
 ```
 
 ```
@@ -67,7 +67,7 @@ head(docnames(ie_dfm), 20)
 ```
 
 ```r
-head(featnames(ie_dfm), 20)
+head(featnames(irish_dfm), 20)
 ```
 
 ```
@@ -82,7 +82,7 @@ You can use`rowSums()` and `colSums()` to calculate marginals.
 
 
 ```r
-head(rowSums(ie_dfm), 10)
+head(rowSums(irish_dfm), 10)
 ```
 
 ```
@@ -99,7 +99,7 @@ head(rowSums(ie_dfm), 10)
 ```
 
 ```r
-head(colSums(ie_dfm), 10)
+head(colSums(irish_dfm), 10)
 ```
 
 ```
@@ -113,7 +113,7 @@ The most frequent features can be found using `topfeatures()`.
 
 
 ```r
-topfeatures(ie_dfm, 10)
+topfeatures(irish_dfm, 10)
 ```
 
 ```
@@ -121,3 +121,36 @@ topfeatures(ie_dfm, 10)
 ## 3598 1633 1537 1359 1231 1013  868  804  618  578
 ```
 
+If you want to convert frequency count to proportion with in documents, use `dfm_weight(scheme  = "prop")`.
+
+
+```r
+prop_irish_dfm <- dfm_weight(irish_dfm, scheme  = "prop")
+topfeatures(prop_irish_dfm[1,])
+```
+
+```
+##        the         to         of         in        and          a 
+## 0.06808994 0.03852956 0.03688732 0.02892875 0.02475998 0.01806468 
+##       will        for       this         we 
+## 0.01755937 0.01364325 0.01250632 0.01237999
+```
+
+You can also weight frequency count by uniqueness of the features across docuemnt use `dfm_tfidf()`.
+
+
+```r
+tfidf_irish_dfm <- dfm_tfidf(irish_dfm)
+topfeatures(tfidf_irish_dfm[1,])
+```
+
+```
+##    details     review   measures reductions    shortly      level 
+##  11.831373   8.943161   7.525750   7.072885   6.876768   6.707370 
+##     scheme       body       2010    summary 
+##   6.321630   5.915686   5.832913   5.730640
+```
+
+{{% notice warning %}}
+Even after applying  `dfm_weight()` or `dfm_tfidf()`, `topfeatures()` works on a DFM, but it can be misleading if applied to more than one document.
+{{% /notice %}}

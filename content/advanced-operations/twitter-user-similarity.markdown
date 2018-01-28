@@ -14,7 +14,7 @@ Import Tweets from JSON (.json) file.
 
 
 ```r
-twitter_data <- readtext("../../content/data/twitter.json")
+twitter_data <- readtext("content/data/twitter.json")
 ```
 
 

@@ -5,6 +5,6 @@ chapter: true
 draft: false
 ---
 
-# Toekns
+# Tokens
 
-Learn how to make and modify **quanteda**'s tokens object
+Learn how to make and modify **quanteda**'s tokens

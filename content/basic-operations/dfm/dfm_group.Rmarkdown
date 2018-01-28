@@ -9,23 +9,23 @@ require(quanteda)
 ```
 
 ```{r}
-ie_dfm <- dfm(data_corpus_irishbudget2010)
-ndoc(ie_dfm)
-head(colSums(ie_dfm), 10)
+irish_dfm <- dfm(data_corpus_irishbudget2010)
+ndoc(irish_dfm)
+head(colSums(irish_dfm), 10)
 ```
 
 `dfm_group()` merge documents by taking the sums of feature frequencies.
 
 ```{r}
-paty_ie_dfm <- dfm_group(ie_dfm, groups = docvars(ie_dfm, 'party'))
-ndoc(paty_ie_dfm)
-head(colSums(paty_ie_dfm), 10)
+party_dfm <- dfm_group(irish_dfm, groups = docvars(irish_dfm, 'party'))
+ndoc(party_dfm)
+head(colSums(party_dfm), 10)
 ```
 
 You can also use `groups` argument in `dfm()` to simplify your code. 
 
 ```{r}
-paty_ie_dfm <- dfm(data_corpus_irishbudget2010, groups = docvars(ie_dfm, "party"))
-ndoc(paty_ie_dfm)
+party_dfm <- dfm(data_corpus_irishbudget2010, groups = docvars(irish_dfm, "party"))
+ndoc(party_dfm)
 ```
 

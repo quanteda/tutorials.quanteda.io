@@ -68,9 +68,9 @@ print(brexit_toks[['text173244']])
 dfm_brexti <- dfm(brexit_toks)
 not_brexit_dfm <- dfm(not_brexit_toks)
 
-key_brexit <- textstat_keyness(rbind(dfm_brexti, not_brexit_dfm), seq_len(ndoc(dfm_brexti)))
-key_brexit <- key_brexit[key_brexit$n_target > 10,]
-head(key_brexit, 50)
+brexit_key <- textstat_keyness(rbind(dfm_brexti, not_brexit_dfm), seq_len(ndoc(dfm_brexti)))
+brexit_key <- brexit_key[brexit_key$n_target > 10,]
+head(brexit_key, 50)
 ```
 
 ```
@@ -136,10 +136,10 @@ Targeted frequency analysis might look complex, but can be done in three lines.
 trump <- c('donald trump', 'trump')
 trump_dfm <- tokens_keep(news_toks, phrase(trump), window = 10) %>% dfm()
 not_trump_dfm <- tokens_remove(news_toks, phrase(trump), window = 10) %>% dfm()
-key_trump <- textstat_keyness(rbind(trump_dfm, not_trump_dfm), seq_len(ndoc(trump_dfm)))
+trump_key <- textstat_keyness(rbind(trump_dfm, not_trump_dfm), seq_len(ndoc(trump_dfm)))
 
-key_trump <- key_trump[key_trump$n_target > 10,]
-head(key_trump, 50)
+trump_key <- trump_key[trump_key$n_target > 10,]
+head(trump_key, 50)
 ```
 
 ```

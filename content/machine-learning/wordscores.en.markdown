@@ -4,6 +4,8 @@ weight: 10
 draft: false
 ---
 
+Wordscores is a scaling model for estimating the positions (mostly of political actors) for dimensions that are specified a priori. Wordscores was introduced in Laver, Benoit and Garry (2003) and is widely used among political scientists.
+
 
 ```r
 require(quanteda)
@@ -11,12 +13,7 @@ require(quanteda.corpora)
 require(ggplot2)
 ```
 
-
-{{% notice note %}}
-Wordscores is a scaling model for estimating the positions (mostly of political actors) for dimensions that are specified a priori. Wordscores was introduced in Laver, Benoit and Garry (2003) and is widely used among political scientists.
-
-To score the documents (they need to be converted to a `dfm` first), you need to specify so called reference texts in your text corpus. These texts require reference scores that are stored in a Scoring Variable. Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
-{{% /notice %}}
+Traininga a Wordscores model reference scores that are stored in a 'Scoring'. Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
 
 We use texts of amicus curiae briefs labelled as being either pro-petitioner or pro-respondent in US Supreme court cases on affirmative action to exemplify Wordscores. 
 
@@ -53,16 +50,16 @@ Now we can apply the Wordscores algorithm to the document-feature matrix.
 
 
 ```r
-dfm_amicus <- dfm(data_corpus_amicus)
+amicus_dfm <- dfm(data_corpus_amicus)
 
-ws_amicus <- textmodel_wordscores(dfm_amicus, y = refs)
+ws <- textmodel_wordscores(amicus_dfm, y = refs)
 ```
 
 Next, we predict the Wordscores for the unknown virgin texts.
 
 
 ```r
-ws_preds <- predict(ws_amicus, newdata = dfm_amicus)
+ws_preds <- predict(ws, newdata = amicus_dfm)
 summary(ws_preds)
 ```
 
@@ -76,15 +73,15 @@ Finally, we can plot the distribution of the Wordscores for the virgin texts wit
 
 ```r
 # create data frame
-preds_data <- data.frame(
+pred_data <- data.frame(
   predictions = ws_preds,
-  document_class = docvars(dfm_amicus, "testclass")
+  document_class = docvars(amicus_dfm, "testclass")
 )
 
 # remove training texts
-preds_data <- subset(preds_data, !is.na(document_class))
+pred_data <- subset(pred_data, !is.na(document_class))
 
-ggplot(preds_data, aes(x = document_class, y = predictions)) +
+ggplot(pred_data, aes(x = document_class, y = predictions)) +
   geom_boxplot() +
   coord_flip() + 
   labs(x = "Test class", y = "Predicted document class") + 
@@ -92,3 +89,8 @@ ggplot(preds_data, aes(x = document_class, y = predictions)) +
 ```
 
 <img src="/machine-learning/wordscores.en_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
+
+
+{{% notice info %}}
+If you want to learn more about Wordscores, see Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "Extracting Policy Positions From Political Texts Using Words as Data." _American Political Science Review_ 97(02): 311-31.
+{{% /notice%}}

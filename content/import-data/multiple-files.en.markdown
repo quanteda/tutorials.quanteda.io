@@ -63,7 +63,7 @@ You can also read JSON files (.json) fownloaded from the Twititer stream API.
 
 
 ```r
-twitter_data <- readtext("../../content/data/twitter.json")
+twitter_data <- readtext("content/data/twitter.json")
 ```
 
 

@@ -46,7 +46,7 @@ data_reviews <- readtext(paste0(data_dir, "/txt/movie_reviews/*"))
 You can also read JSON files (.json) fownloaded from the Twititer stream API.
 
 ```{r, eval=FALSE}
-twitter_data <- readtext("../../content/data/twitter.json")
+twitter_data <- readtext("content/data/twitter.json")
 ```
 
 ```{r include=FALSE}

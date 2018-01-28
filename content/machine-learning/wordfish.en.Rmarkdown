@@ -4,48 +4,42 @@ weight: 20
 draft: false
 ---
 
+Wordfish is Poisson scaling model of one-dimensional document positions (Slapin and Proksch 2008). Wordfish also allows for scaling documents, but compared to Wordscores reference scores/texts are not required. Wordfish is an unsupervised one-dimensional text scaling method, meaning that it estimates the positions of documents solely based on the observed word frequencies. 
+
 ```{r message=FALSE}
 require(quanteda)
 ```
 
-{{% notice note %}}
-Wordfish is Poisson scaling model of one-dimensional document positions (Slapin and Proksch 2008). Wordfish also allows for scaling documents, but compared to Wordscores reference scores/texts are not required. Wordfish is an unsupervised one-dimensional text scaling method, meaning that it estimates the positions of documents solely based on the observed word frequencies. 
-
-Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_ 52(3): 705-772.
-{{% /notice %}}
-
 In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.
 
 ```{r}
-irishbudget_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-irishbudget_wf <- textmodel_wordfish(irishbudget_dfm, dir = c(6,5))
-
-summary(irishbudget_wf)
+irish_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+wf <- textmodel_wordfish(irish_dfm, dir = c(6,5))
+summary(wf)
 ```
 
 We can plot the results of a fitted scaling model using `textplot_scale1d()`.
 
 ```{r}
-doclab <- apply(docvars(data_corpus_irishbudget2010, c("name", "party")), 
-                1, paste, collapse = " ")
-
-textplot_scale1d(irishbudget_wf, doclabels = doclab)
+doclab <- apply(docvars(irish_dfm, c("name", "party")), 1, paste, collapse = " ")
+textplot_scale1d(wf, doclabels = doclab)
 ```
 
 The function also allows to plot scores by a grouping variable, in this case the party affiliation of the speakers.
 
 ```{r}
-textplot_scale1d(irishbudget_wf, doclabels = doclab,
-                 groups = docvars(data_corpus_irishbudget2010, "party"))
+textplot_scale1d(wf, doclabels = doclab, groups = docvars(irish_dfm, "party"))
 ```
 
 Finally, we can plot the estimated word positions.
 
 ```{r}
-textplot_scale1d(irishbudget_wf, margin = "features", 
+textplot_scale1d(wf, margin = "features", 
                  highlighted = c("government", "global", "children", 
                                  "bank", "economy", "the", "citizenship",
                                  "productivity", "deficit"))
 ```
 
-
+{{% notice info %}}
+If you want to learn more about Wordfish, see Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_ 52(3): 705-772.
+{{% /notice %}}
