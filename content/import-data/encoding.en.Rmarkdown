@@ -4,12 +4,14 @@ weight: 40
 draft: false
 ---
 
+Even if files are not saved in UTF8, you can can extract encoding information from the file names and import the texts correctly.
+
 ```{r, message=FALSE}
 require(quanteda)
 require(readtext)
 ```
 
-Even if files are not saved in UTF8, you can can extract encoding information from the file names and import the texts correctly. `temp_dir` contains the example files in various character encodings.
+`temp_dir` contains the example files in various character encodings.
 
 ```{r}
 temp_dir <- tempdir()
