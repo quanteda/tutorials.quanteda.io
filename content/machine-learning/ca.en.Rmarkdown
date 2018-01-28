@@ -4,7 +4,7 @@ weight: 40
 draft: false
 ---
 
-Correspondence analysis is a technique to scale documents on multiple dimensions. Correspondence analysis is similar to principal component analysis but works categorical variables (contingency table).
+Correspondence analysis is a technique to scale documents on multiple dimensions. Correspondence analysis is similar to principal component analysis but works for categorical variables (contingency table).
 
 ```{r, message=FALSE}
 require(quanteda)
@@ -16,7 +16,7 @@ For visualization, we change the document names.
 
 ```{r}
 corp <- data_corpus_irishbudget2010
-docnames(corp) <- sub('2010_BUDGET_', '', docnames(corp))
+docnames(corp) <- paste(docvars(corp, "name"), docvars(corp, "party"), sep = ", ")
 ```
 
 You can plot positions of documents on a one-dimensional scale using `textplot_scale1d()`.
@@ -29,12 +29,11 @@ textplot_scale1d(ca)
 If you plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
 
 ```{r fig.height=7, fig.width=7}
-
 ca_data <- data.frame(dim1 = coef(ca, doc_dim = 1)$coef_document, 
                       dim2 = coef(ca, doc_dim = 2)$coef_document)
 head(ca_data)
 
-plot(1, xlim = c(-3, 3), ylim = c(-3, 3), type = 'n', xlab = 'Dimension 1', ylab = 'Dimension 2')
+plot(1, xlim = c(-2, 2), ylim = c(-2, 2), type = 'n', xlab = 'Dimension 1', ylab = 'Dimension 2')
 grid()
 text(ca_data$dim1, ca_data$dim2, labels = rownames(ca_data), cex = 0.8, col = rgb(0, 0, 0, 0.7))
 ```
