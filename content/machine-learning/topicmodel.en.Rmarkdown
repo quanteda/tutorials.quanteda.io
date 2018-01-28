@@ -40,7 +40,7 @@ news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 
 **quanteda** does not implement own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.  
 
-```{r}
+```{r cache=TRUE}
 dtm <- convert(news_dfm, to = "topicmodels")
 lda <- LDA(dtm, k = 10)
 ```
@@ -59,8 +59,7 @@ head(topics(lda), 20)
 ```
 
 {{% notice info %}}
-If you want to learn more about Topic Models, see 
-
+If you want to learn more about Topic Models, see:  
 Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation."" _The Journal of Machine Learning Research_ 3(1): 993-1022.
 {{% /notice %}}
 
