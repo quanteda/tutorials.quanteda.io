@@ -10,7 +10,7 @@ require(quanteda)
 require(readtext)
 ```
 
-`data_dir`is the location of sample files in your computer.
+`data_dir` is the location of sample files in your computer.
 
 
 ```r
@@ -32,5 +32,5 @@ inaug_data <- readtext(paste0(data_dir, "/tsv/dailsample.tsv"), text_field = "sp
 ```
 
 {{% notice warning %}}
-The most common problem in loading data into R is misspeficing the location of files or directories. If the path is relative, check where you are using `getwd()` and set the root directory of your project using `setwd()`. On Windows, you have to replace all `\` in a path with `/`.
+The most common problem in loading data into R is misspeficing the location of files or directories. If the path is relative, check where you are using `getwd()` and set the root directory of your project using `setwd()`. On Windows, you have to replace all `\` in a path with `/`. Alternatively, you can use RStudio's "Project" option (File > New Project).
 {{% /notice%}}

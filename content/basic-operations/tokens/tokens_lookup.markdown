@@ -266,6 +266,6 @@ dfm(dict_toks)
 ```
 
 {{% notice tip %}}
-To avoide double counting, `tokens_lookup()` ignores multiple matches of dicitonary values for the same key with the same token. For example, if `US = c('United States of America', 'United States')` is in your dictionary, you get 'US' only once for a sequence of tokens `'United' 'States' 'of' 'America'`.
+To avoide double counting, `tokens_lookup()` ignores multiple matches of dictionary values for the same key with the same token. For example, if `US = c('United States of America', 'United States')` is in your dictionary, you get 'US' only once for a sequence of tokens `'United' 'States' 'of' 'America'`.
 {{% /notice %}}
 

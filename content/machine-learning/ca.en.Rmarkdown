@@ -26,7 +26,7 @@ ca <- dfm(corp, remove_punct = TRUE, remove = stopwords('en')) %>% textmodel_ca(
 textplot_scale1d(ca)
 ```
 
-If you plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
+If you want to plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
 
 ```{r fig.height=7, fig.width=7}
 ca_data <- data.frame(dim1 = coef(ca, doc_dim = 1)$coef_document, 

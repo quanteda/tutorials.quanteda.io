@@ -59,31 +59,31 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1      Topic 2       Topic 3   Topic 4    Topic 5    
-##  [1,] "food"       "climate"     "clinton" "refugees" "sales"    
-##  [2,] "water"      "energy"      "sanders" "syria"    "customers"
-##  [3,] "de"         "housing"     "cruz"    "isis"     "apple"    
-##  [4,] "el"         "gas"         "gmt"     "syrian"   "china"    
-##  [5,] "sea"        "development" "hillary" "military" "google"   
-##  [6,] "island"     "funding"     "obama"   "islamic"  "users"    
-##  [7,] "litvinenko" "project"     "trump's" "un"       "games"    
-##  [8,] "la"         "homes"       "bst"     "turkey"   "sale"     
-##  [9,] "revolution" "khan"        "bernie"  "muslim"   "sold"     
-## [10,] "scientists" "education"   "ted"     "aid"      "iphone"   
-##       Topic 6      Topic 7    Topic 8      Topic 9      Topic 10   
-##  [1,] "gmt"        "officers" "corbyn"     "doctors"    "oil"      
-##  [2,] "bst"        "prison"   "johnson"    "violence"   "markets"  
-##  [3,] "labor"      "arrested" "gmt"        "australia"  "prices"   
-##  [4,] "turnbull"   "shooting" "shadow"     "nhs"        "banks"    
-##  [5,] "brussels"   "black"    "boris"      "hospital"   "rates"    
-##  [6,] "19"         "incident" "leadership" "drug"       "investors"
-##  [7,] "talks"      "officer"  "tory"       "medical"    "bst"      
-##  [8,] "senate"     "victims"  "jeremy"     "child"      "shares"   
-##  [9,] "benefits"   "criminal" "cabinet"    "australian" "trading"  
-## [10,] "australian" "dead"     "scottish"   "cases"      "quarter"
+##       Topic 1      Topic 2    Topic 3     Topic 4    Topic 5    Topic 6   
+##  [1,] "gmt"        "officers" "oil"       "apple"    "doctors"  "refugees"
+##  [2,] "cruz"       "violence" "markets"   "facebook" "nhs"      "syria"   
+##  [3,] "rubio"      "prison"   "sales"     "game"     "hospital" "isis"    
+##  [4,] "candidates" "child"    "prices"    "phone"    "food"     "syrian"  
+##  [5,] "sanders"    "victims"  "investors" "google"   "drug"     "military"
+##  [6,] "senator"    "abuse"    "shares"    "video"    "medical"  "islamic" 
+##  [7,] "iowa"       "sexual"   "gmt"       "users"    "china"    "un"      
+##  [8,] "ted"        "criminal" "bst"       "music"    "drugs"    "turkey"  
+##  [9,] "poll"       "officer"  "banks"     "games"    "patients" "muslim"  
+## [10,] "voting"     "crime"    "rates"     "iphone"   "junior"   "forces"  
+##       Topic 7     Topic 8       Topic 9    Topic 10    
+##  [1,] "clinton"   "climate"     "gmt"      "australia" 
+##  [2,] "sanders"   "energy"      "corbyn"   "australian"
+##  [3,] "hillary"   "water"       "brussels" "bst"       
+##  [4,] "bst"       "housing"     "johnson"  "labor"     
+##  [5,] "obama"     "gas"         "boris"    "turnbull"  
+##  [6,] "gun"       "funding"     "talks"    "senate"    
+##  [7,] "trump's"   "income"      "cabinet"  "malcolm"   
+##  [8,] "cruz"      "homes"       "benefits" "budget"    
+##  [9,] "bernie"    "development" "jeremy"   "coalition" 
+## [10,] "delegates" "green"       "tory"     "greens"
 ```
 
-You can then obtain the most likely topics using `topics()` and save as a document-level variable.
+You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
 
 
 ```r
@@ -93,12 +93,17 @@ head(topics(lda), 20)
 
 ```
 ## text136751 text136585 text139163 text169133 text153451 text163885 
-##          2          8          5          7          7          2 
+##          8          1          8          4          2          8 
 ## text157885 text173244 text137394 text169408 text184646 text127410 
-##          3          2          8          1          8          1 
+##          7          8          1          4          9          2 
 ## text134923 text169695 text147917 text157535 text177078 text174393 
-##          8         10          1          2          2          3 
+##          9          3          4          8          8          7 
 ## text181782 text143323 
-##          1          8
+##          5          9
 ```
+
+{{% notice info %}}
+If you want to learn more about Topic Models, see:  
+Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation."" _The Journal of Machine Learning Research_ 3(1): 993-1022.
+{{% /notice %}}
 

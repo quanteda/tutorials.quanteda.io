@@ -20,7 +20,7 @@ temp_dir <- tempdir()
 unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"), exdir = temp_dir)
 ```
 
-`list.files` returns names of all the text files (.txt) in the directory
+`list.files()` returns names of all the text files (.txt) in the directory
 
 
 ```r

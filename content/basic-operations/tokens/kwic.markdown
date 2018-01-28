@@ -80,6 +80,40 @@ head(immig2_kw, 10)
 ##  birth rate is estimated to
 ```
 
+With `window` you can specify the number of context words to be displayed around the keyword.
+
+
+
+```r
+immig2_kw <- kwic(toks, c('immig*', 'migra*'), window = 7)
+head(immig2_kw, 10)
+```
+
+```
+##                                                                 
+##    [BNP, 1]                                                    |
+##   [BNP, 16]                         BNP CAN SOLVE.- At current |
+##   [BNP, 78]                 will include a halt to all further |
+##   [BNP, 85]        immigration, the deportation of all illegal |
+##  [BNP, 169]             crimes in Britain, regardless of their |
+##  [BNP, 197] that party's admission that they orchestrated mass |
+##  [BNP, 272]                   is in grave peril, threatened by |
+##  [BNP, 374]                          ( ONS), legal Third World |
+##  [BNP, 531]      include births to second and third generation |
+##  [BNP, 661]                    these figures are added in, the |
+##                                                                
+##  IMMIGRATION | : AN UNPARALLELED CRISIS WHICH ONLY THE         
+##  immigration | and birth rates, indigenous British people      
+##  immigration | , the deportation of all illegal immigrants     
+##  immigrants  | , a halt to the" asylum                         
+##  immigration | status.- The BNP will review                    
+##  immigration | to change forcibly Britain's demographics and to
+##  immigration | and multiculturalism. In the absence of         
+##  immigrants  | made up 14.7 percent( 7.5 million               
+##   immigrant  | mothers. Figures released by the ONS            
+##   immigrant  | birth rate is estimated to be around
+```
+
 If you want to find multi-word expressions, separate words by whitespace and wrap the character vector by `phrase()`.
 
 
@@ -105,7 +139,7 @@ head(asylum_kw)
 ##  is removed, the flood
 ```
 
-Texts does do not alwasy do not appear nicely in R console, so you can use `View()` to see in an interactive HTML table.
+Texts do not always appear nicely in the R console, so you can use `View()` to see the keywords-in-context in an interactive HTML table.
 
 
 ```r

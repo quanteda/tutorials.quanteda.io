@@ -9,6 +9,7 @@ Wordscores is a scaling model for estimating the positions (mostly of political 
 
 ```r
 require(quanteda)
+require(quanteda.corpora)
 require(ggplot2)
 ```
 
@@ -17,15 +18,40 @@ Training a Wordscores model requires reference scores for texts whose policy pos
 We use manifestos of the 2013 and 2017 German federal elections. For the 2013 elections we assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and predict the party positions for the 2017 manifestos.
 
 
-
 ```r
-ger_corpus <- readRDS(file = "content/data/data_corpus_germanifestos.rds")
-summary(ger_corpus)
+ger_corpus <- download(url = 'https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1')
 ```
 
 
 
-Now we can apply the Wordscores algorithm to the document-feature matrix.
+
+```r
+summary(ger_corpus)
+```
+
+```
+## Corpus consisting of 12 documents:
+## 
+##          Text Types Tokens Sentences year   party ref_score
+##      AfD 2013   450    951        43 2013     AfD        NA
+##  CDU-CSU 2013  7546  46771      2526 2013 CDU-CSU      5.92
+##      FDP 2013  7909  42488      2376 2013     FDP      6.53
+##   Gruene 2013 13722  94065      5171 2013  Gruene      3.61
+##    Linke 2013  8370  43695      1854 2013   Linke      1.23
+##      SPD 2013  8298  47634      2552 2013     SPD      3.76
+##      AfD 2017  5860  19461       731 2017     AfD        NA
+##  CDU-CSU 2017  4827  22003      1256 2017 CDU-CSU        NA
+##      FDP 2017  8563  38738      1928 2017     FDP        NA
+##   Gruene 2017 13064  75390      3221 2017  Gruene        NA
+##    Linke 2017 11570  67808      2757 2017   Linke        NA
+##      SPD 2017  8283  43028      2403 2017     SPD        NA
+## 
+## Source:  /Users/stefan/Desktop/german_manifestos/* on x86_64 by stefan
+## Created: Sun Jan 28 13:54:30 2018
+## Notes:
+```
+
+Now we can apply the Wordscores algorithm to a document-feature matrix.
 
 
 ```r
@@ -89,7 +115,7 @@ Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_sca
 textplot_scale1d(ger_ws_predict)
 ```
 
-<img src="/machine-learning/wordscores.en_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
+<img src="/machine-learning/wordscores.en_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
 
 
 {{% notice info %}}

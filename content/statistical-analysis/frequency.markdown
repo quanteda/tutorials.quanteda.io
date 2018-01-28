@@ -17,6 +17,12 @@ Unlike `topfeatures()`,`textstat_frequency()` shows both term and document frequ
 
 ```r
 tweet_corp <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')
+```
+
+
+
+
+```r
 tweet_toks <- tokens(tweet_corp, remove_punct = TRUE) 
 tweet_dfm <- dfm(tweet_toks, select = "#*")
 freq <- textstat_frequency(tweet_dfm, n = 5, groups = docvars(tweet_dfm, 'lang'))
@@ -241,6 +247,5 @@ tweet_dfm %>%
   theme_minimal()
 ```
 
-<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-3-1.svg" width="768" />
-
+<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-5-1.svg" width="768" />
 

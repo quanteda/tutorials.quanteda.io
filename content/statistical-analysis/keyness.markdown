@@ -14,10 +14,6 @@ require(quanteda.corpora)
 require(lubridate)
 ```
 
-```
-## Warning: package 'lubridate' was built under R version 3.4.3
-```
-
 
 
 ```r

@@ -1,5 +1,5 @@
 ---
-title: Construct a tokens
+title: Construct a tokens object
 weight: 10
 draft: false
 ---
