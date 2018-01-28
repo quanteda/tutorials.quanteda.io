@@ -30,3 +30,7 @@ Alternatively, you can use the **readtext** package to import character (comma o
 ```r
 inaug_data <- readtext(paste0(data_dir, "/tsv/dailsample.tsv"), text_field = "speech")
 ```
+
+{{% notice warning %}}
+The most common problem in loading data into R is misspeficing the location of files or directories. If the path is relative, check where you are using `getwd()` and set the root directory of your project using `setwd()`. On Windows, you have to replace all `\` in a path with `/`.
+{{% /notice%}}
