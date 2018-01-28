@@ -5,6 +5,8 @@ chapter: false
 draft: false
 ---
 
+Keyness is a signed two-by-two association scores orignnally implimented in [WordSmith](http://www.lexically.net/wordsmith/) to identify frequent words in documents.
+
 
 ```r
 require(quanteda)
@@ -16,7 +18,6 @@ require(lubridate)
 ## Warning: package 'lubridate' was built under R version 3.4.3
 ```
 
-`textstat_keyness()` compares frequencies of words between two groups of documents by their  keyness statistics. This statistical measure was originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to discover frequent words in target documents. Keyness is essentially a signed chi-square, where words more frequent than expected are given positive sign. 
 
 
 ```r
@@ -25,12 +26,14 @@ news_corp <- download('data_corpus_guardian')
 
 
 
+Using `textstat_keyness()`, you can compares frequencies of words between target and reference documents. Target documents are news atricles publihsed in 2016 and reference documents are those published in 2012-2015 in this example.
+
 
 ```r
 news_toks <- tokens(news_corp, remove_punct = TRUE) 
 news_dfm <- dfm(news_toks)
 
-key <- textstat_keyness(news_dfm, 2016 <= year(docvars(news_dfm, 'date'))) 
+key <- textstat_keyness(news_dfm, year(docvars(news_dfm, 'date')) >= 2016)
 head(key, 20)
 ```
 

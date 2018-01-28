@@ -8,7 +8,6 @@ Wordscores is a scaling model for estimating the positions (mostly of political 
 
 ```{r message=FALSE}
 require(quanteda)
-require(quanteda.corpora)
 require(ggplot2)
 ```
 
@@ -19,22 +18,19 @@ We use manifestos of the 2013 and 2017 German federal elections. For the 2013 el
 
 ```{r eval=FALSE}
 ger_corpus <- readRDS(file = "content/data/data_corpus_germanifestos.rds")
-
 summary(ger_corpus)
 ```
 
 ```{r include=FALSE}
 # This code is only for website generation
-ger_corpus <- readRDS(file = "../../data/data_corpus_germanifestos.rds")
+ger_corpus <- readRDS(file = "../../content/data/data_corpus_germanifestos.rds")
 ```
 
 Now we can apply the Wordscores algorithm to the document-feature matrix.
 
 ```{r}
 ger_dfm <- dfm(ger_corpus, remove = stopwords("de"), remove_punct = TRUE)
-
 ger_ws <- textmodel_wordscores(ger_dfm, y = docvars(ger_corpus, "ref_score"))
-
 summary(ger_ws)
 ```
 
@@ -52,9 +48,7 @@ textplot_scale1d(ger_ws_predict)
 
 
 {{% notice info %}}
-If you want to learn more about Wordscores, see:
-
-Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "Extracting Policy Positions From Political Texts Using Words as Data." _American Political Science Review_ 97(2): 311-331.
-
+If you want to learn more about Wordscores, see:  
+Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "Extracting Policy Positions From Political Texts Using Words as Data." _American Political Science Review_ 97(2): 311-331.  
 Lowe, Will. 2008. "Understanding Wordscores". _Political Analysis_ 16(4): 356-371.
 {{% /notice%}}

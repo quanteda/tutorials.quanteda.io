@@ -1,22 +1,58 @@
 ---
 title: Topic models
+weight: 50
 draft: false
 ---
 
+Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discrimnatory groups of documents automatically. 
+
 ```{r message=FALSE}
 require(quanteda)
+require(quanteda.corpora)
+require(lubridate)
 require(topicmodels)
 ```
 
+```{r eval=FALSE}
+news_corp <- download('data_corpus_guardian')
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+news_corp <- readRDS("../../content/data/data_corpus_guardian.rds")
+```
+
+We only select news stories publihsed in 2016 using `corpus_subset()`. 
+
 ```{r}
-mycorpus <- corpus_subset(data_corpus_inaugural, Year > 1950)
-quantdfm <- dfm(mycorpus, verbose = FALSE, remove_punct = TRUE,
-                remove = c(stopwords('en'), 'will', 'us', 'nation', 'can', 'peopl*', 'americ*'))
-ldadfm <- convert(quantdfm, to = "topicmodels")
-lda <- LDA(ldadfm, control = list(alpha = 0.1), k = 10)
+news_corp <- corpus_subset(news_corp, year(docvars(news_corp, 'date')) >= 2016)
+ndoc(news_corp)
+```
+
+Further, after removal of function words and punctuations in `dfm()`, we remove rare and common features and uisng `dfm_trim()` to reduce time to fit a model.
+
+```{r}
+news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
+            dfm_trim(min_count = 0.95, max_docfreq = 0.1)
+```
+
+**quanteda** does not impliment own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.  
+
+```{r}
+dtm <- convert(news_dfm, to = "topicmodels")
+lda <- LDA(dtm, k = 10)
+```
+
+You can extract most important terms from the model using `terms()`.
+
+```{r}
 terms(lda, 10)
 ```
 
-```{r kable, results = 'asis'}
-knitr::kable(terms(lda, 10))
+You can then obtaine the most likely topics using `topics()` and save as a document-level variable.
+
+```{r}
+docvars(news_dfm, 'topic') <- topics(lda)
+head(topics(lda), 20)
 ```
+
