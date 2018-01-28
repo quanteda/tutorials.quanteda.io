@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-A feature-ouccerances matrix (FCM) records number of co-occurances of tokens. This is **qunateda** special object, but behavies similarty to a DFM. 
+A feature-ouccerances matrix (FCM) records number of co-occurances of tokens. This is **qunateda** special object, but behaves similarly to a DFM. 
 
 
 ```{r message=FALSE}
