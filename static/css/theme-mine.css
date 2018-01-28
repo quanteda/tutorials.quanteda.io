@@ -108,6 +108,14 @@ pre .copy-to-clipboard{
   background-color: #f8f8f8;
 }
 
+div.author {
+  text-align: center;
+  font-size: 18px;
+  margin: 1.7rem 0;
+}
+
+/* ------------- fullscreen ------------- */
+
 @media all and (display-mode: fullscreen) {
   
     .responsive {
