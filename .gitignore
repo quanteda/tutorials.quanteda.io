@@ -9,5 +9,4 @@ content/*/*.svg
 content/*/*.png
 content/*/*.md
 **_cache/
-**_files/
 .httr-oauth
