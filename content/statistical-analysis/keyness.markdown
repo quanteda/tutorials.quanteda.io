@@ -8,14 +8,25 @@ draft: false
 
 ```r
 require(quanteda)
+require(quanteda.corpora)
 require(lubridate)
+```
+
+```
+## Warning: package 'lubridate' was built under R version 3.4.3
 ```
 
 `textstat_keyness()` compares frequencies of words between two groups of documents by their  keyness statistics. This statistical measure was originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to discover frequent words in target documents. Keyness is essentially a signed chi-square, where words more frequent than expected are given positive sign. 
 
 
 ```r
-news_corp <- quanteda.corpora::download('data_corpus_guardian')
+news_corp <- download('data_corpus_guardian')
+```
+
+
+
+
+```r
 news_toks <- tokens(news_corp, remove_punct = TRUE) 
 news_dfm <- dfm(news_toks)
 
@@ -51,6 +62,6 @@ head(key, 20)
 textplot_keyness(key) 
 ```
 
-<img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-2-1.svg" width="768" />
+<img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.svg" width="768" />
 
 

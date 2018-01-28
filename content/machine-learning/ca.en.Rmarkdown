@@ -1,5 +1,6 @@
 ---
 title: Correspondence analysis
+weight: 40
 draft: false
 ---
 

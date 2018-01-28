@@ -1,7 +1,6 @@
 ---
-title: Naive Bayes classification
-weight: 40
-chapter: false
+title: Naive Bayes classifier
+weight: 10
 draft: false
 ---
 
