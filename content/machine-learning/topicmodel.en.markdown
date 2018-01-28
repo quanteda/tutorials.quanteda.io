@@ -4,25 +4,14 @@ weight: 50
 draft: false
 ---
 
-Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discrimnatory groups of documents automatically. 
+Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discriminatory groups of documents automatically. 
 
 
 ```r
 require(quanteda)
 require(quanteda.corpora)
 require(lubridate)
-```
-
-```
-## Warning: package 'lubridate' was built under R version 3.4.3
-```
-
-```r
 require(topicmodels)
-```
-
-```
-## Warning: package 'topicmodels' was built under R version 3.4.3
 ```
 
 
@@ -32,16 +21,29 @@ news_corp <- download('data_corpus_guardian')
 
 
 
-We only select news stories publihsed in 2016 using `corpus_subset()`. Futher, after removal of function words and punctuations in `dfm()`, we remove 95% of low frequency features uisng `dfm_trim()` to reduce time to fit a model.
+We only select news stories published in 2016 using `corpus_subset()`. 
 
 
 ```r
 news_corp <- corpus_subset(news_corp, year(docvars(news_corp, 'date')) >= 2016)
-news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
-            dfm_trim(min_count = 0.95)
+ndoc(news_corp)
 ```
 
-**quanteda** does not impliment topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.  
+```
+## [1] 1959
+```
+
+Further, after removal of function words and punctuations in `dfm()`, we remove rare and common features and using `dfm_trim()` to reduce time to fit a model.
+
+
+```r
+news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
+            dfm_remove(c('*-time', 'updated-*')) %>% 
+            dfm_trim(min_count = 0.95, max_docfreq = 0.1)
+news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
+```
+
+**quanteda** does not implement own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.  
 
 
 ```r
@@ -57,31 +59,31 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1      Topic 2    Topic 3               Topic 4  Topic 5   
-##  [1,] "said"       "eu"       "block-time"          "one"    "said"    
-##  [2,] "government" "said"     "published-time"      "people" "oil"     
-##  [3,] "people"     "party"    "gmt"                 "says"   "economy" 
-##  [4,] "health"     "labour"   "2016"                "can"    "growth"  
-##  [5,] "australia"  "uk"       "bst"                 "like"   "year"    
-##  [6,] "australian" "cameron"  "says"                "just"   "market"  
-##  [7,] "work"       "minister" "updated-timeupdated" "get"    "uk"      
-##  [8,] "women"      "vote"     "february"            "time"   "us"      
-##  [9,] "related"    "britain"  "photograph"          "first"  "markets" 
-## [10,] "new"        "european" "today"               "think"  "economic"
-##       Topic 6   Topic 7      Topic 8      Topic 9     Topic 10  
-##  [1,] "said"    "said"       "trump"      "said"      "said"    
-##  [2,] "new"     "people"     "clinton"    "tax"       "police"  
-##  [3,] "us"      "us"         "said"       "company"   "told"    
-##  [4,] "years"   "refugees"   "sanders"    "business"  "court"   
-##  [5,] "climate" "government" "cruz"       "year"      "one"     
-##  [6,] "one"     "syria"      "republican" "uk"        "case"    
-##  [7,] "can"     "security"   "donald"     "companies" "two"     
-##  [8,] "also"    "isis"       "campaign"   "new"       "law"     
-##  [9,] "water"   "country"    "new"        "pay"       "officers"
-## [10,] "people"  "attacks"    "state"      "also"      "also"
+##       Topic 1      Topic 2       Topic 3   Topic 4    Topic 5    
+##  [1,] "food"       "climate"     "clinton" "refugees" "sales"    
+##  [2,] "water"      "energy"      "sanders" "syria"    "customers"
+##  [3,] "de"         "housing"     "cruz"    "isis"     "apple"    
+##  [4,] "el"         "gas"         "gmt"     "syrian"   "china"    
+##  [5,] "sea"        "development" "hillary" "military" "google"   
+##  [6,] "island"     "funding"     "obama"   "islamic"  "users"    
+##  [7,] "litvinenko" "project"     "trump's" "un"       "games"    
+##  [8,] "la"         "homes"       "bst"     "turkey"   "sale"     
+##  [9,] "revolution" "khan"        "bernie"  "muslim"   "sold"     
+## [10,] "scientists" "education"   "ted"     "aid"      "iphone"   
+##       Topic 6      Topic 7    Topic 8      Topic 9      Topic 10   
+##  [1,] "gmt"        "officers" "corbyn"     "doctors"    "oil"      
+##  [2,] "bst"        "prison"   "johnson"    "violence"   "markets"  
+##  [3,] "labor"      "arrested" "gmt"        "australia"  "prices"   
+##  [4,] "turnbull"   "shooting" "shadow"     "nhs"        "banks"    
+##  [5,] "brussels"   "black"    "boris"      "hospital"   "rates"    
+##  [6,] "19"         "incident" "leadership" "drug"       "investors"
+##  [7,] "talks"      "officer"  "tory"       "medical"    "bst"      
+##  [8,] "senate"     "victims"  "jeremy"     "child"      "shares"   
+##  [9,] "benefits"   "criminal" "cabinet"    "australian" "trading"  
+## [10,] "australian" "dead"     "scottish"   "cases"      "quarter"
 ```
 
-You can then obtaine the most likely topics using `topics()` and save as a document-level variable.
+You can then obtain the most likely topics using `topics()` and save as a document-level variable.
 
 
 ```r
@@ -91,12 +93,12 @@ head(topics(lda), 20)
 
 ```
 ## text136751 text136585 text139163 text169133 text153451 text163885 
-##          6          3          9          4         10          6 
+##          2          8          5          7          7          2 
 ## text157885 text173244 text137394 text169408 text184646 text127410 
-##          4          2          1          4          2         10 
+##          3          2          8          1          8          1 
 ## text134923 text169695 text147917 text157535 text177078 text174393 
-##          2          5          4          6          6          8 
+##          8         10          1          2          2          3 
 ## text181782 text143323 
-##          4          2
+##          1          8
 ```
 

@@ -4,7 +4,7 @@ weight: 50
 draft: false
 ---
 
-Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discrimnatory groups of documents automatically. 
+Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discriminatory groups of documents automatically. 
 
 ```{r message=FALSE}
 require(quanteda)
@@ -22,21 +22,23 @@ news_corp <- download('data_corpus_guardian')
 news_corp <- readRDS("../../content/data/data_corpus_guardian.rds")
 ```
 
-We only select news stories publihsed in 2016 using `corpus_subset()`. 
+We only select news stories published in 2016 using `corpus_subset()`. 
 
 ```{r}
 news_corp <- corpus_subset(news_corp, year(docvars(news_corp, 'date')) >= 2016)
 ndoc(news_corp)
 ```
 
-Further, after removal of function words and punctuations in `dfm()`, we remove rare and common features and uisng `dfm_trim()` to reduce time to fit a model.
+Further, after removal of function words and punctuations in `dfm()`, we remove rare and common features and using `dfm_trim()` to reduce time to fit a model.
 
 ```{r}
 news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
+            dfm_remove(c('*-time', 'updated-*')) %>% 
             dfm_trim(min_count = 0.95, max_docfreq = 0.1)
+news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 ```
 
-**quanteda** does not impliment own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.  
+**quanteda** does not implement own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.  
 
 ```{r}
 dtm <- convert(news_dfm, to = "topicmodels")
@@ -49,7 +51,7 @@ You can extract most important terms from the model using `terms()`.
 terms(lda, 10)
 ```
 
-You can then obtaine the most likely topics using `topics()` and save as a document-level variable.
+You can then obtain the most likely topics using `topics()` and save as a document-level variable.
 
 ```{r}
 docvars(news_dfm, 'topic') <- topics(lda)

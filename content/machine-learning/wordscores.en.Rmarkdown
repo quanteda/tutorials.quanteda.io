@@ -8,17 +8,16 @@ Wordscores is a scaling model for estimating the positions (mostly of political 
 
 ```{r message=FALSE}
 require(quanteda)
+require(quanteda.corpora)
 require(ggplot2)
 ```
 
 Training a Wordscores model requires reference scores for texts whose policy positions on well-defined a priori dimensions are "known". Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
 
-We use manifestos of the 2013 and 2017 German federal elections. For the 2013 elections we assigne the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and predict the party positions for the 2017 manifestos.
-
+We use manifestos of the 2013 and 2017 German federal elections. For the 2013 elections we assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and predict the party positions for the 2017 manifestos.
 
 ```{r eval=FALSE}
-ger_corpus <- readRDS(file = "content/data/data_corpus_germanifestos.rds")
-summary(ger_corpus)
+ger_corpus <- download(url = 'https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1')
 ```
 
 ```{r include=FALSE}
@@ -26,7 +25,11 @@ summary(ger_corpus)
 ger_corpus <- readRDS(file = "../../content/data/data_corpus_germanifestos.rds")
 ```
 
-Now we can apply the Wordscores algorithm to the document-feature matrix.
+```{r}
+summary(ger_corpus)
+```
+
+Now we can apply the Wordscores algorithm to a document-feature matrix.
 
 ```{r}
 ger_dfm <- dfm(ger_corpus, remove = stopwords("de"), remove_punct = TRUE)

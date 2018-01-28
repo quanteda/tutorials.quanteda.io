@@ -13,11 +13,7 @@ require(quanteda.corpora)
 require(caret)
 ```
 
-```
-## Warning: package 'caret' was built under R version 3.4.3
-```
-
-`data_corpus_movies` from the **quanteda.corpora** package containes 2000 movie reviews classified either as "positive" or "negative".
+`data_corpus_movies` from the **quanteda.corpora** package contains 2000 movie reviews classified either as "positive" or "negative".
 
 
 ```r
@@ -45,7 +41,7 @@ summary(corp, 5)
 ## Notes:
 ```
 
-"Sentiment" indicates whether a movie review was classified as positive or negative. In this example we use 1500 revivews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the remaining reviews (our test set).
+"Sentiment" indicates whether a movie review was classified as positive or negative. In this example we use 1500 reviews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the remaining reviews (our test set).
 
 Since the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents.
 

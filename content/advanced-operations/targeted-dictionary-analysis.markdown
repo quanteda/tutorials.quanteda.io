@@ -10,10 +10,6 @@ require(quanteda)
 require(lubridate)
 ```
 
-```
-## Warning: package 'lubridate' was built under R version 3.4.3
-```
-
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 

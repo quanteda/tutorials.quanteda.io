@@ -4,14 +4,14 @@ weight: 40
 draft: false
 ---
 
-Correspondence analysis is a technique to scale documents on multiple dimensions. Correspondence analysis is similar to principal component analysis but works categorical variables (contigency table).
+Correspondence analysis is a technique to scale documents on multiple dimensions. Correspondence analysis is similar to principal component analysis but works categorical variables (contingency table).
 
 
 ```r
 require(quanteda)
 ```
 
-`textmodel_ca()` provides similar funcitonality to the **ca** package, but more efficient especially for textual data.
+`textmodel_ca()` provides similar functionality to the **ca** package, but more efficient especially for textual data.
 
 For visualization, we change the document names. 
 
@@ -31,7 +31,7 @@ textplot_scale1d(ca)
 
 <img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-3-1.svg" width="768" />
 
-If you plot documents on multi-dimensional scale, you use `coef()` to obtain cordinates of lower dimensions.  
+If you plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
 
 
 ```r
