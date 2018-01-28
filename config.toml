@@ -13,7 +13,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [params]
   editURL = "https://github.com/quanteda/quanteda_tutorials/tree/master/content/"
   description = "Introduction to quantitative text analysis using quanteda"
-  author = "Kenneth Benoit"
+  author = "Kohei Watanabe and Stefan Muller"
   showVisitedLinks = true
   themeVariant = "mine"
 
