@@ -1,8 +1,8 @@
 ---
 title: Naive Bayes classification
-weight: 70
+weight: 40
 chapter: false
-draft: true
+draft: false
 ---
 
 
@@ -12,22 +12,18 @@ require(quanteda.corpora)
 require(caret)
 ```
 
-Naive Bayes can be used to classify documents into two or more categories given a `dfm` and some training labels. 
+```
+## Warning: package 'caret' was built under R version 3.4.3
+```
 
-{{% notice note %}}
-Naive Bayes is a probabilistic classifier. This means that for a document, out of all classes the classifier returns the class which has the maximum posterior probability given the document.
+Naive Bayes is a supervised model usually used to classify documents into two or more categories. We train the classifier using class labels attached to documents, and predict most likely classes of new documents.
 
-For a comprehensible introduction to Naive Bayes and the assumptions underlying the method see [Chapter 6](https://web.stanford.edu/~jurafsky/slp3/6.pdf) of Jurafsky and Martin (2017).
-
-Jurafsky, Daniel and James H. Martin. (2017) Speech and Language Processing. Draft of August 7, 2017. https://web.stanford.edu/~jurafsky/slp3/6.pdf
-{{% /notice %}}
-
-We use corpus object containing 2000 movie reviews classified by positive or negative sentiment from the **quanteda.corpora** package. 
-
+`data_corpus_movies` from the **quanteda.corpora** package containes 2000 movie reviews classified either as "positive" or "negative".
 
 
 ```r
-summary(data_corpus_movies, 5)
+corp <- data_corpus_movies
+summary(corp, 5)
 ```
 
 ```
@@ -50,17 +46,16 @@ summary(data_corpus_movies, 5)
 ## Notes:
 ```
 
-The `docvar` Sentiment shows whether a movie review was classified as positive or negative. In this example we use the fist 1500 revivews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the test set (the remaining reviews).
+"Sentiment" indicates whether a movie review was classified as positive or negative. In this example we use 1500 revivews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the remaining reviews (our test set).
 
-Because the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents (instead of choosing just by position).
+Since the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents.
 
 
 ```r
 # generate 1500 numbers without replacement
 set.seed(300)
-sample_use <- sample(1:2000, 1500, replace = FALSE)
-
-head(sample_use, 10)
+id_train <- sample(1:2000, 1500, replace = FALSE)
+head(id_train, 10)
 ```
 
 ```
@@ -69,32 +64,28 @@ head(sample_use, 10)
 
 ```r
 # create docvar with ID
-docvars(data_corpus_movies, "id_numeric") <- 1:ndoc(data_corpus_movies)
-
+docvars(corp, "id_numeric") <- 1:ndoc(corp)
 
 # get training set
-dfm_nb_training <- corpus_subset(data_corpus_movies, id_numeric %in% sample_use) %>% 
-  dfm(stem = TRUE)
+training_dfm <- corpus_subset(corp, id_numeric %in% id_train) %>% dfm(stem = TRUE)
 
-# get test set (documents not in sample_use)
-dfm_nb_test <- corpus_subset(data_corpus_movies, !id_numeric %in% sample_use) %>% 
-  dfm(stem = TRUE)
+# get test set (documents not in id_train)
+test_dfm <- corpus_subset(corp, !id_numeric %in% id_train) %>% dfm(stem = TRUE)
 ```
 
-Next we train the Naive Bayes classifier using `textmodel_nb()`.
+Next we train the naive Bayes classifier using `textmodel_nb()`.
 
 
 ```r
-nb_training <- textmodel_nb(dfm_nb_training, docvars(corpus_subset(data_corpus_movies, id_numeric %in% sample_use), "Sentiment"))
-
-summary(nb_training)
+nb <- textmodel_nb(training_dfm, docvars(training_dfm, "Sentiment"))
+summary(nb)
 ```
 
 ```
 ## 
 ## Call:
-## textmodel_nb.dfm(x = dfm_nb_training, y = docvars(corpus_subset(data_corpus_movies, 
-##     id_numeric %in% sample_use), "Sentiment"))
+## textmodel_nb.dfm(x = training_dfm, y = docvars(training_dfm, 
+##     "Sentiment"))
 ## 
 ## Class Priors:
 ## (showing first 2 elements)
@@ -117,26 +108,22 @@ summary(nb_training)
 ```
 
 
-Naive Bayes can only take features into consideration that occur both in the training set and the test set. Thus, we first need to use `dfm_select()` to ensure that the features in the test and training set are identical. 
+Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical by passing `training_dfm` to `dfm_select()` as a pattern.
 
 
 ```r
-data_nb_select <- dfm_select(dfm_nb_test, dfm_nb_training)
-
-data_test_predicted <- predict(nb_training, data_nb_select)
+test_dfm <- dfm_select(test_dfm, training_dfm)
+pred_data <- predict(nb, test_dfm)
 ```
 
 Let's inspect how well the classification worked.
 
 
 ```r
-actual_class <- data_corpus_movies %>% 
-  corpus_subset(!id_numeric %in% sample_use) %>% 
-  docvars("Sentiment")
-
-predicted_class <- data_test_predicted$nb.predicted 
-
-(table_classification <- table(actual_class, predicted_class))
+actual_class <- docvars(test_dfm, "Sentiment")
+predicted_class <- pred_data$nb.predicted 
+class_table <- table(actual_class, predicted_class)
+class_table
 ```
 
 ```
@@ -146,18 +133,13 @@ predicted_class <- data_test_predicted$nb.predicted
 ##          pos  49 202
 ```
 
-From the table we see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or underestimate one class.
+From the cross-table we see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or underestimate one class.
 
-We can use the function `confusionMatrix` from the **caret** package to assess the performance of the classification.
-
-{{% notice note %}}
-Precision, recall and the F1 score are frequently used to assess the classification performance. Precision is measured as `\(\frac{TP}{TP+FP}\)`, where _TP_ are the number of true positives and  _FP_  the false positives. Recall divides the false positives by the sum of true positives and false negatives ($\frac{TP}{TP+FN}$). Finally, the F1 score is a harmonic mean of precision and recall ($\frac{2\times TP}{2\times TP + FP + FN}).$
-{{% /notice %}}
-
+We can use the function `confusionMatrix()` from the **caret** package to assess the performance of the classification.
 
 
 ```r
-caret::confusionMatrix(table_classification, mode = "everything")
+confusionMatrix(class_table, mode = "everything")
 ```
 
 ```
@@ -192,3 +174,10 @@ caret::confusionMatrix(table_classification, mode = "everything")
 ## 
 ```
 
+{{% notice note %}}
+Precision, recall and the F1 score are frequently used to assess the classification performance. Precision is measured as `TP / (TP + FP)`, where `TP` are the number of true positives and  `FP`  the false positives. Recall divides the false positives by the sum of true positives and false negatives `TP / (TP + FN)`. Finally, the F1 score is a harmonic mean of precision and recall `2 * (Precision * Recall) / (Precision + Recall)`.
+{{% /notice %}}
+
+{{% notice info %}}
+If you want to learn more about naive Bayes classifier, [Chapter 6](https://web.stanford.edu/~jurafsky/slp3/6.pdf) of Jurafsky and Martin (2017).
+{{% /notice%}}
