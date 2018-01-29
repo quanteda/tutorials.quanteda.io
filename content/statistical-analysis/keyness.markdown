@@ -60,7 +60,7 @@ head(key, 20)
 
 ```r
 textplot_keyness(key) + 
-  scale_fill_manual(labels = c("2016", "2012-2015"), values = c("#003366", "#CC3333"))
+  scale_fill_manual(labels = c("2012-2015", "2016"), values = c("#CC3333", "#003366"))
 ```
 
 ```
