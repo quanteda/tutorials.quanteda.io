@@ -10,7 +10,8 @@ draft: false
 
 ## Quanteda
 
-First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or executing a command:
+First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or executing a command.
+
 
 ```r
 install.packages("quanteda")
@@ -23,20 +24,25 @@ Note that on **Windows platforms**, it is also recommended that you install the 
 
 ## Other packages
 
-We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this using RStudio menu (Tools > Install Packages), or executing the following command:
+We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this using RStudio menu (Tools > Install Packages), or executing the following command.
 
 
 ```r
 install.packages("readtext")
 ```
 
-We will also use extra datasets in tutorials that are available in **quanteda.corpora**:
+We will also use extra datasets in tutorials that are available in **quanteda.corpora**.
 
 
 ```r
 install.packages("devtools")
 devtools::install_github("quanteda/quanteda.corpora")
 ```
+
+{{% notice note %}}
+If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install latest versions. We recomend you to update all the packages to avoid errors caused by dependencies.
+{{% /notice %}}
+
 
 ## Extra packages
 
