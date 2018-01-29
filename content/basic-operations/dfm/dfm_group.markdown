@@ -34,7 +34,7 @@ head(colSums(irish_dfm), 10)
 
 
 ```r
-party_dfm <- dfm_group(irish_dfm, groups = docvars(irish_dfm, 'party'))
+party_dfm <- dfm_group(irish_dfm, groups = docvars(irish_dfm, "party"))
 ndoc(party_dfm)
 ```
 

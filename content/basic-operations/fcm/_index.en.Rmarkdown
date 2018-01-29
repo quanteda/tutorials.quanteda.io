@@ -5,6 +5,4 @@ chapter: false
 draft: false
 ---
 
-# Feature co-occurence matrix
-
 Learn how to construct and modify a feature co-occurence matrix

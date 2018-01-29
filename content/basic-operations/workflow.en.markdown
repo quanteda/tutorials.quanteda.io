@@ -9,12 +9,12 @@ draft: false
 1.  [Corpus](corpus)
     
     * Saves character strings and variables in a data frame
-    * Combine texts with document-level variables
+    * Combines texts with document-level variables
 
 2.  [Tokens](tokens)
     
     * Stores tokens in a list of vectors
-    * More efficient than on character strings, but preserves positions of words (string-of-words)
+    * More efficient than character strings, but preserves positions of words (string-of-words)
 
 3.  [Document-feature matrix (DFM)](dfm)
 
@@ -29,8 +29,8 @@ Text analysis with **quanteda** goes through all those three types of objects ei
     V[Document variables]
     C(Corpus)
     T(Tokens)
-    AP[Positional analysis]
-    AN[Non-positional analysis]
+    AP[Positional analysis (string-of-words)]
+    AN[Non-positional analysis (bag-of-words)]
     M(DFM)
     style C stroke-width:4px
     style T stroke-width:4px

@@ -17,7 +17,7 @@ require(readtext)
 data_dir <- system.file("extdata/", package = "readtext")
 ```
 
-Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can created document variables using the **readtext** package.
+Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can create document variables using the **readtext** package.
 
 
 The directory "/txt/UDHR" contains text files (.txt) of the Universal Declaration of Human Rights in 13 languages. 
@@ -50,7 +50,7 @@ str(eu_data)
 ##  $ party   : chr  "PSE" "V" "PSE" "V" ...
 ```
 
-`readtext()` can also curse through sub-directories. The directory `txt/movie_reviews` contains two directories `neg` and `pos`.
+`readtext()` can also curse through sub-directories. The directory `txt/movie_reviews` contains two directories: `neg` and `pos`.
 
 
 ```r
@@ -102,7 +102,7 @@ names(twitter_data)
 
 ### PDF
 
-`readtext()` can also read and convert PDF (.pdf) files. 
+`readtext()` can also convert and read PDF (.pdf) files. 
 
 
 ```r
@@ -114,7 +114,7 @@ udhr_data <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"),
 
 ### Microsoft Word
 
-`readtext()` can import Microsoft Word ('.doc' and '.docx') files through the **antiword** package.
+Finally, `readtext()` can import Microsoft Word ('.doc' and '.docx') files.
 
 
 ```r

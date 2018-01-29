@@ -132,6 +132,6 @@ head(window_toks[[1]], 50)
 ```
 
 {{% notice tip %}}
-We keep using *glob* patterns in this tutorials, but almost all the functions in **quanteda** support *regular expression* patterns. See `?pattern` for details.
+We keep using *glob* patterns in this tutorials, but almost all the functions in **quanteda** support *regular expression* patterns. See `?pattern` for details and this [cheatsheet](https://www.cheatography.com/davechild/cheat-sheets/regular-expressions/pdf_bw/) for a concise introduction to frequently used regular expressions.
 {{% /notice %}}
 

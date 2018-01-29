@@ -9,7 +9,7 @@ draft: false
 require(quanteda)
 ```
 
-`dfm()` constructs a document-feature matrix (DFM) from a tokens.
+`dfm()` constructs a document-feature matrix (DFM) from a tokens object.
 
 
 ```r
@@ -128,6 +128,7 @@ If you want to convert frequency count to proportion with in documents, use `dfm
 
 ```r
 prop_irish_dfm <- dfm_weight(irish_dfm, scheme  = "prop")
+# check topfeatures in first document
 topfeatures(prop_irish_dfm[1,])
 ```
 
@@ -138,11 +139,12 @@ topfeatures(prop_irish_dfm[1,])
 ## 0.01755937 0.01364325 0.01250632 0.01237999
 ```
 
-You can also weight frequency count by uniqueness of the features across docuemnt using `dfm_tfidf()`.
+You can also weight frequency count by uniqueness of the features across documents using `dfm_tfidf()`.
 
 
 ```r
 tfidf_irish_dfm <- dfm_tfidf(irish_dfm)
+# check topfeatures in first document
 topfeatures(tfidf_irish_dfm[1,])
 ```
 

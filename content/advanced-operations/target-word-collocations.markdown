@@ -65,10 +65,10 @@ print(brexit_toks[['text173244']])
 ```
 
 ```r
-dfm_brexti <- dfm(brexit_toks)
+dfm_brexit <- dfm(brexit_toks)
 not_brexit_dfm <- dfm(not_brexit_toks)
 
-brexit_key <- textstat_keyness(rbind(dfm_brexti, not_brexit_dfm), seq_len(ndoc(dfm_brexti)))
+brexit_key <- textstat_keyness(rbind(dfm_brexit, not_brexit_dfm), seq_len(ndoc(dfm_brexit)))
 brexit_key <- brexit_key[brexit_key$n_target > 10,]
 head(brexit_key, 50)
 ```
@@ -129,7 +129,7 @@ head(brexit_key, 50)
 
 ### Keywords for Trump
 
-Targeted frequency analysis might look complex, but can be done in three lines.
+Targeted frequency analysis might look complex, but can be done in five lines.
 
 
 ```r

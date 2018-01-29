@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-You do not need to have advanced knowledge of the R programming language to perform text analysis with **quanteda** because the package has wide range of functions. However, you still have to understand the basic R commands.
+You do not need to have advanced knowledge of the R programming language to perform text analysis with **quanteda** because the package has wide range of functions. However, you still have to understand a number of basic R commands.
 
 ## Basic R objects and commands
 
@@ -123,7 +123,7 @@ print(num_vec)
 
 ### Data frames
 
-A data frame combines multiple vectors to construct a dataset. You can combined vectors into a data frame only if they have the same lengths. However, they can be different types. `nrow()` and `ncol()` show the number of rows (observations) and variables in a data frame.
+A data frame combines multiple vectors to construct a dataset. You can combine vectors into a data frame only if they have the same lengths. However, they can be different types. `nrow()` and `ncol()` show the number of rows (observations) and variables in a data frame.
 
 
 ```r

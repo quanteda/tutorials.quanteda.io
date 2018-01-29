@@ -11,6 +11,7 @@ Keyness is a signed two-by-two association scores orignnally implimented in [Wor
 require(quanteda)
 require(quanteda.corpora)
 require(lubridate)
+require(ggplot2)
 ```
 
 
@@ -25,13 +26,15 @@ news_corp <- readRDS("../../content/data/data_corpus_guardian.rds")
 
 Using `textstat_keyness()`, you can compares frequencies of words between target and reference documents. Target documents are news atricles publihsed in 2016 and reference documents are those published in 2012-2015 in this example.
 
-```{r}
+```{r, warning=FALSE}
 news_toks <- tokens(news_corp, remove_punct = TRUE) 
 news_dfm <- dfm(news_toks)
 
 key <- textstat_keyness(news_dfm, year(docvars(news_dfm, 'date')) >= 2016)
 head(key, 20)
-textplot_keyness(key) 
+
+textplot_keyness(key) + 
+  scale_fill_manual(labels = c("2016", "2012-2015"), values = c("#003366", "#CC3333"))
 ```
 
 

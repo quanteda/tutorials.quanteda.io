@@ -43,7 +43,7 @@ news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>%
 news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 ```
 
-**quanteda** does not implement own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.  
+**quanteda** does not implement own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.
 
 
 ```r

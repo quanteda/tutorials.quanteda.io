@@ -4,7 +4,7 @@ weight: 5
 draft: false
 ---
 
-## R Studio
+## RStudio
 
 **quanteda** runs solely on [base R](https://cran.r-project.org/), but [RStudio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your objects. You will need to have [base R](https://cran.r-project.org/) installed, and we also recommend to install the latest version of [RStudio](https://www.rstudio.com/products/rstudio/download/).
 
@@ -40,7 +40,7 @@ devtools::install_github("quanteda/quanteda.corpora")
 ```
 
 {{% notice note %}}
-If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install the latest versions. We recomend you to update all other packages to avoid errors caused by dependencies.
+If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install the latest versions. We recommmend to update all the packages using `update.packages()` to avoid errors caused by dependencies.
 {{% /notice %}}
 
 

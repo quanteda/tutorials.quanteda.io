@@ -7,4 +7,4 @@ draft: false
 
 # Tokens
 
-Learn how to construct and modify a tokens
+Learn how to construct and modify a tokens object

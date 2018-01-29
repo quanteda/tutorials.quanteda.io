@@ -10,7 +10,7 @@ Correspondence analysis is a technique to scale documents on multiple dimensions
 require(quanteda)
 ```
 
-`textmodel_ca()` provides similar functionality to the **ca** package, but more efficient especially for textual data.
+`textmodel_ca()` provides similar functionality to the **ca** package, but **quanteda**'s version is more efficient for textual data.
 
 For visualization, we change the document names. 
 

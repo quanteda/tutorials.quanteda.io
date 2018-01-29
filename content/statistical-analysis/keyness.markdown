@@ -12,6 +12,7 @@ Keyness is a signed two-by-two association scores orignnally implimented in [Wor
 require(quanteda)
 require(quanteda.corpora)
 require(lubridate)
+require(ggplot2)
 ```
 
 
@@ -58,7 +59,13 @@ head(key, 20)
 ```
 
 ```r
-textplot_keyness(key) 
+textplot_keyness(key) + 
+  scale_fill_manual(labels = c("2016", "2012-2015"), values = c("#003366", "#CC3333"))
+```
+
+```
+## Scale for 'fill' is already present. Adding another scale for 'fill',
+## which will replace the existing scale.
 ```
 
 <img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.svg" width="768" />
