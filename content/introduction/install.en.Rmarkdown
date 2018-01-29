@@ -37,7 +37,7 @@ devtools::install_github("quanteda/quanteda.corpora")
 ```
 
 {{% notice note %}}
-If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install latest versions. We recomend you to update all the packages to avoid errors caused by dependencies.
+If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install the latest versions. We recomend you to update all other packages to avoid errors caused by dependencies.
 {{% /notice %}}
 
 
