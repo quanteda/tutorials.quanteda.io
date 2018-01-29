@@ -110,6 +110,8 @@ head(skipgram[[1]], 50)
 ## [49] "set_become"               "set_a"
 ```
 
+## Selective ngrams
+
 While `tokens_ngrams()` generates n-grams or skip-grams in all possible combinations of tokens, `tokens_compound()` generates n-grams more selectively. For example, you can make negation bi-grams using `phrase()` and a wild card (`*`).
 
 

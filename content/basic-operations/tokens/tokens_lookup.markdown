@@ -14,7 +14,7 @@ require(quanteda)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-`tokens_lookup()` is the most flexible dictionary lookup function in **quanteda**. We use geographical dictionary from the [**newsmap** package](https://github.com/koheiw/newsmap) as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats.
+`tokens_lookup()` is the most flexible dictionary lookup function in **quanteda**. We use [geographical dictionary](https://raw.githubusercontent.com/quanteda/quanteda_tutorials/master/content/dictionary/newsmap.yml) from the [**newsmap**](https://github.com/koheiw/newsmap) package as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats.
 
 
 ```r
@@ -74,6 +74,7 @@ newsmap_dict[['AFRICA']][['NORTH']]
 ##   - western sahara, western saharan*, el aaiun
 ```
 
+The `levels` argument determines the keys to be recored in a resulting tokens object.
 
 
 ```r
@@ -186,7 +187,6 @@ dfm(country_toks)
 ```
 
 
-
 ```r
 kwic(toks, newsmap_dict['AFRICA'])
 ```
@@ -199,7 +199,6 @@ kwic(toks, newsmap_dict['AFRICA'])
 ##  being well known examples of
 ##  , Indonesia, Ulster,
 ```
-
 
 You can define your own dictionary by passing a named list of characters to `dictionary()`.
 
@@ -266,6 +265,5 @@ dfm(dict_toks)
 ```
 
 {{% notice tip %}}
-To avoide double counting, `tokens_lookup()` ignores multiple matches of dictionary values for the same key with the same token. For example, if `US = c('United States of America', 'United States')` is in your dictionary, you get 'US' only once for a sequence of tokens `'United' 'States' 'of' 'America'`.
+`tokens_lookup()` ignores multiple matches of dictionary values for the same key with the same token to avoide double counting. For example, if `US = c('United States of America', 'United States')` is in your dictionary, you get 'US' only once for a sequence of tokens `'United' 'States' 'of' 'America'`.
 {{% /notice %}}
-

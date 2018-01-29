@@ -9,7 +9,7 @@ draft: false
 require(quanteda)
 ```
 
-`corpus_subset()` allow you to select documents in a corpus based on document-level variables . 
+`corpus_subset()` allows you to select documents in a corpus based on document-level variables.
 
 
 ```r

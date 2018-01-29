@@ -22,7 +22,7 @@ Note that on **Windows platforms**, it is also recommended that you install the 
 
 ## Other packages
 
-We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this from inside RStudio, from the Tools > Install Packages menu, or executing the following command:
+We will use the **readtext** package to read in different types of text data in this tutorials. Again, you can do this using RStudio menu (Tools > Install Packages), or executing the following command:
 
 ```{r, eval=FALSE}
 install.packages("readtext")

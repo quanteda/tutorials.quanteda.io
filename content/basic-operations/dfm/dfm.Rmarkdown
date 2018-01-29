@@ -15,27 +15,28 @@ irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
 irish_dfm <- dfm(irish_toks)
 ```
 
-If corpus is given to `dfm()`, it tokenizes texts internally with the same level of control through the remove_* options. Therefore, the code above and below are equivalent:
+If corpus is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
 
 ```{r eval=FALSE}
 irish_dfm <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE) %>% 
   dfm()
 ```
 
-You can get the number of documents and features `ndoc()` and `nfeat()` 
+You can get the number of documents and features `ndoc()` and `nfeat()`.
+
 ```{r}
 ndoc(irish_dfm)
 nfeat(irish_dfm)
 ```
 
-You can also get names of the documents and features by `docnames()` and `featnames()`.
+You can also obtain the names of documents and features by `docnames()` and `featnames()`.
 
 ```{r}
 head(docnames(irish_dfm), 20)
 head(featnames(irish_dfm), 20)
 ```
 
-You can use`rowSums()` and `colSums()` to calculate marginals. 
+Just like normal matrices, you can use`rowSums()` and `colSums()` to calculate marginals. 
 
 ```{r}
 head(rowSums(irish_dfm), 10)
@@ -55,7 +56,7 @@ prop_irish_dfm <- dfm_weight(irish_dfm, scheme  = "prop")
 topfeatures(prop_irish_dfm[1,])
 ```
 
-You can also weight frequency count by uniqueness of the features across docuemnt use `dfm_tfidf()`.
+You can also weight frequency count by uniqueness of the features across docuemnt using `dfm_tfidf()`.
 
 ```{r}
 tfidf_irish_dfm <- dfm_tfidf(irish_dfm)

@@ -47,7 +47,7 @@ head(multi_kw, 10)
 ##  British citizenship | , and step up our
 ```
 
-To preserve these expressions in bag-of-word analysis, we have to compound them uisng `tokens_compound()`.
+To preserve these expressions in bag-of-word analysis, you have to compound them uisng `tokens_compound()`.
 
 
 ```r

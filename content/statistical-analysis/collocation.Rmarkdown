@@ -22,11 +22,23 @@ news_corp <- readRDS("../../content/data/data_corpus_guardian.rds")
 ```
 
 
-By collocation analysis, we can identify contiguous collocations of words. One of the most common type of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
+By collocation analysis, we can identify contiguous collocations of words. One of the most common types of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
 
 ```{r}
 news_toks <- tokens(news_corp, remove_punct = TRUE)
 cap_col <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
-           textstat_collocations(min_count = 5)
+           textstat_collocations(min_count = 100)
 head(cap_col, 20)
 ```
+
+You can also discover collocations larger than two words.
+
+```{r}
+cap_col2 <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
+            textstat_collocations(min_count = 100, size = 3)
+head(cap_col2, 20)
+```
+
+{{% notice tip %}}
+If you find `textstat_collocations()` is talking too much time, increase the `min_count` threashold to speed up. You also do not need to set `sizes` larger than 2 to compound multi-word expressions, because overlapped collocations are chained if `join = TRUE` in `tokens_compound()`.
+{{% /notice %}}

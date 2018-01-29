@@ -7,12 +7,10 @@ draft: false
 A feature-ouccerances matrix (FCM) records number of co-occurances of tokens. This is **qunateda** special object, but behaves similarly to a DFM. 
 
 
-
 ```r
 require(quanteda)
 require(quanteda.corpora)
 ```
-
 
 
 ```r

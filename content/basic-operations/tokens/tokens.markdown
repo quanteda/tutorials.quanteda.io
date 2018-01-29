@@ -17,7 +17,7 @@ immig_corp <- corpus(data_char_ukimmig2010)
 toks <- tokens(immig_corp)
 ```
 
-A corpus is passed to `tokens()` in the code above, but it works with a character string.
+A corpus is passed to `tokens()` in the code above, but it works with a character string too.
 
 
 ```r

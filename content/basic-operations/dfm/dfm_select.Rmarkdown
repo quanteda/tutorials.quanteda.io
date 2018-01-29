@@ -35,7 +35,7 @@ nfeat(long_irish_dfm)
 topfeatures(long_irish_dfm, 10)
 ```
 
-While `dfm_select()` selects features based on patters, `dfm_trim()` does based on feature frequencies. If `min_count = 10`, features that occur less than 10 times in the corpus are removed.
+While `dfm_select()` selects features based on patters, `dfm_trim()` does this based on feature frequencies. If `min_count = 10`, features that occur less than 10 times in the corpus are removed.
 
 ```{r}
 freq_irish_dfm <- dfm_trim(irish_dfm, min_count = 10)

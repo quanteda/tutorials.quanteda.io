@@ -9,7 +9,7 @@ draft: false
 1.  [Corpus](corpus)
     
     * Saves character strings and variables in a data frame
-    * Combine textual data with document-level variables
+    * Combine texts with document-level variables
 
 2.  [Tokens](tokens)
     
@@ -18,8 +18,8 @@ draft: false
 
 3.  [Document-feature matrix (DFM)](dfm)
 
-    * Represents frequencies of features in documents in a sparse matrix
-    * The most efficient structure, but it does not have information about positions of words (bag-of-words) 
+    * Represents frequencies of features in documents in a matrix
+    * The most efficient structure, but it does not have information on positions of words (bag-of-words) 
 
 Text analysis with **quanteda** goes through all those three types of objects either explicitly or implicitly.
 
@@ -31,7 +31,7 @@ Text analysis with **quanteda** goes through all those three types of objects ei
     T(Tokens)
     AP[Positional analysis]
     AN[Non-positional analysis]
-    M(Document-feature matrix)
+    M(DFM)
     style C stroke-width:4px
     style T stroke-width:4px
     style M stroke-width:4px
@@ -43,4 +43,4 @@ Text analysis with **quanteda** goes through all those three types of objects ei
     M -.-> AN
 {{< /mermaid >}}
 
-For example, if character vectors are given to `dfm()`, it internally constructs corpus and tokens, before a document-feature matrix. 
+For example, if character vectors are given to `dfm()`, it internally constructs corpus and tokens, before a DFM. 

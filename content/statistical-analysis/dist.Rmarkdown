@@ -11,7 +11,7 @@ require(quanteda)
 
 `textstat_dist()` calcuates similarites of documents or features for various measures. Its output is compatible with R's `dist()`, so hierachical clustering can be perfromed without any transformation.
 
-```{r}
+```{r fig.height=7, fig.width=10}
 inaug_toks <- tokens(data_corpus_inaugural)
 inaug_dfm <- dfm(inaug_toks, remove = stopwords('en'))
 dist <- textstat_dist(inaug_dfm)

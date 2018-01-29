@@ -5,21 +5,25 @@ draft: false
 ---
 
 
+```r
+require(quanteda)
+require(readtext)
+```
 
-You can create a corpus object in **quanteda** from various available sources:
+You can create a corpus from various available sources:
 
-1. a `character` vector, consisting of one document per element; if the elements are named, these names will be used as document names.
+1. A character vector consisting of one document per element
 
-2. a `data.frame` (or a **tibble** `tbl_df`), whose default document id is a variable identified by `docid_field`; the text of the document is a variable identified by `textid_field`; other variables are imported as document-level meta-data. This matches the format of data frames constructed by the the **readtext** package.
+2. A data frame consisting of a character vector for documents, and additional vectors for document-level variables
 
-3. a **tm** `VCorpus` or `SimpleCorpus` class object, with the fixed metadata fields imported as docvars and corpus-level metadata imported as metacorpus information.
+3. A VCorpus or SimpleCorpus class object created by the **tm** package 
 
-4. (a keywords-in-context object constructed by `kwic`).
+4. A keywords-in-context object constructed by `kwic()`
 
 
 ## Character vector
 
-The file `data_char_ukimmig2010` is a named character vector of subsets of election manifestos from UK political parties on immigration and asylum.
+`data_char_ukimmig2010` is a named character vector consists of sections of British election manifestos on immigration and asylum.
 
 
 ```r
@@ -43,7 +47,7 @@ summary(immig_corp)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sun Jan 28 17:44:14 2018
+## Created: Mon Jan 29 08:43:45 2018
 ## Notes:
 ```
 
@@ -82,7 +86,7 @@ summary(inaug_corp, 5)
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sun Jan 28 17:44:14 2018
+## Created: Mon Jan 29 08:43:45 2018
 ## Notes:
 ```
 
@@ -114,10 +118,9 @@ summary(inaug_corp, 5)
 ##   Jefferson    Thomas
 ## 
 ## Source:  /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sun Jan 28 17:44:14 2018
+## Created: Mon Jan 29 08:43:45 2018
 ## Notes:
 ```
-
 
 ## Vcorpus
 

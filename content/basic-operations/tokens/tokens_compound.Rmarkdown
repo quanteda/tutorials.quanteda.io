@@ -19,7 +19,7 @@ multi_kw <- kwic(toks, phrase(c('asylum seeker*', 'british citizen*')))
 head(multi_kw, 10)
 ```
 
-To preserve these expressions in bag-of-word analysis, we have to compound them uisng `tokens_compound()`.
+To preserve these expressions in bag-of-word analysis, you have to compound them uisng `tokens_compound()`.
 
 ```{r}
 comp_toks <- tokens_compound(toks, phrase(c('asylum seeker*', 'british citizen*')))

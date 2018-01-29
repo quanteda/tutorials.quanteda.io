@@ -14,7 +14,7 @@ require(quanteda)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-You can see how keywords are in the actual contexts using `kwic()`. 
+You can see how keywords are used in the actual contexts in a concordance view produced by `kwic()`. 
 
 
 ```r
@@ -80,8 +80,7 @@ head(immig2_kw, 10)
 ##  birth rate is estimated to
 ```
 
-With `window` you can specify the number of context words to be displayed around the keyword.
-
+With the `window` argument, you can specify the number of words to be displayed around the keyword.
 
 
 ```r
@@ -139,7 +138,7 @@ head(asylum_kw)
 ##  is removed, the flood
 ```
 
-Texts do not always appear nicely in the R console, so you can use `View()` to see the keywords-in-context in an interactive HTML table.
+Texts do not always appear nicely in your R console, so you can use `View()` to see the keywords-in-context in an interactive HTML table.
 
 
 ```r

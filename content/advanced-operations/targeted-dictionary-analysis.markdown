@@ -1,6 +1,6 @@
 ---
 title: Targeted dictionary analysis
-weight: 20
+weight: 30
 draft: false
 ---
 

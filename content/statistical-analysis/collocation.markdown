@@ -21,13 +21,13 @@ news_corp <- download('data_corpus_guardian')
 
 
 
-By collocation analysis, we can identify contiguous collocations of words. One of the most common type of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
+By collocation analysis, we can identify contiguous collocations of words. One of the most common types of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
 
 
 ```r
 news_toks <- tokens(news_corp, remove_punct = TRUE)
 cap_col <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
-           textstat_collocations(min_count = 5)
+           textstat_collocations(min_count = 100)
 head(cap_col, 20)
 ```
 
@@ -54,3 +54,25 @@ head(cap_col, 20)
 ## 19     south carolina   271            0      2  9.404827  76.80194
 ## 20       black friday   190            0      2  8.459064  76.80003
 ```
+
+You can also discover collocations larger than two words.
+
+
+```r
+cap_col2 <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
+            textstat_collocations(min_count = 100, size = 3)
+head(cap_col2, 20)
+```
+
+```
+##                   collocation count count_nested length     lambda
+## 1 international monetary fund   101            0      3  2.2425567
+## 2              new york times   128            0      3 -0.5072592
+##            z
+## 1  1.0791473
+## 2 -0.3338525
+```
+
+{{% notice tip %}}
+If you find `textstat_collocations()` is talking too much time, increase the `min_count` threashold to speed up. You also do not need to set `sizes` larger than 2 to compound multi-word expressions, because overlapped collocations are chained if `join = TRUE` in `tokens_compound()`.
+{{% /notice %}}

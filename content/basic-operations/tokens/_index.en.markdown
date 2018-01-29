@@ -7,4 +7,4 @@ draft: false
 
 # Tokens
 
-Learn how to make and modify **quanteda**'s tokens
+Learn how to construct and modify a tokens

@@ -32,5 +32,9 @@ inaug_data <- readtext(paste0(data_dir, "/tsv/dailsample.tsv"), text_field = "sp
 ```
 
 {{% notice warning %}}
-The most common problem in loading data into R is misspeficing the location of files or directories. If the path is relative, check where you are using `getwd()` and set the root directory of your project using `setwd()`. On Windows, you have to replace all `\` in a path with `/`. Alternatively, you can use RStudio's "Project" option (File > New Project).
+The most common problem in loading data into R is misspecifing locations of files or directories. If a path is relative, check where you are using `getwd()` and set the root directory of your project using `setwd()`. On Windows, you also have to replace all `\` in a path with `/`. Alternatively, you can use RStudio's "Project" menu (File > New Project).
+{{% /notice%}}
+
+{{% notice tip %}}
+If you have more than a few R files in a project, you should created a RStudio Project to better manage files and settings. You can create a RStudio project from the menu (File > New Project).
 {{% /notice%}}

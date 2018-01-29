@@ -20,14 +20,14 @@ data_dir <- system.file("extdata/", package = "readtext")
 Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can created document variables using the **readtext** package.
 
 
-The folder "txt" contains a sub-directories named UDHR with text files (.txt) of the Universal Declaration of Human Rights in 13 languages. 
+The directory "/txt/UDHR" contains text files (.txt) of the Universal Declaration of Human Rights in 13 languages. 
 
 
 ```r
 udhr_data <- readtext(paste0(data_dir, "/txt/UDHR/*"))
 ```
 
-You can generate document-level variables based on the file names using the `docvarnames` and `docvarsfrom` argument. `dvsep = "_"` specifies the value separator in the filenames.`encoding = "ISO-8859-1"` determines the encoding of the text.
+You can generate document-level variables based on the file names using the `docvarnames` and `docvarsfrom` argument. `dvsep = "_"` specifies the value separator in the filenames.`encoding = "ISO-8859-1"` determines character encodings of the texts.
 
 
 ```r
@@ -50,7 +50,7 @@ str(eu_data)
 ##  $ party   : chr  "PSE" "V" "PSE" "V" ...
 ```
 
-`readtext()` can also curse through sub-directories. The folder `txt/movie_reviews` contains two directories (`neg` and `pos`).
+`readtext()` can also curse through sub-directories. The directory `txt/movie_reviews` contains two directories `neg` and `pos`.
 
 
 ```r
@@ -59,7 +59,7 @@ data_reviews <- readtext(paste0(data_dir, "/txt/movie_reviews/*"))
 
 ### JSON
 
-You can also read JSON files (.json) fownloaded from the Twititer stream API.
+You can also read JSON files (.json) downloaded from the Twititer stream API. [twitter.json](https://raw.githubusercontent.com/quanteda/quanteda_tutorials/master/content/data/twitter.json) is located in data directory of this tutorial package.
 
 
 ```r

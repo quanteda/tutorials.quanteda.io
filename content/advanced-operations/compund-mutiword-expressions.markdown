@@ -1,6 +1,6 @@
 ---
 title: Compound multi-word expressions
-weight: 30
+weight: 20
 draft: false
 ---
 
@@ -15,7 +15,6 @@ This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 ```r
 news_corp <- download('data_corpus_guardian')
 ```
-
 
 
 
@@ -36,26 +35,40 @@ range(docvars(news_corp, 'date'))
 ## [1] "2012-01-02" "2016-12-31"
 ```
 
-Create new document variables and tokenize texts:
+Unlike earlier examples, punctuations we remove punctionations uisng `tokens_remove()` with `padding = TRUE` to keep original positions of the tokens. `[\\p{P}\\p{S}]` is a regular expression for punctuations or separators.
 
 
 ```r
-docvars(news_corp, 'month') <- format(docvars(news_corp, 'date'), '%Y-%m')
-docvars(news_corp, 'year') <- format(docvars(news_corp, 'date'), '%Y')
-
-news_toks <- tokens(news_corp)
-news_toks <- tokens_select(news_toks, stopwords('english'), select = 'remove', padding = TRUE) 
-news_toks <- tokens_select(news_toks, '^[\\p{P}\\p{S}]$', select = 'remove', valuetype = 'regex', padding = TRUE)
+news_toks <- tokens(news_corp) %>% 
+             tokens_remove(stopwords('english'), padding = TRUE) %>% 
+             tokens_remove('[\\p{P}\\p{S}]', valuetype = 'regex', padding = TRUE)
 ```
 
 ## Collocation analysis
 
-By collocation analysis, we can identify multi-word expressions that are very frequent in newspapers articles. One of the most common type of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
+By collocation analysis, we can identify multi-word expressions that are very frequent in newspapers articles. One of the most common type of multi-word expressions is proper names, which we can select simply based on capitalization in English texts.
 
 
 ```r
 cap_toks <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE)
-cap_col <- textstat_collocations(cap_toks, min_count = 5, tolower = FALSE)
+head(cap_toks[[1]], 50)
+```
+
+```
+##  [1] "London"    ""          ""          ""          ""         
+##  [6] ""          ""          ""          ""          ""         
+## [11] ""          ""          ""          ""          ""         
+## [16] ""          ""          ""          "March"     ""         
+## [21] ""          ""          ""          ""          ""         
+## [26] "James"     "Randerson" ""          ""          ""         
+## [31] ""          ""          ""          ""          ""         
+## [36] "London"    ""          ""          ""          ""         
+## [41] ""          ""          ""          ""          ""         
+## [46] ""          ""          ""          ""          ""
+```
+
+```r
+cap_col <- textstat_collocations(cap_toks, min_count = 10, tolower = FALSE)
 head(cap_col, 20)
 ```
 
@@ -85,7 +98,7 @@ head(cap_col, 20)
 
 ### Compound multi-word expressions
 
-The result of collocation analysis is not only interesting but useful: you can be use it to compound tokens. Compounding makes tokens less ambiguous and significantly improves quality of statistical analysis in the downstream. We will only compound strongly associated (p<0.998) multi-word expressions here by sub-setting `cap_col$collocation`.
+The result of collocation analysis is not only interesting but useful: you can be use it to compound tokens. Compounding makes tokens less ambiguous and significantly improves quality of statistical analysis in the downstream. We will only compound strongly associated (p<0.005) multi-word expressions here by sub-setting `cap_col$collocation`.
 
 {{% notice note %}}
 Collocations are automatically recognized as multi-word expressions by `tokens_compound()` in *case-sensitive fixed pattern matching*. This is the fastest way to compound large numbers of multi-word expressions, but make sure that `tolower = FALSE` in `textstat_collocations()` to do this.
@@ -98,33 +111,27 @@ news_toks[['text7005']][370:450] # before compounding
 ```
 
 ```
-##  [1] ""                ""                ""               
-##  [4] "need"            ""                ""               
-##  [7] "incriminate"     ""                ""               
-## [10] "anyone"          "else"            ""               
-## [13] "Scotland"        "Yard's"          "investigation"  
-## [16] ""                ""                ""               
-## [19] "rejected"        "conspiracy"      "theories"       
-## [22] ""                ""                "old"            
-## [25] "boss"            ""                "Rupert"         
-## [28] "Murdoch"         ""                ""               
-## [31] "deals"           ""                "people"         
-## [34] "like"            ""                "last"           
-## [37] "boss"            ""                "David"          
-## [40] "Cameron"         ""                ""               
-## [43] ""                ""                "George"         
-## [46] "Osborne"         ""                ""               
-## [49] "keen"            ""                "recruit"        
-## [52] ""                ""                "well-connected" 
-## [55] "Murdoch"         "apparatchik"     ""               
-## [58] "despite"         ""                "resignation"    
-## [61] ""                ""                "News"           
-## [64] ""                ""                "World"          
-## [67] ""                ""                "royal"          
-## [70] "hacking"         "case"            ""               
-## [73] "Coulson"         "straight-batted" ""               
-## [76] ""                "Jay's"           "innuendo"       
-## [79] ""                ""                ""
+##  [1] ""              ""              ""              "need"         
+##  [5] ""              ""              "incriminate"   ""             
+##  [9] ""              "anyone"        "else"          ""             
+## [13] "Scotland"      ""              "investigation" ""             
+## [17] ""              ""              "rejected"      "conspiracy"   
+## [21] "theories"      ""              ""              "old"          
+## [25] "boss"          ""              "Rupert"        "Murdoch"      
+## [29] ""              ""              "deals"         ""             
+## [33] "people"        "like"          ""              "last"         
+## [37] "boss"          ""              "David"         "Cameron"      
+## [41] ""              ""              ""              ""             
+## [45] "George"        "Osborne"       ""              ""             
+## [49] "keen"          ""              "recruit"       ""             
+## [53] ""              ""              "Murdoch"       "apparatchik"  
+## [57] ""              "despite"       ""              "resignation"  
+## [61] ""              ""              "News"          ""             
+## [65] ""              "World"         ""              ""             
+## [69] "royal"         "hacking"       "case"          ""             
+## [73] "Coulson"       ""              ""              ""             
+## [77] ""              "innuendo"      ""              ""             
+## [81] ""
 ```
 
 ```r
@@ -132,33 +139,27 @@ comp_toks[['text7005']][370:450] # after compounding
 ```
 
 ```
-##  [1] ""                "incriminate"     ""               
-##  [4] ""                "anyone"          "else"           
-##  [7] ""                "Scotland_Yard's" "investigation"  
-## [10] ""                ""                ""               
-## [13] "rejected"        "conspiracy"      "theories"       
-## [16] ""                ""                "old"            
-## [19] "boss"            ""                "Rupert_Murdoch" 
-## [22] ""                ""                "deals"          
-## [25] ""                "people"          "like"           
-## [28] ""                "last"            "boss"           
-## [31] ""                "David_Cameron"   ""               
-## [34] ""                ""                ""               
-## [37] "George_Osborne"  ""                ""               
-## [40] "keen"            ""                "recruit"        
-## [43] ""                ""                "well-connected" 
-## [46] "Murdoch"         "apparatchik"     ""               
-## [49] "despite"         ""                "resignation"    
-## [52] ""                ""                "News"           
-## [55] ""                ""                "World"          
-## [58] ""                ""                "royal"          
-## [61] "hacking"         "case"            ""               
-## [64] "Coulson"         "straight-batted" ""               
-## [67] ""                "Jay's"           "innuendo"       
-## [70] ""                ""                ""               
-## [73] ""                "stitch-up"       ""               
-## [76] "win"             ""                "Sun's"          
-## [79] "support"         ""                ""
+##  [1] ""               ""               "incriminate"    ""              
+##  [5] ""               "anyone"         "else"           ""              
+##  [9] "Scotland"       ""               "investigation"  ""              
+## [13] ""               ""               "rejected"       "conspiracy"    
+## [17] "theories"       ""               ""               "old"           
+## [21] "boss"           ""               "Rupert_Murdoch" ""              
+## [25] ""               "deals"          ""               "people"        
+## [29] "like"           ""               "last"           "boss"          
+## [33] ""               "David_Cameron"  ""               ""              
+## [37] ""               ""               "George_Osborne" ""              
+## [41] ""               "keen"           ""               "recruit"       
+## [45] ""               ""               ""               "Murdoch"       
+## [49] "apparatchik"    ""               "despite"        ""              
+## [53] "resignation"    ""               ""               "News"          
+## [57] ""               ""               "World"          ""              
+## [61] ""               "royal"          "hacking"        "case"          
+## [65] ""               "Coulson"        ""               ""              
+## [69] ""               ""               "innuendo"       ""              
+## [73] ""               ""               ""               ""              
+## [77] ""               "win"            ""               ""              
+## [81] "support"
 ```
 
 Alternatively, wrap the whitespace-separated character vector by `phrase()` to compound multi-word expressions:
@@ -170,33 +171,27 @@ news_toks[['text7005']][370:450] # before compounding
 ```
 
 ```
-##  [1] ""                ""                ""               
-##  [4] "need"            ""                ""               
-##  [7] "incriminate"     ""                ""               
-## [10] "anyone"          "else"            ""               
-## [13] "Scotland"        "Yard's"          "investigation"  
-## [16] ""                ""                ""               
-## [19] "rejected"        "conspiracy"      "theories"       
-## [22] ""                ""                "old"            
-## [25] "boss"            ""                "Rupert"         
-## [28] "Murdoch"         ""                ""               
-## [31] "deals"           ""                "people"         
-## [34] "like"            ""                "last"           
-## [37] "boss"            ""                "David"          
-## [40] "Cameron"         ""                ""               
-## [43] ""                ""                "George"         
-## [46] "Osborne"         ""                ""               
-## [49] "keen"            ""                "recruit"        
-## [52] ""                ""                "well-connected" 
-## [55] "Murdoch"         "apparatchik"     ""               
-## [58] "despite"         ""                "resignation"    
-## [61] ""                ""                "News"           
-## [64] ""                ""                "World"          
-## [67] ""                ""                "royal"          
-## [70] "hacking"         "case"            ""               
-## [73] "Coulson"         "straight-batted" ""               
-## [76] ""                "Jay's"           "innuendo"       
-## [79] ""                ""                ""
+##  [1] ""              ""              ""              "need"         
+##  [5] ""              ""              "incriminate"   ""             
+##  [9] ""              "anyone"        "else"          ""             
+## [13] "Scotland"      ""              "investigation" ""             
+## [17] ""              ""              "rejected"      "conspiracy"   
+## [21] "theories"      ""              ""              "old"          
+## [25] "boss"          ""              "Rupert"        "Murdoch"      
+## [29] ""              ""              "deals"         ""             
+## [33] "people"        "like"          ""              "last"         
+## [37] "boss"          ""              "David"         "Cameron"      
+## [41] ""              ""              ""              ""             
+## [45] "George"        "Osborne"       ""              ""             
+## [49] "keen"          ""              "recruit"       ""             
+## [53] ""              ""              "Murdoch"       "apparatchik"  
+## [57] ""              "despite"       ""              "resignation"  
+## [61] ""              ""              "News"          ""             
+## [65] ""              "World"         ""              ""             
+## [69] "royal"         "hacking"       "case"          ""             
+## [73] "Coulson"       ""              ""              ""             
+## [77] ""              "innuendo"      ""              ""             
+## [81] ""
 ```
 
 ```r
@@ -204,31 +199,25 @@ comp_toks[['text7005']][370:450] # after compounding
 ```
 
 ```
-##  [1] "incriminate"     ""                ""               
-##  [4] "anyone"          "else"            ""               
-##  [7] "Scotland_Yard's" "investigation"   ""               
-## [10] ""                ""                "rejected"       
-## [13] "conspiracy"      "theories"        ""               
-## [16] ""                "old"             "boss"           
-## [19] ""                "Rupert_Murdoch"  ""               
-## [22] ""                "deals"           ""               
-## [25] "people"          "like"            ""               
-## [28] "last"            "boss"            ""               
-## [31] "David_Cameron"   ""                ""               
-## [34] ""                ""                "George_Osborne" 
-## [37] ""                ""                "keen"           
-## [40] ""                "recruit"         ""               
-## [43] ""                "well-connected"  "Murdoch"        
-## [46] "apparatchik"     ""                "despite"        
-## [49] ""                "resignation"     ""               
-## [52] ""                "News"            ""               
-## [55] ""                "World"           ""               
-## [58] ""                "royal"           "hacking"        
-## [61] "case"            ""                "Coulson"        
-## [64] "straight-batted" ""                ""               
-## [67] "Jay's"           "innuendo"        ""               
-## [70] ""                ""                ""               
-## [73] "stitch-up"       ""                "win"            
-## [76] ""                "Sun's"           "support"        
-## [79] ""                ""                "later"
+##  [1] ""               ""               "incriminate"    ""              
+##  [5] ""               "anyone"         "else"           ""              
+##  [9] "Scotland"       ""               "investigation"  ""              
+## [13] ""               ""               "rejected"       "conspiracy"    
+## [17] "theories"       ""               ""               "old"           
+## [21] "boss"           ""               "Rupert_Murdoch" ""              
+## [25] ""               "deals"          ""               "people"        
+## [29] "like"           ""               "last"           "boss"          
+## [33] ""               "David_Cameron"  ""               ""              
+## [37] ""               ""               "George_Osborne" ""              
+## [41] ""               "keen"           ""               "recruit"       
+## [45] ""               ""               ""               "Murdoch"       
+## [49] "apparatchik"    ""               "despite"        ""              
+## [53] "resignation"    ""               ""               "News"          
+## [57] ""               ""               "World"          ""              
+## [61] ""               "royal"          "hacking"        "case"          
+## [65] ""               "Coulson"        ""               ""              
+## [69] ""               ""               "innuendo"       ""              
+## [73] ""               ""               ""               ""              
+## [77] ""               "win"            ""               ""              
+## [81] "support"
 ```

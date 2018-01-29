@@ -30,7 +30,7 @@ head(colSums(irish_dfm), 10)
 ##           260          1633           559            49            47
 ```
 
-`dfm_group()` merge documents by taking the sums of feature frequencies.
+`dfm_group()` merges documents based on a vector given to the `groups` argument. In grouping documents, it takes the sums of feature frequencies.
 
 
 ```r
@@ -53,7 +53,7 @@ head(colSums(party_dfm), 10)
 ##           260          1633           559            49            47
 ```
 
-You can also use `groups` argument in `dfm()` to simplify your code. 
+You can also use the `groups` argument in `dfm()` to simplify your code. 
 
 
 ```r
@@ -64,4 +64,3 @@ ndoc(party_dfm)
 ```
 ## [1] 5
 ```
-

@@ -1,6 +1,6 @@
 ---
 title: Similarity between Twitter users
-weight: 40
+weight: 10
 draft: false
 ---
 
@@ -10,7 +10,7 @@ require(quanteda)
 require(readtext)
 ```
 
-Import Tweets from JSON (.json) file.
+Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubusercontent.com/quanteda/quanteda_tutorials/master/content/data/twitter.json) is located in data directory of this tutorial package.
 
 
 ```r

@@ -1,6 +1,6 @@
 ---
 title: Target-word collocations
-weight: 10
+weight: 40
 draft: false
 ---
 

@@ -11,7 +11,7 @@ require(quanteda.corpora)
 require(ggplot2)
 ```
 
-Unlike `topfeatures()`,`textstat_frequency()` shows both term and document frequencies. You can also use the function to find the most frequent features within groups.
+Unlike `topfeatures()`, `textstat_frequency()` shows both term and document frequencies. You can also use the function to find the most frequent features within groups.
 
 ```{r eval=FALSE}
 tweet_corp <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')
@@ -26,7 +26,7 @@ tweet_corp <- readRDS("../../content/data/data_corpus_sampletweets.rds")
 tweet_toks <- tokens(tweet_corp, remove_punct = TRUE) 
 tweet_dfm <- dfm(tweet_toks, select = "#*")
 freq <- textstat_frequency(tweet_dfm, n = 5, groups = docvars(tweet_dfm, 'lang'))
-head(freq, 100)
+head(freq, 20)
 ```
 
 You can also plot the frequencies easily using `ggplot()`.
