@@ -21,6 +21,7 @@ summary(wf)
 We can plot the results of a fitted scaling model using `textplot_scale1d()`.
 
 ```{r}
+# create nicer labels for speakers
 doclab <- paste(docvars(irish_dfm, "name"), docvars(irish_dfm, "party"))
 textplot_scale1d(wf, doclabels = doclab)
 ```
@@ -31,7 +32,7 @@ The function also allows to plot scores by a grouping variable, in this case the
 textplot_scale1d(wf, doclabels = doclab, groups = docvars(irish_dfm, "party"))
 ```
 
-Finally, we can plot the estimated word positions.
+Finally, we can plot the estimated word positions and highlight certain features.
 
 ```{r}
 textplot_scale1d(wf, margin = "features", 

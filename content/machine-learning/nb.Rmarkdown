@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-Naive Bayes is a supervised model usually used to classify documents into two or more categories. We train the classifier using class labels attached to documents, and predict most likely classes of new documents.
+Naive Bayes is a supervised model usually used to classify documents into two or more categories. We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents.
 
 ```{r, message=FALSE}
 require(quanteda)
