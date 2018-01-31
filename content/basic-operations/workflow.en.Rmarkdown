@@ -29,8 +29,8 @@ Text analysis with **quanteda** goes through all those three types of objects ei
     V[Document variables]
     C(Corpus)
     T(Tokens)
-    AP[Positional analysis (string-of-words)]
-    AN[Non-positional analysis (bag-of-words)]
+    AP[Positional analysis]
+    AN[Non-positional analysis]
     M(DFM)
     style C stroke-width:4px
     style T stroke-width:4px
