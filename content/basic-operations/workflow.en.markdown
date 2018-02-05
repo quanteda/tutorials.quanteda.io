@@ -24,7 +24,7 @@ draft: false
 Text analysis with **quanteda** goes through all those three types of objects either explicitly or implicitly.
 
 {{<mermaid align="left">}}
-    graph LR
+    graph TD
     D[Text files]
     V[Document variables]
     C(Corpus)
