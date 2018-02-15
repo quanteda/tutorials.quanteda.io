@@ -78,7 +78,7 @@ head(lsd_dfm, 2)
 
 You can use `tokens_select()` with `window` argument to perform more targeted sentiment analysis.
 
-### Euroepan Union
+### European Union
 
 
 ```r
