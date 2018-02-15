@@ -22,6 +22,8 @@ tweet_corp <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_cor
 tweet_corp <- readRDS("../../content/data/data_corpus_sampletweets.rds")
 ```
 
+We analyse the most frequent hashtags using `select = "#*"` when creating the `dfm`.
+
 ```{r}
 tweet_toks <- tokens(tweet_corp, remove_punct = TRUE) 
 tweet_dfm <- dfm(tweet_toks, select = "#*")
@@ -29,7 +31,7 @@ freq <- textstat_frequency(tweet_dfm, n = 5, groups = docvars(tweet_dfm, 'lang')
 head(freq, 20)
 ```
 
-You can also plot the frequencies easily using `ggplot()`.
+You can also plot the Twitter hashtag frequencies easily using `ggplot()`.
 
 ```{r}
 tweet_dfm %>% 
@@ -40,4 +42,24 @@ tweet_dfm %>%
   labs(x = NULL, y = "Frequency") +
   theme_minimal()
 ```
+
+Alternative, you can create a Wordcloud of the  100 most common tags.
+
+```{r, height = 8, width = 8}
+textplot_wordcloud(tweet_dfm, max.words = 100)
+```
+
+Finally, it is compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
+
+```{r, height = 8, width = 8}
+# create document-level variable indicating whether Tweet was in English or other language
+docvars(tweet_corp, "dummy_english") <- factor(ifelse(docvars(tweet_corp, "lang") == "English", "English", "Not English"))
+
+# create a grouped dfm and apply tf-idf weighting
+tweet_corp_language <- dfm(tweet_corp, select = "#*", groups = "dummy_english") %>% 
+  dfm_tfidf()
+
+textplot_wordcloud(tweet_corp_language, comparison = TRUE, max.words = 200)
+```
+
 
