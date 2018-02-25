@@ -12,7 +12,7 @@ require(quanteda)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-You can generate n-grams in any lengths from a tokens using `tokens_ngrams()`.
+You can generate n-grams in any lengths from a tokens using `tokens_ngrams()`. N-grams are a sequence of tokens from already tokenized text objects.
 
 ```{r}
 ngram <- tokens_ngrams(toks, n = 2:4)

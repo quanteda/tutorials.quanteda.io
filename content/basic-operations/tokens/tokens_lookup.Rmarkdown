@@ -53,7 +53,7 @@ kwic(toks, newsmap_dict['AFRICA'])
 You can define your own dictionary by passing a named list of characters to `dictionary()`.
 
 ```{r}
-dict <- dictionary(list(refugee = c('refgee*', 'asylum*'),
+dict <- dictionary(list(refugee = c('refugee*', 'asylum*'),
                         worker = c('worker*', 'employee*')))
 print(dict)
 dict_toks <- tokens_lookup(toks, dict)

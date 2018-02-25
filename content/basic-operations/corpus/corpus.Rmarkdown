@@ -22,7 +22,7 @@ You can create a corpus from various available sources:
 
 ## Character vector
 
-`data_char_ukimmig2010` is a named character vector consists of sections of British election manifestos on immigration and asylum.
+`data_char_ukimmig2010` is a named character vector and consists of sections of British election manifestos on immigration and asylum.
 
 ```{r}
 immig_corp <- corpus(data_char_ukimmig2010, 
