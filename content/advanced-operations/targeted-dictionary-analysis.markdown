@@ -90,7 +90,7 @@ eu_lsd_dfm <- dfm(eu_toks, dictionary = data_dictionary_LSD2015[1:2]) %>%
 matplot(eu_lsd_dfm, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
 grid()
 axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd_dfm)) - 1))
-legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1)
+legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
 ```
 
 <img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
@@ -119,7 +119,7 @@ immig_lsd_dfm <- dfm(immig_toks, dictionary = data_dictionary_LSD2015[1:2]) %>%
 matplot(immig_lsd_dfm, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
 grid()
 axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(immig_lsd_dfm)) - 1))
-legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1)
+legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
 ```
 
 <img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-8-1.svg" width="768" />
