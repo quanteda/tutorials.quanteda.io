@@ -43,11 +43,10 @@ news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>%
 news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 ```
 
-**quanteda** does not implement own topic models, but you can easily access to `LDA()` from the **topicmodels** package through `convert()`. `k = 10` specifies the number of topics to be discovered.
+**quanteda** does not implement own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.
 
 
 ```r
-require(topicmodels)
 dtm <- convert(news_dfm, to = "topicmodels")
 lda <- LDA(dtm, k = 10)
 ```
@@ -60,28 +59,28 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1   Topic 2      Topic 3    Topic 4      Topic 5      
-##  [1,] "clinton" "corbyn"     "doctors"  "funding"    "climate"    
-##  [2,] "sanders" "leadership" "hospital" "budget"     "water"      
-##  [3,] "cruz"    "johnson"    "nhs"      "cuts"       "food"       
-##  [4,] "obama"   "shadow"     "housing"  "income"     "drug"       
-##  [5,] "hillary" "cabinet"    "homes"    "businesses" "energy"     
-##  [6,] "trump's" "parties"    "patients" "energy"     "population" 
-##  [7,] "bernie"  "tory"       "junior"   "scheme"     "drugs"      
-##  [8,] "ted"     "khan"       "medical"  "green"      "development"
-##  [9,] "rubio"   "jeremy"     "church"   "benefits"   "study"      
-## [10,] "senator" "liberal"    "contract" "review"     "air"        
-##       Topic 6      Topic 7    Topic 8        Topic 9    Topic 10   
-##  [1,] "violence"   "refugees" "brussels"     "apple"    "oil"      
-##  [2,] "officers"   "syria"    "talks"        "sales"    "labor"    
-##  [3,] "prison"     "isis"     "19"           "google"   "markets"  
-##  [4,] "victims"    "syrian"   "benefits"     "game"     "turnbull" 
-##  [5,] "sexual"     "military" "ireland"      "china"    "prices"   
-##  [6,] "australia"  "turkey"   "summit"       "users"    "banks"    
-##  [7,] "abuse"      "un"       "french"       "facebook" "investors"
-##  [8,] "australian" "islamic"  "negotiations" "games"    "shares"   
-##  [9,] "criminal"   "aid"      "johnson"      "chinese"  "rates"    
-## [10,] "arrested"   "refugee"  "photograph"   "iphone"   "senate"
+##       Topic 1      Topic 2   Topic 3    Topic 4      Topic 5     
+##  [1,] "sales"      "clinton" "doctors"  "corbyn"     "australia" 
+##  [2,] "housing"    "sanders" "hospital" "shadow"     "australian"
+##  [3,] "customers"  "cruz"    "child"    "leadership" "labor"     
+##  [4,] "apple"      "hillary" "nhs"      "khan"       "turnbull"  
+##  [5,] "google"     "obama"   "mental"   "jeremy"     "budget"    
+##  [6,] "income"     "trump's" "parents"  "tory"       "senate"    
+##  [7,] "businesses" "bernie"  "girls"    "parties"    "funding"   
+##  [8,] "users"      "ted"     "sexual"   "scottish"   "violence"  
+##  [9,] "homes"      "rubio"   "mother"   "commons"    "malcolm"   
+## [10,] "average"    "senator" "son"      "scotland"   "coalition" 
+##       Topic 6        Topic 7     Topic 8         Topic 9       Topic 10  
+##  [1,] "brussels"     "oil"       "climate"       "refugees"    "officers"
+##  [2,] "johnson"      "markets"   "water"         "syrian"      "isis"    
+##  [3,] "talks"        "china"     "energy"        "syria"       "military"
+##  [4,] "boris"        "prices"    "food"          "turkey"      "prison"  
+##  [5,] "benefits"     "chinese"   "project"       "un"          "islamic" 
+##  [6,] "19"           "banks"     "development"   "aid"         "forces"  
+##  [7,] "summit"       "investors" "gas"           "immigration" "criminal"
+##  [8,] "french"       "rates"     "environmental" "refugee"     "arrested"
+##  [9,] "negotiations" "shares"    "game"          "asylum"      "victims" 
+## [10,] "cameron's"    "trading"   "environment"   "border"      "officer"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -94,13 +93,13 @@ head(topics(lda), 20)
 
 ```
 ## text136751 text136585 text139163 text169133 text153451 text163885 
-##          5          2          4          6          6          4 
+##          8          4          1          3         10          8 
 ## text157885 text173244 text137394 text169408 text184646 text127410 
-##          1          2          2          9          2          6 
+##          2          4          4          3          4         10 
 ## text134923 text169695 text147917 text157535 text177078 text174393 
-##          8         10          9          5          5          1 
+##          6          7          3          8          8          2 
 ## text181782 text143323 
-##          2          2
+##          3          4
 ```
 
 {{% notice info %}}
