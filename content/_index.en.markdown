@@ -10,7 +10,7 @@ This website contains a step-by-step introduction to quantitative text analysis 
 
 The **quanteda** team has created several additonal useful [resources](http://quanteda.io/help/), such as vignettes, replications, a cheatsheet and a comparison to other text analysis packages to get you started. The chapter [Install quanteda](introduction/install) explains how to install R, RStudio and **quanteda**.
 
-This tutorial is created for workshops held by the **quanteda** team. For the first time, we used the website in the Workshop _Introduction to Quantitative Text Analysis using Quanteda_ at the [WZB Berlin Social Science Center](https://www.wzb.eu/en) on January 31, 2018.
+This tutorial is created for workshops held by the **quanteda** team.
 
 All chapters are work in progress. Contributions in the form of feedback, comments, code, and bug reports are most welcome.
 

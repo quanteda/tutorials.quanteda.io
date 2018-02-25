@@ -123,7 +123,7 @@ topfeatures(irish_dfm, 10)
 ## 3598 1633 1537 1359 1231 1013  868  804  618  578
 ```
 
-If you want to convert frequency count to proportion with in documents, use `dfm_weight(scheme  = "prop")`.
+If you want to convert the frequency count to a proportion within documents, use `dfm_weight(scheme  = "prop")`.
 
 
 ```r

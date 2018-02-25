@@ -50,7 +50,7 @@ str(eu_data)
 ##  $ party   : chr  "PSE" "V" "PSE" "V" ...
 ```
 
-`readtext()` can also curse through sub-directories. The directory `txt/movie_reviews` contains two directories: `neg` and `pos`.
+`readtext()` can also read files from sub-directories. The directory `txt/movie_reviews`, for example, contains two directories: `neg` and `pos`. All text files from both folders in `movie_reviews` are considered automatically.
 
 
 ```r

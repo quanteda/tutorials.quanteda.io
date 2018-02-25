@@ -110,7 +110,7 @@ print(txt_data, n = 50)
 ## 27 UDHR_Japanese_ISO-~ "\"<U+300E><U+4E16><U+754C><U+4EBA><U+6A29><U+5BA3><U+8A00><U+300F>\n \~ UDHR       Japanese ISO-2022-JP   
 ## 28 UDHR_Japanese_UTF-~ "\"<U+300E><U+4E16><U+754C><U+4EBA><U+6A29><U+5BA3><U+8A00><U+300F>\n \~ UDHR       Japanese UTF-8         
 ## 29 UDHR_Japanese_WIND~ "\"<U+300E><U+4E16><U+754C><U+4EBA><U+6A29><U+5BA3><U+8A00><U+300F>\n \~ UDHR       Japanese WINDOWS-936   
-## 30 UDHR_Korean_ISO-20~ "\"\xe3\"..."    UDHR       Korean   ISO-2022-KR   
+## 30 UDHR_Korean_ISO-20~ "\"n\"..."       UDHR       Korean   ISO-2022-KR   
 ## 31 UDHR_Korean_UTF-8.~ "\"<U+C138> <U+ACC4> <U+C778> <U+AD8C> <U+C120> \"~ UDHR       Korean   UTF-8         
 ## 32 UDHR_Russian_ISO-8~ "\"<U+0412><U+0441><U+0435><U+043E><U+0431><U+0449><U+0430><U+044F> <U+0434>\"~ UDHR       Russian  ISO-8859-5    
 ## 33 UDHR_Russian_KOI8-~ "\"<U+0412><U+0441><U+0435><U+043E><U+0431><U+0449><U+0430><U+044F> <U+0434>\"~ UDHR       Russian  KOI8-R        

@@ -45,7 +45,7 @@ nfeat(news_dfm)
 ## [1] 4209
 ```
 
-You can construct a FCM from a DFM or a tokens using `fcm()`. `topfeatures()` returns the most frequntly co-occuring words.
+You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequntly co-occuring words.
 
 
 ```r

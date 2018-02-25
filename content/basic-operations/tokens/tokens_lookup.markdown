@@ -204,7 +204,7 @@ You can define your own dictionary by passing a named list of characters to `dic
 
 
 ```r
-dict <- dictionary(list(refugee = c('refgee*', 'asylum*'),
+dict <- dictionary(list(refugee = c('refugee*', 'asylum*'),
                         worker = c('worker*', 'employee*')))
 print(dict)
 ```
@@ -212,7 +212,7 @@ print(dict)
 ```
 ## Dictionary object with 2 key entries.
 ## - [refugee]:
-##   - refgee*, asylum*
+##   - refugee*, asylum*
 ## - [worker]:
 ##   - worker*, employee*
 ```
@@ -226,7 +226,7 @@ head(dict_toks)
 ## tokens from 6 documents.
 ## BNP :
 ##  [1] "refugee" "worker"  "refugee" "refugee" "refugee" "refugee" "refugee"
-##  [8] "refugee" "refugee" "refugee" "worker" 
+##  [8] "refugee" "refugee" "refugee" "refugee" "refugee" "refugee" "worker" 
 ## 
 ## Coalition :
 ## [1] "refugee"
@@ -235,13 +235,14 @@ head(dict_toks)
 ## character(0)
 ## 
 ## Greens :
-## [1] "worker"  "refugee" "refugee" "refugee"
+## [1] "worker"  "refugee" "refugee" "refugee" "refugee"
 ## 
 ## Labour :
-## [1] "refugee" "refugee" "refugee" "worker"  "worker"  "worker"  "worker" 
+## [1] "refugee" "refugee" "refugee" "refugee" "worker"  "worker"  "worker" 
+## [8] "worker" 
 ## 
 ## LibDem :
-## [1] "refugee" "refugee" "refugee" "refugee"
+## [1] "refugee" "refugee" "refugee" "refugee" "refugee" "refugee"
 ```
 
 ```r
@@ -253,15 +254,15 @@ dfm(dict_toks)
 ## 9 x 2 sparse Matrix of class "dfm"
 ##               features
 ## docs           refugee worker
-##   BNP                9      2
+##   BNP               12      2
 ##   Coalition          1      0
 ##   Conservative       0      0
-##   Greens             3      1
-##   Labour             3      4
-##   LibDem             4      0
+##   Greens             4      1
+##   Labour             4      4
+##   LibDem             6      0
 ##   PC                 3      0
 ##   SNP                1      0
-##   UKIP               5      0
+##   UKIP               6      0
 ```
 
 {{% notice tip %}}
