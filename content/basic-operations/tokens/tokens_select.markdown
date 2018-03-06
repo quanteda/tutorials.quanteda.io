@@ -14,7 +14,7 @@ require(quanteda)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-You can remove tokens that you are not interested using `tokens_select()`. Usually we remove function words (grammatical words) that have little or no substantive meaning in pre-processing. `stopwords()` returns re-defined list of function words.
+You can remove tokens that you are not interested in using `tokens_select()`. Usually we remove function words (grammatical words) that have little or no substantive meaning in pre-processing. `stopwords()` returns a pre-defined list of function words.
 
 
 ```r

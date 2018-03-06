@@ -23,7 +23,7 @@ You can create a corpus from various available sources:
 
 ## Character vector
 
-`data_char_ukimmig2010` is a named character vector consists of sections of British election manifestos on immigration and asylum.
+`data_char_ukimmig2010` is a named character vector and consists of sections of British election manifestos on immigration and asylum.
 
 
 ```r
@@ -47,7 +47,7 @@ summary(immig_corp)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Tue Mar  6 14:01:45 2018
+## Created: Tue Mar  6 15:25:51 2018
 ## Notes:
 ```
 
@@ -86,7 +86,7 @@ summary(inaug_corp, 5)
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
 ## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Tue Mar  6 14:01:45 2018
+## Created: Tue Mar  6 15:25:52 2018
 ## Notes:
 ```
 
@@ -118,7 +118,7 @@ summary(inaug_corp, 5)
 ##   Jefferson    Thomas
 ## 
 ## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Tue Mar  6 14:01:45 2018
+## Created: Tue Mar  6 15:25:52 2018
 ## Notes:
 ```
 
