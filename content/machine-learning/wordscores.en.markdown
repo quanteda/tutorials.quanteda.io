@@ -46,7 +46,7 @@ summary(ger_corpus)
 ##    Linke 2017 11570  67808      2757 2017   Linke        NA
 ##      SPD 2017  8283  43028      2403 2017     SPD        NA
 ## 
-## Source:  /Users/stefan/Desktop/german_manifestos/* on x86_64 by stefan
+## Source: /Users/stefan/Desktop/german_manifestos/* on x86_64 by stefan
 ## Created: Sun Jan 28 13:54:30 2018
 ## Notes:
 ```

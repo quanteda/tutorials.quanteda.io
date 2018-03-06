@@ -1,5 +1,5 @@
 ---
-title: Generate n-grams
+title: Genarate n-grams
 weight: 60
 draft: false
 ---
@@ -128,5 +128,5 @@ head(neg_bigram[[1]], 50)
 ```
 
 {{% notice tip %}}
-`tokens_ngrams()` is an efficient function, but it returns a large object if multiple values are given to `n` or `skip`. Since n-grams inflates the size of objects without adding much information, we recommend to generate n-grams more selectively using `tokens_compound()`.
+`tokens_ngrans()` is an efficient function, but it returns a large object if multiple values are given to `n` or `skip`. Since n-grams inflates the size of objects without adding much information, we recommend to generate n-grams more selectively using `tokens_compound()`.
 {{% /notice %}}
