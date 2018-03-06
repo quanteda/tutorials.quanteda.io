@@ -21,6 +21,8 @@ tweet_corp <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_cor
 
 
 
+We analyse the most frequent hashtags using `select = "#*"` when creating the `dfm`.
+
 
 ```r
 tweet_toks <- tokens(tweet_corp, remove_punct = TRUE) 
@@ -53,7 +55,7 @@ head(freq, 20)
 ## 20              #pvv         8    4       8     Dutch
 ```
 
-You can also plot the frequencies easily using `ggplot()`.
+You can also plot the Twitter hashtag frequencies easily using `ggplot()`.
 
 
 ```r
@@ -67,4 +69,159 @@ tweet_dfm %>%
 ```
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-5-1.svg" width="768" />
+
+Alternative, you can create a Wordcloud of the  100 most common tags.
+
+
+```r
+textplot_wordcloud(tweet_dfm, max_words = 100)
+```
+
+<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
+
+Finally, it is compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
+
+
+```r
+# create document-level variable indicating whether Tweet was in English or other language
+docvars(tweet_corp, "dummy_english") <- factor(ifelse(docvars(tweet_corp, "lang") == "English", "English", "Not English"))
+
+# create a grouped dfm and compare groups
+tweet_corp_language <- dfm(tweet_corp, select = "#*", groups = "dummy_english")
+textplot_wordcloud(tweet_corp_language, comparison = TRUE, max_words = 200)
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #questavoltavotolega could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #porfinlaprimavera could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #gianniniamicadeibaroni could not be fit on page. It will not
+## be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #málaga could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #euval2014 could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #europaciudadanos could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #piazzapulita could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #reseaufdg could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #agorarai could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #pomeriggio5 could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #europee could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #europees2014 could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #vincitorisenzacattedra could not be fit on page. It will not
+## be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #enlabuenadireccion could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #eleccioneseuropeas could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #france could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #ppcvconrajoy could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #jotremosa could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #milano could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #pvda could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #notelajuegues could not be fit on page. It will not be
+## plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #democrazia could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #iovotolega could not be fit on page. It will not be plotted.
+```
+
+```
+## Warning in wordcloud_comparison(x, min_size, max_size, min_count,
+## max_words, : #omnibusla7 could not be fit on page. It will not be plotted.
+```
+
+<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
+
 

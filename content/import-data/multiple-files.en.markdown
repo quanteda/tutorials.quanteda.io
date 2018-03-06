@@ -10,7 +10,7 @@ require(quanteda)
 require(readtext)
 ```
 
-`data_dir`is the location of sample files in your computer.
+`data_dir` is the location of sample files in your computer.
 
 
 ```r
