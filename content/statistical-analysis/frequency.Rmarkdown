@@ -49,7 +49,7 @@ Alternative, you can create a Wordcloud of the  100 most common tags.
 textplot_wordcloud(tweet_dfm, max_words = 100)
 ```
 
-Finally, it is compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
+Finally, it is possible to compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
 
 ```{r message=FALSE, warning=FALSE, height=8, width=8}
 # create document-level variable indicating whether Tweet was in English or other language
