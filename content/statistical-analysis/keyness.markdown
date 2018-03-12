@@ -5,7 +5,7 @@ chapter: false
 draft: false
 ---
 
-Keyness is a signed two-by-two association scores orignnally implimented in [WordSmith](http://www.lexically.net/wordsmith/) to identify frequent words in documents.
+Keyness is a signed two-by-two association scores originally implimented in [WordSmith](http://www.lexically.net/wordsmith/) to identify frequent words in documents in a target and reference group.
 
 
 ```r
@@ -23,7 +23,7 @@ news_corp <- download('data_corpus_guardian')
 
 
 
-Using `textstat_keyness()`, you can compares frequencies of words between target and reference documents. Target documents are news atricles publihsed in 2016 and reference documents are those published in 2012-2015 in this example.
+Using `textstat_keyness()`, you can compares frequencies of words between target and reference documents. Target documents are news articles published in 2016 and reference documents are those published in 2012-2015 in this example.
 
 
 ```r

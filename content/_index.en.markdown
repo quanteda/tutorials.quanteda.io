@@ -15,5 +15,5 @@ This tutorial is created for workshops held by the **quanteda** team.
 All chapters are work in progress. Contributions in the form of feedback, comments, code, and bug reports are most welcome.
 
 {{% notice info %}}
-Examples in this tutorial are written for **quanteda** version 1.1.0. Please check if you have the same version installed by a command `packageVersion('quanteda')`. 
+Examples in this tutorial are written for **quanteda** version 1.1.1. Please check if you have the same version installed by a command `packageVersion('quanteda')`. 
 {{% /notice %}}

@@ -79,7 +79,7 @@ textplot_wordcloud(tweet_dfm, max_words = 100)
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
 
-Finally, it is compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
+Finally, it is possible to compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
 
 
 ```r

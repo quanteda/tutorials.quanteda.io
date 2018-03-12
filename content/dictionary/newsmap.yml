@@ -1,6 +1,7 @@
----
-This dictionary is adopted from the newsmap package (https://github.com/koheiw/newsmap)
----
+#
+# This dictionary is adopted from the newsmap package (https://github.com/koheiw/newsmap)
+#
+
 AFRICA:
   EAST:
     'BI': [Burundi, Burundian*, Bujumbura]
