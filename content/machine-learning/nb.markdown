@@ -36,7 +36,7 @@ summary(corp, 5)
 ##  neg_cv003_12683   314    564         2       neg cv003 12683
 ##  neg_cv004_12641   380    842         2       neg cv004 12641
 ## 
-## Source:  /Users/kbenoit/Dropbox/QUANTESS/quantedaData_kenlocal_gh/* on x86_64 by kbenoit
+## Source: /Users/kbenoit/Dropbox/QUANTESS/quantedaData_kenlocal_gh/* on x86_64 by kbenoit
 ## Created: Sat Nov 15 18:43:25 2014
 ## Notes:
 ```

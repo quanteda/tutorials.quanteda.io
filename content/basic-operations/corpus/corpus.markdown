@@ -46,8 +46,8 @@ summary(immig_corp)
 ##           SNP    88    134         4          SNP
 ##          UKIP   346    723        27         UKIP
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Sun Feb 25 08:16:52 2018
+## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
+## Created: Mon Mar 12 18:39:40 2018
 ## Notes:
 ```
 
@@ -76,7 +76,7 @@ summary(inaug_corp, 5)
 ```
 
 ```
-## Corpus consisting of 5 documents:
+## Corpus consisting of 5 documents, showing 5 documents:
 ## 
 ##   Text Types Tokens Sentences            doc_id Year  President FirstName
 ##  text1   625   1540        23 inaugCorpus.csv.1 1789 Washington    George
@@ -85,8 +85,8 @@ summary(inaug_corp, 5)
 ##  text4   717   1927        41 inaugCorpus.csv.4 1801  Jefferson    Thomas
 ##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Sun Feb 25 08:16:52 2018
+## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
+## Created: Mon Mar 12 18:39:40 2018
 ## Notes:
 ```
 
@@ -102,7 +102,7 @@ summary(inaug_corp, 5)
 ```
 
 ```
-## Corpus consisting of 5 documents:
+## Corpus consisting of 5 documents, showing 5 documents:
 ## 
 ##                    Text Types Tokens Sentences            doc_id Year
 ##  1789 George Washington   625   1540        23 inaugCorpus.csv.1 1789
@@ -117,8 +117,8 @@ summary(inaug_corp, 5)
 ##   Jefferson    Thomas
 ##   Jefferson    Thomas
 ## 
-## Source:  C:/Users/Kohei/Documents/R/quanteda_tutorials/content/basic-operations/corpus/* on x86-64 by Kohei
-## Created: Sun Feb 25 08:16:52 2018
+## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
+## Created: Mon Mar 12 18:39:40 2018
 ## Notes:
 ```
 

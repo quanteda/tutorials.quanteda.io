@@ -32,48 +32,27 @@ head(freq, 20)
 ```
 
 ```
-##                                              feature frequency rank
-## 1                                           #twitter         1    1
-## 2                                     #canviemeuropa         1    2
-## 3                                             #prest         1    3
-## 4                                           #psifizo         1    4
-## 5                                     #ekloges2014gr         1    5
-## 6                                            #ep2014         1    1
-## 7                                         #yourvoice         1    2
-## 8                                      #eudebate2014         1    3
-## 9  #<U+0432><U+0435><U+043B><U+0438><U+043A><U+043E>         1    4
-## 10                                 #savedonbaspeople         1    1
-## 11                                   #vitoriagasteiz         1    2
-## 12                                           #ep14dk        31    1
-## 13                                            #dkpol        18    2
-## 14                                            #eupol         7    3
-## 15                                        #vindtilep         6    4
-## 16                                    #patentdomstol         4    5
-## 17                                           #ep2014        34    1
-## 18                                              #vvd        10    2
-## 19                                               #eu         8    3
-## 20                                              #pvv         8    4
-##    docfreq     group
-## 1        1    Basque
-## 2        1    Basque
-## 3        1    Basque
-## 4        1    Basque
-## 5        1    Basque
-## 6        1 Bulgarian
-## 7        1 Bulgarian
-## 8        1 Bulgarian
-## 9        1 Bulgarian
-## 10       1  Croatian
-## 11       1  Croatian
-## 12      31    Danish
-## 13      18    Danish
-## 14       7    Danish
-## 15       6    Danish
-## 16       4    Danish
-## 17      34     Dutch
-## 18      10     Dutch
-## 19       6     Dutch
-## 20       8     Dutch
+##              feature frequency rank docfreq     group
+## 1           #twitter         1    1       1    Basque
+## 2     #canviemeuropa         1    2       1    Basque
+## 3             #prest         1    3       1    Basque
+## 4           #psifizo         1    4       1    Basque
+## 5     #ekloges2014gr         1    5       1    Basque
+## 6            #ep2014         1    1       1 Bulgarian
+## 7         #yourvoice         1    2       1 Bulgarian
+## 8      #eudebate2014         1    3       1 Bulgarian
+## 9            #велико         1    4       1 Bulgarian
+## 10 #savedonbaspeople         1    1       1  Croatian
+## 11   #vitoriagasteiz         1    2       1  Croatian
+## 12           #ep14dk        31    1      31    Danish
+## 13            #dkpol        18    2      18    Danish
+## 14            #eupol         7    3       7    Danish
+## 15        #vindtilep         6    4       6    Danish
+## 16    #patentdomstol         4    5       4    Danish
+## 17           #ep2014        34    1      34     Dutch
+## 18              #vvd        10    2      10     Dutch
+## 19               #eu         8    3       6     Dutch
+## 20              #pvv         8    4       8     Dutch
 ```
 
 You can also plot the Twitter hashtag frequencies easily using `ggplot()`.
@@ -95,23 +74,21 @@ Alternative, you can create a Wordcloud of the  100 most common tags.
 
 
 ```r
-textplot_wordcloud(tweet_dfm, max.words = 100)
+textplot_wordcloud(tweet_dfm, max_words = 100)
 ```
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
 
-Finally, it is compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
+Finally, it is possible to compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
 
 
 ```r
 # create document-level variable indicating whether Tweet was in English or other language
 docvars(tweet_corp, "dummy_english") <- factor(ifelse(docvars(tweet_corp, "lang") == "English", "English", "Not English"))
 
-# create a grouped dfm and apply tf-idf weighting
-tweet_corp_language <- dfm(tweet_corp, select = "#*", groups = "dummy_english") %>% 
-  dfm_tfidf()
-
-textplot_wordcloud(tweet_corp_language, comparison = TRUE, max.words = 200)
+# create a grouped dfm and compare groups
+tweet_corp_language <- dfm(tweet_corp, select = "#*", groups = "dummy_english")
+textplot_wordcloud(tweet_corp_language, comparison = TRUE, max_words = 200)
 ```
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-7-1.svg" width="768" />

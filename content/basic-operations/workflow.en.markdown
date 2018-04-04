@@ -14,12 +14,14 @@ draft: false
 2.  [Tokens](tokens)
     
     * Stores tokens in a list of vectors
-    * More efficient than character strings, but preserves positions of words (string-of-words)
+    * More efficient than character strings, but preserves positions of words 
+    * Positional (string-of-words) analysis is performed using and `textstat_collocations()`, `tokens_ngrams()` and `tokens_select()` or `fcm()` with `window` option
 
 3.  [Document-feature matrix (DFM)](dfm)
 
     * Represents frequencies of features in documents in a matrix
-    * The most efficient structure, but it does not have information on positions of words (bag-of-words) 
+    * The most efficient structure, but it does not have information on positions of words 
+    * Non-positional (bag-of-words) analysis are profrmed using many of the `textstat_*` and `textmodel_*` functions 
 
 Text analysis with **quanteda** goes through all those three types of objects either explicitly or implicitly.
 
