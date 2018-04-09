@@ -10,7 +10,7 @@ draft: false
 require(quanteda)
 ```
 
-`textstat_lexdiv()` calcuates lexical diversity in various measures based on the number of unique types of tokens and the length of a document. It is useful for analysing speakers' or writers' linguistic skill, or complexity of ideas expressed in documents.
+`textstat_lexdiv()` calculates lexical diversity in various measures based on the number of unique types of tokens and the length of a document. It is useful for analysing speakers' or writers' linguistic skill, or complexity of ideas expressed in documents.
 
 
 ```r
