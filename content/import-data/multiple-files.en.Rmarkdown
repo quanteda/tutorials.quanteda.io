@@ -57,7 +57,7 @@ twitter_data <- readtext("../../content/data/twitter.json")
 The file comes with several metadata for each tweet, such as the number of retweets and likes, the username, time and time zone. 
 
 ```{r}
-names(twitter_data)
+head(names(twitter_data))
 ```
 
 ### PDF
