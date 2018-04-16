@@ -171,19 +171,7 @@ dfm(country_toks)
 ```
 
 ```
-## Document-feature matrix of: 9 documents, 15 features (80.7% sparse).
-## 9 x 15 sparse Matrix of class "dfm"
-##               features
-## docs           rw eg ca bd pk lk id iq ie im gb it au nz fj
-##   BNP           1  1  0  1  1  1  1  1  1  1 63  1  0  0  1
-##   Coalition     0  0  0  0  0  0  0  0  0  0  1  0  0  0  0
-##   Conservative  0  0  0  0  0  0  0  0  0  0  5  0  0  0  0
-##   Greens        0  0  0  0  0  0  0  0  0  0  2  0  0  0  0
-##   Labour        0  0  0  0  0  0  0  0  0  0  7  0  4  0  0
-##   LibDem        0  0  1  0  0  0  0  0  0  0  6  0  0  0  0
-##   PC            0  0  0  0  0  0  0  0  0  0  1  0  0  0  0
-##   SNP           0  0  1  0  0  0  0  0  0  0  0  0  1  0  0
-##   UKIP          0  0  1  0  0  0  0  0  0  0 20  0  1  1  0
+## Document-feature matrix of: 9 documents, 241 features (98.8% sparse).
 ```
 
 

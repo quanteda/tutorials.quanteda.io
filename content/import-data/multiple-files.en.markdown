@@ -72,32 +72,12 @@ The file comes with several metadata for each tweet, such as the number of retwe
 
 
 ```r
-names(twitter_data)
+head(names(twitter_data))
 ```
 
 ```
-##  [1] "doc_id"                    "text"                     
-##  [3] "retweet_count"             "favorited"                
-##  [5] "truncated"                 "id_str"                   
-##  [7] "in_reply_to_screen_name"   "source"                   
-##  [9] "retweeted"                 "created_at"               
-## [11] "in_reply_to_status_id_str" "in_reply_to_user_id_str"  
-## [13] "lang"                      "listed_count"             
-## [15] "verified"                  "location"                 
-## [17] "user_id_str"               "description"              
-## [19] "geo_enabled"               "user_created_at"          
-## [21] "statuses_count"            "followers_count"          
-## [23] "favourites_count"          "protected"                
-## [25] "user_url"                  "name"                     
-## [27] "time_zone"                 "user_lang"                
-## [29] "utc_offset"                "friends_count"            
-## [31] "screen_name"               "country_code"             
-## [33] "country"                   "place_type"               
-## [35] "full_name"                 "place_name"               
-## [37] "place_id"                  "place_lat"                
-## [39] "place_lon"                 "lat"                      
-## [41] "lon"                       "expanded_url"             
-## [43] "url"
+## [1] "doc_id"        "text"          "retweet_count" "favorited"    
+## [5] "truncated"     "id_str"
 ```
 
 ### PDF
