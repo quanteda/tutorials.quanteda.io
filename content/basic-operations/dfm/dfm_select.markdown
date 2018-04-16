@@ -71,6 +71,14 @@ While `dfm_select()` selects features based on patterns, `dfm_trim()` does this 
 
 ```r
 freq_irish_dfm <- dfm_trim(irish_dfm, min_count = 10)
+```
+
+```
+## Warning in dfm_trim.dfm(irish_dfm, min_count = 10): min_count is
+## deprecated, use min_termfreq
+```
+
+```r
 nfeat(long_irish_dfm)
 ```
 
@@ -87,5 +95,5 @@ nfeat(docfreq_irish_dfm)
 ```
 
 ```
-## [1] 4745
+## [1] 0
 ```

@@ -75,6 +75,11 @@ prop_user_dfm <- user_dfm %>%
                  dfm_weight('prop')
 ```
 
+```
+## Warning in dfm_trim.dfm(., min_count = 10): min_count is deprecated, use
+## min_termfreq
+```
+
 Calculate user-user similarity using `textstat_dist()`.
 
 

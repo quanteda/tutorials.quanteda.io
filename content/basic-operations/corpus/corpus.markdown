@@ -47,7 +47,7 @@ summary(immig_corp)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Mon Mar 12 18:39:40 2018
+## Created: Mon Apr 16 17:08:34 2018
 ## Notes:
 ```
 
@@ -78,15 +78,15 @@ summary(inaug_corp, 5)
 ```
 ## Corpus consisting of 5 documents, showing 5 documents:
 ## 
-##   Text Types Tokens Sentences            doc_id Year  President FirstName
-##  text1   625   1540        23 inaugCorpus.csv.1 1789 Washington    George
-##  text2    96    147         4 inaugCorpus.csv.2 1793 Washington    George
-##  text3   826   2578        37 inaugCorpus.csv.3 1797      Adams      John
-##  text4   717   1927        41 inaugCorpus.csv.4 1801  Jefferson    Thomas
-##  text5   804   2381        45 inaugCorpus.csv.5 1805  Jefferson    Thomas
+##               Text Types Tokens Sentences Year  President FirstName
+##  inaugCorpus.csv.1   625   1540        23 1789 Washington    George
+##  inaugCorpus.csv.2    96    147         4 1793 Washington    George
+##  inaugCorpus.csv.3   826   2578        37 1797      Adams      John
+##  inaugCorpus.csv.4   717   1927        41 1801  Jefferson    Thomas
+##  inaugCorpus.csv.5   804   2381        45 1805  Jefferson    Thomas
 ## 
 ## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Mon Mar 12 18:39:40 2018
+## Created: Mon Apr 16 17:08:35 2018
 ## Notes:
 ```
 
@@ -104,21 +104,15 @@ summary(inaug_corp, 5)
 ```
 ## Corpus consisting of 5 documents, showing 5 documents:
 ## 
-##                    Text Types Tokens Sentences            doc_id Year
-##  1789 George Washington   625   1540        23 inaugCorpus.csv.1 1789
-##  1793 George Washington    96    147         4 inaugCorpus.csv.2 1793
-##         1797 John Adams   826   2578        37 inaugCorpus.csv.3 1797
-##   1801 Thomas Jefferson   717   1927        41 inaugCorpus.csv.4 1801
-##   1805 Thomas Jefferson   804   2381        45 inaugCorpus.csv.5 1805
-##   President FirstName
-##  Washington    George
-##  Washington    George
-##       Adams      John
-##   Jefferson    Thomas
-##   Jefferson    Thomas
+##                    Text Types Tokens Sentences Year  President FirstName
+##  1789 George Washington   625   1540        23 1789 Washington    George
+##  1793 George Washington    96    147         4 1793 Washington    George
+##         1797 John Adams   826   2578        37 1797      Adams      John
+##   1801 Thomas Jefferson   717   1927        41 1801  Jefferson    Thomas
+##   1805 Thomas Jefferson   804   2381        45 1805  Jefferson    Thomas
 ## 
 ## Source: /home/kohei/packages/quanteda_tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Mon Mar 12 18:39:40 2018
+## Created: Mon Apr 16 17:08:35 2018
 ## Notes:
 ```
 
