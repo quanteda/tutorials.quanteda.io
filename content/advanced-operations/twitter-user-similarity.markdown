@@ -71,13 +71,8 @@ Remove rare (less than 10 times) and short (one character) features, and convert
 ```r
 prop_user_dfm <- user_dfm %>% 
                  dfm_select(min_nchar = 2) %>% 
-                 dfm_trim(min_count = 10) %>% 
+                 dfm_trim(min_termfreq = 10) %>% 
                  dfm_weight('prop')
-```
-
-```
-## Warning in dfm_trim.dfm(., min_count = 10): min_count is deprecated, use
-## min_termfreq
 ```
 
 Calculate user-user similarity using `textstat_dist()`.

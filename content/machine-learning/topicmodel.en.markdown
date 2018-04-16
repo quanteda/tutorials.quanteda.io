@@ -39,20 +39,7 @@ Further, after removal of function words and punctuations in `dfm()`, we remove 
 ```r
 news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
             dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
-            dfm_trim(min_count = 0.95, max_docfreq = 0.1)
-```
-
-```
-## Warning in dfm_trim.dfm(., min_count = 0.95, max_docfreq = 0.1): min_count
-## is deprecated, use min_termfreq
-```
-
-```
-## Warning in dfm_trim.dfm(., min_count = 0.95, max_docfreq = 0.1): use
-## termfreq_type = 'prop' for fractional term frequency
-```
-
-```r
+            dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", max_docfreq = 0.1)
 news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 ```
 

@@ -25,15 +25,8 @@ When a corpus is large, you have to select features of a DFM before constructing
 ```r
 news_dfm <- dfm(corp, remove = stopwords('en'), remove_punct = TRUE)
 news_dfm <- dfm_remove(news_dfm, c('*-time', 'updated-*', 'gmt', 'bst'))
-news_dfm <- dfm_trim(news_dfm, min_count = 100)
-```
+news_dfm <- dfm_trim(news_dfm, min_termfreq = 100)
 
-```
-## Warning in dfm_trim.dfm(news_dfm, min_count = 100): min_count is
-## deprecated, use min_termfreq
-```
-
-```r
 topfeatures(news_dfm)
 ```
 
