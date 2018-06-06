@@ -83,22 +83,26 @@ summary(ger_ws)
 ## 
 ## Wordscores:
 ## (showing first 30 elements)
-##      alternative      deutschland     wahlprogramm  währungspolitik 
-##            3.078            4.828            2.615            5.920 
-##          fordern        auflösung          braucht             euro 
-##            3.142            1.230            4.261            3.266 
-##          ländern          schadet wiedereinführung       nationaler 
-##            4.273            3.577            4.959            4.746 
-##        schaffung        kleinerer             darf             tabu 
-##            4.387            5.146            3.879            3.760 
-##         änderung     europäischen         verträge            staat 
-##            4.288            4.436            3.242            4.928 
-##      ausscheiden      ermöglichen     demokratisch          währung 
-##            1.979            4.438            1.833            5.897 
-##      entscheiden           dürfen             dass         erzwingt 
-##            4.343            3.594            4.243            3.610 
-##          weitere              esm 
-##            4.972            5.856
+##           alternative           deutschland          wahlprogramm 
+##                 3.078                 4.828                 2.615 
+##       währungspolitik               fordern             geordnete 
+##                 5.920                 3.142                   NaN 
+##             auflösung euro-währungsgebietes               braucht 
+##                 1.230                   NaN                 4.261 
+##                  euro               ländern               schadet 
+##                 3.266                 4.273                 3.577 
+##      wiedereinführung            nationaler             währungen 
+##                 4.959                 4.746                   NaN 
+##             schaffung             kleinerer            stabilerer 
+##                 4.387                 5.146                   NaN 
+##      währungsverbünde                    dm                  darf 
+##                   NaN                   NaN                 3.879 
+##                  tabu              änderung          europäischen 
+##                 3.760                 4.288                 4.436 
+##              verträge                 staat           ausscheiden 
+##                 3.242                 4.928                 1.979 
+##           ermöglichen                  volk          demokratisch 
+##                 4.438                   NaN                 1.833
 ```
 
 Next, we predict the Wordscores for the unknown virgin texts.
@@ -113,6 +117,14 @@ Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_sca
 
 ```r
 textplot_scale1d(ger_ws_predict)
+```
+
+```
+## Warning: Removed 7 rows containing missing values (geom_point).
+```
+
+```
+## Warning: Removed 7 rows containing missing values (geom_pointrange).
 ```
 
 <img src="/machine-learning/wordscores.en_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
