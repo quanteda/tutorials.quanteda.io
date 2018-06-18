@@ -1,0 +1,95 @@
+---
+title: Japanese
+weight: 10
+draft: false
+---
+
+You can use either **quanteda**'s `tokens()` or a morphorogical analysis tool to tokenize Japanese texts. 
+
+
+```{r, message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+```
+
+## Tokenization
+
+```{r, eval=FALSE}
+corp <- download("data_corpus_foreignaffairscommittee")
+```
+
+```{r, echo=FALSE}
+corp <- readRDS("/home/kohei/Dropbox/Public/data_corpus_foreignaffairscommittee.rds")
+txt <- tail(texts(corp), 1000)
+```
+
+### Dictionary-based boundary detection
+
+Tokenization by `tokens()` is based on rules defined by the ICU library
+
+```{r}
+icu_toks <- tokens(txt)
+head(icu_toks[[20]], 100)
+```
+
+
+### Morphorogical analysis
+
+```{r, echo=FALSE}
+mecab_toks <- readRDS("../data/data_tokens_japanese.rds")
+```
+
+```{r, eval=FALSE}
+install.packages("RMeCab", repos = "http://rmecab.jp/R")
+mecab_toks <- 
+  txt %>% 
+  lapply(function(x) unlist(RMeCab::RMeCabC(x))) %>% 
+  as.tokens()
+```
+
+```{r}
+head(mecab_toks[[20]], 100)
+```
+
+
+### Refine tokenization
+
+```{r}
+refi_toks <- icu_toks
+seqs_kanji <- icu_toks %>% 
+              tokens_select('^[一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
+              textstat_collocations(min_count = 5, tolower = FALSE)
+refi_toks <- tokens_compound(refi_toks, seqs_kanji[seqs_kanji$z > 2], concatenator = '', join = TRUE)
+
+seqs_kana <- icu_toks %>% 
+             tokens_select('^[ァ-ヶー]+$', valuetype = 'regex', padding = TRUE) %>% 
+             textstat_collocations(min_count = 5, tolower = FALSE)
+refi_toks <- tokens_compound(refi_toks, seqs_kana[seqs_kana$z > 2], concatenator = '', join = TRUE)
+
+seqs_any <- icu_toks %>% 
+            tokens_select('^[０-９ァ-ヶー一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
+            textstat_collocations(min_count = 5, tolower = FALSE)
+refi_toks <- tokens_compound(refi_toks, seqs_any[seqs_any$z > 2], concatenator = '', join = TRUE)
+
+```
+
+```{r}
+head(refi_toks[[20]], 100)
+```
+
+{{% notice note %}}
+Compounding makes data more sparse
+{{% /notice %}}
+
+## Feature selection
+
+```{r}
+toks <- tokens_select(refi_toks, '^[０-９ぁ-んァ-ヶー一-龠]+$', valuetype = 'regex')
+toks <- tokens_remove(refi_toks, "^[ぁ-ん]+$", valuetype = "regex")
+head(toks[[20]], 100)
+```
+
+{{% notice info %}}
+If you want to learn more about how to analyze speeches at at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin), see\
+https://docs.quanteda.io/articles/pkgdown/examples/japanese_speech_ja.html
+{{% /notice%}}
