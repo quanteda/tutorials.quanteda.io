@@ -92,30 +92,30 @@ head(mecab_toks[[20]], 100)
 ```
 
 
-### Refine tokenization
+## Refining tokens
 
 
 ```r
-refi_toks <- icu_toks
+refi_icu_toks <- icu_toks
 seqs_kanji <- icu_toks %>% 
               tokens_select('^[一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
               textstat_collocations(min_count = 5, tolower = FALSE)
-refi_toks <- tokens_compound(refi_toks, seqs_kanji[seqs_kanji$z > 2], concatenator = '', join = TRUE)
+refi_icu_toks <- tokens_compound(refi_icu_toks, seqs_kanji[seqs_kanji$z > 2], concatenator = '', join = TRUE)
 
-seqs_kana <- icu_toks %>% 
+seqs_kana <- refi_icu_toks %>% 
              tokens_select('^[ァ-ヶー]+$', valuetype = 'regex', padding = TRUE) %>% 
              textstat_collocations(min_count = 5, tolower = FALSE)
-refi_toks <- tokens_compound(refi_toks, seqs_kana[seqs_kana$z > 2], concatenator = '', join = TRUE)
+refi_icu_toks <- tokens_compound(refi_icu_toks, seqs_kana[seqs_kana$z > 2], concatenator = '', join = TRUE)
 
-seqs_any <- icu_toks %>% 
+seqs_any <- refi_icu_toks %>% 
             tokens_select('^[０-９ァ-ヶー一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
             textstat_collocations(min_count = 5, tolower = FALSE)
-refi_toks <- tokens_compound(refi_toks, seqs_any[seqs_any$z > 2], concatenator = '', join = TRUE)
+refi_icu_toks <- tokens_compound(refi_icu_toks, seqs_any[seqs_any$z > 2], concatenator = '', join = TRUE)
 ```
 
 
 ```r
-head(refi_toks[[20]], 100)
+head(refi_icu_toks[[20]], 100)
 ```
 
 ```
@@ -154,31 +154,58 @@ Compounding makes data more sparse
 
 
 ```r
-toks <- tokens_select(refi_toks, '^[０-９ぁ-んァ-ヶー一-龠]+$', valuetype = 'regex')
-toks <- tokens_remove(refi_toks, "^[ぁ-ん]+$", valuetype = "regex")
-head(toks[[20]], 100)
+refi_icu_toks <- tokens_select(refi_icu_toks, '^[０-９ぁ-んァ-ヶー一-龠]+$', valuetype = 'regex')
+refi_icu_toks <- tokens_remove(refi_icu_toks, "^[ぁ-ん]+$", valuetype = "regex")
+head(refi_icu_toks[[20]], 100)
 ```
 
 ```
-##  [1] "○"            "森政府参考人" "お答え"       "申"          
-##  [5] "上げ"         "。"           "ＡＣＳＡ"     "、"          
-##  [9] "自衛隊"       "相手国"       "軍隊"         "間"          
-## [13] "物品"         "、"           "役務"         "相互提供"    
-## [17] "適用"         "決済手続等"   "枠組み"       "定める"      
-## [21] "。"           "締結"         "、"           "自衛隊"      
-## [25] "相手国"       "軍隊"         "間"           "物品"        
-## [29] "、"           "役務"         "相互提供"     "円滑"        
-## [33] "迅速"         "行う"         "可能"         "。"          
-## [37] "我が国"       "取り巻く"     "安全保障環境" "一層"        
-## [41] "厳"           "増す"         "中"           "、"          
-## [45] "今回"         "日米"         "ＡＣＳＡ"     "締結"        
-## [49] "、"           "昨年"         "三月"         "施行"        
-## [53] "平和安全法制" "幅"           "広"           "日米間"      
-## [57] "安全保障"     "協力"         "円滑"         "実施"        
-## [61] "貢献"         "、"           "協力"         "実効性"      
-## [65] "一層"         "高める"       "上"           "大きな"      
-## [69] "意義"         "考え"         "。"
+##  [1] "森政府参考人" "お答え"       "申"           "上げ"        
+##  [5] "自衛隊"       "相手国"       "軍隊"         "間"          
+##  [9] "物品"         "役務"         "相互提供"     "適用"        
+## [13] "決済手続等"   "枠組み"       "定める"       "締結"        
+## [17] "自衛隊"       "相手国"       "軍隊"         "間"          
+## [21] "物品"         "役務"         "相互提供"     "円滑"        
+## [25] "迅速"         "行う"         "可能"         "我が国"      
+## [29] "取り巻く"     "安全保障環境" "一層"         "厳"          
+## [33] "増す"         "中"           "今回"         "日米"        
+## [37] "締結"         "昨年"         "三月"         "施行"        
+## [41] "平和安全法制" "幅"           "広"           "日米間"      
+## [45] "安全保障"     "協力"         "円滑"         "実施"        
+## [49] "貢献"         "協力"         "実効性"       "一層"        
+## [53] "高める"       "上"           "大きな"       "意義"        
+## [57] "考え"
 ```
+
+
+```r
+refi_icu_dfm <- dfm(refi_icu_toks)
+topfeatures(dfm(refi_icu_dfm), 20)
+```
+
+```
+##     思い       私     考え       言       中       今     問題   我が国 
+##      658      567      381      363      317      314      303      280 
+##     上げ     日本       申       行     大臣   北朝鮮       方       思 
+##      278      273      253      248      246      242      238      235 
+##     議論       等 に対して     状況 
+##      219      208      194      192
+```
+
+```r
+refi_icu_dfm <- dfm_select(refi_icu_dfm, min_nchar = 2)
+topfeatures(dfm(refi_icu_dfm), 20)
+```
+
+```
+##     思い     考え     問題   我が国     上げ     日本     大臣   北朝鮮 
+##      658      381      303      280      278      273      246      242 
+##     議論 に対して     状況     委員     活動     政府   自衛隊     確認 
+##      219      194      192      187      184      183      178      175 
+##     質問   先ほど     今回     答弁 
+##      169      169      158      155
+```
+
 
 {{% notice info %}}
 If you want to learn more about how to analyze speeches at at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin), see\
