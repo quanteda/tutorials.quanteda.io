@@ -12,12 +12,12 @@ require(readtext)
 Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubusercontent.com/quanteda/quanteda_tutorials/master/content/data/twitter.json) is located in data directory of this tutorial package.
 
 ```{r, eval=FALSE}
-twitter_data <- readtext("content/data/twitter.json")
+twitter_data <- readtext("content/data/twitter.json", source = "twitter")
 ```
 
 ```{r include=FALSE}
 # This code is only for website generation
-twitter_data <- readtext("../../content/data/twitter.json")
+twitter_data <- readtext("../../content/data/twitter.json", source = "twitter")
 ```
 
 Construct a corpus of Tweets.

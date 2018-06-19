@@ -14,7 +14,7 @@ Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubuserconte
 
 
 ```r
-twitter_data <- readtext("content/data/twitter.json")
+twitter_data <- readtext("content/data/twitter.json", source = "twitter")
 ```
 
 
