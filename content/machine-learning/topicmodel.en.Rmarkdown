@@ -19,7 +19,7 @@ news_corp <- download('data_corpus_guardian')
 
 ```{r include=FALSE}
 # This code is only for website generation
-news_corp <- readRDS("../../content/data/data_corpus_guardian.rds")
+news_corp <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
 We only select news stories published in 2016 using `corpus_subset()`. 
@@ -29,12 +29,14 @@ news_corp <- corpus_subset(news_corp, year(docvars(news_corp, 'date')) >= 2016)
 ndoc(news_corp)
 ```
 
-Further, after removal of function words and punctuations in `dfm()`, we remove rare and common features and using `dfm_trim()` to reduce time to fit a model.
+Further, after removal of function words and punctuations in `dfm()`, we keep only top 5% of the most frequent features (`min_termfreq = 0.95`) that appear less than 10% of all document (`max_docfreq = 0.1`)
+ using `dfm_trim()` to focus to common but distinguishing features.
 
 ```{r}
 news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
             dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
-            dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", max_docfreq = 0.1)
+            dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
+                     max_docfreq = 0.1, docfreq_type = "prop")
 news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 ```
 
@@ -42,8 +44,6 @@ news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 
 ```{r cache=TRUE}
 dtm <- convert(news_dfm, to = "topicmodels")
-
-set.seed(135)
 lda <- LDA(dtm, k = 10)
 ```
 
