@@ -4,8 +4,7 @@ weight: 10
 draft: false
 ---
 
-You can use either **quanteda**'s `tokens()` or a morphorogical analysis tool to tokenize Japanese texts. 
-
+{{% author %}}By Kohei Watanabe{{% /author %}} 
 
 
 ```r
@@ -14,6 +13,8 @@ require(quanteda.corpora)
 ```
 
 ## Tokenization
+
+You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017.
 
 
 ```r
@@ -24,7 +25,7 @@ corp <- download("data_corpus_foreignaffairscommittee")
 
 ### Dictionary-based boundary detection
 
-Tokenization by `tokens()` is based on rules defined by the ICU library
+Tokenization by `tokens()` is based on rules defined in the [ICU library](http://site.icu-project.org/home). It does not require installation of external libraries.
 
 
 ```r
@@ -52,8 +53,9 @@ head(icu_toks[[20]], 100)
 ##  [97] "中"       "で"       "、"       "今回"
 ```
 
+### Morphological analysis
 
-### Morphorogical analysis
+If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. Mecab is one of the most popular tool for tokenizing Japanese texts, and we can use it from R using **RMecab**. The package is not available on CRAN, so you have to install the library from the author's repository.
 
 
 
@@ -93,6 +95,8 @@ head(mecab_toks[[20]], 100)
 
 
 ## Refining tokens
+
+Even if you use a morphological analysis tool, tokenization of Japanese text is far from perfect. However, you can refine tokens by compounding sequence of the same character class using `textstat_collocations()` and `tokens_compound()`. `^[一-龠]+$` and `^[ァ-ヶー]+$` regular expressions that match tokens are compromised only of kanji and katakana, respectively. `^[０-９ァ-ヶー一-龠]+$` is for tokens that is a combination of number, katakana, or kanji.
 
 
 ```r
@@ -147,40 +151,44 @@ head(refi_icu_toks[[20]], 100)
 ```
 
 {{% notice note %}}
-Compounding makes data more sparse
+You have to be careful not to compound too many tokens to reduce their semantic ambiguity, because large ngrams increase sparsity of the data and make statistical analysis more difficult.
 {{% /notice %}}
 
 ## Feature selection
 
+We did not remove punctuation marks in the initial tokenization, but we do it here by `tokens(remove_punct = TRUE)`. There is no standard list of stop words for Japanese, but we can hiragana-only tokens are usually function words that we can remove.
+
 
 ```r
-refi_icu_toks <- tokens_select(refi_icu_toks, '^[０-９ぁ-んァ-ヶー一-龠]+$', valuetype = 'regex')
+refi_icu_toks <- tokens(refi_icu_toks, remove_punct = TRUE)
 refi_icu_toks <- tokens_remove(refi_icu_toks, "^[ぁ-ん]+$", valuetype = "regex")
 head(refi_icu_toks[[20]], 100)
 ```
 
 ```
 ##  [1] "森政府参考人" "お答え"       "申"           "上げ"        
-##  [5] "自衛隊"       "相手国"       "軍隊"         "間"          
-##  [9] "物品"         "役務"         "相互提供"     "適用"        
-## [13] "決済手続等"   "枠組み"       "定める"       "締結"        
-## [17] "自衛隊"       "相手国"       "軍隊"         "間"          
-## [21] "物品"         "役務"         "相互提供"     "円滑"        
-## [25] "迅速"         "行う"         "可能"         "我が国"      
-## [29] "取り巻く"     "安全保障環境" "一層"         "厳"          
-## [33] "増す"         "中"           "今回"         "日米"        
-## [37] "締結"         "昨年"         "三月"         "施行"        
-## [41] "平和安全法制" "幅"           "広"           "日米間"      
-## [45] "安全保障"     "協力"         "円滑"         "実施"        
-## [49] "貢献"         "協力"         "実効性"       "一層"        
-## [53] "高める"       "上"           "大きな"       "意義"        
-## [57] "考え"
+##  [5] "ＡＣＳＡ"     "自衛隊"       "相手国"       "軍隊"        
+##  [9] "間"           "物品"         "役務"         "相互提供"    
+## [13] "適用"         "決済手続等"   "枠組み"       "定める"      
+## [17] "締結"         "自衛隊"       "相手国"       "軍隊"        
+## [21] "間"           "物品"         "役務"         "相互提供"    
+## [25] "円滑"         "迅速"         "行う"         "可能"        
+## [29] "我が国"       "取り巻く"     "安全保障環境" "一層"        
+## [33] "厳"           "増す"         "中"           "今回"        
+## [37] "日米"         "ＡＣＳＡ"     "締結"         "昨年"        
+## [41] "三月"         "施行"         "平和安全法制" "幅"          
+## [45] "広"           "日米間"       "安全保障"     "協力"        
+## [49] "円滑"         "実施"         "貢献"         "協力"        
+## [53] "実効性"       "一層"         "高める"       "上"          
+## [57] "大きな"       "意義"         "考え"
 ```
+
+Even after hiragana-only tokens are removed, there are many one-character tokens, many of which are very common verbs in Japanese texts. These tokens can be removed by `dfm_select(min_nchar = 2)`.
 
 
 ```r
-refi_icu_dfm <- dfm(refi_icu_toks)
-topfeatures(dfm(refi_icu_dfm), 20)
+refi_icu_dfm <- dfm(refi_icu_toks, tolower = FALSE)
+topfeatures(refi_icu_dfm, 20)
 ```
 
 ```
@@ -188,22 +196,22 @@ topfeatures(dfm(refi_icu_dfm), 20)
 ##      658      567      381      363      317      314      303      280 
 ##     上げ     日本       申       行     大臣   北朝鮮       方       思 
 ##      278      273      253      248      246      242      238      235 
-##     議論       等 に対して     状況 
-##      219      208      194      192
+##     議論 ＡＣＳＡ       等 に対して 
+##      219      214      208      194
 ```
 
 ```r
 refi_icu_dfm <- dfm_select(refi_icu_dfm, min_nchar = 2)
-topfeatures(dfm(refi_icu_dfm), 20)
+topfeatures(refi_icu_dfm, 20)
 ```
 
 ```
 ##     思い     考え     問題   我が国     上げ     日本     大臣   北朝鮮 
 ##      658      381      303      280      278      273      246      242 
-##     議論 に対して     状況     委員     活動     政府   自衛隊     確認 
-##      219      194      192      187      184      183      178      175 
-##     質問   先ほど     今回     答弁 
-##      169      169      158      155
+##     議論 ＡＣＳＡ に対して     状況     委員     活動     政府   自衛隊 
+##      219      214      194      192      187      184      183      178 
+##     確認     質問   先ほど     今回 
+##      175      169      169      158
 ```
 
 

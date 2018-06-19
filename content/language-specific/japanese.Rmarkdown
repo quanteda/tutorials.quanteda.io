@@ -4,8 +4,7 @@ weight: 10
 draft: false
 ---
 
-You can use either **quanteda**'s `tokens()` or a morphorogical analysis tool to tokenize Japanese texts. 
-
+{{% author %}}By Kohei Watanabe{{% /author %}} 
 
 ```{r, message=FALSE}
 require(quanteda)
@@ -14,28 +13,33 @@ require(quanteda.corpora)
 
 ## Tokenization
 
+You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017.
+
 ```{r, eval=FALSE}
 corp <- download("data_corpus_foreignaffairscommittee")
 ```
 
-```{r, echo=FALSE}
+```{r include=FALSE}
+# This code is only for website generation
 corp <- readRDS("/home/kohei/Dropbox/Public/data_corpus_foreignaffairscommittee.rds")
 txt <- tail(texts(corp), 1000)
 ```
 
 ### Dictionary-based boundary detection
 
-Tokenization by `tokens()` is based on rules defined by the ICU library
+Tokenization by `tokens()` is based on rules defined in the [ICU library](http://site.icu-project.org/home). It does not require installation of external libraries.
 
 ```{r}
 icu_toks <- tokens(txt)
 head(icu_toks[[20]], 100)
 ```
 
+### Morphological analysis
 
-### Morphorogical analysis
+If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. Mecab is one of the most popular tool for tokenizing Japanese texts, and we can use it from R using **RMecab**. The package is not available on CRAN, so you have to install the library from the author's repository.
 
-```{r, echo=FALSE}
+```{r include=FALSE}
+# This code is only for website generation
 mecab_toks <- readRDS("../data/data_tokens_japanese.rds")
 ```
 
@@ -53,6 +57,8 @@ head(mecab_toks[[20]], 100)
 
 
 ## Refining tokens
+
+Even if you use a morphological analysis tool, tokenization of Japanese text is far from perfect. However, you can refine tokens by compounding sequence of the same character class using `textstat_collocations()` and `tokens_compound()`. `^[一-龠]+$` and `^[ァ-ヶー]+$` regular expressions that match tokens are compromised only of kanji and katakana, respectively. `^[０-９ァ-ヶー一-龠]+$` is for tokens that is a combination of number, katakana, or kanji.
 
 ```{r}
 refi_icu_toks <- icu_toks
@@ -78,22 +84,26 @@ head(refi_icu_toks[[20]], 100)
 ```
 
 {{% notice note %}}
-Compounding makes data more sparse
+You have to be careful not to compound too many tokens to reduce their semantic ambiguity, because large ngrams increase sparsity of the data and make statistical analysis more difficult.
 {{% /notice %}}
 
 ## Feature selection
 
+We did not remove punctuation marks in the initial tokenization, but we do it here by `tokens(remove_punct = TRUE)`. There is no standard list of stop words for Japanese, but we can hiragana-only tokens are usually function words that we can remove.
+
 ```{r}
-refi_icu_toks <- tokens_select(refi_icu_toks, '^[０-９ぁ-んァ-ヶー一-龠]+$', valuetype = 'regex')
+refi_icu_toks <- tokens(refi_icu_toks, remove_punct = TRUE)
 refi_icu_toks <- tokens_remove(refi_icu_toks, "^[ぁ-ん]+$", valuetype = "regex")
 head(refi_icu_toks[[20]], 100)
 ```
 
+Even after hiragana-only tokens are removed, there are many one-character tokens, many of which are very common verbs in Japanese texts. These tokens can be removed by `dfm_select(min_nchar = 2)`.
+
 ```{r}
-refi_icu_dfm <- dfm(refi_icu_toks)
-topfeatures(dfm(refi_icu_dfm), 20)
+refi_icu_dfm <- dfm(refi_icu_toks, tolower = FALSE)
+topfeatures(refi_icu_dfm, 20)
 refi_icu_dfm <- dfm_select(refi_icu_dfm, min_nchar = 2)
-topfeatures(dfm(refi_icu_dfm), 20)
+topfeatures(refi_icu_dfm, 20)
 ```
 
 
