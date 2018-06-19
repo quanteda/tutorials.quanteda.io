@@ -51,14 +51,13 @@ Naive Bayes can only take features into consideration that occur both in the tra
 
 ```{r}
 test_dfm <- dfm_select(test_dfm, training_dfm)
-pred_data <- predict(nb, test_dfm)
 ```
 
 Let's inspect how well the classification worked.
 
 ```{r}
 actual_class <- docvars(test_dfm, "Sentiment")
-predicted_class <- pred_data$nb.predicted 
+predicted_class <- predict(nb, test_dfm)
 class_table <- table(actual_class, predicted_class)
 class_table
 ```
