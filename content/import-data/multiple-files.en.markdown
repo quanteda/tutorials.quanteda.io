@@ -63,7 +63,7 @@ You can also read JSON files (.json) downloaded from the Twititer stream API. [t
 
 
 ```r
-twitter_data <- readtext("content/data/twitter.json")
+twitter_data <- readtext("content/data/twitter.json", source = "twitter")
 ```
 
 
@@ -76,8 +76,8 @@ head(names(twitter_data))
 ```
 
 ```
-## [1] "doc_id"        "text"          "retweet_count" "favorited"    
-## [5] "truncated"     "id_str"
+## [1] "doc_id"         "text"           "retweet_count"  "favorite_count"
+## [5] "favorited"      "truncated"
 ```
 
 ### PDF
