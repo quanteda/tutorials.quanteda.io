@@ -16,7 +16,7 @@ news_corp <- download('data_corpus_guardian')
 
 ```{r include=FALSE}
 # This code is only for website generation
-news_corp <- readRDS("../../content/data/data_corpus_guardian.rds")
+news_corp <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
 ```{r}

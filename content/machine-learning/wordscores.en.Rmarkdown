@@ -22,7 +22,7 @@ ger_corpus <- download(url = 'https://www.dropbox.com/s/uysdoep4unfz3zp/data_cor
 
 ```{r include=FALSE}
 # This code is only for website generation
-ger_corpus <- readRDS(file = "../../content/data/data_corpus_germanifestos.rds")
+ger_corpus <- readRDS("../data/data_corpus_germanifestos.rds")
 ```
 
 ```{r}

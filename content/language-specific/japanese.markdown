@@ -55,7 +55,7 @@ head(icu_toks[[20]], 100)
 
 ### Morphological analysis
 
-If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. Mecab is one of the most popular tool for tokenizing Japanese texts, and we can use it from R using **RMecab**. The package is not available on CRAN, so you have to install the library from the author's repository.
+If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. [Mecab](https://en.wikipedia.org/wiki/MeCab) is one of the most popular tools for tokenizing Japanese texts, and we can use it from R with **RMecab**. The package is not available on CRAN, so you have to install the library from the [author's repository](http://rmecab.jp).
 
 
 
@@ -96,7 +96,7 @@ head(mecab_toks[[20]], 100)
 
 ## Refining tokens
 
-Even if you use a morphological analysis tool, tokenization of Japanese text is far from perfect. However, you can refine tokens by compounding sequence of the same character class using `textstat_collocations()` and `tokens_compound()`. `^[一-龠]+$` and `^[ァ-ヶー]+$` regular expressions that match tokens are compromised only of kanji and katakana, respectively. `^[０-９ァ-ヶー一-龠]+$` is for tokens that is a combination of number, katakana, or kanji.
+Even if you use a morphological analysis tool, tokenization of Japanese text is far from perfect. However, you can refine tokens by compounding sequence of the same character class using `textstat_collocations()` and `tokens_compound()`. `^[一-龠]+$` and `^[ァ-ヶー]+$` regular expressions that match tokens are compromised only of kanji and katakana, respectively. `^[０-９ァ-ヶー一-龠]+$` is for tokens that is a combination of numbers, katakana, or kanji.
 
 
 ```r
