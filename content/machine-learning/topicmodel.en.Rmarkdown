@@ -42,6 +42,8 @@ news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 
 ```{r cache=TRUE}
 dtm <- convert(news_dfm, to = "topicmodels")
+
+set.seed(135)
 lda <- LDA(dtm, k = 10)
 ```
 
