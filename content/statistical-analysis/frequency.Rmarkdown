@@ -19,7 +19,7 @@ tweet_corp <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_cor
 
 ```{r include=FALSE}
 # This code is only for website generation
-tweet_corp <- readRDS("../../content/data/data_corpus_sampletweets.rds")
+tweet_corp <- readRDS("../data/data_corpus_sampletweets.rds")
 ```
 
 We analyse the most frequent hashtags using `select = "#*"` when creating the `dfm`.

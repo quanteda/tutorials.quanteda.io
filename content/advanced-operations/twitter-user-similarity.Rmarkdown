@@ -17,7 +17,7 @@ twitter_data <- readtext("content/data/twitter.json", source = "twitter")
 
 ```{r include=FALSE}
 # This code is only for website generation
-twitter_data <- readtext("../../content/data/twitter.json", source = "twitter")
+twitter_data <- readtext("../data/twitter.json", source = "twitter")
 ```
 
 Construct a corpus of Tweets.
