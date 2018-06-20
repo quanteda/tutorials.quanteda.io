@@ -56,7 +56,7 @@ Now we can apply the Wordscores algorithm to a document-feature matrix.
 
 ```r
 ger_dfm <- dfm(ger_corpus, remove = stopwords("de"), remove_punct = TRUE)
-ger_ws <- textmodel_wordscores(ger_dfm, y = docvars(ger_corpus, "ref_score"))
+ger_ws <- textmodel_wordscores(ger_dfm, y = docvars(ger_corpus, "ref_score"), smooth = 1)
 summary(ger_ws)
 ```
 
@@ -64,7 +64,7 @@ summary(ger_ws)
 ## 
 ## Call:
 ## textmodel_wordscores.dfm(x = ger_dfm, y = docvars(ger_corpus, 
-##     "ref_score"))
+##     "ref_score"), smooth = 1)
 ## 
 ## Reference Document Statistics:
 ##              score total min  max    mean median
@@ -84,25 +84,25 @@ summary(ger_ws)
 ## Wordscores:
 ## (showing first 30 elements)
 ##           alternative           deutschland          wahlprogramm 
-##                 3.078                 4.828                 2.615 
+##                 3.290                 4.742                 3.296 
 ##       währungspolitik               fordern             geordnete 
-##                 5.920                 3.142                   NaN 
+##                 4.531                 3.255                 4.242 
 ##             auflösung euro-währungsgebietes               braucht 
-##                 1.230                   NaN                 4.261 
+##                 3.336                 4.242                 4.155 
 ##                  euro               ländern               schadet 
-##                 3.266                 4.273                 3.577 
+##                 3.333                 4.228                 3.912 
 ##      wiedereinführung            nationaler             währungen 
-##                 4.959                 4.746                   NaN 
+##                 4.466                 4.578                 4.242 
 ##             schaffung             kleinerer            stabilerer 
-##                 4.387                 5.146                   NaN 
+##                 4.290                 4.427                 4.242 
 ##      währungsverbünde                    dm                  darf 
-##                   NaN                   NaN                 3.879 
+##                 4.242                 4.242                 3.871 
 ##                  tabu              änderung          europäischen 
-##                 3.760                 4.288                 4.436 
+##                 4.159                 4.227                 4.360 
 ##              verträge                 staat           ausscheiden 
-##                 3.242                 4.928                 1.979 
+##                 3.553                 4.794                 3.698 
 ##           ermöglichen                  volk          demokratisch 
-##                 4.438                   NaN                 1.833
+##                 4.356                 4.242                 2.271
 ```
 
 Next, we predict the Wordscores for the unknown virgin texts.
@@ -117,14 +117,6 @@ Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_sca
 
 ```r
 textplot_scale1d(ger_ws_predict)
-```
-
-```
-## Warning: Removed 7 rows containing missing values (geom_point).
-```
-
-```
-## Warning: Removed 7 rows containing missing values (geom_pointrange).
 ```
 
 <img src="/machine-learning/wordscores.en_files/figure-html/unnamed-chunk-7-1.svg" width="768" />

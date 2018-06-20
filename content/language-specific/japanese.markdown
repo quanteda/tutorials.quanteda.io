@@ -19,6 +19,7 @@ You can use `tokens()` or a morphological analysis tool such as [Mecab](http://t
 
 ```r
 corp <- download("data_corpus_foreignaffairscommittee")
+txt <- tail(texts(corp), 1000)
 ```
 
 
@@ -214,8 +215,6 @@ topfeatures(refi_icu_dfm, 20)
 ##      175      169      169      158
 ```
 
-
 {{% notice info %}}
-If you want to learn more about how to analyze speeches at at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin), see\
-https://docs.quanteda.io/articles/pkgdown/examples/japanese_speech_ja.html
+If you want to learn more about how to analyze speeches at at Japan's Committee on Foreign Affairs and Defense of the lower house, see the [ example](https://docs.quanteda.io/articles/pkgdown/examples/japanese_speech_ja.html) on the documentation site.
 {{% /notice%}}
