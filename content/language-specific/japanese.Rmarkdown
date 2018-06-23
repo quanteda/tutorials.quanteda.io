@@ -28,7 +28,7 @@ txt <- tail(texts(corp), 1000)
 
 ### Dictionary-based boundary detection
 
-Tokenization by `tokens()` is based on rules defined in the [ICU library](http://site.icu-project.org/home). It does not require installation of external libraries.
+`tokens()` can segment Japanese texts without additional tools based on the rules defined in the [ICU library](http://site.icu-project.org/home), which is available via the **stringi** package. ICU detects boundaries of Japanese words using [a dictonary with frequency information](http://source.icu-project.org/repos/icu/icu/tags/release-58-rc/source/data/brkitr/dictionaries/).
 
 ```{r}
 icu_toks <- tokens(txt)
