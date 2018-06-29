@@ -29,7 +29,7 @@ languageName = "English"
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fa fa-github'></i> Github repo"
 identifier = "ds"
-url = "https://github.com/quanteda/quanteda"
+url = "https://github.com/quanteda/quanteda_tutorials/"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
