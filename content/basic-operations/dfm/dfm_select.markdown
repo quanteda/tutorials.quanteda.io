@@ -71,21 +71,21 @@ While `dfm_select()` selects features based on patterns, `dfm_trim()` does this 
 
 ```r
 freq_irish_dfm <- dfm_trim(irish_dfm, min_termfreq = 10)
-nfeat(long_irish_dfm)
+nfeat(freq_irish_dfm)
 ```
 
 ```
-## [1] 4274
+## [1] 660
 ```
 
-If `max_docfreq = 0.5`, features that occur in more than half of the documents are removed.
+If `max_docfreq = 0.1`, features that occur in more than 10% of the documents are removed.
 
 
 ```r
-docfreq_irish_dfm <- dfm_trim(irish_dfm, max_docfreq = 0.5)
+docfreq_irish_dfm <- dfm_trim(irish_dfm, max_docfreq = 0.1, docfreq_type = "prop")
 nfeat(docfreq_irish_dfm)
 ```
 
 ```
-## [1] 0
+## [1] 2713
 ```
