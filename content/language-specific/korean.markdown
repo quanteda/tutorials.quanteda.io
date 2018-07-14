@@ -63,7 +63,7 @@ head(icu_toks[[10]], 50)
 
 ### Morphological analysis 
 
-If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. [KoNLP](https://cran.r-project.org/web/packages/KoNLP/index.html) is one of the most popular morphological analysis tools for Korean texts. Using **KoNLP**'s *nour extraction* function, we can remove grammatical morphemes in a similar manner as lemmatization in English.
+If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. [KoNLP](https://cran.r-project.org/web/packages/KoNLP/index.html) is one of the most popular morphological analysis tools for Korean texts. Using **KoNLP**'s *nour extraction* function, we can remove grammatical letters in a similar manner as lemmatization in English.
 
 
 
