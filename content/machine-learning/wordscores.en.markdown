@@ -119,7 +119,7 @@ Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_sca
 textplot_scale1d(ger_ws_predict)
 ```
 
-<img src="/machine-learning/wordscores.en_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
+<img src="/machine-learning/wordscores.en_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 
 {{% notice info %}}

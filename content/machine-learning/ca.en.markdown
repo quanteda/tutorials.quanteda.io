@@ -29,7 +29,7 @@ ca <- dfm(corp, remove_punct = TRUE, remove = stopwords('en')) %>% textmodel_ca(
 textplot_scale1d(ca)
 ```
 
-<img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-3-1.svg" width="768" />
+<img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 If you want to plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
 
@@ -56,5 +56,5 @@ grid()
 text(ca_data$dim1, ca_data$dim2, labels = rownames(ca_data), cex = 0.8, col = rgb(0, 0, 0, 0.7))
 ```
 
-<img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-4-1.svg" width="672" />
+<img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 

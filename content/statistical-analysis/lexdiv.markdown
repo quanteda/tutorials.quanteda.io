@@ -42,6 +42,6 @@ grid()
 axis(1, at = seq_len(nrow(lexdiv)), labels = docvars(inaug_dfm, 'President'))
 ```
 
-<img src="/statistical-analysis/lexdiv_files/figure-html/unnamed-chunk-3-1.svg" width="768" />
+<img src="/statistical-analysis/lexdiv_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 

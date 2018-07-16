@@ -66,7 +66,7 @@ doclab <- paste(docvars(irish_dfm, "name"), docvars(irish_dfm, "party"))
 textplot_scale1d(wf, doclabels = doclab)
 ```
 
-<img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-3-1.svg" width="768" />
+<img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 The function also allows to plot scores by a grouping variable, in this case the party affiliation of the speakers.
 
@@ -75,7 +75,7 @@ The function also allows to plot scores by a grouping variable, in this case the
 textplot_scale1d(wf, doclabels = doclab, groups = docvars(irish_dfm, "party"))
 ```
 
-<img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-4-1.svg" width="768" />
+<img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 Finally, we can plot the estimated word positions and highlight certain features.
 
@@ -87,7 +87,7 @@ textplot_scale1d(wf, margin = "features",
                                  "productivity", "deficit"))
 ```
 
-<img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-5-1.svg" width="768" />
+<img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 {{% notice info %}}
 If you want to learn more about Wordfish, see:  

@@ -68,7 +68,7 @@ tweet_dfm %>%
   theme_minimal()
 ```
 
-<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-5-1.svg" width="768" />
+<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 Alternative, you can create a Wordcloud of the  100 most common tags.
 
@@ -77,7 +77,7 @@ Alternative, you can create a Wordcloud of the  100 most common tags.
 textplot_wordcloud(tweet_dfm, max_words = 100)
 ```
 
-<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
+<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 Finally, it is possible to compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
 
@@ -91,6 +91,6 @@ tweet_corp_language <- dfm(tweet_corp, select = "#*", groups = "dummy_english")
 textplot_wordcloud(tweet_corp_language, comparison = TRUE, max_words = 200)
 ```
 
-<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
+<img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 

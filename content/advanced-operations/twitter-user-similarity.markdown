@@ -84,5 +84,5 @@ user_clust <- hclust(user_dist)
 plot(user_clust, labels = FALSE)
 ```
 
-<img src="/advanced-operations/twitter-user-similarity_files/figure-html/unnamed-chunk-8-1.svg" width="768" />
+<img src="/advanced-operations/twitter-user-similarity_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 

@@ -93,7 +93,7 @@ axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.svg" width="768" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 
 ```r
@@ -105,7 +105,7 @@ grid()
 abline(h = 0, lty = 2)
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 ### Immigration
 
@@ -122,7 +122,7 @@ axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(imm
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-8-1.svg" width="768" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 
 ```r
@@ -134,5 +134,5 @@ grid()
 abline(h = 0, lty = 2)
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-9-1.svg" width="768" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 

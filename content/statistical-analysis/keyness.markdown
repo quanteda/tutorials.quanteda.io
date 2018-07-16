@@ -36,6 +36,6 @@ attr(key, 'documents') <- c('2016', '2012-2015')
 textplot_keyness(key)
 ```
 
-<img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.svg" width="960" />
+<img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.png" width="960" />
 
 

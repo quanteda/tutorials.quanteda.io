@@ -61,28 +61,28 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1    Topic 2     Topic 3      Topic 4    Topic 5     
-##  [1,] "obama"    "oil"       "violence"   "doctors"  "corbyn"    
-##  [2,] "shooting" "markets"   "australian" "nhs"      "apple"     
-##  [3,] "black"    "labor"     "australia"  "hospital" "game"      
-##  [4,] "china"    "sales"     "officers"   "drug"     "google"    
-##  [5,] "church"   "prices"    "sexual"     "medical"  "leadership"
-##  [6,] "shot"     "climate"   "prison"     "junior"   "jeremy"    
-##  [7,] "fbi"      "turnbull"  "abuse"      "drugs"    "shadow"    
-##  [8,] "chinese"  "banks"     "cases"      "patients" "users"     
-##  [9,] "nuclear"  "energy"    "criminal"   "contract" "games"     
-## [10,] "america"  "investors" "trial"      "steel"    "technology"
-##       Topic 6   Topic 7    Topic 8     Topic 9        Topic 10     
-##  [1,] "clinton" "refugees" "water"     "brussels"     "budget"     
-##  [2,] "sanders" "syria"    "parties"   "johnson"      "funding"    
-##  [3,] "cruz"    "isis"     "residents" "talks"        "food"       
-##  [4,] "hillary" "syrian"   "parents"   "boris"        "housing"    
-##  [5,] "trump's" "un"       "votes"     "19"           "income"     
-##  [6,] "bernie"  "turkey"   "voting"    "benefits"     "education"  
-##  [7,] "senator" "islamic"  "baby"      "french"       "cuts"       
-##  [8,] "ted"     "aid"      "homes"     "summit"       "spending"   
-##  [9,] "rubio"   "khan"     "town"      "cabinet"      "development"
-## [10,] "obama"   "forces"   "air"       "negotiations" "osborne"
+##       Topic 1     Topic 2       Topic 3     Topic 4     Topic 5   
+##  [1,] "violence"  "australia"   "climate"   "oil"       "apple"   
+##  [2,] "senate"    "australian"  "energy"    "markets"   "game"    
+##  [3,] "education" "funding"     "water"     "sales"     "users"   
+##  [4,] "girls"     "development" "housing"   "prices"    "google"  
+##  [5,] "schools"   "food"        "gas"       "shares"    "facebook"
+##  [6,] "labor"     "businesses"  "homes"     "investors" "hospital"
+##  [7,] "gun"       "aid"         "khan"      "trading"   "games"   
+##  [8,] "marriage"  "offshore"    "average"   "banks"     "phone"   
+##  [9,] "laws"      "fund"        "emissions" "rates"     "music"   
+## [10,] "australia" "sector"      "property"  "quarter"   "chinese" 
+##       Topic 6      Topic 7    Topic 8      Topic 9   Topic 10  
+##  [1,] "turnbull"   "officers" "corbyn"     "clinton" "syria"   
+##  [2,] "budget"     "prison"   "refugees"   "sanders" "isis"    
+##  [3,] "brussels"   "drug"     "johnson"    "cruz"    "military"
+##  [4,] "19"         "sexual"   "jeremy"     "hillary" "syrian"  
+##  [5,] "labor"      "abuse"    "doctors"    "obama"   "islamic" 
+##  [6,] "benefits"   "child"    "boris"      "trump's" "forces"  
+##  [7,] "talks"      "drugs"    "leadership" "bernie"  "un"      
+##  [8,] "summit"     "cases"    "tory"       "ted"     "russian" 
+##  [9,] "photograph" "criminal" "shadow"     "rubio"   "muslim"  
+## [10,] "english"    "trial"    "junior"     "senator" "peace"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -95,13 +95,13 @@ head(topics(lda), 20)
 
 ```
 ## text136751 text136585 text139163 text169133 text153451 text163885 
-##          3          8          5          1          3          5 
+##          3          8          2         10          7          3 
 ## text157885 text173244 text137394 text169408 text184646 text127410 
-##          6          7          8          8          9          1 
+##          9          3          1          5          8          7 
 ## text134923 text169695 text147917 text157535 text177078 text174393 
-##          9          2          5          2         10          6 
+##          8          4          5          3          3          9 
 ## text181782 text143323 
-##          8         10
+##          5          8
 ```
 
 {{% notice info %}}

@@ -34,7 +34,7 @@ textplot_scale1d(wf, doclabels = doclab, groups = docvars(irish_dfm, "party"))
 
 Finally, we can plot the estimated word positions and highlight certain features.
 
-```{r}
+```{r, dev="png"}
 textplot_scale1d(wf, margin = "features", 
                  highlighted = c("government", "global", "children", 
                                  "bank", "economy", "the", "citizenship",

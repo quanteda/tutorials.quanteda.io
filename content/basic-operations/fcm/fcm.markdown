@@ -78,5 +78,5 @@ size <- log(colSums(dfm_select(news_dfm, feat)))
 textplot_network(news_fcm, min_freq = 0.8, vertex_size = size / max(size) * 3)
 ```
 
-<img src="/basic-operations/fcm/fcm_files/figure-html/unnamed-chunk-7-1.svg" width="768" />
+<img src="/basic-operations/fcm/fcm_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 

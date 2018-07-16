@@ -21,6 +21,6 @@ clust <- hclust(dist)
 plot(clust, xlab = "Distance", ylab = NULL)
 ```
 
-<img src="/statistical-analysis/dist_files/figure-html/unnamed-chunk-2-1.svg" width="960" />
+<img src="/statistical-analysis/dist_files/figure-html/unnamed-chunk-2-1.png" width="960" />
 
 
