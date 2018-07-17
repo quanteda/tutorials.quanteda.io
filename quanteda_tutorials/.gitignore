@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+public/
+content/*/*.html
+content/*/*.svg
+content/*/*.png
+content/*/*.md
+**_cache/
+.httr-oauth

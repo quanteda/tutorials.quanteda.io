@@ -1,0 +1,68 @@
+---
+title: Construct a corpus
+weight: 10
+draft: false
+---
+
+```{r, message=FALSE}
+require(quanteda)
+require(readtext)
+```
+
+You can create a corpus from various available sources:
+
+1. A character vector consisting of one document per element
+
+2. A data frame consisting of a character vector for documents, and additional vectors for document-level variables
+
+3. A VCorpus or SimpleCorpus class object created by the **tm** package 
+
+4. A keywords-in-context object constructed by `kwic()`
+
+
+## Character vector
+
+`data_char_ukimmig2010` is a named character vector and consists of sections of British election manifestos on immigration and asylum.
+
+```{r}
+immig_corp <- corpus(data_char_ukimmig2010, 
+                     docvars = data.frame(party = names(data_char_ukimmig2010)))
+summary(immig_corp)
+```
+
+
+## Data frame
+
+Using **readtext**, loead an example file from `data_dir` as a data frame called `inaug_data`.
+
+```{r}
+data_dir <- system.file("extdata/", package = "readtext")
+inaug_data <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
+names(inaug_data)
+```
+
+Construct a corpus from `inaug_data`.
+
+```{r}
+inaug_corp <- corpus(inaug_data)
+summary(inaug_corp, 5)
+```
+
+You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc to a meaningful identifier. 
+
+```{r}
+docid <- paste(inaug_data$Year, 
+                inaug_data$FirstName, 
+                inaug_data$President, sep = " ")
+docnames(inaug_corp) <- docid
+summary(inaug_corp, 5)
+```
+
+## Vcorpus
+
+**quanteda** also allows to import a **tm** `VCorpus` object
+
+```{r}
+vcorp <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
+corp <- corpus(vcorp)
+```

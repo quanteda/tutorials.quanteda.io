@@ -1,0 +1,51 @@
+---
+title: Different encodings
+weight: 40
+draft: false
+---
+
+Even if files are not saved in UTF8, you can can extract information on character encoding from the file names and import the texts correctly.
+
+```{r, message=FALSE}
+require(quanteda)
+require(readtext)
+```
+
+`temp_dir` contains the example files in various character encodings.
+
+```{r}
+temp_dir <- tempdir()
+unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"), exdir = temp_dir)
+```
+
+`list.files()` returns names of all the text files (.txt) in the directory
+
+```{r}
+filename <- list.files(temp_dir, "^(Indian|UDHR_).*\\.txt$")
+head(filename)
+```
+
+You can extract character encoding information from the file names using R's basic commands. 
+
+```{r}
+filename <- gsub(".txt$", "", filename)
+encoding <- sapply(strsplit(filename, "_"), "[", 3)
+head(encoding)
+```
+
+There is a character encoding not supported by R.
+
+```{r}
+setdiff(encoding, iconvlist())
+```
+
+You then pass `encoding` to `readtext()` to convert various character encodings into UTF8.
+
+```{r}
+data_dir <- system.file("extdata/", package = "readtext")
+txt_data <- readtext(paste0(data_dir, "/data_files_encodedtexts.zip"), 
+                     encoding = encoding,
+                     docvarsfrom = "filenames", 
+                     docvarnames = c("document", "language", "input_encoding"))
+print(txt_data, n = 50)
+```

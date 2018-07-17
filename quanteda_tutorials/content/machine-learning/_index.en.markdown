@@ -1,0 +1,13 @@
+---
+title: Scaling and classification
+weight: 60
+pre: "<b>6. </b>"
+chapter: true
+draft: false
+---
+
+### Chapter 6
+
+# Text scaling and document classification
+
+How to derive latent positions from text data and how to classify documents
