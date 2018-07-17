@@ -101,7 +101,10 @@ head(noun_toks[[10]], 50)
 
 Firstly, we can remove numbers with `tokens()`. 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/add-korean
 ```r
 head(noun_toks[[7]], 40)
 ```
@@ -122,7 +125,10 @@ noun_toks <- tokens(noun_toks, remove_numbers = TRUE)
 
 Note that numbers with combined words are not filtered (such as "4반세기" = four half centuries). 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/add-korean
 ```r
 head(noun_toks[[7]], 40)
 ```
@@ -139,7 +145,10 @@ head(noun_toks[[7]], 40)
 
 Secondly, we can remove Chinese words that occur in older or highly specialized Korean text. In this sample corpus, they tend to appear in brackets after their Korean phonetization. This makes them safe to remove without losing content. We will use regular expressions and the unicode character property ["Han"](http://unicode.org/faq/han_cjk.html) to filter Chinese characters that are either in, or not in, brackets.
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/add-korean
 ```r
 head(noun_toks[[2]], 40)
 ```
