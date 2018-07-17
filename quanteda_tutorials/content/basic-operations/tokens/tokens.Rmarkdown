@@ -1,0 +1,42 @@
+---
+title: Construct a tokens object
+weight: 10
+draft: false
+---
+
+```{r message=FALSE}
+require(quanteda)
+```
+
+`tokens()` segments texts in a corpus into tokens (words or sentences) by word boundaries. 
+
+```{r}
+immig_corp <- corpus(data_char_ukimmig2010)
+toks <- tokens(immig_corp)
+```
+
+A corpus is passed to `tokens()` in the code above, but it works with a character string too.
+
+```{r}
+toks <- tokens(data_char_ukimmig2010)
+head(toks[[1]], 50)
+```
+
+{{% notice tip %}}
+`tokens()` can tokenize texts in Asian languages such as Japanese or Chinese without additional tools thanks to the **stringi** package. See an example of in [documentation website](http://docs.quanteda.io/articles/pkgdown/examples/chinese.html).
+{{% /notice %}}
+
+By default, `tokens()` only removes separators (typically whitespaces), but you can remove punctuation and numbers.
+
+```{r}
+nopunct_toks <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
+head(nopunct_toks[[1]], 50)
+```
+
+
+{{% notice tip %}}
+**stringi**'s word boundary detection splits Twitter hashtags into # and following keyword, but `tokens()` preserves these unless you set `remove_twitter = TRUE`.
+{{% /notice %}}
+
+
+

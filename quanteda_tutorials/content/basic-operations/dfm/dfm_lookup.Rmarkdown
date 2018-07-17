@@ -1,0 +1,40 @@
+---
+title: Look up dictionary
+weight: 30
+draft: false
+---
+
+```{r message=FALSE}
+require(quanteda)
+```
+
+[laver-garry.cat](https://raw.githubusercontent.com/quanteda/quanteda_tutorials/master/content/dictionary/laver-garry.cat) is a Wordstat dictionary that contain political left-right ideology keywords (Laver and Garry 2000). 
+
+```{r eval=FALSE}
+lg_dict <- dictionary(file = "content/dictionary/laver-garry.cat")
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+lg_dict <- dictionary(file = "../../dictionary/laver-garry.cat")
+```
+
+`dfm_lookup()` translates dictionary values to keys in a DFM.
+
+```{r}
+irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+irish_dfm <- dfm(irish_toks)
+lg_dfm <- dfm_lookup(irish_dfm, lg_dict)
+head(lg_dfm)
+```
+
+You can also pass a dictionary to `dfm()` to simplify your code. Therefore, the code above and below are equivalent.
+
+```{r eval=FALSE}
+lg_dfm <- dfm(data_corpus_irishbudget2010, dictionary = lg_dict, remove_punct = TRUE)
+```
+
+{{% notice note %}}
+`dfm_lookup()` cannot find multi-word expressions since a document-feature matrix does not store information about positions of words. Yet, `dfm()` can handle multi-word expressions because dictionary lookup is performed internally on tokens using `tokens_lookup()`.
+{{% /notice %}}
+

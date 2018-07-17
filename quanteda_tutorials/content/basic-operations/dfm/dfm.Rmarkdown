@@ -1,0 +1,70 @@
+---
+title: Construct a DFM
+weight: 10
+draft: false
+---
+
+```{r message=FALSE}
+require(quanteda)
+```
+
+`dfm()` constructs a document-feature matrix (DFM) from a tokens object.
+
+```{r}
+irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+irish_dfm <- dfm(irish_toks)
+```
+
+If corpus is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
+
+```{r eval=FALSE}
+irish_dfm <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE) %>% 
+  dfm()
+```
+
+You can get the number of documents and features `ndoc()` and `nfeat()`.
+
+```{r}
+ndoc(irish_dfm)
+nfeat(irish_dfm)
+```
+
+You can also obtain the names of documents and features by `docnames()` and `featnames()`.
+
+```{r}
+head(docnames(irish_dfm), 20)
+head(featnames(irish_dfm), 20)
+```
+
+Just like normal matrices, you can use`rowSums()` and `colSums()` to calculate marginals. 
+
+```{r}
+head(rowSums(irish_dfm), 10)
+head(colSums(irish_dfm), 10)
+```
+
+The most frequent features can be found using `topfeatures()`.
+
+```{r}
+topfeatures(irish_dfm, 10)
+```
+
+If you want to convert the frequency count to a proportion within documents, use `dfm_weight(scheme  = "prop")`.
+
+```{r}
+prop_irish_dfm <- dfm_weight(irish_dfm, scheme  = "prop")
+# check topfeatures in first document
+topfeatures(prop_irish_dfm[1,])
+```
+
+You can also weight frequency count by uniqueness of the features across documents using `dfm_tfidf()`.
+
+```{r}
+tfidf_irish_dfm <- dfm_tfidf(irish_dfm)
+# check topfeatures in first document
+topfeatures(tfidf_irish_dfm[1,])
+```
+
+{{% notice warning %}}
+Even after applying  `dfm_weight()` or `dfm_tfidf()`, `topfeatures()` works on a DFM, but it can be misleading if applied to more than one document.
+{{% /notice %}}

@@ -1,0 +1,93 @@
+---
+title: Targeted dictionary analysis
+weight: 30
+draft: false
+---
+
+```{r message=FALSE}
+require(quanteda)
+require(lubridate)
+```
+
+This corpus contains 6,000 Guardian news articles from 2012 to 2016.
+
+```{r eval=FALSE}
+news_corp <- download('data_corpus_guardian')
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+news_corp <- readRDS("../data/data_corpus_guardian.rds")
+```
+
+```{r}
+docvars(news_corp, 'year') <- year(docvars(news_corp, 'date'))
+docvars(news_corp, 'month') <- month(docvars(news_corp, 'date'))
+docvars(news_corp, 'week') <- week(docvars(news_corp, 'date'))
+
+news_corp <- corpus_subset(news_corp, 'year' >= 2016)
+news_toks <- tokens(news_corp, remove_punct = TRUE)
+```
+
+You can use `tokens_lookup()` or `dfm_looup()` to count dictionary values. **quanteda** contains Lexicoder Sentiment Dictionary created by Young and Soroka, so you can perfrom sentiment analysis of English texts right away.
+
+```{r}
+lengths(data_dictionary_LSD2015)
+
+lsd_toks <- tokens_lookup(news_toks, data_dictionary_LSD2015[1:2])
+head(lsd_toks, 2)
+
+lsd_dfm <- dfm(lsd_toks)
+head(lsd_dfm, 2)
+```
+
+## Targeted analysis
+
+You can use `tokens_select()` with `window` argument to perform more targeted sentiment analysis.
+
+### European Union
+
+```{r}
+eu <- c('EU', 'europ*', 'european union')
+eu_toks <- tokens_keep(news_toks, phrase(eu), window = 10)
+eu_lsd_dfm <- dfm(eu_toks, dictionary = data_dictionary_LSD2015[1:2]) %>% 
+                  dfm_group(group = 'week', fill = TRUE) 
+
+matplot(eu_lsd_dfm, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
+grid()
+axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd_dfm)) - 1))
+legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
+```
+
+```{r}
+eu_n <- ntoken(dfm(eu_toks, group = docvars(eu_toks, 'week')))
+plot((eu_lsd_dfm[,2] - eu_lsd_dfm[,1]) / eu_n, 
+     type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
+axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd_dfm)) - 1))
+grid()
+abline(h = 0, lty = 2)
+```
+
+### Immigration
+
+```{r}
+us <- c('immig*', 'migra*')
+immig_toks <- tokens_keep(news_toks, phrase(us), window = 10)
+immig_lsd_dfm <- dfm(immig_toks, dictionary = data_dictionary_LSD2015[1:2]) %>% 
+                  dfm_group(group = 'week', fill = TRUE) 
+
+matplot(immig_lsd_dfm, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
+grid()
+axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(immig_lsd_dfm)) - 1))
+legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
+```
+
+```{r}
+immig_n <- ntoken(dfm(immig_toks, group = docvars(immig_toks, 'week')))
+plot((immig_lsd_dfm[,2] - immig_lsd_dfm[,1]) / immig_n, 
+     type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
+axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(immig_lsd_dfm)) - 1))
+grid()
+abline(h = 0, lty = 2)
+```
+

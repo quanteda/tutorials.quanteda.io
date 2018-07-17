@@ -1,0 +1,57 @@
+---
+title: Wordscores
+weight: 20
+draft: false
+---
+
+Wordscores is a scaling model for estimating the positions (mostly of political actors) for dimensions that are specified a priori. Wordscores was introduced in Laver, Benoit and Garry (2003) and is widely used among political scientists.
+
+```{r message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+require(ggplot2)
+```
+
+Training a Wordscores model requires reference scores for texts whose policy positions on well-defined a priori dimensions are "known". Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
+
+We use manifestos of the 2013 and 2017 German federal elections. For the 2013 elections we assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and predict the party positions for the 2017 manifestos.
+
+```{r eval=FALSE}
+ger_corpus <- download(url = 'https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1')
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+ger_corpus <- readRDS("../data/data_corpus_germanifestos.rds")
+```
+
+```{r}
+summary(ger_corpus)
+```
+
+Now we can apply the Wordscores algorithm to a document-feature matrix.
+
+```{r}
+ger_dfm <- dfm(ger_corpus, remove = stopwords("de"), remove_punct = TRUE)
+ger_ws <- textmodel_wordscores(ger_dfm, y = docvars(ger_corpus, "ref_score"), smooth = 1)
+summary(ger_ws)
+```
+
+Next, we predict the Wordscores for the unknown virgin texts.
+
+```{r}
+ger_ws_predict <- predict(ger_ws, newdata = ger_dfm)
+```
+
+Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_scale1d()` function.
+
+```{r}
+textplot_scale1d(ger_ws_predict)
+```
+
+
+{{% notice info %}}
+If you want to learn more about Wordscores, see:  
+Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "Extracting Policy Positions From Political Texts Using Words as Data." _American Political Science Review_ 97(2): 311-331.  
+Lowe, Will. 2008. "Understanding Wordscores". _Political Analysis_ 16(4): 356-371.
+{{% /notice%}}
