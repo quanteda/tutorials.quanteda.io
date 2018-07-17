@@ -49,13 +49,61 @@ konlp_toks <- readRDS("/Users/LG/Dropbox/Public/data_list_korean_presidential_sp
 konlp_toks <- extractNoun(txt)
 ```
 
+The object `konlp_toks` is a list. Turn it into a `tokens` object that is an innate format of **quanteda**.
 ```{r}
-head(konlp_toks[[10]], 50)
+noun_toks <- as.tokens(konlp_toks) 
 ```
 
-## Stop words
+```{r}
+head(noun_toks[[10]], 50)
+```
 
-As you can see above, the results are better. However, the results include morphemes that are legit within Korean syntax, but almost completely meaningless for the purpose of content analysis (such as "한" or "바"). This is where stop words act as additional filter, which you can write down as a list then call from quanteda. There is no standard list of stop words for Korean, which may be something to work on in the future. For now, you should create your own by identifying and filtering words step by step that have passed through the above described methods. 
+### Refining tokens
 
-Lastly, `tokens(remove_punct = TRUE)` is quanteda's standard command for removing punctuations, which might not be necessary if you've used KoNLP's `extractNoun()`.
+Firstly, we can remove numbers with `tokens()`. 
+```{r}
+head(noun_toks[[7]], 40)
+```
+
+```{r}
+noun_toks <- tokens(noun_toks, remove_numbers = TRUE)
+```
+
+Note that numbers with combined words are not filtered (such as "4반세기" = four half centuries). 
+```{r}
+head(noun_toks[[7]], 40)
+```
+
+Secondly, we can remove Chinese words that occur in older or highly specialized Korean text. In this sample corpus, they tend to appear in brackets after their Korean phonetization. This makes them safe to remove without losing content. We will use regular expressions and the unicode character property ["Han"](http://unicode.org/faq/han_cjk.html) to filter Chinese characters.
+```{r}
+head(noun_toks[[2]], 40)
+```
+
+```{r}
+refi_noun_toks <- noun_toks
+refi_pure_korean <- tokens_remove(refi_noun_toks, "\\(?\\p{Han}+\\)?", valuetype = "regex") 
+```
+
+```{r}
+head(refi_pure_korean[[2]], 40)
+```
+
+{{% notice info %}}
+In this example, R regex doesn't recognize the escape character (such as `\p` or `\(`) so you need to escape the escape (as in `\\p`).
+{{% /notice%}}
+
+### Feature selection
+
+The results include a number of monosyllabic morphemes that are almost meaningless for content analysis (such as "한" and "바"). Note that these aren't syllables per se, but words that occupy one character space. Thus, we will extract only words with more than two characters. 
+
+```{r}
+refi_pure_korean <- tokens_remove(refi_pure_korean, min_nchar = 2) 
+```
+
+```{r}
+head(refi_pure_korean[[2]], 40)
+```
+
+Stop words act as additional filter, which you can write down as a list then call from quanteda. There is no standard list of stop words for Korean. For now, you should create your own list by identifying and filtering stop words step by step. 
+
 
