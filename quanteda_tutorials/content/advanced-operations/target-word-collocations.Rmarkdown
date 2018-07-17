@@ -1,0 +1,58 @@
+---
+title: Target-word collocations
+weight: 40
+draft: false
+---
+
+```{r message=FALSE}
+require(quanteda)
+```
+
+This corpus contains 6,000 Guardian news articles from 2012 to 2016.
+
+```{r eval=FALSE}
+news_corp <- download('data_corpus_guardian')
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+news_corp <- readRDS("../data/data_corpus_guardian.rds")
+```
+
+```{r}
+ndoc(news_corp)
+range(docvars(news_corp, 'date'))
+
+news_toks <- tokens(news_corp, remove_punct = TRUE)
+```
+
+### Keywords for Brexit
+
+We can also find words associated with target words using the `window` argument of `tokens_select()`. 
+
+```{r}
+brexit_toks <- tokens_keep(news_toks, 'brexit', window = 10) # equivalent to tokens_select(selection = 'keep')
+not_brexit_toks <- tokens_remove(news_toks, 'brexit', window = 10) # equivalent to tokens_select(selection = 'remove')
+print(brexit_toks[['text173244']])
+
+dfm_brexit <- dfm(brexit_toks)
+not_brexit_dfm <- dfm(not_brexit_toks)
+
+brexit_key <- textstat_keyness(rbind(dfm_brexit, not_brexit_dfm), seq_len(ndoc(dfm_brexit)))
+brexit_key <- brexit_key[brexit_key$n_target > 10,]
+head(brexit_key, 50)
+```
+
+### Keywords for Trump
+
+Targeted frequency analysis might look complex, but can be done in five lines.
+
+```{r}
+trump <- c('donald trump', 'trump')
+trump_dfm <- tokens_keep(news_toks, phrase(trump), window = 10) %>% dfm()
+not_trump_dfm <- tokens_remove(news_toks, phrase(trump), window = 10) %>% dfm()
+trump_key <- textstat_keyness(rbind(trump_dfm, not_trump_dfm), seq_len(ndoc(trump_dfm)))
+
+trump_key <- trump_key[trump_key$n_target > 10,]
+head(trump_key, 50)
+```

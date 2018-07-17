@@ -1,0 +1,55 @@
+---
+title: Construct a FCM
+weight: 10
+draft: false
+---
+
+A feature-ouccerances matrix (FCM) records number of co-occurances of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
+
+```{r message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+```
+
+```{r eval=FALSE}
+corp <- download('data_corpus_guardian')
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+corp <- readRDS("../../data/data_corpus_guardian.rds")
+```
+
+When a corpus is large, you have to select features of a DFM before constructing a FCM.
+
+```{r}
+news_dfm <- dfm(corp, remove = stopwords('en'), remove_punct = TRUE)
+news_dfm <- dfm_remove(news_dfm, c('*-time', 'updated-*', 'gmt', 'bst'))
+news_dfm <- dfm_trim(news_dfm, min_termfreq = 100)
+
+topfeatures(news_dfm)
+nfeat(news_dfm)
+```
+
+You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequntly co-occuring words.
+
+```{r}
+news_fcm <- fcm(news_dfm)
+dim(news_fcm)
+```
+
+You can select features of a FCM using `fcm_select()`.
+
+```{r}
+feat <- names(topfeatures(news_fcm, 50))
+news_fcm <- fcm_select(news_fcm, feat)
+dim(news_fcm)
+```
+
+A FCM can be used to train word embedding models with the **text2vec** package, or to visualize a semantic network analysis with ` textplot_network()`.
+
+```{r}
+size <- log(colSums(dfm_select(news_dfm, feat)))
+textplot_network(news_fcm, min_freq = 0.8, vertex_size = size / max(size) * 3)
+```
+
