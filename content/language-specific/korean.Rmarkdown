@@ -1,0 +1,114 @@
+
+---
+title: Korean
+weight: 20
+
+{{% author %}}By Oul Han{{% /author %}} 
+
+```{r, message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+```
+
+## Tokenization
+
+You can use `tokens()` or a morphological analysis tool such as [KoNLP](https://cran.r-project.org/web/packages/KoNLP/index.html) to tokenize Korean texts. The sample corpus contains all 17 transcripts of commencement speeches by Korean presidents from 1948 to 2008. 
+
+```{r, eval=FALSE}
+corp <- download(url = "https://www.dropbox.com/s/1cluzpgjjje9icd/data_corpus_korean-presidential-speeches.RDS?dl=1")
+txt <- tail(texts(corp), 1000)
+```
+
+### Rule-based boundary detection
+
+`tokens()` can segment Korean texts in the same way as English texts based on white spaces, but cannot slice off many morphemes that are not necessary for text analysis. However, you may find that `tokens()` suffices, especially if supplemented with stop words that you tailor for the corpus in question.
+
+```{r include=FALSE}
+# This code is only for website generation
+corp <- readRDS("/home/kohei/Dropbox/Public/data_corpus_korean-presidential-speeches.RDS")
+txt <- tail(texts(corp), 1000)
+```
+
+```{r}
+icu_toks <- tokens(txt)
+head(icu_toks[[10]], 50)
+```
+
+### Morphological analysis 
+
+If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. [KoNLP](https://cran.r-project.org/web/packages/KoNLP/index.html) is one of the most popular morphological analysis tools for Korean texts. Using **KoNLP**'s *nour extraction* function, we can remove grammatical letters in a similar manner as lemmatization in English.
+
+```{r, eval=FALSE}
+konlp_toks <- download(url = "https://www.dropbox.com/s/h8f3bkpzca0ctmo/data_list_korean-presidential-speeches.RDS?dl=1")
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+konlp_toks <- readRDS("/home/kohei/Dropbox/Public/data_list_korean-presidential-speeches.RDS")
+```
+
+```{r, eval=FALSE}
+konlp_toks <- koNLP::extractNoun(txt)
+```
+
+```{r}
+head(konlp_toks[[10]], 50)
+```
+
+`konlp_toks` is a list object, but `as.tokens()` turns it into a `tokens` object.
+
+```{r}
+noun_toks <- as.tokens(konlp_toks) 
+```
+
+```{r}
+head(noun_toks[[10]], 50)
+```
+
+### Refining tokens
+
+Firstly, we can remove numbers with `tokens()`. 
+
+```{r}
+head(noun_toks[[7]], 40)
+```
+
+```{r}
+noun_toks <- tokens(noun_toks, remove_numbers = TRUE)
+```
+
+Note that `remove_numbers = TRUE` removes tokens that is comprised only of numbers, so token like "4반세기" (four half centuries) are not removed. 
+
+```{r}
+head(noun_toks[[7]], 40)
+```
+
+Secondly, we can remove Chinese words that occur in old or technical Korean texts. In this sample corpus, they tend to appear in parentheses following their Korean phonetization. We will use regular expressions and the unicode character class ["Han"](http://unicode.org/faq/han_cjk.html) to remove Chinese characters that are either in, or not in, parentheses.
+
+```{r}
+head(noun_toks[[2]], 40)
+```
+
+In order to match parentheses, we have to escape them by `\\` becasue they are special character in regular expression. `p{}` is also a regular expression to specify character class.
+
+```{r}
+refi_noun_toks <- noun_toks
+refi_pure_korean <- tokens_remove(refi_noun_toks, "\\(?\\p{Han}+\\)?", valuetype = "regex") 
+```
+
+```{r}
+head(refi_pure_korean[[2]], 40)
+```
+
+### Feature selection
+
+The results include a number of monosyllabic morphemes that are almost meaningless for content analysis (e.g. "한" and "바"), so we will remove them using `min_nchar`.
+
+```{r}
+refi_pure_korean <- tokens_remove(refi_pure_korean, min_nchar = 2) 
+```
+
+```{r}
+head(refi_pure_korean[[2]], 40)
+```
+
