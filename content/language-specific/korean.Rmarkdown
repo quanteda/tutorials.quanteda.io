@@ -25,7 +25,7 @@ txt <- tail(texts(corp), 1000)
 
 ```{r include=FALSE}
 # This code is only for website generation
-corp <- readRDS("/home/kohei/Dropbox/Public/data_corpus_korean-presidential-speeches.RDS")
+corp <- readRDS("~/Dropbox/Public/data_corpus_korean-presidential-speeches.RDS")
 txt <- tail(texts(corp), 1000)
 ```
 
@@ -44,7 +44,7 @@ konlp_toks <- download(url = "https://www.dropbox.com/s/h8f3bkpzca0ctmo/data_lis
 
 ```{r include=FALSE}
 # This code is only for website generation
-konlp_toks <- readRDS("/home/kohei/Dropbox/Public/data_list_korean-presidential-speeches.RDS")
+konlp_toks <- readRDS("~/Dropbox/Public/data_list_korean-presidential-speeches.RDS")
 ```
 
 ```{r, eval=FALSE}
