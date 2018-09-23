@@ -11,7 +11,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 
 [params]
-  editURL = "https://github.com/quanteda/quanteda_tutorials/tree/master/content/"
+  editURL = "https://github.com/quanteda/tutorials.quanteda.io/tree/master/content/"
   description = "Introduction to quantitative text analysis using quanteda"
   author = "Kohei Watanabe and Stefan Müller"
   showVisitedLinks = true
@@ -29,19 +29,19 @@ languageName = "English"
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fa fa-github'></i> Github repo"
 identifier = "ds"
-url = "https://github.com/quanteda/quanteda_tutorials/"
+url = "https://github.com/quanteda/tutorials.quanteda.io/"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fa fa-bookmark'></i> Documentation"
 identifier = "hugodoc"
-url = "http://docs.quanteda.io/"
+url = "http://quanteda.io/"
 weight = 20
 
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fa fa-home'></i> Website"
 identifier = "hugodoc"
-url = "http://quanteda.io/"
+url = "http://quanteda.org/"
 weight = 20
 
 # [[Languages.en.menu.shortcuts]]
