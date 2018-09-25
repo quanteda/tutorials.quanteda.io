@@ -35,7 +35,7 @@ weight = 10
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fa fa-bookmark'></i> Documentation"
 identifier = "hugodoc"
-url = "http://quanteda.io/"
+url = "https://quanteda.io/"
 weight = 20
 
 [[Languages.en.menu.shortcuts]]
