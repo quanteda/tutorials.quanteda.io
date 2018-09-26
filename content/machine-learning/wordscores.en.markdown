@@ -109,7 +109,7 @@ Next, we predict the Wordscores for the unknown virgin texts.
 
 
 ```r
-ger_ws_predict <- predict(ger_ws, newdata = ger_dfm)
+ger_ws_predict <- predict(ger_ws, se.fit = TRUE, newdata = ger_dfm)
 ```
 
 Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_scale1d()` function.
