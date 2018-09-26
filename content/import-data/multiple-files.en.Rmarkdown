@@ -43,7 +43,7 @@ data_reviews <- readtext(paste0(data_dir, "/txt/movie_reviews/*"))
 
 ### JSON
 
-You can also read JSON files (.json) downloaded from the Twititer stream API. [twitter.json](https://raw.githubusercontent.com/quanteda/quanteda_tutorials/master/content/data/twitter.json) is located in data directory of this tutorial package.
+You can also read JSON files (.json) downloaded from the Twititer stream API. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in data directory of this tutorial package.
 
 ```{r, eval=FALSE}
 twitter_data <- readtext("content/data/twitter.json", source = "twitter")

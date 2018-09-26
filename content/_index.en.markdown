@@ -10,15 +10,15 @@ This website contains a step-by-step introduction to quantitative text analysis 
 
 The six chapters consist of over 30 sections. If you click on the name of a chapter on the left-hand side of this page, the sections will pop up. You can also use the "Search" field in the top-left corner to look up the occurrence of certain terms or R functions covered in the tutorials. 
 
-This website is created for workshops held by the **quanteda** team and for users who look for a comprehensible step-by-step introduction to text analysis using R. We have also created several additional useful [resources](http://quanteda.io/help/), such as vignettes, replications, a cheatsheet and a comparison to other text analysis packages (in terms of [functions](http://docs.quanteda.io/articles/pkgdown/comparison.html) and [performance](https://quanteda.io/performance/)) to get you started. 
+This website is created for workshops held by the **quanteda** team and for users who look for a comprehensible step-by-step introduction to text analysis using R. We have also created several additional useful [resources](https://quanteda.io), such as vignettes, replications, a cheatsheet and a comparison to other text analysis packages (in terms of [functions](https://quanteda.io/articles/pkgdown/comparison.html) to get you started. 
 
-You can not only see the R commands but execute them yourself if you [download the source code of this website](https://github.com/quanteda/quanteda_tutorials/archive/master.zip) from the [Github repository](https://github.com/quanteda/quanteda_tutorials/). You should unzip the files on your machine and click `quanteda_tutorials.Rproj` to open RStudio. Executable R commands are in the `.Rmarkdown` files under the `content` folder.
+You can not only see the R commands but execute them yourself if you [download the source code of this website](https://github.com/quanteda/tutorials.quanteda.io/archive/master.zip) from the [Github repository](https://github.com/quanteda/tutorials.quanteda.io). You should unzip the files on your machine and click `quanteda_tutorials.Rproj` to open RStudio. Executable R commands are in the `.Rmarkdown` files under the `content` folder.
 
 Contributions in the form of feedback, comments, code, and bug reports are most welcome. If you have questions on how to use **quanteda**, please post them to [the quanteda channel on StackOverflow](https://stackoverflow.com/questions/tagged/quanteda). If you find a bug, please report it to the [quanteda issues](https://github.com/quanteda/quanteda/issues). *We prefer these platforms to emails in communicating with our users* because the records will help other users who have similar problems.
 
 If you use this website in courses or publications, please cite it as:
-Watanabe, Kohei, and Müller, Stefan. 2018. *Quanteda Tutorials*, https://doi.org/10.5281/zenodo.1408610.
+Watanabe, Kohei, and Müller, Stefan. 2018. *Quanteda Tutorials*. https://tutorials.quanteda.io.
 
 {{% notice info %}}
-Examples in this tutorial are written for **quanteda** version 1.3.4. Please check if you have the same version installed by a command `packageVersion('quanteda')`. 
+Examples in this tutorial are written for **quanteda** version 1.3.9. Please check if you have the same version installed by a command `packageVersion('quanteda')`. 
 {{% /notice %}}

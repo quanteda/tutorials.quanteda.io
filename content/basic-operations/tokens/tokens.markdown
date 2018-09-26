@@ -42,7 +42,7 @@ head(toks[[1]], 50)
 ```
 
 {{% notice tip %}}
-`tokens()` can tokenize texts in Asian languages such as Japanese or Chinese without additional tools thanks to the **stringi** package. See an example of in [documentation website](http://docs.quanteda.io/articles/pkgdown/examples/chinese.html).
+`tokens()` can tokenize texts in Asian languages such as Japanese or Chinese without additional tools thanks to the **stringi** package. See an example of in [documentation website](https://quanteda.io/articles/pkgdown/examples/chinese.html).
 {{% /notice %}}
 
 By default, `tokens()` only removes separators (typically whitespaces), but you can remove punctuation and numbers.

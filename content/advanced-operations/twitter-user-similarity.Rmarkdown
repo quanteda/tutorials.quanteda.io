@@ -9,7 +9,7 @@ require(quanteda)
 require(readtext)
 ```
 
-Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubusercontent.com/quanteda/quanteda_tutorials/master/content/data/twitter.json) is located in data directory of this tutorial package.
+Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in data directory of this tutorial package.
 
 ```{r, eval=FALSE}
 twitter_data <- readtext("content/data/twitter.json", source = "twitter")
@@ -26,7 +26,7 @@ Construct a corpus of Tweets.
 tweet_corp <- corpus(twitter_data)
 ```
 
-Construct a DFM removing tags and links.
+Construct a document-feature matrix removing tags and links.
 
 ```{r}
 tweet_dfm <- dfm(tweet_corp,
