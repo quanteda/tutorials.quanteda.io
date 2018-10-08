@@ -33,7 +33,7 @@ ndoc(news_corp)
 ## [1] 1959
 ```
 
-Further, after removal of function words and punctuations in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`)
+Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`)
  using `dfm_trim()` to focus on common but distinguishing features.
 
 
@@ -45,7 +45,7 @@ news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>%
 news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 ```
 
-**quanteda** does not implement its own topic models, but you can easily access `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values.
+**quanteda** does not implement topic models, but you can easily access `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values.
 
 
 ```r
@@ -61,28 +61,28 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1      Topic 2     Topic 3    Topic 4    Topic 5      
-##  [1,] "australian" "oil"       "doctors"  "isis"     "climate"    
-##  [2,] "australia"  "markets"   "nhs"      "syria"    "energy"     
-##  [3,] "labor"      "sales"     "scotland" "military" "water"      
-##  [4,] "turnbull"   "prices"    "junior"   "islamic"  "food"       
-##  [5,] "budget"     "rates"     "drug"     "un"       "apple"      
-##  [6,] "senate"     "shares"    "funding"  "forces"   "development"
-##  [7,] "coalition"  "investors" "scottish" "muslim"   "project"    
-##  [8,] "malcolm"    "banks"     "contract" "russian"  "homes"      
-##  [9,] "liberal"    "trading"   "patients" "syrian"   "google"     
-## [10,] "cuts"       "quarter"   "medical"  "peace"    "gas"        
-##       Topic 6      Topic 7    Topic 8   Topic 9       Topic 10  
-##  [1,] "corbyn"     "khan"     "clinton" "refugees"    "officers"
-##  [2,] "johnson"    "game"     "sanders" "immigration" "violence"
-##  [3,] "brussels"   "students" "cruz"    "turkey"      "prison"  
-##  [4,] "boris"      "age"      "hillary" "china"       "victims" 
-##  [5,] "talks"      "church"   "obama"   "refugee"     "abuse"   
-##  [6,] "19"         "child"    "trump's" "asylum"      "sexual"  
-##  [7,] "benefits"   "birth"    "bernie"  "border"      "criminal"
-##  [8,] "cabinet"    "parents"  "ted"     "chinese"     "charges" 
-##  [9,] "membership" "study"    "rubio"   "aid"         "officer" 
-## [10,] "summit"     "felt"     "senator" "sea"         "arrested"
+##       Topic 1      Topic 2    Topic 3         Topic 4        Topic 5     
+##  [1,] "australia"  "officers" "climate"       "brussels"     "food"      
+##  [2,] "australian" "doctors"  "water"         "talks"        "sales"     
+##  [3,] "labor"      "violence" "energy"        "19"           "customers" 
+##  [4,] "turnbull"   "hospital" "gas"           "summit"       "apple"     
+##  [5,] "funding"    "prison"   "air"           "french"       "google"    
+##  [6,] "housing"    "victims"  "environmental" "benefits"     "users"     
+##  [7,] "budget"     "sexual"   "emissions"     "migrants"     "technology"
+##  [8,] "senate"     "abuse"    "project"       "greece"       "games"     
+##  [9,] "malcolm"    "child"    "residents"     "negotiations" "iphone"    
+## [10,] "education"  "mental"   "scientists"    "photograph"   "businesses"
+##       Topic 6   Topic 7     Topic 8    Topic 9      Topic 10    
+##  [1,] "clinton" "oil"       "syria"    "corbyn"     "black"     
+##  [2,] "sanders" "markets"   "refugees" "johnson"    "muslim"    
+##  [3,] "cruz"    "prices"    "isis"     "shadow"     "church"    
+##  [4,] "hillary" "shares"    "syrian"   "leadership" "story"     
+##  [5,] "obama"   "banks"     "military" "tory"       "gay"       
+##  [6,] "trump's" "investors" "un"       "jeremy"     "revolution"
+##  [7,] "bernie"  "rates"     "aid"      "boris"      "son"       
+##  [8,] "ted"     "trading"   "forces"   "cabinet"    "muslims"   
+##  [9,] "rubio"   "quarter"   "islamic"  "commons"    "cultural"  
+## [10,] "senator" "pound"     "china"    "scottish"   "students"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -95,13 +95,13 @@ head(topics(lda), 20)
 
 ```
 ## text136751 text136585 text139163 text169133 text153451 text163885 
-##          5          9          5          7         10          9 
+##          3          3          5         10          2          3 
 ## text157885 text173244 text137394 text169408 text184646 text127410 
-##          7          9          1          7          6         10 
+##         10          9          9         10          9          2 
 ## text134923 text169695 text147917 text157535 text177078 text174393 
-##          6          2          7          9          5          8 
+##          9          7         10          3          3          6 
 ## text181782 text143323 
-##          7          3
+##         10          9
 ```
 
 {{% notice info %}}
