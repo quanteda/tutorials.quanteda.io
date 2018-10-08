@@ -53,7 +53,7 @@ dtm <- convert(news_dfm, to = "topicmodels")
 lda <- LDA(dtm, k = 10)
 ```
 
-You can extract most important terms for each topic from the model using `terms()`.
+You can extract the most important terms for each topic from the model using `terms()`.
 
 
 ```r
