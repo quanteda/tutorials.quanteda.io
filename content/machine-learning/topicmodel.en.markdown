@@ -33,8 +33,8 @@ ndoc(news_corp)
 ## [1] 1959
 ```
 
-Further, after removal of function words and punctuations in `dfm()`, we keep only top 5% of the most frequent features (`min_termfreq = 0.95`) that appear less than 10% of all document (`max_docfreq = 0.1`)
- using `dfm_trim()` to focus to common but distinguishing features.
+Further, after removal of function words and punctuations in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`)
+ using `dfm_trim()` to focus on common but distinguishing features.
 
 
 ```r
@@ -45,7 +45,7 @@ news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>%
 news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 ```
 
-**quanteda** does not implement own topic models, but you can easily access to `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered.
+**quanteda** does not implement its own topic models, but you can easily access `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values.
 
 
 ```r
@@ -53,7 +53,7 @@ dtm <- convert(news_dfm, to = "topicmodels")
 lda <- LDA(dtm, k = 10)
 ```
 
-You can extract most important terms from the model using `terms()`.
+You can extract the most important terms for each topic from the model using `terms()`.
 
 
 ```r
