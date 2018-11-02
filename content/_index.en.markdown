@@ -20,5 +20,5 @@ If you use this website in courses or publications, please cite it as:
 Watanabe, Kohei, and Müller, Stefan. 2018. *Quanteda Tutorials*. https://tutorials.quanteda.io.
 
 {{% notice info %}}
-Examples in this tutorial are written for **quanteda** version 1.3.9. Please check if you have the same version installed by a command `packageVersion('quanteda')`. 
+Examples in this tutorial are written for **quanteda** version 1.3.13. Please check if you have the same version installed by a command `packageVersion('quanteda')`. 
 {{% /notice %}}

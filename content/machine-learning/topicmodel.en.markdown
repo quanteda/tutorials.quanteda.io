@@ -61,28 +61,28 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1      Topic 2    Topic 3         Topic 4        Topic 5     
-##  [1,] "australia"  "officers" "climate"       "brussels"     "food"      
-##  [2,] "australian" "doctors"  "water"         "talks"        "sales"     
-##  [3,] "labor"      "violence" "energy"        "19"           "customers" 
-##  [4,] "turnbull"   "hospital" "gas"           "summit"       "apple"     
-##  [5,] "funding"    "prison"   "air"           "french"       "google"    
-##  [6,] "housing"    "victims"  "environmental" "benefits"     "users"     
-##  [7,] "budget"     "sexual"   "emissions"     "migrants"     "technology"
-##  [8,] "senate"     "abuse"    "project"       "greece"       "games"     
-##  [9,] "malcolm"    "child"    "residents"     "negotiations" "iphone"    
-## [10,] "education"  "mental"   "scientists"    "photograph"   "businesses"
-##       Topic 6   Topic 7     Topic 8    Topic 9      Topic 10    
-##  [1,] "clinton" "oil"       "syria"    "corbyn"     "black"     
-##  [2,] "sanders" "markets"   "refugees" "johnson"    "muslim"    
-##  [3,] "cruz"    "prices"    "isis"     "shadow"     "church"    
-##  [4,] "hillary" "shares"    "syrian"   "leadership" "story"     
-##  [5,] "obama"   "banks"     "military" "tory"       "gay"       
-##  [6,] "trump's" "investors" "un"       "jeremy"     "revolution"
-##  [7,] "bernie"  "rates"     "aid"      "boris"      "son"       
-##  [8,] "ted"     "trading"   "forces"   "cabinet"    "muslims"   
-##  [9,] "rubio"   "quarter"   "islamic"  "commons"    "cultural"  
-## [10,] "senator" "pound"     "china"    "scottish"   "students"
+##       Topic 1      Topic 2     Topic 3    Topic 4    Topic 5      
+##  [1,] "australian" "oil"       "doctors"  "isis"     "climate"    
+##  [2,] "australia"  "markets"   "nhs"      "syria"    "energy"     
+##  [3,] "labor"      "sales"     "scotland" "military" "water"      
+##  [4,] "turnbull"   "prices"    "junior"   "islamic"  "food"       
+##  [5,] "budget"     "rates"     "drug"     "un"       "apple"      
+##  [6,] "senate"     "shares"    "funding"  "forces"   "development"
+##  [7,] "coalition"  "investors" "scottish" "muslim"   "project"    
+##  [8,] "malcolm"    "banks"     "contract" "russian"  "homes"      
+##  [9,] "liberal"    "trading"   "patients" "syrian"   "google"     
+## [10,] "cuts"       "quarter"   "medical"  "peace"    "gas"        
+##       Topic 6      Topic 7    Topic 8   Topic 9       Topic 10  
+##  [1,] "corbyn"     "khan"     "clinton" "refugees"    "officers"
+##  [2,] "johnson"    "game"     "sanders" "immigration" "violence"
+##  [3,] "brussels"   "students" "cruz"    "turkey"      "prison"  
+##  [4,] "boris"      "age"      "hillary" "china"       "victims" 
+##  [5,] "talks"      "church"   "obama"   "refugee"     "abuse"   
+##  [6,] "19"         "child"    "trump's" "asylum"      "sexual"  
+##  [7,] "benefits"   "birth"    "bernie"  "border"      "criminal"
+##  [8,] "cabinet"    "parents"  "ted"     "chinese"     "charges" 
+##  [9,] "membership" "study"    "rubio"   "aid"         "officer" 
+## [10,] "summit"     "felt"     "senator" "sea"         "arrested"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -95,13 +95,13 @@ head(topics(lda), 20)
 
 ```
 ## text136751 text136585 text139163 text169133 text153451 text163885 
-##          3          3          5         10          2          3 
+##          5          9          5          7         10          9 
 ## text157885 text173244 text137394 text169408 text184646 text127410 
-##         10          9          9         10          9          2 
+##          7          9          1          7          6         10 
 ## text134923 text169695 text147917 text157535 text177078 text174393 
-##          9          7         10          3          3          6 
+##          6          2          7          9          5          8 
 ## text181782 text143323 
-##         10          9
+##          7          3
 ```
 
 {{% notice info %}}

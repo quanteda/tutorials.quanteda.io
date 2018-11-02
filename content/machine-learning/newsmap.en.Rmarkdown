@@ -1,0 +1,97 @@
+---
+title: Newsmap
+weight: 60
+draft: false
+---
+
+Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discriminatory groups of documents automatically. 
+
+```{r message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+require(lubridate)
+require(newsmap)
+require(rworldmap)
+```
+
+```{r eval=FALSE}
+rss_corp <- download(url = 'https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpus_yahoonews.rds?dl=1')
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+rss_corp <- readRDS("../data/data_corpus_yahoonews.rds")
+```
+
+We only select news stories published in 2016 using `corpus_subset()`. 
+
+```{r}
+ndoc(rss_corp)
+```
+
+```{r}
+# Custom stopwords
+month <- c('January', 'February', 'March', 'April', 'May', 'June',
+           'July', 'August', 'September', 'October', 'November', 'December')
+day <- c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+agency <- c('AP', 'AFP', 'Reuters')
+
+
+# Tokenize
+toks <- tokens(rss_corp)
+toks <- tokens_remove(toks, stopwords('english'), valuetype = 'fixed', padding = TRUE)
+toks <- tokens_remove(toks, c(month, day, agency), valuetype = 'fixed', padding = TRUE)
+
+# Seed dictionaries supplied by this package
+# English: data_dictionary_newsmap_en
+# German: data_dictionary_newsmap_de
+# Japanese: data_dictionary_newsmap_ja
+# Spanish: data_dictionary_newsmap_es
+# Russian: data_dictionary_newsmap_ru
+
+label_toks <- tokens_lookup(toks, data_dictionary_newsmap_en, levels = 3) # level 3 is countries
+label_dfm <- dfm(label_toks, tolower = FALSE)
+
+feat_dfm <- dfm(toks, tolower = FALSE)
+feat_dfm <- dfm_select(feat_dfm, selection = "keep", '^[A-Z][A-Za-z1-2]+', valuetype = 'regex', case_insensitive = FALSE) # include only proper nouns to model
+feat_dfm <- dfm_trim(feat_dfm, min_count = 10)
+## Warning in dfm_trim.dfm(feat_dfm, min_count = 10): min_count is deprecated,
+## use min_termfreq
+
+model <- textmodel_newsmap(feat_dfm, label_dfm)
+
+# Features with largest weights
+coef(model, n = 7)[c("us", "gb", "fr", "br", "jp")]
+```
+
+```{r}
+count <- table(predict(model))
+```
+
+
+```{r}
+require(ggplot2)
+require(maps)
+
+data_country <- as.data.frame(count, stringsAsFactors = FALSE)
+colnames(data_country) <- c("id", "frequency")
+
+#data_country$alpha <- data_country$frequency / max(data_country$frequency)
+
+world_map <- map_data(map="world")
+world_map$id <- iso.alpha(world_map$region)
+    
+ggplot(data_country, aes(map_id = id)) +
+      #theme(legend.position = "none") +
+      geom_map(aes(fill = frequency), map = world_map) +
+      expand_limits(x = world_map$long, y = world_map$lat) +
+      facet_wrap( ~ variable)
+
+```
+
+
+{{% notice info %}}
+If you want to learn more about Newsmap, see:  
+Watanabe, Kohei, 2018, Newsmap: A semi-supervised approach to geographical news classification, _Digital Journalism_ 6 (3): 294-309.
+{{% /notice %}}
+
