@@ -61,7 +61,7 @@ feat_dfm <- dfm_trim(feat_dfm, min_count = 10)
 model <- textmodel_newsmap(feat_dfm, label_dfm)
 
 # Features with largest weights
-coef(model, n = 7)[c("us", "gb", "fr", "br", "jp")]
+coef(model, n = 7)[c("US", "GB", "FR", "BR", "JP")]
 ```
 
 ```{r}
