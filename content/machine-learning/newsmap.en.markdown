@@ -4,13 +4,12 @@ weight: 60
 draft: false
 ---
 
-Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discriminatory groups of documents automatically. 
+Newsmap is a semi-supervised model for geographical document classification. While (full) supervided models are trained by manually classified data, this semi-supervided model learn from "seed words" in dictionaries. 
 
 
 ```r
 require(quanteda)
 require(quanteda.corpora)
-require(lubridate)
 require(newsmap)
 require(maps)
 require(ggplot2)
@@ -23,7 +22,7 @@ rss_corp <- download(url = 'https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpu
 
 
 
-We only select news stories published in 2016 using `corpus_subset()`. 
+`rss_corp` contains 10,000 news summaries downloaded from Yahoo News in 2014.
 
 
 ```r
@@ -34,20 +33,36 @@ ndoc(rss_corp)
 ## [1] 10000
 ```
 
+```r
+range(docvars(rss_corp, "date"))
+```
+
+```
+## [1] "2014-01-01" "2014-12-31"
+```
+
+In geographical classification, proper nouns are the most useful features of documents. Not all capitalized words are proper nouns, so we define custom stopwrds.
+
 
 ```r
-# Custom stopwords
 month <- c('January', 'February', 'March', 'April', 'May', 'June',
            'July', 'August', 'September', 'October', 'November', 'December')
 day <- c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
 agency <- c('AP', 'AFP', 'Reuters')
+```
 
 
-# Tokenize
+```r
 toks <- tokens(rss_corp)
 toks <- tokens_remove(toks, stopwords('english'), valuetype = 'fixed', padding = TRUE)
 toks <- tokens_remove(toks, c(month, day, agency), valuetype = 'fixed', padding = TRUE)
+col <- textstat_collocations(toks, tolower = FALSE)
+```
 
+The **newsmap** package contains seed geographical dictionaries in English, German, Spanish, Japanese, Russian and Chinese languages.
+
+
+```r
 label_toks <- tokens_lookup(toks, data_dictionary_newsmap_en, levels = 3) # level 3 is countries
 label_dfm <- dfm(label_toks, tolower = FALSE)
 
@@ -118,7 +133,7 @@ ggplot(data_country, aes(map_id = id)) +
       coord_fixed()
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
+<img src="/machine-learning/newsmap.en_files/figure-html/unnamed-chunk-9-1.png" width="960" />
 
 
 {{% notice info %}}
