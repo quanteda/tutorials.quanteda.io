@@ -9,7 +9,6 @@ Wordscores is a scaling model for estimating the positions (mostly of political 
 ```{r message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
-require(ggplot2)
 ```
 
 Training a Wordscores model requires reference scores for texts whose policy positions on well-defined a priori dimensions are "known". Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.

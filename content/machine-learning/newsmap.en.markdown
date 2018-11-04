@@ -12,12 +12,13 @@ require(quanteda)
 require(quanteda.corpora)
 require(lubridate)
 require(newsmap)
-require(rworldmap)
+require(maps)
+require(ggplot2)
 ```
 
 
 ```r
-news_corp <- download('data_corpus_guardian')
+rss_corp <- download(url = 'https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpus_yahoonews.rds?dl=1')
 ```
 
 
@@ -26,12 +27,11 @@ We only select news stories published in 2016 using `corpus_subset()`.
 
 
 ```r
-news_corp <- corpus_subset(news_corp, year(docvars(news_corp, 'date')) >= 2016)
-ndoc(news_corp)
+ndoc(rss_corp)
 ```
 
 ```
-## [1] 1959
+## [1] 10000
 ```
 
 
@@ -44,67 +44,81 @@ agency <- c('AP', 'AFP', 'Reuters')
 
 
 # Tokenize
-toks <- tokens(news_corp)
+toks <- tokens(rss_corp)
 toks <- tokens_remove(toks, stopwords('english'), valuetype = 'fixed', padding = TRUE)
 toks <- tokens_remove(toks, c(month, day, agency), valuetype = 'fixed', padding = TRUE)
 
-# Seed dictionaries supplied by this package
-# English: data_dictionary_newsmap_en
-# German: data_dictionary_newsmap_de
-# Japanese: data_dictionary_newsmap_ja
-# Spanish: data_dictionary_newsmap_es
-# Russian: data_dictionary_newsmap_ru
-
 label_toks <- tokens_lookup(toks, data_dictionary_newsmap_en, levels = 3) # level 3 is countries
-label_dfm <- dfm(label_toks)
+label_dfm <- dfm(label_toks, tolower = FALSE)
 
 feat_dfm <- dfm(toks, tolower = FALSE)
 feat_dfm <- dfm_select(feat_dfm, selection = "keep", '^[A-Z][A-Za-z1-2]+', valuetype = 'regex', case_insensitive = FALSE) # include only proper nouns to model
-feat_dfm <- dfm_trim(feat_dfm, min_count = 10)
-```
-
-```
-## Warning in dfm_trim.dfm(feat_dfm, min_count = 10): min_count is deprecated,
-## use min_termfreq
-```
-
-```r
-## Warning in dfm_trim.dfm(feat_dfm, min_count = 10): min_count is deprecated,
-## use min_termfreq
+feat_dfm <- dfm_trim(feat_dfm, min_termfreq = 10)
 
 model <- textmodel_newsmap(feat_dfm, label_dfm)
 
 # Features with largest weights
-coef(model, n = 7)[c("us", "gb", "fr", "br", "jp")]
+coef(model, n = 7)[c("US", "GB", "FR", "BR", "JP")]
 ```
 
 ```
-## $us
-##         US   American  Americans Washington     States      Cuban 
-##   6.597971   5.515851   4.870607   4.854347   3.978222   3.904719 
-## Litvinenko 
-##   3.870233 
+## $US
+## WASHINGTON         US   American Washington       YORK     States 
+##   7.153905   7.036452   6.829497   6.605441   6.369661   6.054237 
+##  Americans 
+##   5.359504 
 ## 
-## $gb
-##         UK     London    British    Britain  Britain's Litvinenko 
-##   7.505087   6.752939   6.699439   6.683143   5.724340   4.602605 
-##  Goldsmith 
-##   4.461527 
+## $GB
+##   British    LONDON    London   Britain Britain's        UK      UKIP 
+##  7.878120  7.848022  7.564036  7.265223  6.671448  5.488278  4.906357 
 ## 
-## $fr
-##   French    Paris   France Hollande Abdeslam      EDF   Yudkin 
-## 7.024415 6.710442 6.620445 5.886103 4.974474 4.902153 4.824192 
+## $FR
+##     French     France      PARIS      Paris   Hollande Hollande's 
+##   8.185413   8.091340   7.543559   7.305600   6.534895   5.403493 
+##     Fabius 
+##   5.298132 
 ## 
-## $br
-##    Brazil  Rousseff Brazilian       Rio     Dilma     MINEM     Chapa 
-##  6.980052  6.728737  6.540685  6.308883  6.117828  5.812446  5.658296 
+## $BR
+##    Brazil       SAO     PAULO       RIO   JANEIRO Brazilian       Rio 
+##  8.175273  7.261726  7.247932  7.048804  7.048804  6.996618  6.922510 
 ## 
-## $jp
-##       Japan    Japanese      Yudkin Marshallese   Hiroshima       Tokyo 
-##    7.028631    6.671956    6.034379    5.978809    5.642337    5.514504 
-##        Keys 
-##    5.367900
+## $JP
+##    Japan Japanese    TOKYO      Abe    Tokyo   Shinzo    Abe's 
+## 8.191764 7.895498 7.762951 7.061899 6.961815 6.789965 5.809136
 ```
+
+
+```r
+count <- sort(table(predict(model)), decreasing = TRUE)
+head(count, 20)
+```
+
+```
+## 
+##  GB  US  RU  UA  AU  CN  CA  FR  IQ  BR  SY  DE  ZA  NZ  JP  IL  IN  ES 
+## 622 578 516 439 367 363 319 312 295 278 260 251 237 227 197 197 187 182 
+##  EG  PS 
+## 157 155
+```
+
+
+
+```r
+data_country <- as.data.frame(count, stringsAsFactors = FALSE)
+colnames(data_country) <- c("id", "frequency")
+
+world_map <- map_data(map = "world")
+world_map$region <- iso.alpha(world_map$region)
+
+ggplot(data_country, aes(map_id = id)) +
+      geom_map(aes(fill = frequency), map = world_map) +
+      expand_limits(x = world_map$long, y = world_map$lat) +
+      scale_fill_continuous(name = "Frequency") +
+      theme_void() +
+      coord_fixed()
+```
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
 
 
 {{% notice info %}}

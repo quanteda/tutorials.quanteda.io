@@ -12,7 +12,6 @@ Keyness is a signed two-by-two association scores originally implimented in [Wor
 require(quanteda)
 require(quanteda.corpora)
 require(lubridate)
-require(ggplot2)
 ```
 
 
