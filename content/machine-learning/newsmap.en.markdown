@@ -115,7 +115,7 @@ coef(model, n = 10)[c("US", "GB", "FR", "BR", "JP")]
 Names of people, organizations and places nouns are often multi-word expressions. To distiguish between "New York" and "York", for example, it is useful to compound tokens using `tokens_compound()` as explained in [Advanced Operations](../advanced-operations/compound-mutiword-expressions/).
 {{% /notice %}}
 
-You can predict most strongly associated countries using `predidct()` and count the frequency using `table()`. Factor levels are set to obtain zero counts for countries that did not appear in the corpus.
+You can predict most strongly associated countries using `predidct()` and count the frequency using `table()`. 
 
 
 ```r
@@ -129,6 +129,9 @@ head(pred, 20)
 ## text11 text12 text13 text14 text15 text16 text17 text18 text19 text20 
 ##   "SY"   "US"   "UA"   "SY"   "LK"   "ES"   "AU"   "CR"   "ID"   "BH"
 ```
+
+Factor levels are set to obtain zero counts for countries that did not appear in the corpus.
+
 
 ```r
 count <- sort(table(factor(pred, levels = colnames(label_dfm))), decreasing = TRUE)
@@ -161,7 +164,7 @@ ggplot(data_country, aes(map_id = id)) +
       coord_fixed()
 ```
 
-<img src="/machine-learning/newsmap.en_files/figure-html/unnamed-chunk-10-1.png" width="960" />
+<img src="/machine-learning/newsmap.en_files/figure-html/unnamed-chunk-11-1.png" width="960" />
 
 {{% notice info %}}
 If you want to learn more about Newsmap, see:  
