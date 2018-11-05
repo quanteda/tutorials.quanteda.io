@@ -10,7 +10,6 @@ Wordscores is a scaling model for estimating the positions (mostly of political 
 ```r
 require(quanteda)
 require(quanteda.corpora)
-require(ggplot2)
 ```
 
 Training a Wordscores model requires reference scores for texts whose policy positions on well-defined a priori dimensions are "known". Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
@@ -36,10 +35,10 @@ summary(ger_corpus)
 ##      AfD 2013   450    951        43 2013     AfD        NA
 ##  CDU-CSU 2013  7546  46771      2526 2013 CDU-CSU      5.92
 ##      FDP 2013  7909  42488      2376 2013     FDP      6.53
-##   Gruene 2013 13722  94065      5171 2013  Gruene      3.61
-##    Linke 2013  8370  43695      1854 2013   Linke      1.23
-##      SPD 2013  8298  47634      2552 2013     SPD      3.76
-##      AfD 2017  5860  19461       731 2017     AfD        NA
+##   Gruene 2013 13722  94065      5134 2013  Gruene      3.61
+##    Linke 2013  8370  43695      1852 2013   Linke      1.23
+##      SPD 2013  8298  47634      2536 2013     SPD      3.76
+##      AfD 2017  5860  19461       725 2017     AfD        NA
 ##  CDU-CSU 2017  4827  22003      1256 2017 CDU-CSU        NA
 ##      FDP 2017  8563  38738      1928 2017     FDP        NA
 ##   Gruene 2017 13064  75390      3221 2017  Gruene        NA
