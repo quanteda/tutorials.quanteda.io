@@ -6,6 +6,12 @@ draft: false
 
 Newsmap is a semi-supervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learn from "seed words" in dictionaries. 
 
+Install the **newsmap** package from CRAN.
+
+```{r eval=FALSE}
+install.packages("newsmap")
+```
+
 ```{r message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
@@ -45,7 +51,7 @@ toks <- tokens_remove(toks, stopwords('english'), valuetype = 'fixed', padding =
 toks <- tokens_remove(toks, c(month, day, agency), valuetype = 'fixed', padding = TRUE)
 ```
 
-The **newsmap** package contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
+**newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
 
 ```{r}
 label_toks <- tokens_lookup(toks, data_dictionary_newsmap_en, levels = 3) # level 3 is countries
