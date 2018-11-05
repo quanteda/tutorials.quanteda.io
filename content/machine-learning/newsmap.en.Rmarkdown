@@ -4,7 +4,7 @@ weight: 60
 draft: false
 ---
 
-Newsmap is a semi-supervised model for geographical document classification. While (full) supervided models are trained by manually classified data, this semi-supervided model learn from "seed words" in dictionaries. 
+Newsmap is a semi-supervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learn from "seed words" in dictionaries. 
 
 ```{r message=FALSE}
 require(quanteda)
@@ -30,7 +30,7 @@ ndoc(rss_corp)
 range(docvars(rss_corp, "date"))
 ```
 
-In geographical classification, proper nouns are the most useful features of documents. Not all capitalized words are proper nouns, so we define custom stopwrds.
+In geographical classification, proper nouns are the most useful features of documents, but not all capitalized words are proper nouns, so we define custom stopwords
 
 ```{r}
 month <- c('January', 'February', 'March', 'April', 'May', 'June',
@@ -45,7 +45,7 @@ toks <- tokens_remove(toks, stopwords('english'), valuetype = 'fixed', padding =
 toks <- tokens_remove(toks, c(month, day, agency), valuetype = 'fixed', padding = TRUE)
 ```
 
-The **newsmap** package contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese, Russian and Chinese languages.
+The **newsmap** package contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
 
 ```{r}
 label_toks <- tokens_lookup(toks, data_dictionary_newsmap_en, levels = 3) # level 3 is countries
@@ -58,17 +58,26 @@ feat_dfm <- dfm_trim(feat_dfm, min_termfreq = 10)
 model <- textmodel_newsmap(feat_dfm, label_dfm)
 ```
 
+The seed dictionary contains only names of countries and capital cities, but the model additional extracts features associated to the countries.
 
 ```{r}
-coef(model, n = 7)[c("US", "GB", "FR", "BR", "JP")]
+coef(model, n = 10)[c("US", "GB", "FR", "BR", "JP")]
 ```
 
+{{% notice tip %}}
+Names of people, organizations and places nouns are often multi-word expressions. To distiguish "New York" and "York", for example, it is useful to compound tokens using `tokens_compound()` as explained in [Advanced Operations](../advanced-operations/compound-mutiword-expressions/)
+{{% /notice %}}
+
+You can predict most strongly associated countries using `predidct()` and count the frequency using `table()`. Factor levels are set to obtain zero counts for countries that did not appear in the corpus.
 
 ```{r}
-count <- sort(table(predict(model)), decreasing = TRUE)
+pred <- predict(model)
+head(pred, 20)
+count <- sort(table(factor(pred, levels = colnames(label_dfm))), decreasing = TRUE)
 head(count, 20)
 ```
 
+You can visualize the distribution of global news attention using `geom_map()`.
 
 ```{r fig.height=5, fig.width=10}
 
@@ -76,7 +85,7 @@ data_country <- as.data.frame(count, stringsAsFactors = FALSE)
 colnames(data_country) <- c("id", "frequency")
 
 world_map <- map_data(map = "world")
-world_map$region <- iso.alpha(world_map$region)
+world_map$region <- iso.alpha(world_map$region) # convert contry name to ISO code
 
 ggplot(data_country, aes(map_id = id)) +
       geom_map(aes(fill = frequency), map = world_map) +
@@ -87,9 +96,7 @@ ggplot(data_country, aes(map_id = id)) +
       
 ```
 
-
 {{% notice info %}}
 If you want to learn more about Newsmap, see:  
 Watanabe, Kohei, 2018, Newsmap: A semi-supervised approach to geographical news classification, _Digital Journalism_ 6 (3): 294-309.
 {{% /notice %}}
-
