@@ -1,5 +1,5 @@
 ---
-title: Basic operations
+title: Basic Operations
 weight: 30
 pre: "<b>3. </b>"
 chapter: true

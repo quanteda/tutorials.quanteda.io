@@ -1,5 +1,5 @@
 ---
-title: Scaling and classification
+title: Scaling and Classification
 weight: 60
 pre: "<b>6. </b>"
 chapter: true
