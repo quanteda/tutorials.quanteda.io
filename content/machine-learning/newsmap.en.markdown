@@ -79,7 +79,7 @@ feat_dfm <- dfm_trim(feat_dfm, min_termfreq = 10)
 model <- textmodel_newsmap(feat_dfm, label_dfm)
 ```
 
-The seed dictionary contains only names of countries and capital cities, but the model additional extracts features associated to the countries.
+The seed dictionary contains only names of countries and capital cities, but the model additional extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 
 ```r
