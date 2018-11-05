@@ -71,7 +71,7 @@ coef(model, n = 10)[c("US", "GB", "FR", "BR", "JP")]
 ```
 
 {{% notice tip %}}
-Names of people, organizations and places are often multi-word expressions. To distiguish between "New York" and "York", for example, it is useful to compound tokens using `tokens_compound()` as explained in [Advanced Operations](../advanced-operations/compound-mutiword-expressions/).
+Names of people, organizations and places are often multi-word expressions. To distiguish between "New York" and "York", for example, it is useful to compound tokens using `tokens_compound()` as explained in [Advanced operations](../advanced-operations/compound-mutiword-expressions/).
 {{% /notice %}}
 
 You can predict the most strongly associated countries using `predict()` and count the frequency using `table()`. 
