@@ -60,7 +60,7 @@ summary(inaug_corp, 5)
 
 ## Vcorpus
 
-**quanteda** also allows to import a **tm** `VCorpus` object
+**quanteda** also allows to import a **tm** `VCorpus` object.
 
 ```{r}
 vcorp <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
