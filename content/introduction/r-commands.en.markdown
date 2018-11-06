@@ -283,6 +283,6 @@ print(colSums(mat))
 ##        4       14        8        9
 ```
 
-{{% notice info %}}
+{{% notice tip %}}
 If you want to know the details of R commands, prepend `?` to the command and execute. For example, `?subset()` will show you how to use the subset function with different types of objects.
 {{% /notice %}}
