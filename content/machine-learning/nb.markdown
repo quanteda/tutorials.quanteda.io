@@ -173,5 +173,5 @@ Precision, recall and the F1 score are frequently used to assess the classificat
 {{% /notice %}}
 
 {{% notice info %}}
-If you want to learn more about naive Bayes classifier, see [Chapter 6](https://web.stanford.edu/~jurafsky/slp3/6.pdf) of Jurafsky and Martin (2017).
+If you want to learn more about Naive Bayes classification, see [Chapter 6](https://web.stanford.edu/~jurafsky/slp3/6.pdf) of Jurafsky and Martin (2017).
 {{% /notice%}}

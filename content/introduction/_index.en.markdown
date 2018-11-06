@@ -10,5 +10,5 @@ draft: false
 
 # Introduction
 
-Introduction to quantitative text analysis using **quanteda**.
+Introduction to quantitative text analysis using **quanteda**
 

@@ -14,6 +14,8 @@ require(ggplot2)
 
 Unlike `topfeatures()`, `textstat_frequency()` shows both term and document frequencies. You can also use the function to find the most frequent features within groups.
 
+Using the `download()` function from **quanteda.corpora**, you can retrieve a text corpus of tweets.
+
 
 ```r
 tweet_corp <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')

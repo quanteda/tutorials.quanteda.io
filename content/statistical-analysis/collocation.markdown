@@ -21,7 +21,7 @@ news_corp <- download('data_corpus_guardian')
 
 
 
-By collocation analysis, we can identify contiguous collocations of words. One of the most common types of multi-word expressions is proper names, which can be identified simply based on capitalization in English texts.
+By collocation analysis, we can identify contiguous collocations of words. One of the most common types of multi-word expressions are proper names, which can be identified simply based on capitalization in English texts.
 
 
 ```r

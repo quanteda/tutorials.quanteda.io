@@ -12,12 +12,17 @@ The six chapters consist of over 30 sections. If you click on the name of a chap
 
 This website is created for workshops held by the **quanteda** team and for users who look for a comprehensible step-by-step introduction to text analysis using R. We have also created several additional useful [resources](https://quanteda.io), such as vignettes, replications, a cheatsheet and a comparison to other text analysis packages (in terms of [functions](https://quanteda.io/articles/pkgdown/comparison.html) to get you started. 
 
+{{% notice info %}}
+If you use this website in courses or publications, please cite it as:
+Watanabe, Kohei, and Stefan Müller. 2018. *Quanteda Tutorials*. https://tutorials.quanteda.io.
+
+Moreover, if you use the **quanteda** package in working papers or publications, please cite this paper:
+Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, and Akitaka Matsuo. 2018 "[quanteda: An R package for the quantitative analysis of textual data](https://www.theoj.org/joss-papers/joss.00774/10.21105.joss.00774.pdf)." _Journal of Open Source Software_ 3(30), 774. https://doi.org/10.21105/joss.00774.
+{{% /notice %}}
+
 You can not only see the R commands but execute them yourself if you [download the source code of this website](https://github.com/quanteda/tutorials.quanteda.io/archive/master.zip) from the [Github repository](https://github.com/quanteda/tutorials.quanteda.io). You should unzip the files on your machine and click `quanteda_tutorials.Rproj` to open RStudio. Executable R commands are in the `.Rmarkdown` files under the `content` folder.
 
 Contributions in the form of feedback, comments, code, and bug reports are most welcome. If you have questions on how to use **quanteda**, please post them to [the quanteda channel on StackOverflow](https://stackoverflow.com/questions/tagged/quanteda). If you find a bug, please report it to the [quanteda issues](https://github.com/quanteda/quanteda/issues). *We prefer these platforms to emails in communicating with our users* because the records will help other users who have similar problems.
-
-If you use this website in courses or publications, please cite it as:
-Watanabe, Kohei, and Müller, Stefan. 2018. *Quanteda Tutorials*. https://tutorials.quanteda.io.
 
 {{% notice info %}}
 Examples in this tutorial are written for **quanteda** version 1.3.13. Please check if you have the same version installed by a command `packageVersion('quanteda')`. 

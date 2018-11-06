@@ -52,3 +52,21 @@ The tutorials do not cover syntactical analysis, but you should install **spacyr
 ```r
 install.packages("spacyr")
 ```
+
+
+Finally, we show how to use **newsmap** to [classify documents](https://tutorials.quanteda.io/machine-learning/newsmap/) based on "seed words" in dictionaries. You can download the pacakge from [CRAN](https://cran.r-project.org/package=newsmap).
+
+
+```r
+install.packages("newsmap")
+```
+
+To sum up, you need to load the following packages to run all examples: 
+
+
+```r
+require(quanteda)
+require(readtext)
+require(quanteda.corpora)
+require(newsmap)
+```

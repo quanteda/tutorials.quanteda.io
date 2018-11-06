@@ -4,7 +4,7 @@ weight: 60
 draft: false
 ---
 
-Newsmap is a semi-supervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learn from "seed words" in dictionaries. 
+Newsmap is a semi-supervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learns from "seed words" in dictionaries. 
 
 Install the **newsmap** package from CRAN.
 
@@ -21,6 +21,8 @@ require(newsmap)
 require(maps)
 require(ggplot2)
 ```
+
+Download a corpus with news articles using **quanteda.corpora**'s `download()` function.
 
 
 ```r
@@ -48,7 +50,7 @@ range(docvars(rss_corp, "date"))
 ## [1] "2014-01-01" "2014-12-31"
 ```
 
-In geographical classification, proper nouns are the most useful features of documents, but not all capitalized words are proper nouns, so we define custom stopwords
+In geographical classification, proper nouns are the most useful features of documents, but not all capitalized words are proper nouns, so we define custom stopwords.
 
 
 ```r
@@ -175,5 +177,5 @@ ggplot(data_country, aes(map_id = id)) +
 
 {{% notice info %}}
 If you want to learn more about Newsmap, see:  
-Watanabe, Kohei, 2018, Newsmap: A semi-supervised approach to geographical news classification, _Digital Journalism_ 6 (3): 294-309.
+Watanabe, Kohei. 2018. "Newsmap: A semi-supervised approach to geographical news classification." _Digital Journalism_ 6(3): 294-309.
 {{% /notice %}}
