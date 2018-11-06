@@ -15,9 +15,6 @@ This website is created for workshops held by the **quanteda** team and for user
 {{% notice info %}}
 If you use this website in courses or publications, please cite it as:
 Watanabe, Kohei, and Stefan Müller. 2018. *Quanteda Tutorials*. https://tutorials.quanteda.io.
-
-Moreover, if you use the **quanteda** package in working papers or publications, please cite this paper:
-Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, and Akitaka Matsuo. 2018 "[quanteda: An R package for the quantitative analysis of textual data](https://www.theoj.org/joss-papers/joss.00774/10.21105.joss.00774.pdf)." _Journal of Open Source Software_ 3(30), 774. https://doi.org/10.21105/joss.00774.
 {{% /notice %}}
 
 You can not only see the R commands but execute them yourself if you [download the source code of this website](https://github.com/quanteda/tutorials.quanteda.io/archive/master.zip) from the [Github repository](https://github.com/quanteda/tutorials.quanteda.io). You should unzip the files on your machine and click `quanteda_tutorials.Rproj` to open RStudio. Executable R commands are in the `.Rmarkdown` files under the `content` folder.
