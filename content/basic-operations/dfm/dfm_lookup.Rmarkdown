@@ -35,6 +35,6 @@ lg_dfm <- dfm(data_corpus_irishbudget2010, dictionary = lg_dict, remove_punct = 
 ```
 
 {{% notice note %}}
-`dfm_lookup()` cannot find multi-word expressions since a document-feature matrix does not store information about positions of words. Yet, `dfm()` can handle multi-word expressions because dictionary lookup is performed internally on tokens using `tokens_lookup()`.
+`dfm_lookup()` cannot find multi-word expressions since a document-feature matrix does not store information about positions of words. Yet, `dfm()` can handle multi-word expressions because dictionary lookup is performed internally on tokens using `tokens_lookup()`. Afterwards, you can create a document-feature matrix from this object.
 {{% /notice %}}
 

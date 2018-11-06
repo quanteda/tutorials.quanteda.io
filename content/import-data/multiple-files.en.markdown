@@ -10,7 +10,7 @@ require(quanteda)
 require(readtext)
 ```
 
-`data_dir` is the location of sample files in your computer.
+A second option is to load multiple text files at once that are stored in the same folder or subfolders. Again, `data_dir`is the location of sample files on your computer.
 
 
 ```r

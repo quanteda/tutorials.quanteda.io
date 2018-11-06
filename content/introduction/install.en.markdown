@@ -21,6 +21,11 @@ If you are feeling adventurous, you can install the latest build of **quanteda**
 
 Note that on **Windows platforms**, it is also recommended that you install the [RTools suite](https://cran.r-project.org/bin/windows/Rtools/), and for **OS X** that you install [XCode](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12) from the App Store.
 
+{{% notice info %}}
+If you use the **quanteda** package in your reserach, please cite:  
+Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, and Akitaka Matsuo. 2018 "[quanteda: An R package for the quantitative analysis of textual data](https://www.theoj.org/joss-papers/joss.00774/10.21105.joss.00774.pdf)." _Journal of Open Source Software_ 3(30), 774. https://doi.org/10.21105/joss.00774.
+{{% /notice %}}
+
 
 ## Other packages
 
@@ -51,4 +56,21 @@ The tutorials do not cover syntactical analysis, but you should install **spacyr
 
 ```r
 install.packages("spacyr")
+```
+
+Finally, we show how to use **newsmap** to [classify documents](https://tutorials.quanteda.io/machine-learning/newsmap/) based on "seed words" in dictionaries. You can download the pacakge from [CRAN](https://cran.r-project.org/package=newsmap).
+
+
+```r
+install.packages("newsmap")
+```
+
+To sum up, you need to load the following packages to run all examples: 
+
+
+```r
+require(quanteda)
+require(readtext)
+require(quanteda.corpora)
+require(newsmap)
 ```
