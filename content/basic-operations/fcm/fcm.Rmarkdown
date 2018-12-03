@@ -24,7 +24,7 @@ When a corpus is large, you have to select features of a DFM before constructing
 
 ```{r}
 news_dfm <- dfm(corp, remove = stopwords('en'), remove_punct = TRUE)
-news_dfm <- dfm_remove(news_dfm, c('*-time', 'updated-*', 'gmt', 'bst'))
+news_dfm <- dfm_remove(news_dfm, pattern = c('*-time', 'updated-*', 'gmt', 'bst'))
 news_dfm <- dfm_trim(news_dfm, min_termfreq = 100)
 
 topfeatures(news_dfm)
@@ -42,7 +42,7 @@ You can select features of a FCM using `fcm_select()`.
 
 ```{r}
 feat <- names(topfeatures(news_fcm, 50))
-news_fcm <- fcm_select(news_fcm, feat)
+news_fcm <- fcm_select(news_fcm, pattern = feat)
 dim(news_fcm)
 ```
 
@@ -50,6 +50,7 @@ A FCM can be used to train word embedding models with the **text2vec** package, 
 
 ```{r}
 size <- log(colSums(dfm_select(news_dfm, feat)))
+set.seed(144)
 textplot_network(news_fcm, min_freq = 0.8, vertex_size = size / max(size) * 3)
 ```
 

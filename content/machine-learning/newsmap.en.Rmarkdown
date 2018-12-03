@@ -49,21 +49,21 @@ agency <- c('AP', 'AFP', 'Reuters')
 
 ```{r}
 toks <- tokens(rss_corp)
-toks <- tokens_remove(toks, stopwords('english'), valuetype = 'fixed', padding = TRUE)
-toks <- tokens_remove(toks, c(month, day, agency), valuetype = 'fixed', padding = TRUE)
+toks <- tokens_remove(toks, pattern = stopwords('english'), valuetype = 'fixed', padding = TRUE)
+toks <- tokens_remove(toks, pattern = c(month, day, agency), valuetype = 'fixed', padding = TRUE)
 ```
 
 **newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
 
 ```{r}
-label_toks <- tokens_lookup(toks, data_dictionary_newsmap_en, levels = 3) # level 3 is countries
+label_toks <- tokens_lookup(toks, dictionary = data_dictionary_newsmap_en, levels = 3) # level 3 is countries
 label_dfm <- dfm(label_toks, tolower = FALSE)
 
 feat_dfm <- dfm(toks, tolower = FALSE)
-feat_dfm <- dfm_select(feat_dfm, "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', case_insensitive = FALSE)
+feat_dfm <- dfm_select(feat_dfm, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', case_insensitive = FALSE)
 feat_dfm <- dfm_trim(feat_dfm, min_termfreq = 10)
 
-model <- textmodel_newsmap(feat_dfm, label_dfm)
+model <- textmodel_newsmap(feat_dfm, y = label_dfm)
 ```
 
 The seed dictionary contains only names of countries and capital cities, but the model additional extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).

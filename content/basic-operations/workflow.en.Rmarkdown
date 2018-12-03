@@ -15,7 +15,7 @@ draft: false
     
     * Stores tokens in a list of vectors
     * More efficient than character strings, but preserves positions of words 
-    * Positional (string-of-words) analysis is performed using and `textstat_collocations()`, `tokens_ngrams()` and `tokens_select()` or `fcm()` with `window` option
+    * Positional (string-of-words) analysis is performed using `textstat_collocations()`, `tokens_ngrams()` and `tokens_select()` or `fcm()` with `window` option
 
 3.  [Document-feature matrix (DFM)](basic-operations/dfm)
 

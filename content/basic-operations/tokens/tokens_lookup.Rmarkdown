@@ -35,13 +35,13 @@ newsmap_dict[['AFRICA']][['NORTH']]
 The `levels` argument determines the keys to be recored in a resulting tokens object.
 
 ```{r}
-region_toks <- tokens_lookup(toks, newsmap_dict, levels = 1)
+region_toks <- tokens_lookup(toks, dictionary = newsmap_dict, levels = 1)
 head(region_toks)
 dfm(region_toks)
 ```
 
 ```{r}
-country_toks <- tokens_lookup(toks, newsmap_dict, levels = 3)
+country_toks <- tokens_lookup(toks, dictionary = newsmap_dict, levels = 3)
 head(country_toks)
 dfm(country_toks)
 ```
@@ -56,7 +56,7 @@ You can define your own dictionary by passing a named list of characters to `dic
 dict <- dictionary(list(refugee = c('refugee*', 'asylum*'),
                         worker = c('worker*', 'employee*')))
 print(dict)
-dict_toks <- tokens_lookup(toks, dict)
+dict_toks <- tokens_lookup(toks, dictionary = dict)
 head(dict_toks)
 dfm(dict_toks)
 ```
