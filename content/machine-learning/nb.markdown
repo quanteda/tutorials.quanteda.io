@@ -62,10 +62,12 @@ head(id_train, 10)
 docvars(corp, "id_numeric") <- 1:ndoc(corp)
 
 # get training set
-training_dfm <- corpus_subset(corp, id_numeric %in% id_train) %>% dfm(stem = TRUE)
+training_dfm <- corpus_subset(corp, id_numeric %in% id_train) %>%
+  dfm(stem = TRUE)
 
 # get test set (documents not in id_train)
-test_dfm <- corpus_subset(corp, !id_numeric %in% id_train) %>% dfm(stem = TRUE)
+test_dfm <- corpus_subset(corp, !id_numeric %in% id_train) %>%
+  dfm(stem = TRUE)
 ```
 
 Next we train the naive Bayes classifier using `textmodel_nb()`.
@@ -107,7 +109,8 @@ Naive Bayes can only take features into consideration that occur both in the tra
 
 
 ```r
-test_dfm <- dfm_select(test_dfm, training_dfm)
+test_dfm <- dfm_select(test_dfm, pattern = training_dfm, 
+                       selection = "keep")
 ```
 
 Let's inspect how well the classification worked.
@@ -115,7 +118,7 @@ Let's inspect how well the classification worked.
 
 ```r
 actual_class <- docvars(test_dfm, "Sentiment")
-predicted_class <- predict(nb, test_dfm)
+predicted_class <- predict(nb, newdata = test_dfm)
 class_table <- table(actual_class, predicted_class)
 class_table
 ```

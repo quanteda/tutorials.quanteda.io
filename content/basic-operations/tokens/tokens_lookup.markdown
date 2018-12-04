@@ -78,7 +78,7 @@ The `levels` argument determines the keys to be recored in a resulting tokens ob
 
 
 ```r
-region_toks <- tokens_lookup(toks, newsmap_dict, levels = 1)
+region_toks <- tokens_lookup(toks, dictionary = newsmap_dict, levels = 1)
 head(region_toks)
 ```
 
@@ -136,7 +136,7 @@ dfm(region_toks)
 
 
 ```r
-country_toks <- tokens_lookup(toks, newsmap_dict, levels = 3)
+country_toks <- tokens_lookup(toks, dictionary = newsmap_dict, levels = 3)
 head(country_toks)
 ```
 
@@ -206,7 +206,7 @@ print(dict)
 ```
 
 ```r
-dict_toks <- tokens_lookup(toks, dict)
+dict_toks <- tokens_lookup(toks, dictionary = dict)
 head(dict_toks)
 ```
 

@@ -23,7 +23,7 @@ You can select features from a DFM using `dfm_select()`.
 
 
 ```r
-nostop_irish_dfm <- dfm_select(irish_dfm, stopwords('en'), selection = 'remove')
+nostop_irish_dfm <- dfm_select(irish_dfm, pattern = stopwords('en'), selection = 'remove')
 nfeat(nostop_irish_dfm)
 ```
 
@@ -35,7 +35,7 @@ nfeat(nostop_irish_dfm)
 
 
 ```r
-nostop_irish_dfm <- dfm_remove(irish_dfm, stopwords('en'))
+nostop_irish_dfm <- dfm_remove(irish_dfm, pattern = stopwords('en'))
 nfeat(nostop_irish_dfm)
 ```
 
