@@ -42,7 +42,7 @@ lengths(data_dictionary_LSD2015)
 ```
 
 ```r
-lsd_toks <- tokens_lookup(news_toks, data_dictionary_LSD2015[1:2])
+lsd_toks <- tokens_lookup(news_toks, dictionary =  data_dictionary_LSD2015[1:2])
 head(lsd_toks, 2)
 ```
 
@@ -66,7 +66,7 @@ head(lsd_dfm, 2)
 ```
 
 ```
-## Document-feature matrix of: 2 documents, 2 features (25% sparse).
+## Document-feature matrix of: 2 documents, 2 features (25.0% sparse).
 ## 2 x 2 sparse Matrix of class "dfm"
 ##             features
 ## docs         negative positive
@@ -83,7 +83,7 @@ You can use `tokens_select()` with `window` argument to perform more targeted se
 
 ```r
 eu <- c('EU', 'europ*', 'european union')
-eu_toks <- tokens_keep(news_toks, phrase(eu), window = 10)
+eu_toks <- tokens_keep(news_toks, pattern = phrase(eu), window = 10)
 eu_lsd_dfm <- dfm(eu_toks, dictionary = data_dictionary_LSD2015[1:2]) %>% 
                   dfm_group(group = 'week', fill = TRUE) 
 
@@ -112,7 +112,7 @@ abline(h = 0, lty = 2)
 
 ```r
 us <- c('immig*', 'migra*')
-immig_toks <- tokens_keep(news_toks, phrase(us), window = 10)
+immig_toks <- tokens_keep(news_toks, pattern = phrase(us), window = 10)
 immig_lsd_dfm <- dfm(immig_toks, dictionary = data_dictionary_LSD2015[1:2]) %>% 
                   dfm_group(group = 'week', fill = TRUE) 
 

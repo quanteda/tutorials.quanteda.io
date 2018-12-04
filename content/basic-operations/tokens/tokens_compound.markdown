@@ -18,7 +18,7 @@ There are several multi-word expressions that are important in social scientific
 
 
 ```r
-multi_kw <- kwic(toks, phrase(c('asylum seeker*', 'british citizen*')))
+multi_kw <- kwic(toks, pattern = phrase(c('asylum seeker*', 'british citizen*')))
 head(multi_kw, 10)
 ```
 
@@ -51,8 +51,8 @@ To preserve these expressions in bag-of-word analysis, you have to compound them
 
 
 ```r
-comp_toks <- tokens_compound(toks, phrase(c('asylum seeker*', 'british citizen*')))
-compu_kw <- kwic(comp_toks, c('asylum_seeker*', 'british_citizen*'))
+comp_toks <- tokens_compound(toks, pattern = phrase(c('asylum seeker*', 'british citizen*')))
+compu_kw <- kwic(comp_toks, pattern = c('asylum_seeker*', 'british_citizen*'))
 head(compu_kw, 10)
 ```
 

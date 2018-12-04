@@ -26,7 +26,7 @@ By collocation analysis, we can identify contiguous collocations of words. One o
 
 ```r
 news_toks <- tokens(news_corp, remove_punct = TRUE)
-cap_col <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
+cap_col <- tokens_select(news_toks, pattern = '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
            textstat_collocations(min_count = 100)
 head(cap_col, 20)
 ```
@@ -59,7 +59,7 @@ You can also discover collocations larger than two words.
 
 
 ```r
-cap_col2 <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
+cap_col2 <- tokens_select(news_toks, pattern = '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
             textstat_collocations(min_count = 100, size = 3)
 head(cap_col2, 20)
 ```

@@ -18,14 +18,14 @@ ndoc(corp)
 Change the unit of texts to sentences.
 
 ```{r}
-sent_corp <- corpus_reshape(corp, 'sentences')
+sent_corp <- corpus_reshape(corp, to = 'sentences')
 ndoc(sent_corp)
 ```
 
 Restore the original documents.
 
 ```{r}
-corp2 <- corpus_reshape(sent_corp, 'documents')
+corp2 <- corpus_reshape(sent_corp, to = 'documents')
 ndoc(corp2)
 ```
 
@@ -35,7 +35,7 @@ If you apply `corpus_subset()` to `sent_corp`, you can only keep long senteces (
 longsent_corp <- corpus_subset(sent_corp, ntoken(sent_corp) >= 10)
 ndoc(longsent_corp)
 
-corp3 <- corpus_reshape(longsent_corp, 'documents')
+corp3 <- corpus_reshape(longsent_corp, to = 'documents')
 ndoc(corp3)
 ```
 

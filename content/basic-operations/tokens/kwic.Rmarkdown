@@ -15,28 +15,28 @@ toks <- tokens(data_char_ukimmig2010)
 You can see how keywords are used in the actual contexts in a concordance view produced by `kwic()`. 
 
 ```{r}
-immig_kw <- kwic(toks, 'immig*')
+immig_kw <- kwic(toks, pattern =  'immig*')
 head(immig_kw, 10)
 ```
 
 `kwic()` also takes multiple keywords in a character vector.
 
 ```{r}
-immig2_kw <- kwic(toks, c('immig*', 'migra*'))
+immig2_kw <- kwic(toks, pattern = c('immig*', 'migra*'))
 head(immig2_kw, 10)
 ```
 
 With the `window` argument, you can specify the number of words to be displayed around the keyword.
 
 ```{r}
-immig2_kw <- kwic(toks, c('immig*', 'migra*'), window = 7)
+immig2_kw <- kwic(toks, pattern = c('immig*', 'migra*'), window = 7)
 head(immig2_kw, 10)
 ```
 
 If you want to find multi-word expressions, separate words by whitespace and wrap the character vector by `phrase()`.
 
 ```{r}
-asylum_kw <- kwic(toks, phrase('asylum seeker*'))
+asylum_kw <- kwic(toks, pattern = phrase('asylum seeker*'))
 head(asylum_kw)
 ```
 

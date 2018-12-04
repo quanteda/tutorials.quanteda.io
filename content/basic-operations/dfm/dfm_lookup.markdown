@@ -24,12 +24,12 @@ lg_dict <- dictionary(file = "content/dictionary/laver-garry.cat")
 ```r
 irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
 irish_dfm <- dfm(irish_toks)
-lg_dfm <- dfm_lookup(irish_dfm, lg_dict)
+lg_dfm <- dfm_lookup(irish_dfm, dictionary = lg_dict)
 head(lg_dfm)
 ```
 
 ```
-## Document-feature matrix of: 6 documents, 20 features (30% sparse).
+## Document-feature matrix of: 6 documents, 20 features (30.0% sparse).
 ## 6 x 20 sparse Matrix of class "dfm"
 ##                                   features
 ## docs                               CULTURE CULTURE.CULTURE-HIGH

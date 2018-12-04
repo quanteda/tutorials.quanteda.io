@@ -18,7 +18,7 @@ You can remove tokens that you are not interested in using `tokens_select()`. Us
 
 
 ```r
-nostop_toks <- tokens_select(toks, stopwords('en'), selection = 'remove')
+nostop_toks <- tokens_select(toks, pattern = stopwords('en'), selection = 'remove')
 head(nostop_toks[[1]], 50)
 ```
 
@@ -42,7 +42,7 @@ head(nostop_toks[[1]], 50)
 
 
 ```r
-nostop_toks <- tokens_remove(toks, stopwords('en'))
+nostop_toks <- tokens_remove(toks, pattern = stopwords('en'))
 head(nostop_toks[[1]], 50)
 ```
 
@@ -66,7 +66,7 @@ Removal of tokens changes the lengths of documents, but they remain the same if 
 
 
 ```r
-nostop_toks <- tokens_remove(toks, stopwords('en'), padding = TRUE)
+nostop_toks <- tokens_remove(toks, pattern = stopwords('en'), padding = TRUE)
 head(nostop_toks[[1]], 50)
 ```
 
@@ -90,7 +90,7 @@ If you are only interested in certain words, you can keep these and remove other
 
 
 ```r
-immig_toks <- tokens_select(toks, c('immig*', 'migra*'), padding = TRUE)
+immig_toks <- tokens_select(toks, pattern = c('immig*', 'migra*'), padding = TRUE)
 head(immig_toks[[1]], 50)
 ```
 
@@ -111,7 +111,7 @@ If you want to analyze words that appear around keywords, use the `window` argum
 
 
 ```r
-window_toks <- tokens_select(toks, c('immig*', 'migra*'), padding = TRUE, window = 5)
+window_toks <- tokens_select(toks, pattern = c('immig*', 'migra*'), padding = TRUE, window = 5)
 head(window_toks[[1]], 50)
 ```
 

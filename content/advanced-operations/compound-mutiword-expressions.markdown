@@ -50,7 +50,7 @@ Through collocation analysis, we can identify multi-word expressions that are ve
 
 
 ```r
-cap_toks <- tokens_select(news_toks, '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE)
+cap_toks <- tokens_select(news_toks, pattern = '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE)
 head(cap_toks[[1]], 50)
 ```
 
@@ -106,7 +106,7 @@ Collocations are automatically recognized as multi-word expressions by `tokens_c
 
 
 ```r
-comp_toks <- tokens_compound(news_toks, cap_col[cap_col$z > 3])
+comp_toks <- tokens_compound(news_toks, pattern = cap_col[cap_col$z > 3])
 news_toks[['text7005']][370:450] # before compounding
 ```
 
@@ -166,7 +166,7 @@ Alternatively, wrap the whitespace-separated character vector by `phrase()` to c
 
 
 ```r
-comp_toks <- tokens_compound(news_toks, phrase(cap_col$collocation[cap_col$z > 3]))
+comp_toks <- tokens_compound(news_toks, pattern =  phrase(cap_col$collocation[cap_col$z > 3]))
 news_toks[['text7005']][370:450] # before compounding
 ```
 

@@ -45,8 +45,8 @@ We can also find words associated with target words using the `window` argument 
 
 
 ```r
-brexit_toks <- tokens_keep(news_toks, 'brexit', window = 10) # equivalent to tokens_select(selection = 'keep')
-not_brexit_toks <- tokens_remove(news_toks, 'brexit', window = 10) # equivalent to tokens_select(selection = 'remove')
+brexit_toks <- tokens_keep(news_toks, pattern = 'brexit', window = 10) # equivalent to tokens_select(selection = 'keep')
+not_brexit_toks <- tokens_remove(news_toks, pattern = 'brexit', window = 10) # equivalent to tokens_select(selection = 'remove')
 print(brexit_toks[['text173244']])
 ```
 
@@ -134,8 +134,8 @@ Targeted frequency analysis might look complex, but can be done in five lines.
 
 ```r
 trump <- c('donald trump', 'trump')
-trump_dfm <- tokens_keep(news_toks, phrase(trump), window = 10) %>% dfm()
-not_trump_dfm <- tokens_remove(news_toks, phrase(trump), window = 10) %>% dfm()
+trump_dfm <- tokens_keep(news_toks, pattern = phrase(trump), window = 10) %>% dfm()
+not_trump_dfm <- tokens_remove(news_toks, pattern = phrase(trump), window = 10) %>% dfm()
 trump_key <- textstat_keyness(rbind(trump_dfm, not_trump_dfm), seq_len(ndoc(trump_dfm)))
 
 trump_key <- trump_key[trump_key$n_target > 10,]
