@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+require(quanteda.corpora)
 ```
 
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.
@@ -43,6 +44,7 @@ toks_news_cap <- tokens_select(toks_news,
                                case_insensitive = FALSE, 
                                padding = TRUE)
 head(toks_news_cap[[1]], 50)
+
 tstat_col_cap <- textstat_collocations(toks_news_cap, min_count = 10, tolower = FALSE)
 head(tstat_col_cap, 20)
 ```
@@ -56,8 +58,8 @@ Collocations are automatically recognized as multi-word expressions by `tokens_c
 {{% /notice %}}
 
 ```{r}
-toks_comp <- tokens_compound(toks_news, pattern = cap_col[cap_col$z > 3])
-toks_news, pattern = cap_col[cap_col$z > 3][['text7005']][370:450] # before compounding
+toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3])
+toks_news[['text7005']][370:450] # before compounding
 toks_comp[['text7005']][370:450] # after compounding
 ```
 
@@ -65,7 +67,7 @@ Alternatively, wrap the whitespace-separated character vector by `phrase()` to c
 
 ```{r}
 toks_comp <- tokens_compound(toks_news, 
-                             pattern =  phrase(cap_col$collocation[cap_col$z > 3]))
+                             pattern =  phrase(tstat_col_cap$collocation[tstat_col_cap$z > 3]))
 toks_news[['text7005']][370:450] # before compounding
 toks_comp[['text7005']][370:450] # after compounding
 ```

@@ -29,7 +29,7 @@ We analyse the most frequent hashtags using `select = "#*"` when creating the `d
 ```{r}
 toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) 
 dfmat_tweets <- dfm(toks_tweets, select = "#*")
-tstat_freq <- textstat_frequency(toks_tweets, n = 5, groups = "lang")
+tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = "lang")
 head(tstat_freq, 20)
 ```
 

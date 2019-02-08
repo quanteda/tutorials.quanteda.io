@@ -13,16 +13,19 @@ require(quanteda.corpora)
 
 ## Tokenization
 
-You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017.
+You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017
 
 ```{r, eval=FALSE}
 corp <- download("data_corpus_foreignaffairscommittee")
+
+# use the latest 1000 speeches
 txt <- tail(texts(corp), 1000)
 ```
 
 ```{r include=FALSE}
 # This code is only for website generation
 corp <- readRDS("/home/kohei/Dropbox/Public/data_corpus_foreignaffairscommittee.rds")
+#corp <- readRDS("/Users/smueller/Dropbox/Corpora/data_corpus_foreignaffairscommittee.rds")
 txt <- tail(texts(corp), 1000)
 ```
 
@@ -46,6 +49,7 @@ toks_mecab <- readRDS("../data/data_tokens_japanese.rds")
 
 ```{r, eval=FALSE}
 install.packages("RMeCab", repos = "http://rmecab.jp/R")
+library(RMeCab)
 toks_mecab <- txt %>% 
   lapply(function(x) unlist(RMeCab::RMeCabC(x))) %>% 
   as.tokens()

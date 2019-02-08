@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-A feature-ouccerances matrix (FCM) records number of co-occurances of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
+A feature co-occurrence matrix (FCM) records number of co-occurances of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
 
 ```{r message=FALSE}
 require(quanteda)
@@ -41,9 +41,9 @@ dim(fcmat_news)
 You can select features of a FCM using `fcm_select()`.
 
 ```{r}
-feat <- names(topfeatures(fcm_news, 50))
-fcm_news_select <- fcm_select(fcm_news_select, pattern = feat)
-dim(fcm_news_select)
+feat <- names(topfeatures(fcmat_news, 50))
+fcmat_news_select <- fcm_select(fcmat_news, pattern = feat)
+dim(fcmat_news_select)
 ```
 
 A FCM can be used to train word embedding models with the **text2vec** package, or to visualize a semantic network analysis with ` textplot_network()`.
@@ -51,6 +51,6 @@ A FCM can be used to train word embedding models with the **text2vec** package, 
 ```{r}
 size <- log(colSums(dfm_select(dfmat_news, feat)))
 set.seed(144)
-textplot_network(fcmat_news, min_freq = 0.8, vertex_size = size / max(size) * 3)
+textplot_network(fcmat_news_select, min_freq = 0.8, vertex_size = size / max(size) * 3)
 ```
 

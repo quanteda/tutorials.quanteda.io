@@ -25,7 +25,7 @@ head(colSums(dfmat_party), 10)
 `dfm_group()` identify document-level variables that are the same within groups and keeps them.
 
 ```{r}
-docvars(party_dfm)
+docvars(dfmat_party)
 ```
 
 You can also use the `groups` argument in `dfm()` to simplify your code. 

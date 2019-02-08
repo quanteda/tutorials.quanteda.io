@@ -33,7 +33,7 @@ Further, after removal of function words and punctuation in `dfm()`, we keep onl
  using `dfm_trim()` to focus on common but distinguishing features.
 
 ```{r}
-dfmat_news <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
+dfmat_news <- dfm(corp_news, remove_punct = TRUE, remove = stopwords('en')) %>% 
     dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
     dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
              max_docfreq = 0.1, docfreq_type = "prop")

@@ -39,7 +39,7 @@ dfmat_brexit <- dfm(toks_brexit)
 dfmat_nobrexit <- dfm(toks_nobrexit)
 
 tstat_key_brexit <- textstat_keyness(rbind(dfmat_brexit, dfmat_nobrexit), seq_len(ndoc(dfmat_brexit)))
-tstat_key_brexit_subset <- tstat_key[tstat_key_brexit$n_target > 10,]
+tstat_key_brexit_subset <- tstat_key_brexit[tstat_key_brexit$n_target > 10, ]
 head(tstat_key_brexit_subset, 50)
 ```
 
@@ -56,6 +56,6 @@ dfmat_no_trump <- tokens_remove(toks_news, pattern = phrase(trump), window = 10)
     dfm()
 tstat_key_trump <- textstat_keyness(rbind(dfmat_trump, dfmat_no_trump), seq_len(ndoc(dfmat_trump)))
 
-tstat_key_trump_subset <- tstat_key_trump[tstat_key_trump$n_target > 10,]
+tstat_key_trump_subset <- tstat_key_trump[tstat_key_trump$n_target > 10, ]
 head(tstat_key_trump_subset, 50)
 ```

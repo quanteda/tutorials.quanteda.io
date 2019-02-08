@@ -86,14 +86,13 @@ head(pred_nm, 20)
 Factor levels are set to obtain zero counts for countries that did not appear in the corpus.
 
 ```{r}
-count <- sort(table(factor(pred, levels = colnames(label_dfm))), decreasing = TRUE)
+count <- sort(table(factor(pred_nm, levels = colnames(dfmat_label))), decreasing = TRUE)
 head(count, 20)
 ```
 
 You can visualize the distribution of global news attention using `geom_map()`.
 
 ```{r fig.height=5, fig.width=10}
-
 data_country <- as.data.frame(count, stringsAsFactors = FALSE)
 colnames(data_country) <- c("id", "frequency")
 
@@ -106,7 +105,6 @@ ggplot(data_country, aes(map_id = id)) +
       scale_fill_continuous(name = "Frequency") +
       theme_void() +
       coord_fixed()
-      
 ```
 
 {{% notice info %}}

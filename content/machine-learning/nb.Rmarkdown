@@ -34,11 +34,11 @@ docvars(corp_movies, "id_numeric") <- 1:ndoc(corp_movies)
 
 # get training set
 dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-  dfm(stem = TRUE)
+    dfm(stem = TRUE)
 
 # get test set (documents not in id_train)
 dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-  dfm(stem = TRUE)
+    dfm(stem = TRUE)
 ```
 
 Next we train the naive Bayes classifier using `textmodel_nb()`.
@@ -59,7 +59,7 @@ Let's inspect how well the classification worked.
 
 ```{r}
 actual_class <- docvars(dfmat_matched, "Sentiment")
-predicted_class <- predict(nb, newdata = dfmat_matched)
+predicted_class <- predict(tmod_nb, newdata = dfmat_matched)
 class_table <- table(actual_class, predicted_class)
 class_table
 ```
@@ -77,5 +77,7 @@ Precision, recall and the F1 score are frequently used to assess the classificat
 {{% /notice %}}
 
 {{% notice info %}}
-If you want to learn more about Naive Bayes classification, see [Chapter 4](https://web.stanford.edu/~jurafsky/slp3/4.pdf) of Jurafsky and Martin (2018).
+If you want to learn more about Naive Bayes classification, see [Chapter 4](https://web.stanford.edu/~jurafsky/slp3/4.pdf) of Jurafsky and Martin (2018):
+
+Jurafsky, Daniel, and James H. Martin. 2018. [_Speech and Language Processing. An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition_](https://web.stanford.edu/~jurafsky/slp3/4.pdf). Draft of 3rd edition, September 23, 2018 (Chapter 4). 
 {{% /notice%}}

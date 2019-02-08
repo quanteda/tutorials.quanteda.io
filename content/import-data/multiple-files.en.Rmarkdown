@@ -32,7 +32,7 @@ data_eu <- readtext(paste0(data_dir, "/txt/EU_manifestos/*.txt"),
                     docvarnames = c("unit", "context", "year", "language", "party"),
                     dvsep = "_", 
                     encoding = "ISO-8859-1")
-str(eu_data)
+str(data_eu)
 ```
 
 `readtext()` can also read files from sub-directories. The directory `txt/movie_reviews`, for example, contains two directories: `neg` and `pos`. All text files from both folders in `movie_reviews` are considered automatically.
