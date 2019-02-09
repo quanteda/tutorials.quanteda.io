@@ -47,7 +47,7 @@ summary(corp_immig)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source: /Users/smueller/Documents/GitHub/tutorials.quanteda.io/content/basic-operations/corpus/* on x86_64 by smueller
-## Created: Sat Feb  9 13:26:28 2019
+## Created: Sat Feb  9 13:35:33 2019
 ## Notes:
 ```
 
@@ -86,7 +86,7 @@ summary(corp_inaug, 5)
 ##  inaugCorpus.csv.5   804   2381        45 1805  Jefferson    Thomas
 ## 
 ## Source: /Users/smueller/Documents/GitHub/tutorials.quanteda.io/content/basic-operations/corpus/* on x86_64 by smueller
-## Created: Sat Feb  9 13:26:28 2019
+## Created: Sat Feb  9 13:35:33 2019
 ## Notes:
 ```
 
@@ -112,7 +112,7 @@ summary(corp_inaug, 5)
 ##   1805 Thomas Jefferson   804   2381        45 1805  Jefferson    Thomas
 ## 
 ## Source: /Users/smueller/Documents/GitHub/tutorials.quanteda.io/content/basic-operations/corpus/* on x86_64 by smueller
-## Created: Sat Feb  9 13:26:28 2019
+## Created: Sat Feb  9 13:35:33 2019
 ## Notes:
 ```
 

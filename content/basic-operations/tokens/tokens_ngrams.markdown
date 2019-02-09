@@ -18,8 +18,8 @@ You can generate n-grams in any lengths from a tokens using `tokens_ngrams()`. N
 
 
 ```r
-toks_nram <- tokens_ngrams(toks, n = 2:4)
-head(toks_nram[[1]], 50)
+toks_ngram <- tokens_ngrams(toks, n = 2:4)
+head(toks_ngram[[1]], 50)
 ```
 
 ```
@@ -43,7 +43,7 @@ head(toks_nram[[1]], 50)
 ```
 
 ```r
-tail(toks_nram[[1]], 50)
+tail(toks_ngram[[1]], 50)
 ```
 
 ```
