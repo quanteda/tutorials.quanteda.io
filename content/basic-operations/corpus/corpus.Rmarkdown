@@ -33,27 +33,27 @@ summary(corp_immig)
 
 ## Data frame
 
-Using **readtext**, loead an example file from `data_dir` as a data frame called `data_inaug`.
+Using **readtext**, loead an example file from `path_data` as a data frame called `dat_inaug`.
 
 ```{r}
-data_dir <- system.file("extdata/", package = "readtext")
-data_inaug <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
-names(data_inaug)
+path_data <- system.file("extdata/", package = "readtext")
+dat_inaug <- readtext(paste0(path_data, "/csv/inaugCorpus.csv"), text_field = "texts")
+names(dat_inaug)
 ```
 
-Construct a corpus from `inaug_data`.
+Construct a corpus from `dat_inaug`.
 
 ```{r}
-corp_inaug <- corpus(data_inaug)
+corp_inaug <- corpus(dat_inaug)
 summary(corp_inaug, 5)
 ```
 
 You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc to a meaningful identifier. 
 
 ```{r}
-docid <- paste(data_inaug$Year, 
-                data_inaug$FirstName, 
-                data_inaug$President, sep = " ")
+docid <- paste(dat_inaug$Year, 
+               dat_inaug$FirstName, 
+               dat_inaug$President, sep = " ")
 docnames(corp_inaug) <- docid
 summary(corp_inaug, 5)
 ```

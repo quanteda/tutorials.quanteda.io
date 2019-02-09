@@ -70,19 +70,19 @@ print(num_vec)
 A data frame combines multiple vectors to construct a dataset. You can combine vectors into a data frame only if they have the same lengths. However, they can be different types. `nrow()` and `ncol()` show the number of rows (observations) and variables in a data frame.
 
 ```{r}
-fruit_df <- data.frame(name = char_vec, count = num_vec )
-print(fruit_df)
-print(nrow(fruit_df))
-print(ncol(fruit_df))
+dat_fruit <- data.frame(name = char_vec, count = num_vec )
+print(dat_fruit)
+print(nrow(dat_fruit))
+print(ncol(dat_fruit))
 ```
 
 You can use `subset()` to select records in the data frame. 
 
 ```{r}
-fruit_df2 <- subset(fruit_df, count >= 5)
-print(fruit_df2)
-print(nrow(fruit_df2))
-print(ncol(fruit_df2))
+dat_fruit_subset <- subset(dat_fruit, count >= 5)
+print(dat_fruit_subset)
+print(nrow(dat_fruit_subset))
+print(ncol(dat_fruit_subset))
 ```
 
 {{% notice tip %}}

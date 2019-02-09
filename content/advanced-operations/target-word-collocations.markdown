@@ -13,14 +13,14 @@ This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
 ```r
-news_corp <- download('data_corpus_guardian')
+corp_news <- download('data_corpus_guardian')
 ```
 
 
 
 
 ```r
-ndoc(news_corp)
+ndoc(corp_news)
 ```
 
 ```
@@ -28,7 +28,7 @@ ndoc(news_corp)
 ```
 
 ```r
-range(docvars(news_corp, 'date'))
+range(docvars(corp_news, 'date'))
 ```
 
 ```
@@ -36,7 +36,7 @@ range(docvars(news_corp, 'date'))
 ```
 
 ```r
-news_toks <- tokens(news_corp, remove_punct = TRUE)
+toks_news <- tokens(corp_news, remove_punct = TRUE)
 ```
 
 ### Keywords for Brexit
@@ -45,9 +45,9 @@ We can also find words associated with target words using the `window` argument 
 
 
 ```r
-brexit_toks <- tokens_keep(news_toks, pattern = 'brexit', window = 10) # equivalent to tokens_select(selection = 'keep')
-not_brexit_toks <- tokens_remove(news_toks, pattern = 'brexit', window = 10) # equivalent to tokens_select(selection = 'remove')
-print(brexit_toks[['text173244']])
+toks_brexit <- tokens_keep(toks_news, pattern = 'brexit', window = 10) # equivalent to tokens_select(selection = 'keep')
+toks_nobrexit <- tokens_remove(toks_news, pattern = 'brexit', window = 10) # equivalent to tokens_select(selection = 'remove')
+print(toks_brexit[['text173244']])
 ```
 
 ```
@@ -65,12 +65,12 @@ print(brexit_toks[['text173244']])
 ```
 
 ```r
-dfm_brexit <- dfm(brexit_toks)
-not_brexit_dfm <- dfm(not_brexit_toks)
+dfmat_brexit <- dfm(toks_brexit)
+dfmat_nobrexit <- dfm(toks_nobrexit)
 
-brexit_key <- textstat_keyness(rbind(dfm_brexit, not_brexit_dfm), seq_len(ndoc(dfm_brexit)))
-brexit_key <- brexit_key[brexit_key$n_target > 10,]
-head(brexit_key, 50)
+tstat_key_brexit <- textstat_keyness(rbind(dfmat_brexit, dfmat_nobrexit), seq_len(ndoc(dfmat_brexit)))
+tstat_key_brexit_subset <- tstat_key_brexit[tstat_key_brexit$n_target > 10, ]
+head(tstat_key_brexit_subset, 50)
 ```
 
 ```
@@ -134,12 +134,15 @@ Targeted frequency analysis might look complex, but can be done in five lines.
 
 ```r
 trump <- c('donald trump', 'trump')
-trump_dfm <- tokens_keep(news_toks, pattern = phrase(trump), window = 10) %>% dfm()
-not_trump_dfm <- tokens_remove(news_toks, pattern = phrase(trump), window = 10) %>% dfm()
-trump_key <- textstat_keyness(rbind(trump_dfm, not_trump_dfm), seq_len(ndoc(trump_dfm)))
+dfmat_trump <- tokens_keep(toks_news, pattern = phrase(trump), window = 10) %>% 
+    dfm()
 
-trump_key <- trump_key[trump_key$n_target > 10,]
-head(trump_key, 50)
+dfmat_no_trump <- tokens_remove(toks_news, pattern = phrase(trump), window = 10) %>%
+    dfm()
+tstat_key_trump <- textstat_keyness(rbind(dfmat_trump, dfmat_no_trump), seq_len(ndoc(dfmat_trump)))
+
+tstat_key_trump_subset <- tstat_key_trump[tstat_key_trump$n_target > 10, ]
+head(tstat_key_trump_subset, 50)
 ```
 
 ```

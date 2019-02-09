@@ -127,8 +127,8 @@ A data frame combines multiple vectors to construct a dataset. You can combine v
 
 
 ```r
-fruit_df <- data.frame(name = char_vec, count = num_vec )
-print(fruit_df)
+dat_fruit <- data.frame(name = char_vec, count = num_vec )
+print(dat_fruit)
 ```
 
 ```
@@ -140,7 +140,7 @@ print(fruit_df)
 ```
 
 ```r
-print(nrow(fruit_df))
+print(nrow(dat_fruit))
 ```
 
 ```
@@ -148,7 +148,7 @@ print(nrow(fruit_df))
 ```
 
 ```r
-print(ncol(fruit_df))
+print(ncol(dat_fruit))
 ```
 
 ```
@@ -159,8 +159,8 @@ You can use `subset()` to select records in the data frame.
 
 
 ```r
-fruit_df2 <- subset(fruit_df, count >= 5)
-print(fruit_df2)
+dat_fruit_subset <- subset(dat_fruit, count >= 5)
+print(dat_fruit_subset)
 ```
 
 ```
@@ -170,7 +170,7 @@ print(fruit_df2)
 ```
 
 ```r
-print(nrow(fruit_df2))
+print(nrow(dat_fruit_subset))
 ```
 
 ```
@@ -178,7 +178,7 @@ print(nrow(fruit_df2))
 ```
 
 ```r
-print(ncol(fruit_df2))
+print(ncol(dat_fruit_subset))
 ```
 
 ```

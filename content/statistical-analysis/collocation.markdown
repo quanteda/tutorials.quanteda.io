@@ -15,7 +15,7 @@ This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
 ```r
-news_corp <- download('data_corpus_guardian')
+corp_news <- download('data_corpus_guardian')
 ```
 
 
@@ -25,10 +25,13 @@ By collocation analysis, we can identify contiguous collocations of words. One o
 
 
 ```r
-news_toks <- tokens(news_corp, remove_punct = TRUE)
-cap_col <- tokens_select(news_toks, pattern = '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
+toks_news <- tokens(corp_news, remove_punct = TRUE)
+tstat_col_caps <- tokens_select(toks_news, pattern = '^[A-Z]', 
+                                valuetype = 'regex', 
+                                case_insensitive = FALSE, 
+                                padding = TRUE) %>% 
            textstat_collocations(min_count = 100)
-head(cap_col, 20)
+head(tstat_col_caps, 20)
 ```
 
 ```
@@ -59,9 +62,12 @@ You can also discover collocations larger than two words.
 
 
 ```r
-cap_col2 <- tokens_select(news_toks, pattern = '^[A-Z]', valuetype = 'regex', case_insensitive = FALSE, padding = TRUE) %>% 
+tstat_col2 <- tokens_select(toks_news, pattern = '^[A-Z]', 
+                                valuetype = 'regex', 
+                                case_insensitive = FALSE, 
+                                padding = TRUE) %>% 
             textstat_collocations(min_count = 100, size = 3)
-head(cap_col2, 20)
+head(tstat_col2, 20)
 ```
 
 ```

@@ -18,8 +18,8 @@ You can generate n-grams in any lengths from a tokens using `tokens_ngrams()`. N
 
 
 ```r
-ngram <- tokens_ngrams(toks, n = 2:4)
-head(ngram[[1]], 50)
+toks_nram <- tokens_ngrams(toks, n = 2:4)
+head(toks_nram[[1]], 50)
 ```
 
 ```
@@ -43,7 +43,7 @@ head(ngram[[1]], 50)
 ```
 
 ```r
-tail(ngram[[1]], 50)
+tail(toks_nram[[1]], 50)
 ```
 
 ```
@@ -78,8 +78,8 @@ tail(ngram[[1]], 50)
 
 
 ```r
-skipgram <- tokens_ngrams(toks, n = 2, skip = 1:2)
-head(skipgram[[1]], 50)
+toks_skip <- tokens_ngrams(toks, n = 2, skip = 1:2)
+head(toks_skip[[1]], 50)
 ```
 
 ```
@@ -116,9 +116,9 @@ While `tokens_ngrams()` generates n-grams or skip-grams in all possible combinat
 
 
 ```r
-neg_bigram <- tokens_compound(toks, pattern = phrase('not *'))
-neg_bigram <- tokens_select(neg_bigram, pattern = phrase('not_*'))
-head(neg_bigram[[1]], 50)
+toks_neg_bigram <- tokens_compound(toks, pattern = phrase('not *'))
+toks_neg_bigram_select <- tokens_select(toks_neg_bigram, pattern = phrase('not_*'))
+head(toks_neg_bigram_select[[1]], 50)
 ```
 
 ```

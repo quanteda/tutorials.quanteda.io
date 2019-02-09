@@ -18,7 +18,7 @@ Using the `download()` function from **quanteda.corpora**, you can retrieve a te
 
 
 ```r
-tweet_corp <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')
+corp_tweets <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')
 ```
 
 
@@ -27,10 +27,10 @@ We analyse the most frequent hashtags using `select = "#*"` when creating the `d
 
 
 ```r
-tweet_toks <- tokens(tweet_corp, remove_punct = TRUE) 
-tweet_dfm <- dfm(tweet_toks, select = "#*")
-freq <- textstat_frequency(tweet_dfm, n = 5, groups = docvars(tweet_dfm, 'lang'))
-head(freq, 20)
+toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) 
+dfmat_tweets <- dfm(toks_tweets, select = "#*")
+tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = "lang")
+head(tstat_freq, 20)
 ```
 
 ```
@@ -61,7 +61,7 @@ You can also plot the Twitter hashtag frequencies easily using `ggplot()`.
 
 
 ```r
-tweet_dfm %>% 
+dfmat_tweets %>% 
   textstat_frequency(n = 15) %>% 
   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
   geom_point() +
@@ -76,7 +76,8 @@ Alternative, you can create a Wordcloud of the  100 most common tags.
 
 
 ```r
-textplot_wordcloud(tweet_dfm, max_words = 100)
+set.seed(132)
+textplot_wordcloud(dfmat_tweets, max_words = 100)
 ```
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-6-1.png" width="672" />
@@ -86,11 +87,14 @@ Finally, it is possible to compare different groups within one Wordcloud. We fir
 
 ```r
 # create document-level variable indicating whether Tweet was in English or other language
-docvars(tweet_corp, "dummy_english") <- factor(ifelse(docvars(tweet_corp, "lang") == "English", "English", "Not English"))
+docvars(corp_tweets, "dummy_english") <- factor(ifelse(docvars(corp_tweets, "lang") == "English", "English", "Not English"))
 
 # create a grouped dfm and compare groups
-tweet_corp_language <- dfm(tweet_corp, select = "#*", groups = "dummy_english")
-textplot_wordcloud(tweet_corp_language, comparison = TRUE, max_words = 200)
+dfmat_corp_language <- dfm(corp_tweets, select = "#*", groups = "dummy_english")
+
+# create worcloud
+set.seed(132)
+textplot_wordcloud(dfmat_corp_language, comparison = TRUE, max_words = 200)
 ```
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-7-1.png" width="672" />

@@ -10,11 +10,11 @@ require(quanteda)
 require(readtext)
 ```
 
-A second option is to load multiple text files at once that are stored in the same folder or subfolders. Again, `data_dir`is the location of sample files on your computer.
+A second option is to load multiple text files at once that are stored in the same folder or subfolders. Again, `path_data`is the location of sample files on your computer.
 
 
 ```r
-data_dir <- system.file("extdata/", package = "readtext")
+path_data <- system.file("extdata/", package = "readtext")
 ```
 
 Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can create document variables using the **readtext** package.
@@ -24,19 +24,19 @@ The directory "/txt/UDHR" contains text files (.txt) of the Universal Declaratio
 
 
 ```r
-udhr_data <- readtext(paste0(data_dir, "/txt/UDHR/*"))
+dat_udhr <- readtext(paste0(path_data, "/txt/UDHR/*"))
 ```
 
 You can generate document-level variables based on the file names using the `docvarnames` and `docvarsfrom` argument. `dvsep = "_"` specifies the value separator in the filenames.`encoding = "ISO-8859-1"` determines character encodings of the texts.
 
 
 ```r
-eu_data <- readtext(paste0(data_dir, "/txt/EU_manifestos/*.txt"),
+dat_eu <- readtext(paste0(path_data, "/txt/EU_manifestos/*.txt"),
                     docvarsfrom = "filenames", 
                     docvarnames = c("unit", "context", "year", "language", "party"),
                     dvsep = "_", 
                     encoding = "ISO-8859-1")
-str(eu_data)
+str(dat_eu)
 ```
 
 ```
@@ -54,7 +54,7 @@ str(eu_data)
 
 
 ```r
-data_reviews <- readtext(paste0(data_dir, "/txt/movie_reviews/*"))
+dat_reviews <- readtext(paste0(path_data, "/txt/movie_reviews/*"))
 ```
 
 ### JSON
@@ -63,7 +63,7 @@ You can also read JSON files (.json) downloaded from the Twititer stream API. [t
 
 
 ```r
-twitter_data <- readtext("content/data/twitter.json", source = "twitter")
+dat_twitter <- ("content/data/twitter.json", source = "twitter")
 ```
 
 
@@ -72,7 +72,7 @@ The file comes with several metadata for each tweet, such as the number of retwe
 
 
 ```r
-head(names(twitter_data))
+head(names(dat_twitter))
 ```
 
 ```
@@ -82,11 +82,11 @@ head(names(twitter_data))
 
 ### PDF
 
-`readtext()` can also convert and read PDF (.pdf) files. 
+`readtext()` can also convert and read PDF ('.pdf') files. 
 
 
 ```r
-udhr_data <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"), 
+dat_udhr <- readtext(paste0(path_data, "/pdf/UDHR/*.pdf"), 
                       docvarsfrom = "filenames", 
                       docvarnames = c("document", "language"),
                       sep = "_")
@@ -98,5 +98,5 @@ Finally, `readtext()` can import Microsoft Word ('.doc' and '.docx') files.
 
 
 ```r
-word_data <- readtext(paste0(data_dir, "/word/*.docx"))
+dat_word <- readtext(paste0(path_data, "/word/*.docx"))
 ```

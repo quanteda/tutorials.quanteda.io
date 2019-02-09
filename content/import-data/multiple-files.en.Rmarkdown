@@ -9,10 +9,10 @@ require(quanteda)
 require(readtext)
 ```
 
-A second option is to load multiple text files at once that are stored in the same folder or subfolders. Again, `data_dir`is the location of sample files on your computer.
+A second option is to load multiple text files at once that are stored in the same folder or subfolders. Again, `path_data`is the location of sample files on your computer.
 
 ```{r}
-data_dir <- system.file("extdata/", package = "readtext")
+path_data <- system.file("extdata/", package = "readtext")
 ```
 
 Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can create document variables using the **readtext** package.
@@ -21,24 +21,24 @@ Unlike the pre-formatted files, individual text files usually do not contain doc
 The directory "/txt/UDHR" contains text files (.txt) of the Universal Declaration of Human Rights in 13 languages. 
 
 ```{r}
-data_udhr <- readtext(paste0(data_dir, "/txt/UDHR/*"))
+dat_udhr <- readtext(paste0(path_data, "/txt/UDHR/*"))
 ```
 
 You can generate document-level variables based on the file names using the `docvarnames` and `docvarsfrom` argument. `dvsep = "_"` specifies the value separator in the filenames.`encoding = "ISO-8859-1"` determines character encodings of the texts.
 
 ```{r}
-data_eu <- readtext(paste0(data_dir, "/txt/EU_manifestos/*.txt"),
+dat_eu <- readtext(paste0(path_data, "/txt/EU_manifestos/*.txt"),
                     docvarsfrom = "filenames", 
                     docvarnames = c("unit", "context", "year", "language", "party"),
                     dvsep = "_", 
                     encoding = "ISO-8859-1")
-str(data_eu)
+str(dat_eu)
 ```
 
 `readtext()` can also read files from sub-directories. The directory `txt/movie_reviews`, for example, contains two directories: `neg` and `pos`. All text files from both folders in `movie_reviews` are considered automatically.
 
 ```{r}
-data_reviews <- readtext(paste0(data_dir, "/txt/movie_reviews/*"))
+dat_reviews <- readtext(paste0(path_data, "/txt/movie_reviews/*"))
 ```
 
 ### JSON
@@ -46,18 +46,18 @@ data_reviews <- readtext(paste0(data_dir, "/txt/movie_reviews/*"))
 You can also read JSON files (.json) downloaded from the Twititer stream API. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in data directory of this tutorial package.
 
 ```{r, eval=FALSE}
-data_twitter <- ("content/data/twitter.json", source = "twitter")
+dat_twitter <- ("content/data/twitter.json", source = "twitter")
 ```
 
 ```{r include=FALSE}
 # This code is only for website generation
-data_twitter <- readtext("../data/twitter.json", source = "twitter")
+dat_twitter <- readtext("../data/twitter.json", source = "twitter")
 ```
 
 The file comes with several metadata for each tweet, such as the number of retweets and likes, the username, time and time zone. 
 
 ```{r}
-head(names(data_twitter))
+head(names(dat_twitter))
 ```
 
 ### PDF
@@ -65,7 +65,7 @@ head(names(data_twitter))
 `readtext()` can also convert and read PDF ('.pdf') files. 
 
 ```{r}
-data_udhr <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"), 
+dat_udhr <- readtext(paste0(path_data, "/pdf/UDHR/*.pdf"), 
                       docvarsfrom = "filenames", 
                       docvarnames = c("document", "language"),
                       sep = "_")
@@ -76,5 +76,5 @@ data_udhr <- readtext(paste0(data_dir, "/pdf/UDHR/*.pdf"),
 Finally, `readtext()` can import Microsoft Word ('.doc' and '.docx') files.
 
 ```{r}
-data_word <- readtext(paste0(data_dir, "/word/*.docx"))
+dat_word <- readtext(paste0(path_data, "/word/*.docx"))
 ```

@@ -36,8 +36,8 @@ head(docvars(corp))
 ```
 
 ```r
-recent_corp <- corpus_subset(corp, Year >= 1990)
-ndoc(recent_corp)
+corp_recent <- corpus_subset(corp, Year >= 1990)
+ndoc(corp_recent)
 ```
 
 ```
@@ -45,8 +45,8 @@ ndoc(recent_corp)
 ```
 
 ```r
-dem_corp <- corpus_subset(corp, President %in% c('Obama', 'Clinton', 'Carter'))
-ndoc(dem_corp)
+corp_dem <- corpus_subset(corp, President %in% c('Obama', 'Clinton', 'Carter'))
+ndoc(corp_dem)
 ```
 
 ```
