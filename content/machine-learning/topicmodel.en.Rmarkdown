@@ -14,37 +14,36 @@ require(topicmodels)
 ```
 
 ```{r eval=FALSE}
-corp_news <- download('data_corpus_guardian')
+news_corp <- download('data_corpus_guardian')
 ```
 
 ```{r include=FALSE}
 # This code is only for website generation
-corp_news <- readRDS("../data/data_corpus_guardian.rds")
+news_corp <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
 We only select news stories published in 2016 using `corpus_subset()`. 
 
 ```{r}
-corp_news_subset <- corpus_subset(corp_news, 'date' >= 2016)
-ndoc(corp_news_subset)
+news_corp <- corpus_subset(news_corp, year(docvars(news_corp, 'date')) >= 2016)
+ndoc(news_corp)
 ```
 
 Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`)
  using `dfm_trim()` to focus on common but distinguishing features.
 
 ```{r}
-dfmat_news <- dfm(corp_news, remove_punct = TRUE, remove = stopwords('en')) %>% 
-    dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
-    dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
-             max_docfreq = 0.1, docfreq_type = "prop")
-
-dfmat_news <- dfmat_news[ntoken(dfmat_news) > 0,]
+news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
+            dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
+            dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
+                     max_docfreq = 0.1, docfreq_type = "prop")
+news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
 ```
 
 **quanteda** does not implement topic models, but you can easily access `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values.
 
 ```{r cache=TRUE}
-dtm <- convert(dfmat_news, to = "topicmodels")
+dtm <- convert(news_dfm, to = "topicmodels")
 lda <- LDA(dtm, k = 10)
 ```
 
@@ -57,7 +56,7 @@ terms(lda, 10)
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
 
 ```{r}
-docvars(dfmat_news, 'topic') <- topics(lda)
+docvars(news_dfm, 'topic') <- topics(lda)
 head(topics(lda), 20)
 ```
 
