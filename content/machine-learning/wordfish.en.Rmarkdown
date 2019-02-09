@@ -13,29 +13,27 @@ require(quanteda)
 In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.
 
 ```{r}
-irish_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-wf <- textmodel_wordfish(irish_dfm, dir = c(6,5))
-summary(wf)
+dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6,5))
+summary(tmod_wf)
 ```
 
 We can plot the results of a fitted scaling model using `textplot_scale1d()`.
 
 ```{r}
-# create nicer labels for speakers
-doclab <- paste(docvars(irish_dfm, "name"), docvars(irish_dfm, "party"))
-textplot_scale1d(wf, doclabels = doclab)
+textplot_scale1d(tmod_wf)
 ```
 
 The function also allows to plot scores by a grouping variable, in this case the party affiliation of the speakers.
 
 ```{r}
-textplot_scale1d(wf, doclabels = doclab, groups = docvars(irish_dfm, "party"))
+textplot_scale1d(tmod_wf, groups = docvars(dfmat_irish, "party"))
 ```
 
 Finally, we can plot the estimated word positions and highlight certain features.
 
 ```{r, dev="png"}
-textplot_scale1d(wf, margin = "features", 
+textplot_scale1d(tmod_wf, margin = "features", 
                  highlighted = c("government", "global", "children", 
                                  "bank", "economy", "the", "citizenship",
                                  "productivity", "deficit"))

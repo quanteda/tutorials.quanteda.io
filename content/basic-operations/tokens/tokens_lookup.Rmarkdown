@@ -15,39 +15,49 @@ toks <- tokens(data_char_ukimmig2010)
 `tokens_lookup()` is the most flexible dictionary lookup function in **quanteda**. We use [geographical dictionary](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/newsmap.yml) from the [**newsmap**](https://cran.r-project.org/web/packages/newsmap/index.html) package as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats.
 
 ```{r, eval=FALSE}
-newsmap_dict <- dictionary(file = "content/dictionary/newsmap.yml")
+dict_newsmap <- dictionary(file = "content/dictionary/newsmap.yml")
 ```
 
 ```{r include=FALSE}
 # This code is only for website generation
-newsmap_dict <- dictionary(file = "../../dictionary/newsmap.yml")
+dict_newsmap <- dictionary(file = "../../dictionary/newsmap.yml")
 ```
+
+Note that you can access the dictionary in various languages (currently English, German, Japanese, Russian, and Spanish) with the **newsmap** package. 
+
+```{r, eval=FALSE}
+install.packages("newsmap")
+require(newsmap)
+
+dict_newsmap_package <- newsmap::data_dictionary_newsmap_en
+```
+
 
 The geographical dictionary comprises of names of countries and cities (and their demonyms) in a hierachical structure ( which countries are nested in world regions and sub-regions).
 
 ```{r}
-length(newsmap_dict)
-names(newsmap_dict)
-names(newsmap_dict[['AFRICA']])
-newsmap_dict[['AFRICA']][['NORTH']]
+length(dict_newsmap)
+names(dict_newsmap)
+names(dict_newsmap[['AFRICA']])
+dict_newsmap[['AFRICA']][['NORTH']]
 ```
 
 The `levels` argument determines the keys to be recored in a resulting tokens object.
 
 ```{r}
-region_toks <- tokens_lookup(toks, dictionary = newsmap_dict, levels = 1)
-head(region_toks)
-dfm(region_toks)
+toks_region <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 1)
+head(toks_region)
+dfm(toks_region)
 ```
 
 ```{r}
-country_toks <- tokens_lookup(toks, dictionary = newsmap_dict, levels = 3)
-head(country_toks)
-dfm(country_toks)
+toks_country <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 3)
+head(toks_country)
+dfm(toks_country)
 ```
 
 ```{r}
-kwic(toks, newsmap_dict['AFRICA'])
+kwic(toks, dict_newsmap['AFRICA'])
 ```
 
 You can define your own dictionary by passing a named list of characters to `dictionary()`.

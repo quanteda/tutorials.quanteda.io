@@ -68,3 +68,10 @@ require(readtext)
 require(quanteda.corpora)
 require(newsmap)
 ```
+
+{{% notice note %}}
+With `quanteda_options()` you can specify get or set global options affecting functions across **quanteda**. One very useful feature is changing the number of threads to use in parralelised functions. By default, **quanteda** uses two threads, but depending on the RAM of your machine, you can use more than two threads. 
+
+For instance, `quanteda_options("threads" = 10)` will use ten threads which massively reduces the time to execute the parralelised functions.
+{{% /notice %}}
+

@@ -15,36 +15,36 @@ toks <- tokens(data_char_ukimmig2010)
 You can remove tokens that you are not interested in using `tokens_select()`. Usually we remove function words (grammatical words) that have little or no substantive meaning in pre-processing. `stopwords()` returns a pre-defined list of function words.
 
 ```{r}
-nostop_toks <- tokens_select(toks, pattern = stopwords('en'), selection = 'remove')
-head(nostop_toks[[1]], 50)
+toks_nostop <- tokens_select(toks, pattern = stopwords('en'), selection = 'remove')
+head(toks_nostop[[1]], 50)
 ```
 
 `tokens_remove()` is an alias to `tokens_select(selection = 'remove')`. Therefore, the code above and below are equivalent.
 
 ```{r}
-nostop_toks <- tokens_remove(toks, pattern = stopwords('en'))
-head(nostop_toks[[1]], 50)
+tooks_nostop2 <- tokens_remove(toks, pattern = stopwords('en'))
+head(tooks_nostop2[[1]], 50)
 ```
 
 Removal of tokens changes the lengths of documents, but they remain the same if you set `padding = TRUE`. This option is useful especially when you perform positional analysis.
 
 ```{r}
-nostop_toks <- tokens_remove(toks, pattern = stopwords('en'), padding = TRUE)
-head(nostop_toks[[1]], 50)
+toks_nostop_pad <- tokens_remove(toks, pattern = stopwords('en'), padding = TRUE)
+head(toks_nostop_pad[[1]], 50)
 ```
 
 If you are only interested in certain words, you can keep these and remove others.
 
 ```{r}
-immig_toks <- tokens_select(toks, pattern = c('immig*', 'migra*'), padding = TRUE)
-head(immig_toks[[1]], 50)
+toks_immig <- tokens_select(toks, pattern = c('immig*', 'migra*'), padding = TRUE)
+head(toks_immig[[1]], 50)
 ```
 
 If you want to analyze words that appear around keywords, use the `window` argument.
 
 ```{r}
-window_toks <- tokens_select(toks, pattern = c('immig*', 'migra*'), padding = TRUE, window = 5)
-head(window_toks[[1]], 50)
+toks_immig_window <- tokens_select(toks, pattern = c('immig*', 'migra*'), padding = TRUE, window = 5)
+head(toks_immig_window[[1]], 50)
 ```
 
 {{% notice tip %}}
