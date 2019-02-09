@@ -16,36 +16,36 @@ Training a Wordscores model requires reference scores for texts whose policy pos
 We use manifestos of the 2013 and 2017 German federal elections. For the 2013 elections we assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and predict the party positions for the 2017 manifestos.
 
 ```{r eval=FALSE}
-corp_ger <- download(url = 'https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1')
+ger_corpus <- download(url = 'https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1')
 ```
 
 ```{r include=FALSE}
 # This code is only for website generation
-corp_ger <- readRDS("../data/data_corpus_germanifestos.rds")
+ger_corpus <- readRDS("../data/data_corpus_germanifestos.rds")
 ```
 
 ```{r}
-summary(corp_ger)
+summary(ger_corpus)
 ```
 
 Now we can apply the Wordscores algorithm to a document-feature matrix.
 
 ```{r}
-dfmat_ger <- dfm(corp_ger, remove = stopwords("de"), remove_punct = TRUE)
-tmod_ws <- textmodel_wordscores(dfmat_ger, y = docvars(corp_ger, "ref_score"), smooth = 1)
-summary(tmod_ws)
+ger_dfm <- dfm(ger_corpus, remove = stopwords("de"), remove_punct = TRUE)
+ger_ws <- textmodel_wordscores(ger_dfm, y = docvars(ger_corpus, "ref_score"), smooth = 1)
+summary(ger_ws)
 ```
 
 Next, we predict the Wordscores for the unknown virgin texts.
 
 ```{r}
-pred_ws <- predict(tmod_ws, se.fit = TRUE, newdata = dfmat_ger)
+ger_ws_predict <- predict(ger_ws, se.fit = TRUE, newdata = ger_dfm)
 ```
 
 Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_scale1d()` function.
 
 ```{r}
-textplot_scale1d(pred_ws)
+textplot_scale1d(ger_ws_predict)
 ```
 
 
