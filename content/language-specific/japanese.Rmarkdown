@@ -24,8 +24,8 @@ txt <- tail(texts(corp), 1000)
 
 ```{r include=FALSE}
 # This code is only for website generation
-#corp <- readRDS("/home/kohei/Dropbox/Public/data_corpus_foreignaffairscommittee.rds")
-corp <- readRDS("/Users/smueller/Dropbox/Corpora/data_corpus_foreignaffairscommittee.rds")
+corp <- readRDS("/home/kohei/Dropbox/Public/data_corpus_foreignaffairscommittee.rds")
+#corp <- readRDS("/Users/smueller/Dropbox/Corpora/data_corpus_foreignaffairscommittee.rds")
 txt <- tail(texts(corp), 1000)
 ```
 
