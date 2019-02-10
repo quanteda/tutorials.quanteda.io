@@ -12,12 +12,12 @@ R has three types of objects: *vector*, *data frame* and *matrix*. Since many of
 
 ### Vectors
 
-As a language for statistical analysis, R's most basic objects are vectors. Vectors contain a set of values. In the examples below, `num_vec` is a *numeric vector*, while `char_vec` is a *chracter vector*. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
+As a language for statistical analysis, R's most basic objects are vectors. Vectors contain a set of values. In the examples below, `vec_num` is a *numeric vector*, while `vec_char` is a *chracter vector*. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
 
 
 ```r
-num_vec <- c(1, 5, 6, 3)
-print(num_vec)
+vec_num <- c(1, 5, 6, 3)
+print(vec_num)
 ```
 
 ```
@@ -25,8 +25,8 @@ print(num_vec)
 ```
 
 ```r
-char_vec <- c('apple', 'banana', 'mandarin', 'melon')
-print(char_vec)
+vec_char <- c('apple', 'banana', 'mandarin', 'melon')
+print(vec_char)
 ```
 
 ```
@@ -37,7 +37,7 @@ Once a vector is created, you can extract elements of vectors with the `[]` oper
 
 
 ```r
-print(num_vec[1])
+print(vec_num[1])
 ```
 
 ```
@@ -45,7 +45,7 @@ print(num_vec[1])
 ```
 
 ```r
-print(num_vec[1:2])
+print(vec_num[1:2])
 ```
 
 ```
@@ -53,7 +53,7 @@ print(num_vec[1:2])
 ```
 
 ```r
-print(char_vec[c(1, 3)])
+print(vec_char[c(1, 3)])
 ```
 
 ```
@@ -64,8 +64,8 @@ You can apply arithmetical operations such as addition, subtraction, multiplicat
 
 
 ```r
-num_vec2 <- num_vec * 2
-print(num_vec2)
+vec_num2 <- vec_num * 2
+print(vec_num2)
 ```
 
 ```
@@ -76,8 +76,8 @@ You can also compare elements of a vector by relational operators such as `==`, 
 
 
 ```r
-logi_gt5_vec <- num_vec >= 5
-print(logi_gt5_vec)
+vec_logi_gt5 <- vec_num >= 5
+print(vec_logi_gt5)
 ```
 
 ```
@@ -88,8 +88,8 @@ You cannot apply arithmetical operations on character vectors, but can apply the
 
 
 ```r
-logi_apple_vec <- char_vec == 'apple'
-print(logi_apple_vec)
+vec_logi_apple <- vec_char == 'apple'
+print(vec_logi_apple)
 ```
 
 ```
@@ -100,8 +100,8 @@ You can also concatenate elements of character vectors using `paste()`. Since th
 
 
 ```r
-char_vec2 <- paste(c('red', 'yellow', 'orange', 'green'), char_vec)
-print(char_vec2)
+vec_char2 <- paste(c('red', 'yellow', 'orange', 'green'), vec_char)
+print(vec_char2)
 ```
 
 ```
@@ -112,8 +112,8 @@ Finally, you can set names to elements of a numeric vector using `names()`.
 
 
 ```r
-names(num_vec) <- char_vec
-print(num_vec)
+names(vec_num) <- vec_char
+print(vec_num)
 ```
 
 ```
@@ -127,8 +127,8 @@ A data frame combines multiple vectors to construct a dataset. You can combine v
 
 
 ```r
-fruit_df <- data.frame(name = char_vec, count = num_vec )
-print(fruit_df)
+dat_fruit <- data.frame(name = vec_char, count = vec_num)
+print(dat_fruit)
 ```
 
 ```
@@ -140,7 +140,7 @@ print(fruit_df)
 ```
 
 ```r
-print(nrow(fruit_df))
+print(nrow(dat_fruit))
 ```
 
 ```
@@ -148,7 +148,7 @@ print(nrow(fruit_df))
 ```
 
 ```r
-print(ncol(fruit_df))
+print(ncol(dat_fruit))
 ```
 
 ```
@@ -159,8 +159,8 @@ You can use `subset()` to select records in the data frame.
 
 
 ```r
-fruit_df2 <- subset(fruit_df, count >= 5)
-print(fruit_df2)
+dat_fruit_sub <- subset(dat_fruit, count >= 5)
+print(dat_fruit_sub)
 ```
 
 ```
@@ -170,7 +170,7 @@ print(fruit_df2)
 ```
 
 ```r
-print(nrow(fruit_df2))
+print(nrow(dat_fruit_sub))
 ```
 
 ```
@@ -178,7 +178,7 @@ print(nrow(fruit_df2))
 ```
 
 ```r
-print(ncol(fruit_df2))
+print(ncol(dat_fruit_sub))
 ```
 
 ```
@@ -209,7 +209,7 @@ You can use `colnames()` or `rownames()` to set/retrieve names to rows or column
 
 
 ```r
-colnames(mat) <- char_vec
+colnames(mat) <- vec_char
 print(mat)
 ```
 

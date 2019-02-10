@@ -13,23 +13,24 @@ require(quanteda)
 
 
 ```r
-irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
-irish_dfm <- dfm(irish_toks)
+toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+dfmat_irish <- dfm(toks_irish)
 ```
 
 If corpus is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
 
 
 ```r
-irish_dfm <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE) %>% 
-  dfm()
+dfmat_irish <- data_corpus_irishbudget2010 %>% 
+    tokens(remove_punct = TRUE) %>% 
+    dfm()
 ```
 
 You can get the number of documents and features `ndoc()` and `nfeat()`.
 
 
 ```r
-ndoc(irish_dfm)
+ndoc(dfmat_irish)
 ```
 
 ```
@@ -37,7 +38,7 @@ ndoc(irish_dfm)
 ```
 
 ```r
-nfeat(irish_dfm)
+nfeat(dfmat_irish)
 ```
 
 ```
@@ -48,28 +49,21 @@ You can also obtain the names of documents and features by `docnames()` and `fea
 
 
 ```r
-head(docnames(irish_dfm), 20)
+head(docnames(dfmat_irish), 20)
 ```
 
 ```
-##  [1] "2010_BUDGET_01_Brian_Lenihan_FF"      
-##  [2] "2010_BUDGET_02_Richard_Bruton_FG"     
-##  [3] "2010_BUDGET_03_Joan_Burton_LAB"       
-##  [4] "2010_BUDGET_04_Arthur_Morgan_SF"      
-##  [5] "2010_BUDGET_05_Brian_Cowen_FF"        
-##  [6] "2010_BUDGET_06_Enda_Kenny_FG"         
-##  [7] "2010_BUDGET_07_Kieran_ODonnell_FG"    
-##  [8] "2010_BUDGET_08_Eamon_Gilmore_LAB"     
-##  [9] "2010_BUDGET_09_Michael_Higgins_LAB"   
-## [10] "2010_BUDGET_10_Ruairi_Quinn_LAB"      
-## [11] "2010_BUDGET_11_John_Gormley_Green"    
-## [12] "2010_BUDGET_12_Eamon_Ryan_Green"      
-## [13] "2010_BUDGET_13_Ciaran_Cuffe_Green"    
-## [14] "2010_BUDGET_14_Caoimhghin_OCaolain_SF"
+##  [1] "Lenihan, Brian (FF)"       "Bruton, Richard (FG)"     
+##  [3] "Burton, Joan (LAB)"        "Morgan, Arthur (SF)"      
+##  [5] "Cowen, Brian (FF)"         "Kenny, Enda (FG)"         
+##  [7] "ODonnell, Kieran (FG)"     "Gilmore, Eamon (LAB)"     
+##  [9] "Higgins, Michael (LAB)"    "Quinn, Ruairi (LAB)"      
+## [11] "Gormley, John (Green)"     "Ryan, Eamon (Green)"      
+## [13] "Cuffe, Ciaran (Green)"     "OCaolain, Caoimhghin (SF)"
 ```
 
 ```r
-head(featnames(irish_dfm), 20)
+head(featnames(dfmat_irish), 20)
 ```
 
 ```
@@ -84,24 +78,22 @@ Just like normal matrices, you can use`rowSums()` and `colSums()` to calculate m
 
 
 ```r
-head(rowSums(irish_dfm), 10)
+head(rowSums(dfmat_irish), 10)
 ```
 
 ```
-##    2010_BUDGET_01_Brian_Lenihan_FF   2010_BUDGET_02_Richard_Bruton_FG 
-##                               7916                               4086 
-##     2010_BUDGET_03_Joan_Burton_LAB    2010_BUDGET_04_Arthur_Morgan_SF 
-##                               5790                               6510 
-##      2010_BUDGET_05_Brian_Cowen_FF       2010_BUDGET_06_Enda_Kenny_FG 
-##                               5964                               3896 
-##  2010_BUDGET_07_Kieran_ODonnell_FG   2010_BUDGET_08_Eamon_Gilmore_LAB 
-##                               2086                               3807 
-## 2010_BUDGET_09_Michael_Higgins_LAB    2010_BUDGET_10_Ruairi_Quinn_LAB 
-##                               1149                               1181
+##    Lenihan, Brian (FF)   Bruton, Richard (FG)     Burton, Joan (LAB) 
+##                   7916                   4086                   5790 
+##    Morgan, Arthur (SF)      Cowen, Brian (FF)       Kenny, Enda (FG) 
+##                   6510                   5964                   3896 
+##  ODonnell, Kieran (FG)   Gilmore, Eamon (LAB) Higgins, Michael (LAB) 
+##                   2086                   3807                   1149 
+##    Quinn, Ruairi (LAB) 
+##                   1181
 ```
 
 ```r
-head(colSums(irish_dfm), 10)
+head(colSums(dfmat_irish), 10)
 ```
 
 ```
@@ -115,7 +107,7 @@ The most frequent features can be found using `topfeatures()`.
 
 
 ```r
-topfeatures(irish_dfm, 10)
+topfeatures(dfmat_irish, 10)
 ```
 
 ```
@@ -127,9 +119,9 @@ If you want to convert the frequency count to a proportion within documents, use
 
 
 ```r
-prop_irish_dfm <- dfm_weight(irish_dfm, scheme  = "prop")
+dfmat_irish_prop <- dfm_weight(dfmat_irish, scheme  = "prop")
 # check topfeatures in first document
-topfeatures(prop_irish_dfm[1,])
+topfeatures(dfmat_irish_prop[1,])
 ```
 
 ```
@@ -139,13 +131,18 @@ topfeatures(prop_irish_dfm[1,])
 ## 0.01755937 0.01364325 0.01250632 0.01237999
 ```
 
+{{% notice tip %}}
+`textstat_frequency()`, desribed in chapter 4 offers more advanced functionalities than `topfeatures()` and returns a `data.frame` object, making it easier to use the output for further analyses.
+{{% /notice %}}
+
+
 You can also weight frequency count by uniqueness of the features across documents using `dfm_tfidf()`.
 
 
 ```r
-tfidf_irish_dfm <- dfm_tfidf(irish_dfm)
+dfmat_irish_tfidf <- dfm_tfidf(dfmat_irish)
 # check topfeatures in first document
-topfeatures(tfidf_irish_dfm[1,])
+topfeatures(dfmat_irish_tfidf[1,])
 ```
 
 ```
@@ -156,5 +153,5 @@ topfeatures(tfidf_irish_dfm[1,])
 ```
 
 {{% notice warning %}}
-Even after applying  `dfm_weight()` or `dfm_tfidf()`, `topfeatures()` works on a DFM, but it can be misleading if applied to more than one document.
+Even after applying  `dfm_weight()` or `dfm_tfidf()`, `topfeatures()` works on a document-feature matrix, but it can be misleading if applied to more than one document.
 {{% /notice %}}

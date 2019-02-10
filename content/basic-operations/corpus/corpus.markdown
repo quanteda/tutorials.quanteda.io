@@ -47,31 +47,31 @@ summary(corp_immig)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source: /home/kohei/packages/quanteda.tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sun Feb 10 18:30:48 2019
+## Created: Sun Feb 10 21:06:21 2019
 ## Notes:
 ```
 
 
 ## Data frame
 
-Using **readtext**, loead an example file from `data_dir` as a data frame called `data_inaug`.
+Using **readtext**, loead an example file from `path_data` as a data frame called `dat_inaug`.
 
 
 ```r
-data_dir <- system.file("extdata/", package = "readtext")
-data_inaug <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
-names(data_inaug)
+path_data <- system.file("extdata/", package = "readtext")
+dat_inaug <- readtext(paste0(path_data, "/csv/inaugCorpus.csv"), text_field = "texts")
+names(dat_inaug)
 ```
 
 ```
 ## [1] "doc_id"    "text"      "Year"      "President" "FirstName"
 ```
 
-Construct a corpus from `inaug_data`.
+Construct a corpus from `dat_inaug`.
 
 
 ```r
-corp_inaug <- corpus(data_inaug)
+corp_inaug <- corpus(dat_inaug)
 summary(corp_inaug, 5)
 ```
 
@@ -86,7 +86,7 @@ summary(corp_inaug, 5)
 ##  inaugCorpus.csv.5   804   2381        45 1805  Jefferson    Thomas
 ## 
 ## Source: /home/kohei/packages/quanteda.tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sun Feb 10 18:30:49 2019
+## Created: Sun Feb 10 21:06:21 2019
 ## Notes:
 ```
 
@@ -94,9 +94,9 @@ You can edit the `docnames` for a corpus to change them from `text1`, `text2` et
 
 
 ```r
-docid <- paste(data_inaug$Year, 
-                data_inaug$FirstName, 
-                data_inaug$President, sep = " ")
+docid <- paste(dat_inaug$Year, 
+               dat_inaug$FirstName, 
+               dat_inaug$President, sep = " ")
 docnames(corp_inaug) <- docid
 summary(corp_inaug, 5)
 ```
@@ -112,7 +112,7 @@ summary(corp_inaug, 5)
 ##   1805 Thomas Jefferson   804   2381        45 1805  Jefferson    Thomas
 ## 
 ## Source: /home/kohei/packages/quanteda.tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Sun Feb 10 18:30:49 2019
+## Created: Sun Feb 10 21:06:21 2019
 ## Notes:
 ```
 

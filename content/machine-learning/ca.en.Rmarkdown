@@ -26,12 +26,12 @@ textplot_scale1d(tmod_ca)
 If you want to plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
 
 ```{r fig.height=7, fig.width=7}
-ca_data <- data.frame(dim1 = coef(tmod_ca, doc_dim = 1)$coef_document, 
+dat_ca <- data.frame(dim1 = coef(tmod_ca, doc_dim = 1)$coef_document, 
                       dim2 = coef(tmod_ca, doc_dim = 2)$coef_document)
-head(ca_data)
+head(dat_ca)
 
 plot(1, xlim = c(-2, 2), ylim = c(-2, 2), type = 'n', xlab = 'Dimension 1', ylab = 'Dimension 2')
 grid()
-text(ca_data$dim1, ca_data$dim2, labels = rownames(ca_data), cex = 0.8, col = rgb(0, 0, 0, 0.7))
+text(dat_ca$dim1, dat_ca$dim2, labels = rownames(dat_ca), cex = 0.8, col = rgb(0, 0, 0, 0.7))
 ```
 
