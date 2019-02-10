@@ -21,5 +21,5 @@ Examples in this tutorial are written for **quanteda** version `r packageVersion
 {{% /notice %}}
 
 {{% notice info %}}
-If you use this website in courses or publications, please cite it as: Watanabe, Kohei and Stefan Müller. 2019. *Quanteda Tutorials*. https://tutorials.quanteda.io.
+If you use this website in courses or publications, please cite it as: Watanabe, Kohei, and Stefan Müller. 2018. *Quanteda Tutorials*. https://tutorials.quanteda.io.
 {{% /notice %}}

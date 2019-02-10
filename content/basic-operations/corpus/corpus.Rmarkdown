@@ -25,9 +25,9 @@ You can create a corpus from various available sources:
 `data_char_ukimmig2010` is a named character vector and consists of sections of British election manifestos on immigration and asylum.
 
 ```{r}
-corp_immig <- corpus(data_char_ukimmig2010, 
+immig_corp <- corpus(data_char_ukimmig2010, 
                      docvars = data.frame(party = names(data_char_ukimmig2010)))
-summary(corp_immig)
+summary(immig_corp)
 ```
 
 
@@ -63,6 +63,6 @@ summary(corp_inaug, 5)
 **quanteda** also allows to import a **tm** `VCorpus` object.
 
 ```{r}
-corp_tm <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
-corp_quanteda <- corpus(corp_tm)
+vcorp <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
+corp <- corpus(vcorp)
 ```
