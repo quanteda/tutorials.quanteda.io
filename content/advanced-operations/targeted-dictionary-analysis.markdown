@@ -14,19 +14,19 @@ This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
 ```r
-news_corp <- download('data_corpus_guardian')
+corp_news <- download('data_corpus_guardian')
 ```
 
 
 
 
 ```r
-docvars(news_corp, 'year') <- year(docvars(news_corp, 'date'))
-docvars(news_corp, 'month') <- month(docvars(news_corp, 'date'))
-docvars(news_corp, 'week') <- week(docvars(news_corp, 'date'))
+docvars(corp_news, 'year') <- year(docvars(corp_news, 'date'))
+docvars(corp_news, 'month') <- month(docvars(corp_news, 'date'))
+docvars(corp_news, 'week') <- week(docvars(corp_news, 'date'))
 
-news_corp <- corpus_subset(news_corp, 'year' >= 2016)
-news_toks <- tokens(news_corp, remove_punct = TRUE)
+corp_news <- corpus_subset(corp_news, 'year' >= 2016)
+toks_news <- tokens(corp_news, remove_punct = TRUE)
 ```
 
 You can use `tokens_lookup()` or `dfm_looup()` to count dictionary values. **quanteda** contains Lexicoder Sentiment Dictionary created by Young and Soroka, so you can perfrom sentiment analysis of English texts right away.
@@ -42,8 +42,8 @@ lengths(data_dictionary_LSD2015)
 ```
 
 ```r
-lsd_toks <- tokens_lookup(news_toks, dictionary =  data_dictionary_LSD2015[1:2])
-head(lsd_toks, 2)
+toks_news_lsd <- tokens_lookup(toks_news, dictionary =  data_dictionary_LSD2015[1:2])
+head(toks_news_lsd, 2)
 ```
 
 ```
@@ -61,8 +61,8 @@ head(lsd_toks, 2)
 ```
 
 ```r
-lsd_dfm <- dfm(lsd_toks)
-head(lsd_dfm, 2)
+dfmat_news_lsd <- dfm(toks_news_lsd)
+head(dfmat_news_lsd, 2)
 ```
 
 ```
@@ -83,13 +83,13 @@ You can use `tokens_select()` with `window` argument to perform more targeted se
 
 ```r
 eu <- c('EU', 'europ*', 'european union')
-eu_toks <- tokens_keep(news_toks, pattern = phrase(eu), window = 10)
-eu_lsd_dfm <- dfm(eu_toks, dictionary = data_dictionary_LSD2015[1:2]) %>% 
-                  dfm_group(group = 'week', fill = TRUE) 
+toks_eu <- tokens_keep(toks_news, pattern = phrase(eu), window = 10)
+dfmat_eu_lsd <- dfm(toks_eu, dictionary = data_dictionary_LSD2015[1:2]) %>% 
+    dfm_group(group = 'week', fill = TRUE) 
 
-matplot(eu_lsd_dfm, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
+matplot(dfmat_eu_lsd, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
 grid()
-axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd_dfm)) - 1))
+axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
 ```
 
@@ -97,10 +97,10 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 
 
 ```r
-eu_n <- ntoken(dfm(eu_toks, group = docvars(eu_toks, 'week')))
-plot((eu_lsd_dfm[,2] - eu_lsd_dfm[,1]) / eu_n, 
+eu_n <- ntoken(dfm(toks_eu, group = docvars(toks_eu, 'week')))
+plot((dfmat_eu_lsd[,2] - dfmat_eu_lsd[,1]) / eu_n, 
      type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
-axis(1, seq_len(ndoc(eu_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(eu_lsd_dfm)) - 1))
+axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
 grid()
 abline(h = 0, lty = 2)
 ```
@@ -111,14 +111,14 @@ abline(h = 0, lty = 2)
 
 
 ```r
-us <- c('immig*', 'migra*')
-immig_toks <- tokens_keep(news_toks, pattern = phrase(us), window = 10)
-immig_lsd_dfm <- dfm(immig_toks, dictionary = data_dictionary_LSD2015[1:2]) %>% 
-                  dfm_group(group = 'week', fill = TRUE) 
+immig <- c('immig*', 'migra*')
+toks_immig <- tokens_keep(toks_news, pattern = phrase(immig), window = 10)
+dfm_immig_lsd <- dfm(toks_immig, dictionary = data_dictionary_LSD2015[1:2]) %>% 
+    dfm_group(group = 'week', fill = TRUE) 
 
-matplot(immig_lsd_dfm, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
+matplot(dfm_immig_lsd, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
 grid()
-axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(immig_lsd_dfm)) - 1))
+axis(1, seq_len(ndoc(dfm_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfm_immig_lsd)) - 1))
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
 ```
 
@@ -126,10 +126,10 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 
 
 ```r
-immig_n <- ntoken(dfm(immig_toks, group = docvars(immig_toks, 'week')))
-plot((immig_lsd_dfm[,2] - immig_lsd_dfm[,1]) / immig_n, 
+immig_n <- ntoken(dfm(toks_immig, group = docvars(toks_immig, 'week')))
+plot((dfm_immig_lsd[,2] - dfm_immig_lsd[,1]) / immig_n, 
      type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
-axis(1, seq_len(ndoc(immig_lsd_dfm)), ymd("2016-01-01") + weeks(seq_len(ndoc(immig_lsd_dfm)) - 1))
+axis(1, seq_len(ndoc(dfm_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfm_immig_lsd)) - 1))
 grid()
 abline(h = 0, lty = 2)
 ```
