@@ -62,28 +62,28 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1     Topic 2      Topic 3      Topic 4     Topic 5        
-##  [1,] "prices"    "mps"        "online"     "climate"   "officers"     
-##  [2,] "markets"   "referendum" "customers"  "nhs"       "investigation"
-##  [3,] "rate"      "corbyn"     "games"      "china"     "justice"      
-##  [4,] "oil"       "tory"       "game"       "doctors"   "prison"       
-##  [5,] "rates"     "osborne"    "google"     "emissions" "trial"        
-##  [6,] "sales"     "mp"         "users"      "chinese"   "abuse"        
-##  [7,] "quarter"   "johnson"    "apple"      "paris"     "inquiry"      
-##  [8,] "banks"     "brexit"     "technology" "patients"  "allegations"  
-##  [9,] "investors" "cabinet"    "internet"   "agreement" "criminal"     
-## [10,] "euro"      "scottish"   "data"       "board"     "sexual"       
-##       Topic 6        Topic 7       Topic 8    Topic 9    Topic 10     
-##  [1,] "trump"        "food"        "died"     "syria"    "australia"  
-##  [2,] "clinton"      "energy"      "friends"  "military" "australian" 
-##  [3,] "republican"   "water"       "black"    "refugees" "labor"      
-##  [4,] "sanders"      "development" "shot"     "isis"     "turnbull"   
-##  [5,] "obama"        "education"   "town"     "attacks"  "senate"     
-##  [6,] "donald"       "project"     "mother"   "russian"  "abbott"     
-##  [7,] "cruz"         "workers"     "son"      "syrian"   "aest"       
-##  [8,] "presidential" "gas"         "woman"    "french"   "federal"    
-##  [9,] "2016"         "funding"     "dead"     "forces"   "marriage"   
-## [10,] "hillary"      "climate"     "hospital" "russia"   "immigration"
+##       Topic 1     Topic 2      Topic 3    Topic 4       Topic 5  
+##  [1,] "nhs"       "australia"  "syria"    "climate"     "game"   
+##  [2,] "child"     "australian" "refugees" "energy"      "games"  
+##  [3,] "doctors"   "labor"      "french"   "development" "music"  
+##  [4,] "education" "turnbull"   "isis"     "water"       "friends"
+##  [5,] "hospital"  "senate"     "syrian"   "gas"         "video"  
+##  [6,] "medical"   "federal"    "military" "food"        "tv"     
+##  [7,] "mental"    "aest"       "russian"  "technology"  "online" 
+##  [8,] "patients"  "abbott"     "talks"    "emissions"   "park"   
+##  [9,] "schools"   "commission" "russia"   "project"     "town"   
+## [10,] "parents"   "budget"     "brussels" "google"      "twitter"
+##       Topic 6        Topic 7     Topic 8         Topic 9      Topic 10   
+##  [1,] "trump"        "markets"   "officers"      "mps"        "customers"
+##  [2,] "clinton"      "oil"       "investigation" "corbyn"     "housing"  
+##  [3,] "republican"   "rate"      "justice"       "referendum" "sales"    
+##  [4,] "sanders"      "prices"    "officer"       "mp"         "homes"    
+##  [5,] "obama"        "shares"    "prison"        "tory"       "buy"      
+##  [6,] "donald"       "rates"     "arrested"      "osborne"    "food"     
+##  [7,] "cruz"         "china"     "trial"         "johnson"    "income"   
+##  [8,] "presidential" "quarter"   "criminal"      "scotland"   "property" 
+##  [9,] "2016"         "banks"     "allegations"   "shadow"     "scheme"   
+## [10,] "hillary"      "investors" "victims"       "voters"     "online"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -96,13 +96,13 @@ head(topics(lda), 20)
 
 ```
 ## text136751 text118588  text45146  text93623 text136585  text65682 
-##          4          3          1         10          2          8 
+##          4          5          7          2          9          8 
 ## text107174  text22792  text32425 text139163 text169133  text90312 
-##          3          8          9          3          8         10 
+##         10          8          3         10          5          2 
 ## text153451  text31104 text163885  text81309 text157885  text99128 
-##          5          2          7          1          8          9 
+##          8          9          4          7          5          3 
 ## text173244  text27905 
-##          9          9
+##         10          3
 ```
 
 {{% notice info %}}
