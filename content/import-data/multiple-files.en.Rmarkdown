@@ -17,12 +17,15 @@ path_data <- system.file("extdata/", package = "readtext")
 
 Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can create document variables using the **readtext** package.
 
-
 The directory "/txt/UDHR" contains text files (.txt) of the Universal Declaration of Human Rights in 13 languages. 
 
 ```{r}
 dat_udhr <- readtext(paste0(path_data, "/txt/UDHR/*"))
 ```
+
+{{% notice note %}}
+If you are using Windows, you need might need to specify the encoding of the file by adding `encoding = "utf-8"`. In this case, imported texts might appear like `<U+4E16><U+754C><U+4EBA><U+6743>` but they indicate that Unicode charactes are correctly imported to R.
+{{% /notice %}}
 
 You can generate document-level variables based on the file names using the `docvarnames` and `docvarsfrom` argument. `dvsep = "_"` specifies the value separator in the filenames.`encoding = "ISO-8859-1"` determines character encodings of the texts.
 
