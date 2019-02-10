@@ -14,7 +14,7 @@ Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubuserconte
 
 
 ```r
-data_twitter <- readtext("content/data/twitter.json", source = "twitter")
+twitter_data <- readtext("content/data/twitter.json", source = "twitter")
 ```
 
 
@@ -23,19 +23,19 @@ Construct a corpus of Tweets.
 
 
 ```r
-corp_tweets <- corpus(data_twitter)
+tweet_corp <- corpus(twitter_data)
 ```
 
 Construct a document-feature matrix removing tags and links.
 
 
 ```r
-dfmat_tweets <- dfm(corp_tweets,
+tweet_dfm <- dfm(tweet_corp,
                  remove_punct = TRUE, remove_url = TRUE,
                  remove = c('*.tt', '*.uk', '*.com', 'rt', '#*', '@*')) %>% 
              dfm_remove(stopwords('en'))
 
-ndoc(dfmat_tweets)
+ndoc(tweet_dfm)
 ```
 
 ```
@@ -43,7 +43,7 @@ ndoc(dfmat_tweets)
 ```
 
 ```r
-topfeatures(dfmat_tweets)
+topfeatures(tweet_dfm)
 ```
 
 ```
@@ -57,8 +57,8 @@ Group documents by usernames.
 
 
 ```r
-dfmat_users <- dfm_group(dfmat_tweets, groups = 'screen_name')
-ndoc(dfmat_users)
+user_dfm <- dfm_group(tweet_dfm, groups = docvars(tweet_dfm, 'screen_name'))
+ndoc(user_dfm)
 ```
 
 ```
@@ -69,18 +69,18 @@ Remove rare (less than 10 times) and short (one character) features, and convert
 
 
 ```r
-dfmat_users_prop <- dfmat_users %>% 
-    dfm_select(min_nchar = 2) %>% 
-    dfm_trim(min_termfreq = 10) %>% 
-    dfm_weight('prop')
+prop_user_dfm <- user_dfm %>% 
+                 dfm_select(min_nchar = 2) %>% 
+                 dfm_trim(min_termfreq = 10) %>% 
+                 dfm_weight('prop')
 ```
 
 Calculate user-user similarity using `textstat_dist()`.
 
 
 ```r
-tstat_dist <- textstat_dist(dfmat_users_prop)
-user_clust <- hclust(tstat_dist)
+user_dist <- textstat_dist(prop_user_dfm)
+user_clust <- hclust(user_dist)
 plot(user_clust, labels = FALSE)
 ```
 

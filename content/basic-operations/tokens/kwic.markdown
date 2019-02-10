@@ -18,8 +18,8 @@ You can see how keywords are used in the actual contexts in a concordance view p
 
 
 ```r
-kw_immig <- kwic(toks, pattern =  'immig*')
-head(kw_immig, 10)
+immig_kw <- kwic(toks, pattern =  'immig*')
+head(immig_kw, 10)
 ```
 
 ```
@@ -51,8 +51,8 @@ head(kw_immig, 10)
 
 
 ```r
-kw_immig2 <- kwic(toks, pattern = c('immig*', 'migra*'))
-head(kw_immig2, 10)
+immig2_kw <- kwic(toks, pattern = c('immig*', 'migra*'))
+head(immig2_kw, 10)
 ```
 
 ```
@@ -84,8 +84,8 @@ With the `window` argument, you can specify the number of words to be displayed 
 
 
 ```r
-kw_immig3 <- kwic(toks, pattern = c('immig*', 'migra*'), window = 7)
-head(kw_immig3, 10)
+immig2_kw <- kwic(toks, pattern = c('immig*', 'migra*'), window = 7)
+head(immig2_kw, 10)
 ```
 
 ```
@@ -117,8 +117,8 @@ If you want to find multi-word expressions, separate words by whitespace and wra
 
 
 ```r
-kw_asylum <- kwic(toks, pattern = phrase('asylum seeker*'))
-head(kw_asylum)
+asylum_kw <- kwic(toks, pattern = phrase('asylum seeker*'))
+head(asylum_kw)
 ```
 
 ```
@@ -142,6 +142,6 @@ Texts do not always appear nicely in your R console, so you can use `View()` to 
 
 
 ```r
-View(kw_asylum)
+View(immig2_kw)
 ```
 

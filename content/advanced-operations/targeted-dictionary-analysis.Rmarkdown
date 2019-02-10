@@ -34,11 +34,11 @@ You can use `tokens_lookup()` or `dfm_looup()` to count dictionary values. **qua
 ```{r}
 lengths(data_dictionary_LSD2015)
 
-toks_news_lsd <- tokens_lookup(toks_news, dictionary =  data_dictionary_LSD2015[1:2])
-head(toks_news_lsd, 2)
+toks_lsd <- tokens_lookup(toks_news, dictionary =  data_dictionary_LSD2015[1:2])
+head(toks_lsd, 2)
 
-dfmat_news_lsd <- dfm(toks_news_lsd)
-head(dfmat_news_lsd, 2)
+dfmt_lsd <- dfm(toks_lsd)
+head(dfmt_lsd, 2)
 ```
 
 ## Targeted analysis
@@ -50,20 +50,20 @@ You can use `tokens_select()` with `window` argument to perform more targeted se
 ```{r}
 eu <- c('EU', 'europ*', 'european union')
 toks_eu <- tokens_keep(toks_news, pattern = phrase(eu), window = 10)
-dfmat_eu_lsd <- dfm(toks_eu, dictionary = data_dictionary_LSD2015[1:2]) %>% 
-    dfm_group(group = 'week', fill = TRUE) 
+dfmt_eu_lsd <- dfm(toks_eu, dictionary = data_dictionary_LSD2015[1:2]) %>% 
+                  dfm_group(group = 'week', fill = TRUE) 
 
-matplot(dfmat_eu_lsd, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
+matplot(dfmt_eu_lsd, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
 grid()
-axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
+axis(1, seq_len(ndoc(dfmt_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmt_eu_lsd)) - 1))
 legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
 ```
 
 ```{r}
-eu_n <- ntoken(dfm(toks_eu, group = docvars(toks_eu, 'week')))
-plot((dfmat_eu_lsd[,2] - dfmat_eu_lsd[,1]) / eu_n, 
+n_eu <- ntoken(dfm(toks_eu, group = docvars(toks_eu, 'week')))
+plot((dfmt_eu_lsd[,2] - dfmt_eu_lsd[,1]) / n_eu, 
      type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
-axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
+axis(1, seq_len(ndoc(dfmt_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmt_eu_lsd)) - 1))
 grid()
 abline(h = 0, lty = 2)
 ```
@@ -83,8 +83,8 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 ```
 
 ```{r}
-immig_n <- ntoken(dfm(toks_immig, group = docvars(toks_immig, 'week')))
-plot((dfmat_immig_lsd[,2] - dfmat_immig_lsd[,1]) / immig_n, 
+n_immig <- ntoken(dfm(toks_immig, group = docvars(toks_immig, 'week')))
+plot((dfmat_immig_lsd[,2] - dfmat_immig_lsd[,1]) / n_immig, 
      type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
 axis(1, seq_len(ndoc(dfmat_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_immig_lsd)) - 1))
 grid()

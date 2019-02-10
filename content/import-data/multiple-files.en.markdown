@@ -82,7 +82,7 @@ head(names(dat_twitter))
 
 ### PDF
 
-`readtext()` can also convert and read PDF ('.pdf') files. 
+`readtext()` can also convert and read PDF (.pdf) files. 
 
 
 ```r

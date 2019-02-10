@@ -78,8 +78,8 @@ tail(toks_ngram[[1]], 50)
 
 
 ```r
-toks_skip <- tokens_ngrams(toks, n = 2, skip = 1:2)
-head(toks_skip[[1]], 50)
+skipgram <- tokens_ngrams(toks, n = 2, skip = 1:2)
+head(skipgram[[1]], 50)
 ```
 
 ```
@@ -116,9 +116,9 @@ While `tokens_ngrams()` generates n-grams or skip-grams in all possible combinat
 
 
 ```r
-toks_neg_bigram <- tokens_compound(toks, pattern = phrase('not *'))
-toks_neg_bigram_select <- tokens_select(toks_neg_bigram, pattern = phrase('not_*'))
-head(toks_neg_bigram_select[[1]], 50)
+neg_bigram <- tokens_compound(toks, pattern = phrase('not *'))
+neg_bigram <- tokens_select(neg_bigram, pattern = phrase('not_*'))
+head(neg_bigram[[1]], 50)
 ```
 
 ```

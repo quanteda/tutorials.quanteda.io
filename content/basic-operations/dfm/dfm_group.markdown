@@ -11,8 +11,8 @@ require(quanteda)
 
 
 ```r
-dfmat_irish <- dfm(data_corpus_irishbudget2010)
-ndoc(dfmat_irish)
+irish_dfm <- dfm(data_corpus_irishbudget2010)
+ndoc(irish_dfm)
 ```
 
 ```
@@ -20,7 +20,7 @@ ndoc(dfmat_irish)
 ```
 
 ```r
-head(colSums(dfmat_irish), 10)
+head(colSums(irish_dfm), 10)
 ```
 
 ```
@@ -34,8 +34,8 @@ head(colSums(dfmat_irish), 10)
 
 
 ```r
-dfmat_party <- dfm_group(dfmat_irish, groups = "party")
-ndoc(dfmat_party)
+party_dfm <- dfm_group(irish_dfm, groups = docvars(irish_dfm, "party"))
+ndoc(party_dfm)
 ```
 
 ```
@@ -43,7 +43,7 @@ ndoc(dfmat_party)
 ```
 
 ```r
-head(colSums(dfmat_party), 10)
+head(colSums(party_dfm), 10)
 ```
 
 ```
@@ -57,7 +57,7 @@ head(colSums(dfmat_party), 10)
 
 
 ```r
-docvars(dfmat_party)
+docvars(party_dfm)
 ```
 
 ```
@@ -73,8 +73,8 @@ You can also use the `groups` argument in `dfm()` to simplify your code.
 
 
 ```r
-dfmat_party <- dfm(data_corpus_irishbudget2010, groups = "party")
-ndoc(dfmat_party)
+party_dfm <- dfm(data_corpus_irishbudget2010, groups = docvars(irish_dfm, "party"))
+ndoc(party_dfm)
 ```
 
 ```

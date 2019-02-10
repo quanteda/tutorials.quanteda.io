@@ -18,27 +18,16 @@ toks <- tokens(data_char_ukimmig2010)
 
 
 ```r
-dict_newsmap <- dictionary(file = "content/dictionary/newsmap.yml")
+newsmap_dict <- dictionary(file = "content/dictionary/newsmap.yml")
 ```
 
-
-
-Note that you can access the dictionary in various languages (currently English, German, Japanese, Russian, and Spanish) with the **newsmap** package. 
-
-
-```r
-install.packages("newsmap")
-require(newsmap)
-
-dict_newsmap_package <- newsmap::data_dictionary_newsmap_en
-```
 
 
 The geographical dictionary comprises of names of countries and cities (and their demonyms) in a hierachical structure ( which countries are nested in world regions and sub-regions).
 
 
 ```r
-length(dict_newsmap)
+length(newsmap_dict)
 ```
 
 ```
@@ -46,7 +35,7 @@ length(dict_newsmap)
 ```
 
 ```r
-names(dict_newsmap)
+names(newsmap_dict)
 ```
 
 ```
@@ -54,7 +43,7 @@ names(dict_newsmap)
 ```
 
 ```r
-names(dict_newsmap[['AFRICA']])
+names(newsmap_dict[['AFRICA']])
 ```
 
 ```
@@ -62,7 +51,7 @@ names(dict_newsmap[['AFRICA']])
 ```
 
 ```r
-dict_newsmap[['AFRICA']][['NORTH']]
+newsmap_dict[['AFRICA']][['NORTH']]
 ```
 
 ```
@@ -89,8 +78,8 @@ The `levels` argument determines the keys to be recored in a resulting tokens ob
 
 
 ```r
-toks_region <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 1)
-head(toks_region)
+region_toks <- tokens_lookup(toks, dictionary = newsmap_dict, levels = 1)
+head(region_toks)
 ```
 
 ```
@@ -126,7 +115,7 @@ head(toks_region)
 ```
 
 ```r
-dfm(toks_region)
+dfm(region_toks)
 ```
 
 ```
@@ -147,8 +136,8 @@ dfm(toks_region)
 
 
 ```r
-toks_country <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 3)
-head(toks_country)
+country_toks <- tokens_lookup(toks, dictionary = newsmap_dict, levels = 3)
+head(country_toks)
 ```
 
 ```
@@ -178,7 +167,7 @@ head(toks_country)
 ```
 
 ```r
-dfm(toks_country)
+dfm(country_toks)
 ```
 
 ```
@@ -187,7 +176,7 @@ dfm(toks_country)
 
 
 ```r
-kwic(toks, dict_newsmap['AFRICA'])
+kwic(toks, newsmap_dict['AFRICA'])
 ```
 
 ```

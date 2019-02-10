@@ -15,17 +15,17 @@ Using `corpus_segment()`, you can extract segments of texts and tags from docume
 
 
 ```r
-corp_tagged <- corpus(c("##INTRO This is the introduction.
+tagged_corp <- corpus(c("##INTRO This is the introduction.
                          ##DOC1 This is the first document.  Second sentence in Doc 1.
                          ##DOC3 Third document starts here.  End of third document.",
                         "##INTRO Document ##NUMBER Two starts before ##NUMBER Three."))
-corp_sect <- corpus_segment(corp_tagged, pattern = "##*")
+sect_corp <- corpus_segment(tagged_corp, pattern = "##*")
 
-cbind(texts(corp_sect), docvars(corp_sect))
+cbind(texts(sect_corp), docvars(sect_corp))
 ```
 
 ```
-##                                               texts(corp_sect)  pattern
+##                                               texts(sect_corp)  pattern
 ## text1.1                              This is the introduction.  ##INTRO
 ## text1.2 This is the first document.  Second sentence in Doc 1.   ##DOC1
 ## text1.3    Third document starts here.  End of third document.   ##DOC3
@@ -38,15 +38,15 @@ cbind(texts(corp_sect), docvars(corp_sect))
 
 
 ```r
-corp_speeches <- corpus("Mr. Smith: Text.
+speach_corp <- corpus("Mr. Smith: Text.
                        Mrs. Jones: More text.
                        Mr. Smith: I'm speaking, again.")
-corp_speakers <- corpus_segment(corp_speeches, pattern = "\\b[A-Z].+\\s[A-Z][a-z]+:", valuetype = "regex")
-cbind(texts(corp_speakers), docvars(corp_speakers))
+speaker_corp <- corpus_segment(speach_corp, pattern = "\\b[A-Z].+\\s[A-Z][a-z]+:", valuetype = "regex")
+cbind(texts(speaker_corp), docvars(speaker_corp))
 ```
 
 ```
-##         texts(corp_speakers)     pattern
+##          texts(speaker_corp)     pattern
 ## text1.1                Text.  Mr. Smith:
 ## text1.2           More text. Mrs. Jones:
 ## text1.3 I'm speaking, again.  Mr. Smith:
@@ -58,9 +58,9 @@ You should use `corpus_reshape()` to split documents into sentences, but you can
 ```r
 corp <- corpus(c(d1 = "This, is a sentence?  You: come here.", 
                  d2 = "Yes, yes okay."))
-corp_sent <- corpus_segment(corp, pattern = "\\p{P}", valuetype = "regex", 
+sent_corp <- corpus_segment(corp, pattern = "\\p{P}", valuetype = "regex", 
                             extract_pattern = FALSE, pattern_position = "after")
-texts(corp_sent)
+texts(sent_corp)
 ```
 
 ```

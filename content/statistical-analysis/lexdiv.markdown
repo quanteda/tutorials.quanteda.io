@@ -14,10 +14,10 @@ require(quanteda)
 
 
 ```r
-toks_inaug <- tokens(data_corpus_inaugural)
-dfmat_inaug <- dfm(toks_inaug, remove = stopwords('en'))
-tstat_lexdiv <- textstat_lexdiv(dfmat_inaug)
-tail(tstat_lexdiv, 5)
+inaug_toks <- tokens(data_corpus_inaugural)
+inaug_dfm <- dfm(inaug_toks, remove = stopwords('en'))
+lexdiv <- textstat_lexdiv(inaug_dfm)
+tail(lexdiv, 5)
 ```
 
 ```
@@ -31,9 +31,9 @@ tail(tstat_lexdiv, 5)
 
 
 ```r
-plot(tstat_lexdiv$TTR, type = 'l', xaxt = 'n', xlab = NULL, ylab = "TTR")
+plot(lexdiv$TTR, type = 'l', xaxt = 'n', xlab = NULL, ylab = "TTR")
 grid()
-axis(1, at = seq_len(nrow(tstat_lexdiv)), labels = docvars(dfmat_inaug, 'President'))
+axis(1, at = seq_len(nrow(lexdiv)), labels = docvars(inaug_dfm, 'President'))
 ```
 
 <img src="/statistical-analysis/lexdiv_files/figure-html/unnamed-chunk-3-1.png" width="672" />

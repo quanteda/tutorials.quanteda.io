@@ -15,8 +15,8 @@ require(caret)
 `data_corpus_movies` from the **quanteda.corpora** package contains 2000 movie reviews classified either as "positive" or "negative".
 
 ```{r}
-corp_movies <- data_corpus_movies
-summary(corp_movies, 5)
+corp <- data_corpus_movies
+summary(corp, 5)
 ```
 
 "Sentiment" indicates whether a movie review was classified as positive or negative. In this example we use 1500 reviews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the remaining reviews (our test set).
@@ -30,36 +30,37 @@ id_train <- sample(1:2000, 1500, replace = FALSE)
 head(id_train, 10)
 
 # create docvar with ID
-docvars(corp_movies, "id_numeric") <- 1:ndoc(corp_movies)
+docvars(corp, "id_numeric") <- 1:ndoc(corp)
 
 # get training set
-dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-    dfm(stem = TRUE)
+training_dfm <- corpus_subset(corp, id_numeric %in% id_train) %>%
+  dfm(stem = TRUE)
 
 # get test set (documents not in id_train)
-dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-    dfm(stem = TRUE)
+test_dfm <- corpus_subset(corp, !id_numeric %in% id_train) %>%
+  dfm(stem = TRUE)
 ```
 
 Next we train the naive Bayes classifier using `textmodel_nb()`.
 
 ```{r}
-tmod_nb <- textmodel_nb(dfmat_training, docvars(dfmat_training, "Sentiment"))
-summary(tmod_nb)
+nb <- textmodel_nb(training_dfm, docvars(training_dfm, "Sentiment"))
+summary(nb)
 ```
 
 
-Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical by passing `training_dfm` to `dfm_match()` as a pattern.
+Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical by passing `training_dfm` to `dfm_select()` as a pattern.
 
 ```{r}
-dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))
+test_dfm <- dfm_select(test_dfm, pattern = training_dfm, 
+                       selection = "keep")
 ```
 
 Let's inspect how well the classification worked.
 
 ```{r}
-actual_class <- docvars(dfmat_matched, "Sentiment")
-predicted_class <- predict(tmod_nb, newdata = dfmat_matched)
+actual_class <- docvars(test_dfm, "Sentiment")
+predicted_class <- predict(nb, newdata = test_dfm)
 class_table <- table(actual_class, predicted_class)
 class_table
 ```
@@ -77,7 +78,5 @@ Precision, recall and the F1 score are frequently used to assess the classificat
 {{% /notice %}}
 
 {{% notice info %}}
-If you want to learn more about Naive Bayes classification, see [Chapter 4](https://web.stanford.edu/~jurafsky/slp3/4.pdf) of Jurafsky and Martin (2018):
-
-Jurafsky, Daniel, and James H. Martin. 2018. [_Speech and Language Processing. An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition_](https://web.stanford.edu/~jurafsky/slp3/4.pdf). Draft of 3rd edition, September 23, 2018 (Chapter 4). 
+If you want to learn more about Naive Bayes classification, see [Chapter 6](https://web.stanford.edu/~jurafsky/slp3/6.pdf) of Jurafsky and Martin (2017).
 {{% /notice%}}

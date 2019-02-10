@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-A feature co-occurrence matrix (FCM) records number of co-occurances of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
+A feature-ouccerances matrix (FCM) records number of co-occurances of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
 
 
 ```r
@@ -14,7 +14,7 @@ require(quanteda.corpora)
 
 
 ```r
-corp_news <- download('data_corpus_guardian')
+corp <- download('data_corpus_guardian')
 ```
 
 
@@ -23,11 +23,11 @@ When a corpus is large, you have to select features of a DFM before constructing
 
 
 ```r
-dfmat_news <- dfm(corp_news, remove = stopwords('en'), remove_punct = TRUE)
-dfmat_news <- dfm_remove(dfmat_news, pattern = c('*-time', 'updated-*', 'gmt', 'bst'))
-dfmat_news <- dfm_trim(dfmat_news, min_termfreq = 100)
+news_dfm <- dfm(corp, remove = stopwords('en'), remove_punct = TRUE)
+news_dfm <- dfm_remove(news_dfm, pattern = c('*-time', 'updated-*', 'gmt', 'bst'))
+news_dfm <- dfm_trim(news_dfm, min_termfreq = 100)
 
-topfeatures(dfmat_news)
+topfeatures(news_dfm)
 ```
 
 ```
@@ -38,7 +38,7 @@ topfeatures(dfmat_news)
 ```
 
 ```r
-nfeat(dfmat_news)
+nfeat(news_dfm)
 ```
 
 ```
@@ -49,8 +49,8 @@ You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeature
 
 
 ```r
-fcmat_news <- fcm(dfmat_news)
-dim(fcmat_news)
+news_fcm <- fcm(news_dfm)
+dim(news_fcm)
 ```
 
 ```
@@ -61,9 +61,9 @@ You can select features of a FCM using `fcm_select()`.
 
 
 ```r
-feat <- names(topfeatures(fcmat_news, 50))
-fcmat_news_select <- fcm_select(fcmat_news, pattern = feat)
-dim(fcmat_news_select)
+feat <- names(topfeatures(news_fcm, 50))
+news_fcm <- fcm_select(news_fcm, pattern = feat)
+dim(news_fcm)
 ```
 
 ```
@@ -74,9 +74,9 @@ A FCM can be used to train word embedding models with the **text2vec** package, 
 
 
 ```r
-size <- log(colSums(dfm_select(dfmat_news, feat)))
+size <- log(colSums(dfm_select(news_dfm, feat)))
 set.seed(144)
-textplot_network(fcmat_news_select, min_freq = 0.8, vertex_size = size / max(size) * 3)
+textplot_network(news_fcm, min_freq = 0.8, vertex_size = size / max(size) * 3)
 ```
 
 <img src="/basic-operations/fcm/fcm_files/figure-html/unnamed-chunk-7-1.png" width="672" />

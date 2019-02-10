@@ -14,13 +14,11 @@ require(quanteda.corpora)
 
 ## Tokenization
 
-You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017
+You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017.
 
 
 ```r
 corp <- download("data_corpus_foreignaffairscommittee")
-
-# use the latest 1000 speeches
 txt <- tail(texts(corp), 1000)
 ```
 
@@ -32,8 +30,8 @@ txt <- tail(texts(corp), 1000)
 
 
 ```r
-toks_icu <- tokens(txt)
-head(toks_icu[[20]], 100)
+icu_toks <- tokens(txt)
+head(icu_toks[[20]], 100)
 ```
 
 ```
@@ -65,15 +63,15 @@ If you want to perform more accurate tokenization, you need to install a morphol
 
 ```r
 install.packages("RMeCab", repos = "http://rmecab.jp/R")
-library(RMeCab)
-toks_mecab <- txt %>% 
+mecab_toks <- 
+  txt %>% 
   lapply(function(x) unlist(RMeCab::RMeCabC(x))) %>% 
   as.tokens()
 ```
 
 
 ```r
-head(toks_mecab[[20]], 100)
+head(mecab_toks[[20]], 100)
 ```
 
 ```
@@ -103,29 +101,26 @@ Even if you use a morphological analysis tool, tokenization of Japanese text is 
 
 
 ```r
-toks_icu_refi <- toks_icu
-tstat_kanji <- toks_icu %>% 
-    tokens_select('^[一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
-    textstat_collocations(min_count = 5, tolower = FALSE)
-toks_icu_refi <- tokens_compound(toks_icu_refi, tstat_kanji[tstat_kanji$z > 2],
-                                 concatenator = '', join = TRUE)
+refi_icu_toks <- icu_toks
+seqs_kanji <- icu_toks %>% 
+              tokens_select('^[一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
+              textstat_collocations(min_count = 5, tolower = FALSE)
+refi_icu_toks <- tokens_compound(refi_icu_toks, seqs_kanji[seqs_kanji$z > 2], concatenator = '', join = TRUE)
 
-tstat_kana <- toks_icu_refi %>% 
-    tokens_select('^[ァ-ヶー]+$', valuetype = 'regex', padding = TRUE) %>% 
-    textstat_collocations(min_count = 5, tolower = FALSE)
-toks_icu_refi <- tokens_compound(toks_icu_refi, tstat_kana[tstat_kana$z > 2],
-                                 concatenator = '', join = TRUE)
+seqs_kana <- refi_icu_toks %>% 
+             tokens_select('^[ァ-ヶー]+$', valuetype = 'regex', padding = TRUE) %>% 
+             textstat_collocations(min_count = 5, tolower = FALSE)
+refi_icu_toks <- tokens_compound(refi_icu_toks, seqs_kana[seqs_kana$z > 2], concatenator = '', join = TRUE)
 
-tstast_any <- toks_icu_refi %>% 
+seqs_any <- refi_icu_toks %>% 
             tokens_select('^[０-９ァ-ヶー一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
             textstat_collocations(min_count = 5, tolower = FALSE)
-toks_icu_refi <- tokens_compound(toks_icu_refi, tstast_any[tstast_any$z > 2],
-                                 concatenator = '', join = TRUE)
+refi_icu_toks <- tokens_compound(refi_icu_toks, seqs_any[seqs_any$z > 2], concatenator = '', join = TRUE)
 ```
 
 
 ```r
-head(toks_icu_refi[[20]], 100)
+head(refi_icu_toks[[20]], 100)
 ```
 
 ```
@@ -166,9 +161,9 @@ We did not remove punctuation marks in the initial tokenization, but we do it he
 
 
 ```r
-toks_icu_refi <- tokens(toks_icu_refi, remove_punct = TRUE)
-toks_icu_refi <- tokens_remove(toks_icu_refi, "^[ぁ-ん]+$", valuetype = "regex")
-head(toks_icu_refi[[20]], 100)
+refi_icu_toks <- tokens(refi_icu_toks, remove_punct = TRUE)
+refi_icu_toks <- tokens_remove(refi_icu_toks, "^[ぁ-ん]+$", valuetype = "regex")
+head(refi_icu_toks[[20]], 100)
 ```
 
 ```
@@ -193,8 +188,8 @@ Even after hiragana-only tokens are removed, there are many one-character tokens
 
 
 ```r
-dfmat_icu_refi <- dfm(toks_icu_refi, tolower = FALSE)
-topfeatures(dfmat_icu_refi, 20)
+refi_icu_dfm <- dfm(refi_icu_toks, tolower = FALSE)
+topfeatures(refi_icu_dfm, 20)
 ```
 
 ```
@@ -207,8 +202,8 @@ topfeatures(dfmat_icu_refi, 20)
 ```
 
 ```r
-dfmat_icu_refi <- dfm_select(dfmat_icu_refi, min_nchar = 2)
-topfeatures(dfmat_icu_refi, 20)
+refi_icu_dfm <- dfm_select(refi_icu_dfm, min_nchar = 2)
+topfeatures(refi_icu_dfm, 20)
 ```
 
 ```
@@ -221,5 +216,5 @@ topfeatures(dfmat_icu_refi, 20)
 ```
 
 {{% notice info %}}
-If you want to learn more about how to analyze speeches at at Japan's Committee on Foreign Affairs and Defense of the lower house, see the [example](https://docs.quanteda.io/articles/pkgdown/examples/japanese_speech_ja.html) on the documentation site.
+If you want to learn more about how to analyze speeches at at Japan's Committee on Foreign Affairs and Defense of the lower house, see the [ example](https://docs.quanteda.io/articles/pkgdown/examples/japanese_speech_ja.html) on the documentation site.
 {{% /notice%}}

@@ -13,7 +13,7 @@ require(quanteda)
 
 
 ```r
-dict_lg <- dictionary(file = "content/dictionary/laver-garry.cat")
+lg_dict <- dictionary(file = "content/dictionary/laver-garry.cat")
 ```
 
 
@@ -22,10 +22,10 @@ dict_lg <- dictionary(file = "content/dictionary/laver-garry.cat")
 
 
 ```r
-toks_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-dfmat_irish <- dfm(toks_irish)
-dfmat_irish_lg <- dfm_lookup(dfmat_irish, dictionary = dict_lg)
-head(dfmat_irish_lg)
+irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+irish_dfm <- dfm(irish_toks)
+lg_dfm <- dfm_lookup(irish_dfm, dictionary = lg_dict)
+head(lg_dfm)
 ```
 
 ```
@@ -117,7 +117,7 @@ You can also pass a dictionary to `dfm()` to simplify your code. Therefore, the 
 
 
 ```r
-dfmat_irish_lg <- dfm(data_corpus_irishbudget2010, dictionary = dict_lg, remove_punct = TRUE)
+lg_dfm <- dfm(data_corpus_irishbudget2010, dictionary = lg_dict, remove_punct = TRUE)
 ```
 
 {{% notice note %}}

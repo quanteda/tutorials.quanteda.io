@@ -11,8 +11,8 @@ require(quanteda)
 
 
 ```r
-dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-nfeat(dfmat_irish)
+irish_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+nfeat(irish_dfm)
 ```
 
 ```
@@ -23,8 +23,8 @@ You can select features from a DFM using `dfm_select()`.
 
 
 ```r
-dfmat_irish_nostop <- dfm_select(dfmat_irish, pattern = stopwords('en'), selection = 'remove')
-nfeat(dfmat_irish_nostop)
+nostop_irish_dfm <- dfm_select(irish_dfm, pattern = stopwords('en'), selection = 'remove')
+nfeat(nostop_irish_dfm)
 ```
 
 ```
@@ -35,8 +35,8 @@ nfeat(dfmat_irish_nostop)
 
 
 ```r
-dfmat_irish_nostop <- dfm_remove(dfmat_irish, pattern = stopwords('en'))
-nfeat(dfmat_irish_nostop)
+nostop_irish_dfm <- dfm_remove(irish_dfm, pattern = stopwords('en'))
+nfeat(nostop_irish_dfm)
 ```
 
 ```
@@ -47,8 +47,8 @@ You can also select features based on the length of features.
 
 
 ```r
-dfmat_irish_long <- dfm_select(dfmat_irish, min_nchar = 5)
-nfeat(dfmat_irish_long)
+long_irish_dfm <- dfm_select(irish_dfm, min_nchar = 5)
+nfeat(long_irish_dfm)
 ```
 
 ```
@@ -56,7 +56,7 @@ nfeat(dfmat_irish_long)
 ```
 
 ```r
-topfeatures(dfmat_irish_long, 10)
+topfeatures(long_irish_dfm, 10)
 ```
 
 ```
@@ -70,8 +70,8 @@ While `dfm_select()` selects features based on patterns, `dfm_trim()` does this 
 
 
 ```r
-dfmat_irish_freq <- dfm_trim(dfmat_irish, min_termfreq = 10)
-nfeat(dfmat_irish_freq)
+freq_irish_dfm <- dfm_trim(irish_dfm, min_termfreq = 10)
+nfeat(freq_irish_dfm)
 ```
 
 ```
@@ -82,8 +82,8 @@ If `max_docfreq = 0.1`, features that occur in more than 10% of the documents ar
 
 
 ```r
-dfmat_irish_docfreq <- dfm_trim(dfmat_irish, max_docfreq = 0.1, docfreq_type = "prop")
-nfeat(dfmat_irish_docfreq)
+docfreq_irish_dfm <- dfm_trim(irish_dfm, max_docfreq = 0.1, docfreq_type = "prop")
+nfeat(docfreq_irish_dfm)
 ```
 
 ```

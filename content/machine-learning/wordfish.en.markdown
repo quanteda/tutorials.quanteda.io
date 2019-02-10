@@ -15,15 +15,15 @@ In this example, we show how to apply Wordfish to the Irish budget speeches from
 
 
 ```r
-dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6,5))
-summary(tmod_wf)
+irish_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+wf <- textmodel_wordfish(irish_dfm, dir = c(6,5))
+summary(wf)
 ```
 
 ```
 ## 
 ## Call:
-## textmodel_wordfish.dfm(x = dfmat_irish, dir = c(6, 5))
+## textmodel_wordfish.dfm(x = irish_dfm, dir = c(6, 5))
 ## 
 ## Estimated Document Positions:
 ##                              theta      se
@@ -61,7 +61,9 @@ We can plot the results of a fitted scaling model using `textplot_scale1d()`.
 
 
 ```r
-textplot_scale1d(tmod_wf)
+# create nicer labels for speakers
+doclab <- paste(docvars(irish_dfm, "name"), docvars(irish_dfm, "party"))
+textplot_scale1d(wf, doclabels = doclab)
 ```
 
 <img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
@@ -70,7 +72,7 @@ The function also allows to plot scores by a grouping variable, in this case the
 
 
 ```r
-textplot_scale1d(tmod_wf, groups = docvars(dfmat_irish, "party"))
+textplot_scale1d(wf, doclabels = doclab, groups = docvars(irish_dfm, "party"))
 ```
 
 <img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
@@ -79,7 +81,7 @@ Finally, we can plot the estimated word positions and highlight certain features
 
 
 ```r
-textplot_scale1d(tmod_wf, margin = "features", 
+textplot_scale1d(wf, margin = "features", 
                  highlighted = c("government", "global", "children", 
                                  "bank", "economy", "the", "citizenship",
                                  "productivity", "deficit"))

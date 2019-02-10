@@ -17,7 +17,7 @@ require(lubridate)
 
 
 ```r
-corp_news <- download('data_corpus_guardian')
+news_corp <- download('data_corpus_guardian')
 ```
 
 
@@ -26,14 +26,13 @@ Using `textstat_keyness()`, you can compare frequencies of words between target 
 
 
 ```r
-toks_news <- tokens(corp_news, remove_punct = TRUE) 
-dfmat_news <- dfm(toks_news)
+news_toks <- tokens(news_corp, remove_punct = TRUE) 
+news_dfm <- dfm(news_toks)
  
-tstat_key <- textstat_keyness(dfmat_news, 
-                              target = year(docvars(dfmat_news, 'date')) >= 2016)
-attr(tstat_key, 'documents') <- c('2016', '2012-2015')
+key <- textstat_keyness(news_dfm, target = year(docvars(news_dfm, 'date')) >= 2016)
+attr(key, 'documents') <- c('2016', '2012-2015')
 
-textplot_keyness(tstat_key)
+textplot_keyness(key)
 ```
 
 <img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.png" width="960" />

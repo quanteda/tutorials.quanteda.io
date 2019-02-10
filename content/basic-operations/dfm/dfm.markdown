@@ -13,24 +13,23 @@ require(quanteda)
 
 
 ```r
-toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
-dfmat_irish <- dfm(toks_irish)
+irish_toks <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+irish_dfm <- dfm(irish_toks)
 ```
 
 If corpus is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
 
 
 ```r
-dfmat_irish <- data_corpus_irishbudget2010 %>% 
-    tokens(remove_punct = TRUE) %>% 
-    dfm()
+irish_dfm <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE) %>% 
+  dfm()
 ```
 
 You can get the number of documents and features `ndoc()` and `nfeat()`.
 
 
 ```r
-ndoc(dfmat_irish)
+ndoc(irish_dfm)
 ```
 
 ```
@@ -38,7 +37,7 @@ ndoc(dfmat_irish)
 ```
 
 ```r
-nfeat(dfmat_irish)
+nfeat(irish_dfm)
 ```
 
 ```
@@ -49,7 +48,7 @@ You can also obtain the names of documents and features by `docnames()` and `fea
 
 
 ```r
-head(docnames(dfmat_irish), 20)
+head(docnames(irish_dfm), 20)
 ```
 
 ```
@@ -63,7 +62,7 @@ head(docnames(dfmat_irish), 20)
 ```
 
 ```r
-head(featnames(dfmat_irish), 20)
+head(featnames(irish_dfm), 20)
 ```
 
 ```
@@ -78,7 +77,7 @@ Just like normal matrices, you can use`rowSums()` and `colSums()` to calculate m
 
 
 ```r
-head(rowSums(dfmat_irish), 10)
+head(rowSums(irish_dfm), 10)
 ```
 
 ```
@@ -93,7 +92,7 @@ head(rowSums(dfmat_irish), 10)
 ```
 
 ```r
-head(colSums(dfmat_irish), 10)
+head(colSums(irish_dfm), 10)
 ```
 
 ```
@@ -107,7 +106,7 @@ The most frequent features can be found using `topfeatures()`.
 
 
 ```r
-topfeatures(dfmat_irish, 10)
+topfeatures(irish_dfm, 10)
 ```
 
 ```
@@ -119,9 +118,9 @@ If you want to convert the frequency count to a proportion within documents, use
 
 
 ```r
-dfmat_irish_prop <- dfm_weight(dfmat_irish, scheme  = "prop")
+prop_irish_dfm <- dfm_weight(irish_dfm, scheme  = "prop")
 # check topfeatures in first document
-topfeatures(dfmat_irish_prop[1,])
+topfeatures(prop_irish_dfm[1,])
 ```
 
 ```
@@ -131,18 +130,13 @@ topfeatures(dfmat_irish_prop[1,])
 ## 0.01755937 0.01364325 0.01250632 0.01237999
 ```
 
-{{% notice tip %}}
-`textstat_frequency()`, desribed in chapter 4 offers more advanced functionalities than `topfeatures()` and returns a `data.frame` object, making it easier to use the output for further analyses.
-{{% /notice %}}
-
-
 You can also weight frequency count by uniqueness of the features across documents using `dfm_tfidf()`.
 
 
 ```r
-dfmat_irish_tfidf <- dfm_tfidf(dfmat_irish)
+tfidf_irish_dfm <- dfm_tfidf(irish_dfm)
 # check topfeatures in first document
-topfeatures(dfmat_irish_tfidf[1,])
+topfeatures(tfidf_irish_dfm[1,])
 ```
 
 ```
@@ -153,5 +147,5 @@ topfeatures(dfmat_irish_tfidf[1,])
 ```
 
 {{% notice warning %}}
-Even after applying  `dfm_weight()` or `dfm_tfidf()`, `topfeatures()` works on a document-feature matrix, but it can be misleading if applied to more than one document.
+Even after applying  `dfm_weight()` or `dfm_tfidf()`, `topfeatures()` works on a DFM, but it can be misleading if applied to more than one document.
 {{% /notice %}}
