@@ -118,8 +118,8 @@ Let's inspect how well the classification worked.
 ```r
 actual_class <- docvars(dfmat_matched, "Sentiment")
 predicted_class <- predict(tmod_nb, newdata = dfmat_matched)
-class_table <- table(actual_class, predicted_class)
-class_table
+tab_class <- table(actual_class, predicted_class)
+tab_class
 ```
 
 ```
@@ -135,7 +135,7 @@ We can use the function `confusionMatrix()` from the **caret** package to assess
 
 
 ```r
-confusionMatrix(class_table, mode = "everything")
+confusionMatrix(tab_class, mode = "everything")
 ```
 
 ```
@@ -175,7 +175,6 @@ Precision, recall and the F1 score are frequently used to assess the classificat
 {{% /notice %}}
 
 {{% notice info %}}
-If you want to learn more about Naive Bayes classification, see [Chapter 4](https://web.stanford.edu/~jurafsky/slp3/4.pdf) of Jurafsky and Martin (2018):
-
+If you want to learn more about Naive Bayes classification, see:  
 Jurafsky, Daniel, and James H. Martin. 2018. [_Speech and Language Processing. An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition_](https://web.stanford.edu/~jurafsky/slp3/4.pdf). Draft of 3rd edition, September 23, 2018 (Chapter 4). 
 {{% /notice%}}

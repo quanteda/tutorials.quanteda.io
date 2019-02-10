@@ -25,15 +25,6 @@ dict_newsmap <- dictionary(file = "content/dictionary/newsmap.yml")
 
 Note that you can access the dictionary in various languages (currently English, German, Japanese, Russian, and Spanish) with the **newsmap** package. 
 
-
-```r
-install.packages("newsmap")
-require(newsmap)
-
-dict_newsmap_package <- newsmap::data_dictionary_newsmap_en
-```
-
-
 The geographical dictionary comprises of names of countries and cities (and their demonyms) in a hierachical structure ( which countries are nested in world regions and sub-regions).
 
 

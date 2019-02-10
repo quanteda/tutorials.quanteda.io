@@ -159,13 +159,13 @@ You can visualize the distribution of global news attention using `geom_map()`.
 
 
 ```r
-data_country <- as.data.frame(count, stringsAsFactors = FALSE)
-colnames(data_country) <- c("id", "frequency")
+dat_country <- as.data.frame(count, stringsAsFactors = FALSE)
+colnames(dat_country) <- c("id", "frequency")
 
 world_map <- map_data(map = "world")
 world_map$region <- iso.alpha(world_map$region) # convert contry name to ISO code
 
-ggplot(data_country, aes(map_id = id)) +
+ggplot(dat_country, aes(map_id = id)) +
       geom_map(aes(fill = frequency), map = world_map) +
       expand_limits(x = world_map$long, y = world_map$lat) +
       scale_fill_continuous(name = "Frequency") +
