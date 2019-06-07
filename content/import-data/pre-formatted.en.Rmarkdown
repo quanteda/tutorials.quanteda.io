@@ -24,7 +24,7 @@ dat_inaug <- read.csv(paste0(path_data, "/csv/inaugCorpus.csv"))
 Alternatively, you can use the **readtext** package to import character (comma- or tab-separated) values. **readtext** reads files containing text, along with any associated document-level variables.
 
 ```{r}
-dat_inaug <- readtext(paste0(path_data, "/tsv/dailsample.tsv"), text_field = "speech")
+dat_dail <- readtext(paste0(path_data, "/tsv/dailsample.tsv"), text_field = "speech")
 ```
 
 {{% notice warning %}}

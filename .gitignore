@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-*.Rproj
 public/
 content/*/*.html
 content/*/*.svg
