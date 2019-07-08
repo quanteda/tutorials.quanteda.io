@@ -16,7 +16,7 @@ require(quanteda)
 ```r
 toks_inaug <- tokens(data_corpus_inaugural)
 dfmat_inaug <- dfm(toks_inaug, remove = stopwords('en'))
-tstat_dist <- textstat_dist(dfmat_inaug)
+tstat_dist <- as.dist(textstat_dist(dfmat_inaug))
 clust <- hclust(tstat_dist)
 plot(clust, xlab = "Distance", ylab = NULL)
 ```

@@ -68,17 +68,17 @@ summary(tmod_ws)
 ## Reference Document Statistics:
 ##              score total min  max    mean median
 ## AfD 2013        NA   455   0   23 0.01121      0
-## CDU-CSU 2013  5.92 23054   0  245 0.56796      0
-## FDP 2013      6.53 20593   0  187 0.50733      0
-## Gruene 2013   3.61 45747   0  398 1.12702      0
-## Linke 2013    1.23 21001   0  234 0.51738      0
-## SPD 2013      3.76 23142   0  214 0.57013      0
-## AfD 2017        NA  9850   0  108 0.24266      0
-## CDU-CSU 2017    NA 10710   0  136 0.26385      0
-## FDP 2017        NA 19291   0  261 0.47525      0
-## Gruene 2017     NA 40689   0 1100 1.00241      0
-## Linke 2017      NA 33243   0  788 0.81897      0
-## SPD 2017        NA 20765   0  186 0.51157      0
+## CDU-CSU 2013  5.92 23054   0  245 0.56792      0
+## FDP 2013      6.53 20593   0  187 0.50729      0
+## Gruene 2013   3.61 45749   0  398 1.12699      0
+## Linke 2013    1.23 21001   0  234 0.51734      0
+## SPD 2013      3.76 23142   0  214 0.57008      0
+## AfD 2017        NA  9850   0  108 0.24265      0
+## CDU-CSU 2017    NA 10711   0  136 0.26386      0
+## FDP 2017        NA 19291   0  261 0.47522      0
+## Gruene 2017     NA 40689   0 1100 1.00234      0
+## Linke 2017      NA 33243   0  788 0.81891      0
+## SPD 2017        NA 20765   0  186 0.51153      0
 ## 
 ## Wordscores:
 ## (showing first 30 elements)
@@ -91,7 +91,7 @@ summary(tmod_ws)
 ##                  euro               ländern               schadet 
 ##                 3.333                 4.228                 3.912 
 ##      wiedereinführung            nationaler             währungen 
-##                 4.466                 4.578                 4.242 
+##                 4.466                 4.579                 4.242 
 ##             schaffung             kleinerer            stabilerer 
 ##                 4.290                 4.427                 4.242 
 ##      währungsverbünde                    dm                  darf 

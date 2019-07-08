@@ -48,9 +48,9 @@ topfeatures(dfmat_tweets)
 
 ```
 ##          vote conservatives        labour         today         share 
-##          1817           929           676           666           647 
+##          1873           953           758           674           648 
 ##       britain          find        fairer        voting      tomorrow 
-##           625           613           571           559           548
+##           639           615           571           570           565
 ```
 
 Group documents by usernames.
@@ -65,23 +65,23 @@ ndoc(dfmat_users)
 ## [1] 5061
 ```
 
-Remove rare (less than 10 times) and short (one character) features, and convert count to proportion using `dfm_weight()`. 
+Remove rare (less than 10 times) and short (one character) features, and keep only users with more than 50 tokens in total.
 
 
 ```r
-dfmat_users_prop <- dfmat_users %>% 
+dfmat_users <- dfmat_users %>% 
     dfm_select(min_nchar = 2) %>% 
-    dfm_trim(min_termfreq = 10) %>% 
-    dfm_weight('prop')
+    dfm_trim(min_termfreq = 10) 
+dfmat_users <- dfmat_users[ntoken(dfmat_users) > 50,]
 ```
 
 Calculate user-user similarity using `textstat_dist()`.
 
 
 ```r
-tstat_dist <- textstat_dist(dfmat_users_prop)
+tstat_dist <- as.dist(textstat_dist(dfmat_users))
 user_clust <- hclust(tstat_dist)
-plot(user_clust, labels = FALSE)
+plot(user_clust)
 ```
 
 <img src="/advanced-operations/twitter-user-similarity_files/figure-html/unnamed-chunk-8-1.png" width="672" />

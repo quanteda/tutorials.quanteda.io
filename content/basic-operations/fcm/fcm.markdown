@@ -79,5 +79,11 @@ set.seed(144)
 textplot_network(fcmat_news_select, min_freq = 0.8, vertex_size = size / max(size) * 3)
 ```
 
+```
+## Registered S3 method overwritten by 'network':
+##   method            from    
+##   summary.character quanteda
+```
+
 <img src="/basic-operations/fcm/fcm_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 

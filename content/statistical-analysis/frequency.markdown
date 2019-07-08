@@ -36,25 +36,25 @@ head(tstat_freq, 20)
 ```
 ##              feature frequency rank docfreq     group
 ## 1           #twitter         1    1       1    Basque
-## 2     #canviemeuropa         1    2       1    Basque
-## 3             #prest         1    3       1    Basque
-## 4           #psifizo         1    4       1    Basque
-## 5     #ekloges2014gr         1    5       1    Basque
+## 2     #canviemeuropa         1    1       1    Basque
+## 3             #prest         1    1       1    Basque
+## 4           #psifizo         1    1       1    Basque
+## 5     #ekloges2014gr         1    1       1    Basque
 ## 6            #ep2014         1    1       1 Bulgarian
-## 7         #yourvoice         1    2       1 Bulgarian
-## 8      #eudebate2014         1    3       1 Bulgarian
-## 9            #велико         1    4       1 Bulgarian
-## 10 #savedonbaspeople         1    1       1  Croatian
-## 11   #vitoriagasteiz         1    2       1  Croatian
-## 12           #ep14dk        31    1      31    Danish
-## 13            #dkpol        18    2      18    Danish
-## 14            #eupol         7    3       7    Danish
-## 15        #vindtilep         6    4       6    Danish
-## 16    #patentdomstol         4    5       4    Danish
-## 17           #ep2014        34    1      34     Dutch
-## 18              #vvd        10    2      10     Dutch
-## 19               #eu         8    3       6     Dutch
-## 20              #pvv         8    4       8     Dutch
+## 7         #yourvoice         1    1       1 Bulgarian
+## 8      #eudebate2014         1    1       1 Bulgarian
+## 9            #велико         1    1       1 Bulgarian
+## 10              <NA>        NA   NA      NA Bulgarian
+## 11 #savedonbaspeople         1    1       1  Croatian
+## 12   #vitoriagasteiz         1    1       1  Croatian
+## 13              <NA>        NA   NA      NA  Croatian
+## 14              <NA>        NA   NA      NA  Croatian
+## 15              <NA>        NA   NA      NA  Croatian
+## 16           #ep14dk        31    1      31    Danish
+## 17            #dkpol        18    2      18    Danish
+## 18            #eupol         7    3       7    Danish
+## 19        #vindtilep         6    4       6    Danish
+## 20    #patentdomstol         4    5       4    Danish
 ```
 
 You can also plot the Twitter hashtag frequencies easily using `ggplot()`.
