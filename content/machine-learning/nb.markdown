@@ -36,7 +36,7 @@ summary(corp_movies, 5)
 ##  neg_cv003_12683   314    564         2       neg cv003 12683
 ##  neg_cv004_12641   380    842         2       neg cv004 12641
 ## 
-## Source: /Users/kbenoit/Dropbox/QUANTESS/quantedaData_kenlocal_gh/* on x86_64 by kbenoit
+## Source: http://www.cs.cornell.edu/people/pabo/movie-review-data/
 ## Created: Sat Nov 15 18:43:25 2014
 ## Notes:
 ```
@@ -54,7 +54,7 @@ head(id_train, 10)
 ```
 
 ```
-##  [1] 1831 1526 1610 1466 1362   25 1513  995  929 1794
+##  [1]  590  874 1602  985 1692  789  553 1980 1875 1705
 ```
 
 ```r
@@ -90,18 +90,18 @@ summary(tmod_nb)
 ## 0.5 0.5 
 ## 
 ## Estimated Feature Scores:
-##       plot      :    two   teen  coupl     go     to      a church  parti
-## neg 0.6181 0.5255 0.5001 0.6236 0.5221 0.5315 0.5093 0.4945 0.4771 0.5374
-## pos 0.3819 0.4745 0.4999 0.3764 0.4779 0.4685 0.4907 0.5055 0.5229 0.4626
-##          ,  drink    and   then  drive     .   they    get   into     an
-## neg 0.4777 0.5887 0.4627 0.5786 0.5124 0.516 0.5214 0.5471 0.5066 0.4924
-## pos 0.5223 0.4113 0.5373 0.4214 0.4876 0.484 0.4786 0.4529 0.4934 0.5076
-##      accid    one     of    the    guy    die   but    his girlfriend
-## neg 0.3694 0.4921 0.4785 0.4815 0.6077 0.4975 0.507 0.4432     0.4945
-## pos 0.6306 0.5079 0.5215 0.5185 0.3923 0.5025 0.493 0.5568     0.5055
-##     continu
-## neg  0.4968
-## pos  0.5032
+##       the  happi bastard  quick   movi review   damn   that    y2k    bug
+## neg 0.482 0.3865  0.3492 0.5201 0.5682 0.5185 0.5751 0.5199 0.6903 0.5136
+## pos 0.518 0.6135  0.6508 0.4799 0.4318 0.4815 0.4249 0.4801 0.3097 0.4864
+##          .     it    got     a   head  start     in   this   star   jami
+## neg 0.5151 0.5028 0.6071 0.495 0.5322 0.5627 0.4878 0.5354 0.5107 0.5563
+## pos 0.4849 0.4972 0.3929 0.505 0.4678 0.4373 0.5122 0.4646 0.4893 0.4437
+##        lee  curti    and  anoth baldwin brother      ( william   time
+## neg 0.5246 0.3865 0.4658 0.5342   0.576  0.5594 0.5084  0.4777 0.5034
+## pos 0.4754 0.6135 0.5342 0.4658   0.424  0.4406 0.4916  0.5223 0.4966
+##          )
+## neg 0.5125
+## pos 0.4875
 ```
 
 
@@ -125,8 +125,8 @@ tab_class
 ```
 ##             predicted_class
 ## actual_class neg pos
-##          neg 202  47
-##          pos  49 202
+##          neg 208  50
+##          pos  38 204
 ```
 
 From the cross-table we see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or underestimate one class.
@@ -143,28 +143,29 @@ confusionMatrix(tab_class, mode = "everything")
 ## 
 ##             predicted_class
 ## actual_class neg pos
-##          neg 202  47
-##          pos  49 202
+##          neg 208  50
+##          pos  38 204
 ##                                           
-##                Accuracy : 0.808           
-##                  95% CI : (0.7707, 0.8416)
-##     No Information Rate : 0.502           
+##                Accuracy : 0.824           
+##                  95% CI : (0.7877, 0.8564)
+##     No Information Rate : 0.508           
 ##     P-Value [Acc > NIR] : <2e-16          
 ##                                           
-##                   Kappa : 0.616           
-##  Mcnemar's Test P-Value : 0.9187          
+##                   Kappa : 0.6482          
 ##                                           
-##             Sensitivity : 0.8048          
-##             Specificity : 0.8112          
-##          Pos Pred Value : 0.8112          
-##          Neg Pred Value : 0.8048          
-##               Precision : 0.8112          
-##                  Recall : 0.8048          
-##                      F1 : 0.8080          
-##              Prevalence : 0.5020          
-##          Detection Rate : 0.4040          
-##    Detection Prevalence : 0.4980          
-##       Balanced Accuracy : 0.8080          
+##  Mcnemar's Test P-Value : 0.241           
+##                                           
+##             Sensitivity : 0.8455          
+##             Specificity : 0.8031          
+##          Pos Pred Value : 0.8062          
+##          Neg Pred Value : 0.8430          
+##               Precision : 0.8062          
+##                  Recall : 0.8455          
+##                      F1 : 0.8254          
+##              Prevalence : 0.4920          
+##          Detection Rate : 0.4160          
+##    Detection Prevalence : 0.5160          
+##       Balanced Accuracy : 0.8243          
 ##                                           
 ##        'Positive' Class : neg             
 ## 

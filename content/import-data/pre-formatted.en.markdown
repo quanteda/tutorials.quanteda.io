@@ -28,7 +28,7 @@ Alternatively, you can use the **readtext** package to import character (comma- 
 
 
 ```r
-dat_inaug <- readtext(paste0(path_data, "/tsv/dailsample.tsv"), text_field = "speech")
+dat_dail <- readtext(paste0(path_data, "/tsv/dailsample.tsv"), text_field = "speech")
 ```
 
 {{% notice warning %}}

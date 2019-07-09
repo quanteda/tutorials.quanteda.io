@@ -76,7 +76,7 @@ print(dat_txt, n = 50)
 
 ```
 ## readtext object consisting of 36 documents and 3 docvars.
-## # Description: data.frame [36 × 5]
+## # Description: df[,5] [36 × 5]
 ##    doc_id               text              document  language input_encoding
 ##    <chr>                <chr>             <chr>     <chr>    <chr>         
 ##  1 IndianTreaty_Englis… "\"WHEREAS, t\".… IndianTr… English  UTF-16LE      
