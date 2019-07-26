@@ -10,12 +10,7 @@ require(quanteda)
 
 [laver-garry.cat](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/laver-garry.cat) is a Wordstat dictionary that contain political left-right ideology keywords (Laver and Garry 2000). 
 
-```{r eval=FALSE}
-dict_lg <- dictionary(file = "content/dictionary/laver-garry.cat")
-```
-
-```{r include=FALSE}
-# This code is only for website generation
+```{r}
 dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat")
 ```
 

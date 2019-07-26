@@ -14,16 +14,14 @@ Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubuserconte
 
 
 ```r
-data_twitter <- readtext("content/data/twitter.json", source = "twitter")
+dat_twitter <- readtext("../data/twitter.json", source = "twitter")
 ```
-
-
 
 Construct a corpus of Tweets.
 
 
 ```r
-corp_tweets <- corpus(data_twitter)
+corp_tweets <- corpus(dat_twitter)
 ```
 
 Construct a document-feature matrix removing tags and links.
@@ -84,5 +82,5 @@ user_clust <- hclust(tstat_dist)
 plot(user_clust)
 ```
 
-<img src="/advanced-operations/twitter-user-similarity_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="/advanced-operations/twitter-user-similarity_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 

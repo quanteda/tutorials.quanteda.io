@@ -66,10 +66,8 @@ You can also read JSON files (.json) downloaded from the Twititer stream API. [t
 
 
 ```r
-dat_twitter <- ("content/data/twitter.json", source = "twitter")
+dat_twitter <- readtext("../data/twitter.json", source = "twitter")
 ```
-
-
 
 The file comes with several metadata for each tweet, such as the number of retweets and likes, the username, time and time zone. 
 
