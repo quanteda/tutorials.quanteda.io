@@ -18,10 +18,8 @@ toks <- tokens(data_char_ukimmig2010)
 
 
 ```r
-dict_newsmap <- dictionary(file = "content/dictionary/newsmap.yml")
+dict_newsmap <- dictionary(file = "../../dictionary/newsmap.yml")
 ```
-
-
 
 Note that you can access the dictionary in various languages (currently English, German, Japanese, Russian, and Spanish) with the **newsmap** package. 
 

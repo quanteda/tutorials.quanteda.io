@@ -13,10 +13,8 @@ require(quanteda)
 
 
 ```r
-dict_lg <- dictionary(file = "content/dictionary/laver-garry.cat")
+dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat")
 ```
-
-
 
 `dfm_lookup()` translates dictionary values to keys in a DFM.
 
