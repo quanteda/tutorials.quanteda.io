@@ -27,9 +27,9 @@ You can create a corpus from various available sources:
 
 
 ```r
-immig_corp <- corpus(data_char_ukimmig2010, 
+corp_immig <- corpus(data_char_ukimmig2010, 
                      docvars = data.frame(party = names(data_char_ukimmig2010)))
-summary(immig_corp)
+summary(corp_immig)
 ```
 
 ```
@@ -47,32 +47,32 @@ summary(immig_corp)
 ##          UKIP   346    723        27         UKIP
 ## 
 ## Source: /home/kohei/packages/tutorials.quanteda.io/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Tue Nov  6 22:00:48 2018
+## Created: Mon Jul  8 19:55:33 2019
 ## Notes:
 ```
 
 
 ## Data frame
 
-Using **readtext**, loead an example file from `data_dir` as a data frame called `inaug_data`.
+Using **readtext**, loead an example file from `path_data` as a data frame called `dat_inaug`.
 
 
 ```r
-data_dir <- system.file("extdata/", package = "readtext")
-inaug_data <- readtext(paste0(data_dir, "/csv/inaugCorpus.csv"), text_field = "texts")
-names(inaug_data)
+path_data <- system.file("extdata/", package = "readtext")
+dat_inaug <- readtext(paste0(path_data, "/csv/inaugCorpus.csv"), text_field = "texts")
+names(dat_inaug)
 ```
 
 ```
 ## [1] "doc_id"    "text"      "Year"      "President" "FirstName"
 ```
 
-Construct a corpus from `inaug_data`.
+Construct a corpus from `dat_inaug`.
 
 
 ```r
-inaug_corp <- corpus(inaug_data)
-summary(inaug_corp, 5)
+corp_inaug <- corpus(dat_inaug)
+summary(corp_inaug, 5)
 ```
 
 ```
@@ -86,7 +86,7 @@ summary(inaug_corp, 5)
 ##  inaugCorpus.csv.5   804   2381        45 1805  Jefferson    Thomas
 ## 
 ## Source: /home/kohei/packages/tutorials.quanteda.io/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Tue Nov  6 22:00:48 2018
+## Created: Mon Jul  8 19:55:33 2019
 ## Notes:
 ```
 
@@ -94,11 +94,11 @@ You can edit the `docnames` for a corpus to change them from `text1`, `text2` et
 
 
 ```r
-docid <- paste(inaug_data$Year, 
-                inaug_data$FirstName, 
-                inaug_data$President, sep = " ")
-docnames(inaug_corp) <- docid
-summary(inaug_corp, 5)
+docid <- paste(dat_inaug$Year, 
+               dat_inaug$FirstName, 
+               dat_inaug$President, sep = " ")
+docnames(corp_inaug) <- docid
+summary(corp_inaug, 5)
 ```
 
 ```
@@ -112,7 +112,7 @@ summary(inaug_corp, 5)
 ##   1805 Thomas Jefferson   804   2381        45 1805  Jefferson    Thomas
 ## 
 ## Source: /home/kohei/packages/tutorials.quanteda.io/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Tue Nov  6 22:00:48 2018
+## Created: Mon Jul  8 19:55:33 2019
 ## Notes:
 ```
 
@@ -122,6 +122,6 @@ summary(inaug_corp, 5)
 
 
 ```r
-vcorp <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
-corp <- corpus(vcorp)
+corp_tm <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
+corp_quanteda <- corpus(corp_tm)
 ```

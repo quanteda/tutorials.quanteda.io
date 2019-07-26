@@ -26,16 +26,16 @@ Download a corpus with news articles using **quanteda.corpora**'s `download()` f
 
 
 ```r
-rss_corp <- download(url = 'https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpus_yahoonews.rds?dl=1')
+corp_news <- download(url = 'https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpus_yahoonews.rds?dl=1')
 ```
 
 
 
-`rss_corp` contains 10,000 news summaries downloaded from Yahoo News in 2014.
+`corp_news` contains 10,000 news summaries downloaded from Yahoo News in 2014.
 
 
 ```r
-ndoc(rss_corp)
+ndoc(corp_news)
 ```
 
 ```
@@ -43,7 +43,7 @@ ndoc(rss_corp)
 ```
 
 ```r
-range(docvars(rss_corp, "date"))
+range(docvars(corp_news, "date"))
 ```
 
 ```
@@ -62,30 +62,30 @@ agency <- c('AP', 'AFP', 'Reuters')
 
 
 ```r
-toks <- tokens(rss_corp)
-toks <- tokens_remove(toks, pattern = stopwords('english'), valuetype = 'fixed', padding = TRUE)
-toks <- tokens_remove(toks, pattern = c(month, day, agency), valuetype = 'fixed', padding = TRUE)
+toks_news <- tokens(corp_news)
+toks_news_small <- tokens_remove(toks_news, pattern = stopwords('english'), valuetype = 'fixed', padding = TRUE)
+toks_news_small <- tokens_remove(toks_news_small, pattern = c(month, day, agency), valuetype = 'fixed', padding = TRUE)
 ```
 
 **newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
 
 
 ```r
-label_toks <- tokens_lookup(toks, dictionary = data_dictionary_newsmap_en, levels = 3) # level 3 is countries
-label_dfm <- dfm(label_toks, tolower = FALSE)
+toks_label <- tokens_lookup(toks_news_small, dictionary = data_dictionary_newsmap_en, levels = 3) # level 3 is countries
+dfmat_label <- dfm(toks_label, tolower = FALSE)
 
-feat_dfm <- dfm(toks, tolower = FALSE)
-feat_dfm <- dfm_select(feat_dfm, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', case_insensitive = FALSE)
-feat_dfm <- dfm_trim(feat_dfm, min_termfreq = 10)
+dfmat_feat <- dfm(toks_news_small, tolower = FALSE)
+dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', case_insensitive = FALSE)
+dfmat_feat_select_trim <- dfm_trim(dfmat_feat_select, min_termfreq = 10)
 
-model <- textmodel_newsmap(feat_dfm, y = label_dfm)
+tmod_nm <- textmodel_newsmap(dfmat_feat_select_trim, y = dfmat_label)
 ```
 
 The seed dictionary contains only names of countries and capital cities, but the model additional extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 
 ```r
-coef(model, n = 10)[c("US", "GB", "FR", "BR", "JP")]
+coef(tmod_nm, n = 10)[c("US", "GB", "FR", "BR", "JP")]
 ```
 
 ```
@@ -128,8 +128,8 @@ You can predict the most strongly associated countries using `predict()` and cou
 
 
 ```r
-pred <- predict(model)
-head(pred, 20)
+pred_nm <- predict(tmod_nm)
+head(pred_nm, 20)
 ```
 
 ```
@@ -143,7 +143,7 @@ Factor levels are set to obtain zero counts for countries that did not appear in
 
 
 ```r
-count <- sort(table(factor(pred, levels = colnames(label_dfm))), decreasing = TRUE)
+count <- sort(table(factor(pred_nm, levels = colnames(dfmat_label))), decreasing = TRUE)
 head(count, 20)
 ```
 
@@ -159,13 +159,13 @@ You can visualize the distribution of global news attention using `geom_map()`.
 
 
 ```r
-data_country <- as.data.frame(count, stringsAsFactors = FALSE)
-colnames(data_country) <- c("id", "frequency")
+dat_country <- as.data.frame(count, stringsAsFactors = FALSE)
+colnames(dat_country) <- c("id", "frequency")
 
 world_map <- map_data(map = "world")
 world_map$region <- iso.alpha(world_map$region) # convert contry name to ISO code
 
-ggplot(data_country, aes(map_id = id)) +
+ggplot(dat_country, aes(map_id = id)) +
       geom_map(aes(fill = frequency), map = world_map) +
       expand_limits(x = world_map$long, y = world_map$lat) +
       scale_fill_continuous(name = "Frequency") +

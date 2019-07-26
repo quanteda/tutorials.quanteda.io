@@ -15,32 +15,32 @@ In this example, we show how to apply Wordfish to the Irish budget speeches from
 
 
 ```r
-irish_dfm <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-wf <- textmodel_wordfish(irish_dfm, dir = c(6,5))
-summary(wf)
+dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6,5))
+summary(tmod_wf)
 ```
 
 ```
 ## 
 ## Call:
-## textmodel_wordfish.dfm(x = irish_dfm, dir = c(6, 5))
+## textmodel_wordfish.dfm(x = dfmat_irish, dir = c(6, 5))
 ## 
 ## Estimated Document Positions:
-##                                          theta      se
-## 2010_BUDGET_01_Brian_Lenihan_FF        1.79444 0.02010
-## 2010_BUDGET_02_Richard_Bruton_FG      -0.61774 0.02844
-## 2010_BUDGET_03_Joan_Burton_LAB        -1.14741 0.01561
-## 2010_BUDGET_04_Arthur_Morgan_SF       -0.08380 0.02900
-## 2010_BUDGET_05_Brian_Cowen_FF          1.77416 0.02333
-## 2010_BUDGET_06_Enda_Kenny_FG          -0.75762 0.02642
-## 2010_BUDGET_07_Kieran_ODonnell_FG     -0.48645 0.04310
-## 2010_BUDGET_08_Eamon_Gilmore_LAB      -0.59455 0.02991
-## 2010_BUDGET_09_Michael_Higgins_LAB    -0.99302 0.04021
-## 2010_BUDGET_10_Ruairi_Quinn_LAB       -0.90657 0.04267
-## 2010_BUDGET_11_John_Gormley_Green      1.18326 0.07235
-## 2010_BUDGET_12_Eamon_Ryan_Green        0.17248 0.06336
-## 2010_BUDGET_13_Ciaran_Cuffe_Green      0.72229 0.07269
-## 2010_BUDGET_14_Caoimhghin_OCaolain_SF -0.05949 0.03873
+##                              theta      se
+## Lenihan, Brian (FF)        1.79444 0.02010
+## Bruton, Richard (FG)      -0.61774 0.02844
+## Burton, Joan (LAB)        -1.14741 0.01561
+## Morgan, Arthur (SF)       -0.08380 0.02900
+## Cowen, Brian (FF)          1.77416 0.02333
+## Kenny, Enda (FG)          -0.75762 0.02642
+## ODonnell, Kieran (FG)     -0.48645 0.04310
+## Gilmore, Eamon (LAB)      -0.59455 0.02991
+## Higgins, Michael (LAB)    -0.99302 0.04021
+## Quinn, Ruairi (LAB)       -0.90657 0.04267
+## Gormley, John (Green)      1.18326 0.07235
+## Ryan, Eamon (Green)        0.17248 0.06336
+## Cuffe, Ciaran (Green)      0.72229 0.07269
+## OCaolain, Caoimhghin (SF) -0.05949 0.03873
 ## 
 ## Estimated Feature Scores:
 ##         when      i presented    the supplementary  budget     to  this
@@ -61,9 +61,7 @@ We can plot the results of a fitted scaling model using `textplot_scale1d()`.
 
 
 ```r
-# create nicer labels for speakers
-doclab <- paste(docvars(irish_dfm, "name"), docvars(irish_dfm, "party"))
-textplot_scale1d(wf, doclabels = doclab)
+textplot_scale1d(tmod_wf)
 ```
 
 <img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
@@ -72,7 +70,7 @@ The function also allows to plot scores by a grouping variable, in this case the
 
 
 ```r
-textplot_scale1d(wf, doclabels = doclab, groups = docvars(irish_dfm, "party"))
+textplot_scale1d(tmod_wf, groups = docvars(dfmat_irish, "party"))
 ```
 
 <img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
@@ -81,7 +79,7 @@ Finally, we can plot the estimated word positions and highlight certain features
 
 
 ```r
-textplot_scale1d(wf, margin = "features", 
+textplot_scale1d(tmod_wf, margin = "features", 
                  highlighted = c("government", "global", "children", 
                                  "bank", "economy", "the", "citizenship",
                                  "productivity", "deficit"))

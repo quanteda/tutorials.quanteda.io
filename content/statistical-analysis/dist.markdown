@@ -14,10 +14,10 @@ require(quanteda)
 
 
 ```r
-inaug_toks <- tokens(data_corpus_inaugural)
-inaug_dfm <- dfm(inaug_toks, remove = stopwords('en'))
-dist <- textstat_dist(inaug_dfm)
-clust <- hclust(dist)
+toks_inaug <- tokens(data_corpus_inaugural)
+dfmat_inaug <- dfm(toks_inaug, remove = stopwords('en'))
+tstat_dist <- as.dist(textstat_dist(dfmat_inaug))
+clust <- hclust(tstat_dist)
 plot(clust, xlab = "Distance", ylab = NULL)
 ```
 

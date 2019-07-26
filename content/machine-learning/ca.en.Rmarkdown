@@ -12,29 +12,26 @@ require(quanteda)
 
 `textmodel_ca()` provides similar functionality to the **ca** package, but **quanteda**'s version is more efficient for textual data.
 
-For visualization, we change the document names. 
-
-```{r}
-corp <- data_corpus_irishbudget2010
-docnames(corp) <- paste(docvars(corp, "name"), docvars(corp, "party"), sep = ", ")
-```
-
 You can plot positions of documents on a one-dimensional scale using `textplot_scale1d()`.
 
 ```{r}
-ca <- dfm(corp, remove_punct = TRUE, remove = stopwords('en')) %>% textmodel_ca()
-textplot_scale1d(ca)
+dfmat_irish <- dfm(data_corpus_irishbudget2010, 
+          remove_punct = TRUE, 
+          remove = stopwords('en'))
+
+tmod_ca <- textmodel_ca(dfmat_irish)
+textplot_scale1d(tmod_ca)
 ```
 
 If you want to plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
 
 ```{r fig.height=7, fig.width=7}
-ca_data <- data.frame(dim1 = coef(ca, doc_dim = 1)$coef_document, 
-                      dim2 = coef(ca, doc_dim = 2)$coef_document)
-head(ca_data)
+dat_ca <- data.frame(dim1 = coef(tmod_ca, doc_dim = 1)$coef_document, 
+                      dim2 = coef(tmod_ca, doc_dim = 2)$coef_document)
+head(dat_ca)
 
 plot(1, xlim = c(-2, 2), ylim = c(-2, 2), type = 'n', xlab = 'Dimension 1', ylab = 'Dimension 2')
 grid()
-text(ca_data$dim1, ca_data$dim2, labels = rownames(ca_data), cex = 0.8, col = rgb(0, 0, 0, 0.7))
+text(dat_ca$dim1, dat_ca$dim2, labels = rownames(dat_ca), cex = 0.8, col = rgb(0, 0, 0, 0.7))
 ```
 

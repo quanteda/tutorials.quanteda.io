@@ -25,8 +25,8 @@ Change the unit of texts to sentences.
 
 
 ```r
-sent_corp <- corpus_reshape(corp, to = 'sentences')
-ndoc(sent_corp)
+corp_sent <- corpus_reshape(corp, to = 'sentences')
+ndoc(corp_sent)
 ```
 
 ```
@@ -37,20 +37,20 @@ Restore the original documents.
 
 
 ```r
-corp2 <- corpus_reshape(sent_corp, to = 'documents')
-ndoc(corp2)
+corp_documents <- corpus_reshape(corp_sent, to = 'documents')
+ndoc(corp_documents)
 ```
 
 ```
 ## [1] 9
 ```
 
-If you apply `corpus_subset()` to `sent_corp`, you can only keep long senteces (more than 10 words).
+If you apply `corpus_subset()` to `corp_sent`, you can only keep long senteces (more than 10 words).
 
 
 ```r
-longsent_corp <- corpus_subset(sent_corp, ntoken(sent_corp) >= 10)
-ndoc(longsent_corp)
+corp_longsent <- corpus_subset(corp_sent, ntoken(corp_sent) >= 10)
+ndoc(corp_longsent)
 ```
 
 ```
@@ -58,8 +58,8 @@ ndoc(longsent_corp)
 ```
 
 ```r
-corp3 <- corpus_reshape(longsent_corp, to = 'documents')
-ndoc(corp3)
+corp_documents_long <- corpus_reshape(corp_longsent, to = 'documents')
+ndoc(corp_documents_long)
 ```
 
 ```

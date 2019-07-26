@@ -16,7 +16,7 @@ require(topicmodels)
 
 
 ```r
-news_corp <- download('data_corpus_guardian')
+corp_news <- download('data_corpus_guardian')
 ```
 
 
@@ -25,12 +25,12 @@ We only select news stories published in 2016 using `corpus_subset()`.
 
 
 ```r
-news_corp <- corpus_subset(news_corp, year(docvars(news_corp, 'date')) >= 2016)
-ndoc(news_corp)
+corp_news_subset <- corpus_subset(corp_news, 'date' >= 2016)
+ndoc(corp_news_subset)
 ```
 
 ```
-## [1] 1959
+## [1] 6000
 ```
 
 Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`)
@@ -38,18 +38,19 @@ Further, after removal of function words and punctuation in `dfm()`, we keep onl
 
 
 ```r
-news_dfm <- dfm(news_corp, remove_punct = TRUE, remove = stopwords('en')) %>% 
-            dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
-            dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
-                     max_docfreq = 0.1, docfreq_type = "prop")
-news_dfm <- news_dfm[ntoken(news_dfm) > 0,]
+dfmat_news <- dfm(corp_news, remove_punct = TRUE, remove = stopwords('en')) %>% 
+    dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
+    dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
+             max_docfreq = 0.1, docfreq_type = "prop")
+
+dfmat_news <- dfmat_news[ntoken(dfmat_news) > 0,]
 ```
 
 **quanteda** does not implement topic models, but you can easily access `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values.
 
 
 ```r
-dtm <- convert(news_dfm, to = "topicmodels")
+dtm <- convert(dfmat_news, to = "topicmodels")
 lda <- LDA(dtm, k = 10)
 ```
 
@@ -61,47 +62,47 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1      Topic 2     Topic 3    Topic 4    Topic 5      
-##  [1,] "australian" "oil"       "doctors"  "isis"     "climate"    
-##  [2,] "australia"  "markets"   "nhs"      "syria"    "energy"     
-##  [3,] "labor"      "sales"     "scotland" "military" "water"      
-##  [4,] "turnbull"   "prices"    "junior"   "islamic"  "food"       
-##  [5,] "budget"     "rates"     "drug"     "un"       "apple"      
-##  [6,] "senate"     "shares"    "funding"  "forces"   "development"
-##  [7,] "coalition"  "investors" "scottish" "muslim"   "project"    
-##  [8,] "malcolm"    "banks"     "contract" "russian"  "homes"      
-##  [9,] "liberal"    "trading"   "patients" "syrian"   "google"     
-## [10,] "cuts"       "quarter"   "medical"  "peace"    "gas"        
-##       Topic 6      Topic 7    Topic 8   Topic 9       Topic 10  
-##  [1,] "corbyn"     "khan"     "clinton" "refugees"    "officers"
-##  [2,] "johnson"    "game"     "sanders" "immigration" "violence"
-##  [3,] "brussels"   "students" "cruz"    "turkey"      "prison"  
-##  [4,] "boris"      "age"      "hillary" "china"       "victims" 
-##  [5,] "talks"      "church"   "obama"   "refugee"     "abuse"   
-##  [6,] "19"         "child"    "trump's" "asylum"      "sexual"  
-##  [7,] "benefits"   "birth"    "bernie"  "border"      "criminal"
-##  [8,] "cabinet"    "parents"  "ted"     "chinese"     "charges" 
-##  [9,] "membership" "study"    "rubio"   "aid"         "officer" 
-## [10,] "summit"     "felt"     "senator" "sea"         "arrested"
+##       Topic 1     Topic 2    Topic 3     Topic 4    Topic 5        
+##  [1,] "prices"    "mps"      "water"     "syria"    "officers"     
+##  [2,] "rate"      "corbyn"   "game"      "military" "investigation"
+##  [3,] "oil"       "tory"     "music"     "refugees" "justice"      
+##  [4,] "markets"   "osborne"  "games"     "isis"     "officer"      
+##  [5,] "rates"     "mp"       "friends"   "russian"  "prison"       
+##  [6,] "shares"    "shadow"   "town"      "syrian"   "abuse"        
+##  [7,] "sales"     "scotland" "park"      "forces"   "trial"        
+##  [8,] "banks"     "cuts"     "space"     "attacks"  "victims"      
+##  [9,] "investors" "scottish" "film"      "russia"   "sexual"       
+## [10,] "quarter"   "voters"   "residents" "islamic"  "arrested"     
+##       Topic 6        Topic 7     Topic 8       Topic 9      Topic 10     
+##  [1,] "trump"        "customers" "australia"   "french"     "climate"    
+##  [2,] "clinton"      "online"    "australian"  "brussels"   "energy"     
+##  [3,] "republican"   "account"   "labor"       "2016"       "food"       
+##  [4,] "sanders"      "firm"      "turnbull"    "greece"     "development"
+##  [5,] "obama"        "data"      "education"   "paris"      "nhs"        
+##  [6,] "donald"       "stores"    "senate"      "february"   "doctors"    
+##  [7,] "cruz"         "website"   "federal"     "brexit"     "patients"   
+##  [8,] "presidential" "sales"     "schools"     "talks"      "data"       
+##  [9,] "2016"         "buy"       "aest"        "referendum" "gas"        
+## [10,] "hillary"      "deals"     "immigration" "france"     "emissions"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
 
 
 ```r
-docvars(news_dfm, 'topic') <- topics(lda)
+docvars(dfmat_news, 'topic') <- topics(lda)
 head(topics(lda), 20)
 ```
 
 ```
-## text136751 text136585 text139163 text169133 text153451 text163885 
-##          5          9          5          7         10          9 
-## text157885 text173244 text137394 text169408 text184646 text127410 
-##          7          9          1          7          6         10 
-## text134923 text169695 text147917 text157535 text177078 text174393 
-##          6          2          7          9          5          8 
-## text181782 text143323 
-##          7          3
+## text136751 text118588  text45146  text93623 text136585  text65682 
+##         10          3          1          8          9          5 
+## text107174  text22792  text32425 text139163 text169133  text90312 
+##          7          5          4          7          5          8 
+## text153451  text31104 text163885  text81309 text157885  text99128 
+##          5          2         10          1          3          3 
+## text173244  text27905 
+##          7          4
 ```
 
 {{% notice info %}}

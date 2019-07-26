@@ -13,8 +13,8 @@ require(quanteda)
 
 
 ```r
-immig_corp <- corpus(data_char_ukimmig2010)
-toks <- tokens(immig_corp)
+corp_immig <- corpus(data_char_ukimmig2010)
+toks_immig <- tokens(corp_immig)
 ```
 
 A corpus is passed to `tokens()` in the code above, but it works with a character string too.
@@ -49,8 +49,8 @@ By default, `tokens()` only removes separators (typically whitespaces), but you 
 
 
 ```r
-nopunct_toks <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
-head(nopunct_toks[[1]], 50)
+toks_nopunct <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
+head(toks_nopunct[[1]], 50)
 ```
 
 ```
