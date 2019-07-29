@@ -41,7 +41,8 @@ str(dat_eu)
 `readtext()` can also read files from sub-directories. The directory `txt/movie_reviews`, for example, contains two directories: `neg` and `pos`. All text files from both folders in `movie_reviews` are considered automatically.
 
 ```{r}
-dat_reviews <- readtext(paste0(path_data, "/txt/movie_reviews/*"))
+dat_reviews <- readtext(paste0(path_data, "/txt/movie_reviews/*"), 
+                        docvarsfrom = "filenames", dvsep = "_")
 ```
 
 ### JSON
