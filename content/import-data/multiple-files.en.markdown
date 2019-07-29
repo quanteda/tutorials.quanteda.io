@@ -57,7 +57,8 @@ str(dat_eu)
 
 
 ```r
-dat_reviews <- readtext(paste0(path_data, "/txt/movie_reviews/*"))
+dat_reviews <- readtext(paste0(path_data, "/txt/movie_reviews/*"), 
+                        docvarsfrom = "filenames", dvsep = "_")
 ```
 
 ### JSON
