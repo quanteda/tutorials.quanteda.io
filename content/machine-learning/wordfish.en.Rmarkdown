@@ -8,6 +8,7 @@ Wordfish is a Poisson scaling model of one-dimensional document positions (Slapi
 
 ```{r message=FALSE}
 require(quanteda)
+require(quanteda.textmodels)
 ```
 
 In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.

@@ -8,6 +8,7 @@ Wordscores is a scaling model for estimating the positions (mostly of political 
 
 ```{r message=FALSE}
 require(quanteda)
+require(quanteda.textmodels)
 require(quanteda.corpora)
 ```
 
