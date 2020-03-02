@@ -16,6 +16,20 @@ options(width = 110)
 ```r
 toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
 dfmat_irish <- dfm(toks_irish)
+print(dfmat_irish)
+```
+
+```
+## Document-feature matrix of: 14 documents, 5,129 features (81.3% sparse) and 6 docvars.
+##                       features
+## docs                   when  i presented the supplementary budget  to this house last
+##   Lenihan, Brian (FF)     5 73         1 539             7     23 305   99    10    6
+##   Bruton, Richard (FG)    2  6         0 305             0     27 172   55     0    5
+##   Burton, Joan (LAB)     11 40         0 428             0     37 157   53     6    4
+##   Morgan, Arthur (SF)    21 26         0 501             1     26 204   85     5    4
+##   Cowen, Brian (FF)       4 17         0 394             0     21 209   43     4    6
+##   Kenny, Enda (FG)       12 25         1 304             1     23 119   47     0    4
+## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 5,119 more features ]
 ```
 
 If corpus is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
@@ -25,7 +39,6 @@ If corpus is given to `dfm()`, it tokenizes texts internally with the same level
 dfmat_irish <- data_corpus_irishbudget2010 %>% 
     tokens(remove_punct = TRUE) %>% 
     dfm()
-print(dfmat_irish)
 ```
 
 You can get the number of documents and features `ndoc()` and `nfeat()`.
