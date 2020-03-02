@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+options(width = 110)
 ```
 
 
@@ -76,14 +77,14 @@ The `levels` argument determines the keys to be recored in a resulting tokens ob
 
 ```r
 toks_region <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 1)
-head(toks_region)
+print(toks_region)
 ```
 
 ```
-## Tokens consisting of 6 documents.
+## Tokens consisting of 9 documents.
 ## BNP :
-##  [1] "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE"
-##  [9] "EUROPE" "EUROPE" "EUROPE" "EUROPE"
+##  [1] "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE"
+## [12] "EUROPE"
 ## [ ... and 62 more ]
 ## 
 ## Coalition :
@@ -96,11 +97,13 @@ head(toks_region)
 ## [1] "EUROPE" "EUROPE"
 ## 
 ## Labour :
-##  [1] "EUROPE"  "OCEANIA" "OCEANIA" "OCEANIA" "EUROPE"  "OCEANIA" "EUROPE" 
-##  [8] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
+##  [1] "EUROPE"  "OCEANIA" "OCEANIA" "OCEANIA" "EUROPE"  "OCEANIA" "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
+## [11] "EUROPE" 
 ## 
 ## LibDem :
 ## [1] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "AMERICA"
+## 
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 ```r
@@ -123,11 +126,11 @@ dfm(toks_region)
 
 ```r
 toks_country <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 3)
-head(toks_country)
+print(toks_country)
 ```
 
 ```
-## Tokens consisting of 6 documents.
+## Tokens consisting of 9 documents.
 ## BNP :
 ##  [1] "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB"
 ## [ ... and 62 more ]
@@ -146,6 +149,8 @@ head(toks_country)
 ## 
 ## LibDem :
 ## [1] "GB" "GB" "GB" "GB" "GB" "GB" "CA"
+## 
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 ```r
@@ -195,14 +200,14 @@ print(dict)
 
 ```r
 dict_toks <- tokens_lookup(toks, dictionary = dict)
-head(dict_toks)
+print(dict_toks)
 ```
 
 ```
-## Tokens consisting of 6 documents.
+## Tokens consisting of 9 documents.
 ## BNP :
-##  [1] "refugee" "worker"  "refugee" "refugee" "refugee" "refugee" "refugee"
-##  [8] "refugee" "refugee" "refugee" "refugee" "refugee"
+##  [1] "refugee" "worker"  "refugee" "refugee" "refugee" "refugee" "refugee" "refugee" "refugee" "refugee"
+## [11] "refugee" "refugee"
 ## [ ... and 2 more ]
 ## 
 ## Coalition :
@@ -215,11 +220,12 @@ head(dict_toks)
 ## [1] "worker"  "refugee" "refugee" "refugee" "refugee"
 ## 
 ## Labour :
-## [1] "refugee" "refugee" "refugee" "refugee" "worker"  "worker"  "worker" 
-## [8] "worker" 
+## [1] "refugee" "refugee" "refugee" "refugee" "worker"  "worker"  "worker"  "worker" 
 ## 
 ## LibDem :
 ## [1] "refugee" "refugee" "refugee" "refugee" "refugee" "refugee"
+## 
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 ```r

@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+options(width = 110)
 ```
 
 ```{r}

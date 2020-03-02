@@ -27,6 +27,7 @@ You can create a corpus from various available sources:
 ```{r}
 corp_immig <- corpus(data_char_ukimmig2010, 
                      docvars = data.frame(party = names(data_char_ukimmig2010)))
+print(corp_immig)
 summary(corp_immig)
 ```
 
@@ -45,6 +46,7 @@ Construct a corpus from `dat_inaug`.
 
 ```{r}
 corp_inaug <- corpus(dat_inaug)
+print(corp_inaug)
 summary(corp_inaug, 5)
 ```
 
@@ -55,7 +57,7 @@ docid <- paste(dat_inaug$Year,
                dat_inaug$FirstName, 
                dat_inaug$President, sep = " ")
 docnames(corp_inaug) <- docid
-summary(corp_inaug, 5)
+print(corp_inaug)
 ```
 
 ## Vcorpus

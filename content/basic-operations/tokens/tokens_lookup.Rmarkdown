@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+options(width = 110)
 ```
 
 ```{r}
@@ -33,13 +34,13 @@ The `levels` argument determines the keys to be recored in a resulting tokens ob
 
 ```{r}
 toks_region <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 1)
-head(toks_region)
+print(toks_region)
 dfm(toks_region)
 ```
 
 ```{r}
 toks_country <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 3)
-head(toks_country)
+print(toks_country)
 dfm(toks_country)
 ```
 
@@ -54,7 +55,7 @@ dict <- dictionary(list(refugee = c('refugee*', 'asylum*'),
                         worker = c('worker*', 'employee*')))
 print(dict)
 dict_toks <- tokens_lookup(toks, dictionary = dict)
-head(dict_toks)
+print(dict_toks)
 dfm(dict_toks)
 ```
 

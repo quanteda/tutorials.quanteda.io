@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+options(width = 110)
 ```
 
 `tokens()` segments texts in a corpus into tokens (words or sentences) by word boundaries. 
@@ -19,7 +20,7 @@ A corpus is passed to `tokens()` in the code above, but it works with a characte
 
 ```{r}
 toks <- tokens(data_char_ukimmig2010)
-head(toks[[1]], 50)
+print(toks)
 ```
 
 {{% notice tip %}}
@@ -30,7 +31,7 @@ By default, `tokens()` only removes separators (typically whitespaces), but you 
 
 ```{r}
 toks_nopunct <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
-head(toks_nopunct[[1]], 50)
+print(toks)
 ```
 
 

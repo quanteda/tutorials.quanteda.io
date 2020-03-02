@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+options(width = 110)
 ```
 
 `dfm()` constructs a document-feature matrix (DFM) from a tokens object.
@@ -21,6 +22,7 @@ If corpus is given to `dfm()`, it tokenizes texts internally with the same level
 dfmat_irish <- data_corpus_irishbudget2010 %>% 
     tokens(remove_punct = TRUE) %>% 
     dfm()
+print(dfmat_irish)
 ```
 
 You can get the number of documents and features `ndoc()` and `nfeat()`.
@@ -54,8 +56,7 @@ If you want to convert the frequency count to a proportion within documents, use
 
 ```{r}
 dfmat_irish_prop <- dfm_weight(dfmat_irish, scheme  = "prop")
-# check topfeatures in first document
-topfeatures(dfmat_irish_prop[1,])
+print(dfmat_irish_prop)
 ```
 
 {{% notice tip %}}
@@ -67,8 +68,7 @@ You can also weight frequency count by uniqueness of the features across documen
 
 ```{r}
 dfmat_irish_tfidf <- dfm_tfidf(dfmat_irish)
-# check topfeatures in first document
-topfeatures(dfmat_irish_tfidf[1,])
+print(dfmat_irish_tfidf)
 ```
 
 {{% notice warning %}}

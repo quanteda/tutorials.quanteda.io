@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+options(width = 110)
 ```
 
 [laver-garry.cat](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/laver-garry.cat) is a Wordstat dictionary that contain political left-right ideology keywords (Laver and Garry 2000). 
@@ -19,11 +20,12 @@ dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat")
 ```{r}
 toks_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
 dfmat_irish <- dfm(toks_irish)
-dfmat_irish_lg <- dfm_lookup(dfmat_irish, dictionary = dict_lg)
-head(dfmat_irish_lg)
+print(dfmat_irish)
+dfmat_irish_lg <- dfm_lookup(dfmat_irish, dictionary = dict_lg, levels = 1)
+print(dfmat_irish_lg)
 ```
 
-You can also pass a dictionary to `dfm()` to simplify your code. Therefore, the code above and below are equivalent.
+You can also pass a dictionary to `dfm()` to simplify your code, but you cannot specify `levels` in this method.
 
 ```{r eval=FALSE}
 dfmat_irish_lg <- dfm(data_corpus_irishbudget2010, dictionary = dict_lg, remove_punct = TRUE)
