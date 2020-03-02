@@ -27,40 +27,31 @@ head(dfmat_irish_lg)
 ```
 
 ```
-## Document-feature matrix of: 6 documents, 20 features (30.0% sparse).
-## 6 x 20 sparse Matrix of class "dfm"
+## Document-feature matrix of: 6 documents, 20 features (30.0% sparse) and 6 docvars.
 ##                       features
-## docs                   CULTURE CULTURE.CULTURE-HIGH
-##   Lenihan, Brian (FF)        8                    1
-##   Bruton, Richard (FG)      35                    0
-##   Burton, Joan (LAB)        31                    1
-##   Morgan, Arthur (SF)       53                    0
-##   Cowen, Brian (FF)         15                    1
-##   Kenny, Enda (FG)          25                    1
+## docs                   CULTURE CULTURE.CULTURE-HIGH CULTURE.CULTURE-POPULAR
+##   Lenihan, Brian (FF)        8                    1                       0
+##   Bruton, Richard (FG)      35                    0                       0
+##   Burton, Joan (LAB)        31                    1                       1
+##   Morgan, Arthur (SF)       53                    0                       3
+##   Cowen, Brian (FF)         15                    1                       0
+##   Kenny, Enda (FG)          25                    1                       0
 ##                       features
-## docs                   CULTURE.CULTURE-POPULAR CULTURE.SPORT
-##   Lenihan, Brian (FF)                        0             0
-##   Bruton, Richard (FG)                       0             0
-##   Burton, Joan (LAB)                         1             0
-##   Morgan, Arthur (SF)                        3             0
-##   Cowen, Brian (FF)                          0             0
-##   Kenny, Enda (FG)                           0             0
+## docs                   CULTURE.SPORT ECONOMY.+STATE+ ECONOMY.=STATE=
+##   Lenihan, Brian (FF)              0             115             355
+##   Bruton, Richard (FG)             0              35             131
+##   Burton, Joan (LAB)               0             134             206
+##   Morgan, Arthur (SF)              0              92             286
+##   Cowen, Brian (FF)                0              92             244
+##   Kenny, Enda (FG)                 0              46             138
 ##                       features
-## docs                   ECONOMY.+STATE+ ECONOMY.=STATE= ECONOMY.-STATE-
-##   Lenihan, Brian (FF)              115             355             113
-##   Bruton, Richard (FG)              35             131              35
-##   Burton, Joan (LAB)               134             206              61
-##   Morgan, Arthur (SF)               92             286              49
-##   Cowen, Brian (FF)                 92             244              81
-##   Kenny, Enda (FG)                  46             138              27
-##                       features
-## docs                   ENVIRONMENT.CON ENVIRONMENT
-##   Lenihan, Brian (FF)                            4
-##   Bruton, Richard (FG)                           3
-##   Burton, Joan (LAB)                             0
-##   Morgan, Arthur (SF)                            1
-##   Cowen, Brian (FF)                              7
-##   Kenny, Enda (FG)                               2
+## docs                   ECONOMY.-STATE- ENVIRONMENT.CON ENVIRONMENT
+##   Lenihan, Brian (FF)              113                           4
+##   Bruton, Richard (FG)              35                           3
+##   Burton, Joan (LAB)                61                           0
+##   Morgan, Arthur (SF)               49                           1
+##   Cowen, Brian (FF)                 81                           7
+##   Kenny, Enda (FG)                  27                           2
 ##                       features
 ## docs                   ENVIRONMENT.PRO ENVIRONMENT GROUPS.ETHNIC
 ##   Lenihan, Brian (FF)                           17             0
@@ -69,46 +60,7 @@ head(dfmat_irish_lg)
 ##   Morgan, Arthur (SF)                            9             0
 ##   Cowen, Brian (FF)                             17             0
 ##   Kenny, Enda (FG)                               6             0
-##                       features
-## docs                   GROUPS.WOMEN INSTITUTIONS.CONSERVATIVE
-##   Lenihan, Brian (FF)             0                        13
-##   Bruton, Richard (FG)            0                         6
-##   Burton, Joan (LAB)              3                         5
-##   Morgan, Arthur (SF)             0                         6
-##   Cowen, Brian (FF)               0                        19
-##   Kenny, Enda (FG)                1                        10
-##                       features
-## docs                   INSTITUTIONS.NEUTRAL INSTITUTIONS.RADICAL
-##   Lenihan, Brian (FF)                    63                   17
-##   Bruton, Richard (FG)                   63                   26
-##   Burton, Joan (LAB)                     68                   11
-##   Morgan, Arthur (SF)                    48                    9
-##   Cowen, Brian (FF)                      34                   10
-##   Kenny, Enda (FG)                       34                    9
-##                       features
-## docs                   LAW_AND_ORDER.LAW-CONSERVATIVE
-##   Lenihan, Brian (FF)                              11
-##   Bruton, Richard (FG)                             14
-##   Burton, Joan (LAB)                                6
-##   Morgan, Arthur (SF)                              22
-##   Cowen, Brian (FF)                                 4
-##   Kenny, Enda (FG)                                 18
-##                       features
-## docs                   LAW_AND_ORDER.LAW-LIBERAL RURAL URBAN
-##   Lenihan, Brian (FF)                          0     9     0
-##   Bruton, Richard (FG)                         0     0     0
-##   Burton, Joan (LAB)                           0     2     3
-##   Morgan, Arthur (SF)                          0     2     1
-##   Cowen, Brian (FF)                            0     8     1
-##   Kenny, Enda (FG)                             0     0     2
-##                       features
-## docs                   VALUES.CONSERVATIVE VALUES.LIBERAL
-##   Lenihan, Brian (FF)                   19              0
-##   Bruton, Richard (FG)                  14              0
-##   Burton, Joan (LAB)                     5              1
-##   Morgan, Arthur (SF)                   16              2
-##   Cowen, Brian (FF)                     13              0
-##   Kenny, Enda (FG)                       7              1
+## [ reached max_nfeat ... 10 more features ]
 ```
 
 You can also pass a dictionary to `dfm()` to simplify your code. Therefore, the code above and below are equivalent.

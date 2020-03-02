@@ -23,19 +23,16 @@ head(toks_nostop[[1]], 50)
 ```
 
 ```
-##  [1] "IMMIGRATION"  ":"            "UNPARALLELED" "CRISIS"      
-##  [5] "BNP"          "CAN"          "SOLVE"        "."           
-##  [9] "-"            "current"      "immigration"  "birth"       
-## [13] "rates"        ","            "indigenous"   "British"     
-## [17] "people"       "set"          "become"       "minority"    
-## [21] "well"         "within"       "50"           "years"       
-## [25] "."            "-"            "result"       "extinction"  
-## [29] "British"      "people"       ","            "culture"     
-## [33] ","            "heritage"     "identity"     "."           
-## [37] "-"            "BNP"          "take"         "steps"       
-## [41] "necessary"    "halt"         "reverse"      "process"     
-## [45] "."            "-"            "steps"        "include"     
-## [49] "halt"         "immigration"
+##  [1] "IMMIGRATION"  ":"            "UNPARALLELED" "CRISIS"       "BNP"         
+##  [6] "CAN"          "SOLVE"        "."            "-"            "current"     
+## [11] "immigration"  "birth"        "rates"        ","            "indigenous"  
+## [16] "British"      "people"       "set"          "become"       "minority"    
+## [21] "well"         "within"       "50"           "years"        "."           
+## [26] "-"            "result"       "extinction"   "British"      "people"      
+## [31] ","            "culture"      ","            "heritage"     "identity"    
+## [36] "."            "-"            "BNP"          "take"         "steps"       
+## [41] "necessary"    "halt"         "reverse"      "process"      "."           
+## [46] "-"            "steps"        "include"      "halt"         "immigration"
 ```
 
 `tokens_remove()` is an alias to `tokens_select(selection = 'remove')`. Therefore, the code above and below are equivalent.
@@ -47,19 +44,16 @@ head(tooks_nostop2[[1]], 50)
 ```
 
 ```
-##  [1] "IMMIGRATION"  ":"            "UNPARALLELED" "CRISIS"      
-##  [5] "BNP"          "CAN"          "SOLVE"        "."           
-##  [9] "-"            "current"      "immigration"  "birth"       
-## [13] "rates"        ","            "indigenous"   "British"     
-## [17] "people"       "set"          "become"       "minority"    
-## [21] "well"         "within"       "50"           "years"       
-## [25] "."            "-"            "result"       "extinction"  
-## [29] "British"      "people"       ","            "culture"     
-## [33] ","            "heritage"     "identity"     "."           
-## [37] "-"            "BNP"          "take"         "steps"       
-## [41] "necessary"    "halt"         "reverse"      "process"     
-## [45] "."            "-"            "steps"        "include"     
-## [49] "halt"         "immigration"
+##  [1] "IMMIGRATION"  ":"            "UNPARALLELED" "CRISIS"       "BNP"         
+##  [6] "CAN"          "SOLVE"        "."            "-"            "current"     
+## [11] "immigration"  "birth"        "rates"        ","            "indigenous"  
+## [16] "British"      "people"       "set"          "become"       "minority"    
+## [21] "well"         "within"       "50"           "years"        "."           
+## [26] "-"            "result"       "extinction"   "British"      "people"      
+## [31] ","            "culture"      ","            "heritage"     "identity"    
+## [36] "."            "-"            "BNP"          "take"         "steps"       
+## [41] "necessary"    "halt"         "reverse"      "process"      "."           
+## [46] "-"            "steps"        "include"      "halt"         "immigration"
 ```
 
 Removal of tokens changes the lengths of documents, but they remain the same if you set `padding = TRUE`. This option is useful especially when you perform positional analysis.
@@ -71,19 +65,16 @@ head(toks_nostop_pad[[1]], 50)
 ```
 
 ```
-##  [1] "IMMIGRATION"  ":"            ""             "UNPARALLELED"
-##  [5] "CRISIS"       ""             ""             ""            
-##  [9] "BNP"          "CAN"          "SOLVE"        "."           
-## [13] "-"            ""             "current"      "immigration" 
-## [17] ""             "birth"        "rates"        ","           
-## [21] "indigenous"   "British"      "people"       ""            
-## [25] "set"          ""             "become"       ""            
-## [29] "minority"     "well"         "within"       "50"          
-## [33] "years"        "."            "-"            ""            
-## [37] ""             "result"       ""             ""            
-## [41] "extinction"   ""             ""             "British"     
-## [45] "people"       ","            "culture"      ","           
-## [49] "heritage"     ""
+##  [1] "IMMIGRATION"  ":"            ""             "UNPARALLELED" "CRISIS"      
+##  [6] ""             ""             ""             "BNP"          "CAN"         
+## [11] "SOLVE"        "."            "-"            ""             "current"     
+## [16] "immigration"  ""             "birth"        "rates"        ","           
+## [21] "indigenous"   "British"      "people"       ""             "set"         
+## [26] ""             "become"       ""             "minority"     "well"        
+## [31] "within"       "50"           "years"        "."            "-"           
+## [36] ""             ""             "result"       ""             ""            
+## [41] "extinction"   ""             ""             "British"      "people"      
+## [46] ","            "culture"      ","            "heritage"     ""
 ```
 
 If you are only interested in certain words, you can keep these and remove others.
@@ -116,19 +107,16 @@ head(toks_immig_window[[1]], 50)
 ```
 
 ```
-##  [1] "IMMIGRATION"  ":"            "AN"           "UNPARALLELED"
-##  [5] "CRISIS"       "WHICH"        ""             ""            
-##  [9] ""             ""             "SOLVE"        "."           
-## [13] "-"            "At"           "current"      "immigration" 
-## [17] "and"          "birth"        "rates"        ","           
-## [21] "indigenous"   ""             ""             ""            
-## [25] ""             ""             ""             ""            
-## [29] ""             ""             ""             ""            
-## [33] ""             ""             ""             ""            
-## [37] ""             ""             ""             ""            
-## [41] ""             ""             ""             ""            
-## [45] ""             ""             ""             ""            
-## [49] ""             ""
+##  [1] "IMMIGRATION"  ":"            "AN"           "UNPARALLELED" "CRISIS"      
+##  [6] "WHICH"        ""             ""             ""             ""            
+## [11] "SOLVE"        "."            "-"            "At"           "current"     
+## [16] "immigration"  "and"          "birth"        "rates"        ","           
+## [21] "indigenous"   ""             ""             ""             ""            
+## [26] ""             ""             ""             ""             ""            
+## [31] ""             ""             ""             ""             ""            
+## [36] ""             ""             ""             ""             ""            
+## [41] ""             ""             ""             ""             ""            
+## [46] ""             ""             ""             ""             ""
 ```
 
 {{% notice tip %}}

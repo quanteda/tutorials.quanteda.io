@@ -41,6 +41,12 @@ install.packages("devtools")
 devtools::install_github("quanteda/quanteda.corpora")
 ```
 
+In **quanteda** version 2.0, `textmodel_*` functions are separated in **quanteda.textmodels** that we will use in Scaling and Classification.
+
+```{r, eval=FALSE}
+install.packages("quanteda.textmodels")
+```
+
 {{% notice note %}}
 If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install the latest versions. We recommmend to update all the packages using `update.packages()` to avoid errors caused by dependencies.
 {{% /notice %}}
@@ -71,7 +77,6 @@ require(newsmap)
 
 {{% notice note %}}
 With `quanteda_options()` you can specify get or set global options affecting functions across **quanteda**. One very useful feature is changing the number of threads to use in parralelised functions. By default, **quanteda** uses two threads, but depending on the RAM of your machine, you can use more than two threads. 
-
 For instance, `quanteda_options("threads" = 10)` will use ten threads which massively reduces the time to execute the parralelised functions.
 {{% /notice %}}
 

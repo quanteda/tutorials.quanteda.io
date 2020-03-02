@@ -9,6 +9,7 @@ Wordfish is a Poisson scaling model of one-dimensional document positions (Slapi
 
 ```r
 require(quanteda)
+require(quanteda.textmodels)
 ```
 
 In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.
@@ -27,34 +28,34 @@ summary(tmod_wf)
 ## 
 ## Estimated Document Positions:
 ##                              theta      se
-## Lenihan, Brian (FF)        1.79444 0.02010
-## Bruton, Richard (FG)      -0.61774 0.02844
-## Burton, Joan (LAB)        -1.14741 0.01561
-## Morgan, Arthur (SF)       -0.08380 0.02900
-## Cowen, Brian (FF)          1.77416 0.02333
-## Kenny, Enda (FG)          -0.75762 0.02642
-## ODonnell, Kieran (FG)     -0.48645 0.04310
-## Gilmore, Eamon (LAB)      -0.59455 0.02991
-## Higgins, Michael (LAB)    -0.99302 0.04021
-## Quinn, Ruairi (LAB)       -0.90657 0.04267
-## Gormley, John (Green)      1.18326 0.07235
-## Ryan, Eamon (Green)        0.17248 0.06336
-## Cuffe, Ciaran (Green)      0.72229 0.07269
-## OCaolain, Caoimhghin (SF) -0.05949 0.03873
+## Lenihan, Brian (FF)        1.79395 0.02007
+## Bruton, Richard (FG)      -0.62137 0.02824
+## Burton, Joan (LAB)        -1.13501 0.01568
+## Morgan, Arthur (SF)       -0.07840 0.02896
+## Cowen, Brian (FF)          1.77839 0.02330
+## Kenny, Enda (FG)          -0.75343 0.02635
+## ODonnell, Kieran (FG)     -0.47615 0.04309
+## Gilmore, Eamon (LAB)      -0.58474 0.02992
+## Higgins, Michael (LAB)    -1.00390 0.03964
+## Quinn, Ruairi (LAB)       -0.92648 0.04183
+## Gormley, John (Green)      1.18354 0.07224
+## Ryan, Eamon (Green)        0.14816 0.06322
+## Cuffe, Ciaran (Green)      0.71537 0.07291
+## OCaolain, Caoimhghin (SF) -0.03993 0.03877
 ## 
 ## Estimated Feature Scores:
-##         when      i presented    the supplementary  budget     to  this
-## beta -0.1558 0.3217    0.3582 0.1945         1.077 0.03563 0.3097 0.249
-## psi   1.6246 2.7253   -1.7925 5.3324        -1.128 2.71082 4.5208 3.462
-##       house   last   april    said     we   could   work    our    way
-## beta 0.1461 0.2416 -0.1554 -0.8301 0.4193 -0.6067 0.5262 0.6918 0.2772
-## psi  1.0407 0.9874 -0.5725 -0.4533 3.5140  1.0865 1.1164 2.5301 1.4208
-##      through  period     of severe economic distress  today    can  report
-## beta  0.6125  0.4989 0.2792  1.229   0.4245    1.804 0.0922 0.3057  0.6257
-## psi   1.1636 -0.1747 4.4675 -2.007   1.5741   -4.457 0.8399 1.5663 -0.2466
-##        that notwithstanding difficulties   past
-## beta 0.0192           1.804        1.176 0.4777
-## psi  3.8389          -4.457       -1.352 0.9339
+##         when      i presented    the supplementary  budget     to   this  house
+## beta -0.1593 0.3179    0.3604 0.1934         1.077 0.03546 0.3078 0.2474 0.1399
+## psi   1.6241 2.7239   -1.7958 5.3308        -1.134 2.70992 4.5190 3.4603 1.0396
+##        last   april    said     we   could   work    our    way through  period
+## beta 0.2420 -0.1563 -0.8339 0.4158 -0.6138 0.5223 0.6894 0.2751  0.6116  0.4986
+## psi  0.9853 -0.5725 -0.4515 3.5124  1.0857 1.1151 2.5277 1.4190  1.1604 -0.1779
+##          of severe economic distress   today    can  report   that
+## beta 0.2778  1.229   0.4238    1.799 0.09153 0.3041  0.6199 0.0152
+## psi  4.4656 -2.013   1.5714   -4.456 0.83874 1.5644 -0.2467 3.8379
+##      notwithstanding difficulties   past
+## beta           1.799        1.175 0.4747
+## psi           -4.456       -1.357 0.9321
 ```
 
 We can plot the results of a fitted scaling model using `textplot_scale1d()`.

@@ -61,12 +61,12 @@ docvars(dfmat_party)
 ```
 
 ```
-##       year debate party
-## FF    2010 BUDGET    FF
-## FG    2010 BUDGET    FG
-## Green 2010 BUDGET Green
-## LAB   2010 BUDGET   LAB
-## SF    2010 BUDGET    SF
+##   year debate party
+## 1 2010 BUDGET    FF
+## 2 2010 BUDGET    FG
+## 3 2010 BUDGET Green
+## 4 2010 BUDGET   LAB
+## 5 2010 BUDGET    SF
 ```
 
 You can also use the `groups` argument in `dfm()` to simplify your code. 

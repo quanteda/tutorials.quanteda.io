@@ -47,17 +47,14 @@ head(toks_news_lsd, 2)
 ```
 
 ```
-## tokens from 2 documents.
+## Tokens consisting of 2 documents and 12 docvars.
 ## text136751 :
 ## [1] "positive" "positive"
 ## 
 ## text118588 :
 ##  [1] "positive" "positive" "negative" "negative" "negative" "positive"
 ##  [7] "negative" "positive" "positive" "negative" "positive" "positive"
-## [13] "positive" "positive" "positive" "negative" "negative" "negative"
-## [19] "positive" "negative" "positive" "negative" "positive" "positive"
-## [25] "positive" "positive" "negative" "positive" "positive" "positive"
-## [31] "positive" "positive" "positive" "positive" "positive" "positive"
+## [ ... and 24 more ]
 ```
 
 ```r
@@ -66,8 +63,7 @@ head(dfmat_news_lsd, 2)
 ```
 
 ```
-## Document-feature matrix of: 2 documents, 2 features (25.0% sparse).
-## 2 x 2 sparse Matrix of class "dfm"
+## Document-feature matrix of: 2 documents, 2 features (25.0% sparse) and 12 docvars.
 ##             features
 ## docs         negative positive
 ##   text136751        0        2

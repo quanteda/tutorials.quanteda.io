@@ -26,13 +26,13 @@ head(docvars(corp))
 ```
 
 ```
-##                 Year  President FirstName
-## 1789-Washington 1789 Washington    George
-## 1793-Washington 1793 Washington    George
-## 1797-Adams      1797      Adams      John
-## 1801-Jefferson  1801  Jefferson    Thomas
-## 1805-Jefferson  1805  Jefferson    Thomas
-## 1809-Madison    1809    Madison     James
+##   Year  President FirstName                 Party
+## 1 1789 Washington    George                  none
+## 2 1793 Washington    George                  none
+## 3 1797      Adams      John            Federalist
+## 4 1801  Jefferson    Thomas Democratic-Republican
+## 5 1805  Jefferson    Thomas Democratic-Republican
+## 6 1809    Madison     James Democratic-Republican
 ```
 
 ```r

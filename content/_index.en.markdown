@@ -17,7 +17,7 @@ You can not only see the R commands but execute them yourself if you [download t
 Contributions in the form of feedback, comments, code, and bug reports are most welcome. If you have questions on how to use **quanteda**, please post them to [the quanteda channel on StackOverflow](https://stackoverflow.com/questions/tagged/quanteda). If you find a bug, please report it to the [quanteda issues](https://github.com/quanteda/quanteda/issues). *We prefer these platforms to emails in communicating with our users* because the records will help other users who have similar problems.
 
 {{% notice note %}}
-Examples in this tutorial are written for **quanteda** version 1.5.1. Please check if you have the same version installed by a command `packageVersion("quanteda")`. 
+Examples in this tutorial are written for **quanteda** version 2.0.0. Please check if you have the same version installed by a command `packageVersion("quanteda")`. 
 {{% /notice %}}
 
 {{% notice info %}}
