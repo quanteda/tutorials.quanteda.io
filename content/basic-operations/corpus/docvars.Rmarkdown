@@ -17,7 +17,7 @@ head(docvars(corp))
 
 ## Extracting document variables
 
-If you want to extract individual elements of document variables, you can specify `filed`.
+If you want to extract individual elements of document variables, you can specify `field`.
 
 ```{r}
 docvars(corp, field = "Year")
