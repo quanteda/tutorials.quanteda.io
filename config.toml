@@ -8,7 +8,8 @@ themesdir = "./themes"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-
+PygmentsCodeFences = false
+min_version = 0.25
 
 [params]
   editURL = "https://github.com/quanteda/tutorials.quanteda.io/tree/master/content/"
