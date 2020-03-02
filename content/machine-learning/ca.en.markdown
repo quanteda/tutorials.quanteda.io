@@ -33,7 +33,7 @@ If you want to plot documents on multi-dimensional scale, you use `coef()` to ob
 
 ```r
 dat_ca <- data.frame(dim1 = coef(tmod_ca, doc_dim = 1)$coef_document, 
-                      dim2 = coef(tmod_ca, doc_dim = 2)$coef_document)
+                     dim2 = coef(tmod_ca, doc_dim = 2)$coef_document)
 head(dat_ca)
 ```
 

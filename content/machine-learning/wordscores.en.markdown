@@ -52,15 +52,15 @@ Now we can apply the Wordscores algorithm to a document-feature matrix.
 
 ```r
 dfmat_ger <- dfm(corp_ger, remove = stopwords("de"), remove_punct = TRUE)
-tmod_ws <- textmodel_wordscores(dfmat_ger, y = docvars(corp_ger, "ref_score"), smooth = 1)
+tmod_ws <- textmodel_wordscores(dfmat_ger, y = corp_ger$ref_score, smooth = 1)
 summary(tmod_ws)
 ```
 
 ```
 ## 
 ## Call:
-## textmodel_wordscores.dfm(x = dfmat_ger, y = docvars(corp_ger, 
-##     "ref_score"), smooth = 1)
+## textmodel_wordscores.dfm(x = dfmat_ger, y = corp_ger$ref_score, 
+##     smooth = 1)
 ## 
 ## Reference Document Statistics:
 ##              score total min  max    mean median
