@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+options(width = 110)
 ```
 
 
@@ -23,28 +24,17 @@ head(kw_multiword, 10)
 ```
 
 ```
-##                                                          
-##       [BNP, 1724:1725]        the honour and benefit of |
-##       [BNP, 1958:1959] all illegal immigrants and bogus |
-##       [BNP, 2159:2160]            region concerned. An' |
-##       [BNP, 2192:2193]          country. Because every' |
-##       [BNP, 2218:2219]     there are currently no legal |
-##       [BNP, 2265:2266]  of illegal immigrants and bogus |
-##       [BNP, 2296:2297]  benefits system for these bogus |
-##  [Conservative, 68:69]          could be carried out by |
-##        [Greens, 77:78]      immigration: over 5 million |
-##      [Labour, 338:339]        economy and the values of |
-##                                                     
-##  British citizenship | has gone to people who       
-##    asylum seekers    | , including their dependents.
-##     asylum seeker    | ' who has crossed dozens     
-##     asylum seeker    | ' in Britain has crossed     
-##    asylum seekers    | in Britain today. It         
-##    asylum seekers    | , that there are no          
-##    asylum seekers    | is removed, the flood        
-##   British citizens   | , given the right training   
-##   British Citizens   | benefit from other countries'
-##  British citizenship | , and step up our
+##                                                                                                              
+##       [BNP, 1724:1725]        the honour and benefit of | British citizenship | has gone to people who       
+##       [BNP, 1958:1959] all illegal immigrants and bogus |   asylum seekers    | , including their dependents.
+##       [BNP, 2159:2160]            region concerned. An' |    asylum seeker    | ' who has crossed dozens     
+##       [BNP, 2192:2193]          country. Because every' |    asylum seeker    | ' in Britain has crossed     
+##       [BNP, 2218:2219]     there are currently no legal |   asylum seekers    | in Britain today. It         
+##       [BNP, 2265:2266]  of illegal immigrants and bogus |   asylum seekers    | , that there are no          
+##       [BNP, 2296:2297]  benefits system for these bogus |   asylum seekers    | is removed, the flood        
+##  [Conservative, 68:69]          could be carried out by |  British citizens   | , given the right training   
+##        [Greens, 77:78]      immigration: over 5 million |  British Citizens   | benefit from other countries'
+##      [Labour, 337:338]        economy and the values of | British citizenship | , and step up our
 ```
 
 To preserve these expressions in bag-of-word analysis, you have to compound them using `tokens_compound()`.
@@ -57,28 +47,17 @@ head(kw_comp, 10)
 ```
 
 ```
-##                                                                           
-##         [BNP, 1724]        the honour and benefit of | British_citizenship
-##         [BNP, 1957] all illegal immigrants and bogus |   asylum_seekers   
-##         [BNP, 2157]            region concerned. An' |    asylum_seeker   
-##         [BNP, 2189]          country. Because every' |    asylum_seeker   
-##         [BNP, 2214]     there are currently no legal |   asylum_seekers   
-##         [BNP, 2260]  of illegal immigrants and bogus |   asylum_seekers   
-##         [BNP, 2290]  benefits system for these bogus |   asylum_seekers   
-##  [Conservative, 68]          could be carried out by |  British_citizens  
-##        [Greens, 77]      immigration: over 5 million |  British_Citizens  
-##       [Labour, 338]        economy and the values of | British_citizenship
-##                                 
-##  | has gone to people who       
-##  | , including their dependents.
-##  | ' who has crossed dozens     
-##  | ' in Britain has crossed     
-##  | in Britain today. It         
-##  | , that there are no          
-##  | is removed, the flood        
-##  | , given the right training   
-##  | benefit from other countries'
-##  | , and step up our
+##                                                                                                           
+##         [BNP, 1724]        the honour and benefit of | British_citizenship | has gone to people who       
+##         [BNP, 1957] all illegal immigrants and bogus |   asylum_seekers    | , including their dependents.
+##         [BNP, 2157]            region concerned. An' |    asylum_seeker    | ' who has crossed dozens     
+##         [BNP, 2189]          country. Because every' |    asylum_seeker    | ' in Britain has crossed     
+##         [BNP, 2214]     there are currently no legal |   asylum_seekers    | in Britain today. It         
+##         [BNP, 2260]  of illegal immigrants and bogus |   asylum_seekers    | , that there are no          
+##         [BNP, 2290]  benefits system for these bogus |   asylum_seekers    | is removed, the flood        
+##  [Conservative, 68]          could be carried out by |  British_citizens   | , given the right training   
+##        [Greens, 77]      immigration: over 5 million |  British_Citizens   | benefit from other countries'
+##       [Labour, 337]        economy and the values of | British_citizenship | , and step up our
 ```
 
 {{% notice tip %}}

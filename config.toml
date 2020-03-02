@@ -8,7 +8,8 @@ themesdir = "./themes"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-
+PygmentsCodeFences = false
+min_version = 0.25
 
 [params]
   editURL = "https://github.com/quanteda/tutorials.quanteda.io/tree/master/content/"
@@ -27,46 +28,20 @@ weight = 1
 languageName = "English"
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fa fa-github'></i> Github repo"
+name = "<i class='fab fa-github'></i> Github repo"
 identifier = "ds"
 url = "https://github.com/quanteda/tutorials.quanteda.io/"
 weight = 10
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fa fa-bookmark'></i> Documentation"
+name = "<i class='fas fa-bookmark'></i> Documentation"
 identifier = "hugodoc"
 url = "https://quanteda.io/"
 weight = 20
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fa fa-home'></i> Website"
+name = "<i class='fas fa-home'></i> Website"
 identifier = "hugodoc"
 url = "http://quanteda.org/"
 weight = 20
 
-# [[Languages.en.menu.shortcuts]]
-# name = "<i class='fa fa-bullhorn'></i> Credits"
-# url = "/credits"
-# weight = 30
-
-# [Languages.fr]
-# title = "Documentation du thème Hugo Learn"
-# weight = 2
-# languageName = "Français"
-
-# [[Languages.fr.menu.shortcuts]]
-# name = "<i class='fa fa-github'></i> Repo Github"
-# identifier = "ds"
-# url = "https://github.com/matcornic/hugo-theme-learn"
-# weight = 10
-
-# [[Languages.fr.menu.shortcuts]]
-# name = "<i class='fa fa-bookmark'></i> Documentation Hugo"
-# identifier = "hugodoc"
-# url = "https://gohugo.io/"
-# weight = 20
-
-# [[Languages.fr.menu.shortcuts]]
-# name = "<i class='fa fa-bullhorn'></i> Crédits"
-# url = "/credits"
-# weight = 30

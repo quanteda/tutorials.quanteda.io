@@ -9,6 +9,7 @@ Naive Bayes is a supervised model usually used to classify documents into two or
 
 ```r
 require(quanteda)
+require(quanteda.textmodels)
 require(quanteda.corpora)
 require(caret)
 ```
@@ -22,23 +23,20 @@ summary(corp_movies, 5)
 ```
 
 ```
-## Warning in nsentence.character(object, ...): nsentence() does not correctly
-## count sentences in all lower-cased text
-```
-
-```
 ## Corpus consisting of 2000 documents, showing 5 documents:
 ## 
 ##             Text Types Tokens Sentences Sentiment   id1   id2
 ##  neg_cv000_29416   354    841         9       neg cv000 29416
 ##  neg_cv001_19502   156    278         1       neg cv001 19502
 ##  neg_cv002_17424   276    553         3       neg cv002 17424
-##  neg_cv003_12683   314    564         2       neg cv003 12683
-##  neg_cv004_12641   380    842         2       neg cv004 12641
-## 
-## Source: http://www.cs.cornell.edu/people/pabo/movie-review-data/
-## Created: Sat Nov 15 18:43:25 2014
-## Notes:
+##  neg_cv003_12683   313    555         2       neg cv003 12683
+##  neg_cv004_12641   380    841         2       neg cv004 12641
+##                                                                               _source
+##  /Users/kbenoit/Dropbox/QUANTESS/corpora/movieReviews/smaller/all/neg_cv000_29416.txt
+##  /Users/kbenoit/Dropbox/QUANTESS/corpora/movieReviews/smaller/all/neg_cv001_19502.txt
+##  /Users/kbenoit/Dropbox/QUANTESS/corpora/movieReviews/smaller/all/neg_cv002_17424.txt
+##  /Users/kbenoit/Dropbox/QUANTESS/corpora/movieReviews/smaller/all/neg_cv003_12683.txt
+##  /Users/kbenoit/Dropbox/QUANTESS/corpora/movieReviews/smaller/all/neg_cv004_12641.txt
 ```
 
 "Sentiment" indicates whether a movie review was classified as positive or negative. In this example we use 1500 reviews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the remaining reviews (our test set).
@@ -90,18 +88,15 @@ summary(tmod_nb)
 ## 0.5 0.5 
 ## 
 ## Estimated Feature Scores:
-##       the  happi bastard  quick   movi review   damn   that    y2k    bug
-## neg 0.482 0.3865  0.3492 0.5201 0.5682 0.5185 0.5751 0.5199 0.6903 0.5136
-## pos 0.518 0.6135  0.6508 0.4799 0.4318 0.4815 0.4249 0.4801 0.3097 0.4864
-##          .     it    got     a   head  start     in   this   star   jami
-## neg 0.5151 0.5028 0.6071 0.495 0.5322 0.5627 0.4878 0.5354 0.5107 0.5563
-## pos 0.4849 0.4972 0.3929 0.505 0.4678 0.4373 0.5122 0.4646 0.4893 0.4437
-##        lee  curti    and  anoth baldwin brother      ( william   time
-## neg 0.5246 0.3865 0.4658 0.5342   0.576  0.5594 0.5084  0.4777 0.5034
-## pos 0.4754 0.6135 0.5342 0.4658   0.424  0.4406 0.4916  0.5223 0.4966
-##          )
-## neg 0.5125
-## pos 0.4875
+##        the  happi bastard  quick   movi review  damn   that    y2k    bug
+## neg 0.4821 0.3864  0.3492 0.5218 0.5682 0.5199 0.575 0.5198 0.6903 0.5089
+## pos 0.5179 0.6136  0.6508 0.4782 0.4318 0.4801 0.425 0.4802 0.3097 0.4911
+##          .     it    got      a   head  start     in   this   star   jami
+## neg 0.5151 0.5026 0.6071 0.4949 0.5322 0.5636 0.4878 0.5355 0.5111 0.5563
+## pos 0.4849 0.4974 0.3929 0.5051 0.4678 0.4364 0.5122 0.4645 0.4889 0.4437
+##        lee  curti    and  anoth baldwin brother      ( william   time      )
+## neg 0.5245 0.3864 0.4656 0.5342  0.5759  0.5593 0.5083  0.4777 0.5031 0.5125
+## pos 0.4755 0.6136 0.5344 0.4658  0.4241  0.4407 0.4917  0.5223 0.4969 0.4875
 ```
 
 
@@ -126,7 +121,7 @@ tab_class
 ##             predicted_class
 ## actual_class neg pos
 ##          neg 208  50
-##          pos  38 204
+##          pos  37 205
 ```
 
 From the cross-table we see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or underestimate one class.
@@ -144,28 +139,28 @@ confusionMatrix(tab_class, mode = "everything")
 ##             predicted_class
 ## actual_class neg pos
 ##          neg 208  50
-##          pos  38 204
+##          pos  37 205
 ##                                           
-##                Accuracy : 0.824           
-##                  95% CI : (0.7877, 0.8564)
-##     No Information Rate : 0.508           
+##                Accuracy : 0.826           
+##                  95% CI : (0.7899, 0.8582)
+##     No Information Rate : 0.51            
 ##     P-Value [Acc > NIR] : <2e-16          
 ##                                           
-##                   Kappa : 0.6482          
+##                   Kappa : 0.6522          
 ##                                           
-##  Mcnemar's Test P-Value : 0.241           
+##  Mcnemar's Test P-Value : 0.1983          
 ##                                           
-##             Sensitivity : 0.8455          
-##             Specificity : 0.8031          
+##             Sensitivity : 0.8490          
+##             Specificity : 0.8039          
 ##          Pos Pred Value : 0.8062          
-##          Neg Pred Value : 0.8430          
+##          Neg Pred Value : 0.8471          
 ##               Precision : 0.8062          
-##                  Recall : 0.8455          
-##                      F1 : 0.8254          
-##              Prevalence : 0.4920          
+##                  Recall : 0.8490          
+##                      F1 : 0.8270          
+##              Prevalence : 0.4900          
 ##          Detection Rate : 0.4160          
 ##    Detection Prevalence : 0.5160          
-##       Balanced Accuracy : 0.8243          
+##       Balanced Accuracy : 0.8265          
 ##                                           
 ##        'Positive' Class : neg             
 ## 

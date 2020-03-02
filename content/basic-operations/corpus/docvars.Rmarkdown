@@ -1,0 +1,43 @@
+---
+title: Document variables
+weight: 15
+draft: false
+---
+
+```{r, message=FALSE}
+require(quanteda)
+```
+
+**quanteda**'s objects keep information associated with documents. They are called "document variables", or "docvars" and accessed using `docvars()`.
+
+```{r}
+corp <- data_corpus_inaugural
+head(docvars(corp))
+```
+
+## Extracting document variables
+
+If you want to extract individual elements of document variables, you can specify `field`.
+
+```{r}
+docvars(corp, field = "Year")
+```
+
+You can also access to individual document variables using the `$` operator. 
+
+```{r}
+corp$Year
+```
+
+## Assigning document variables
+
+`docvars()` also allows you to create or update document variables.
+
+```{r}
+docvars(corp, field = "Century") <- floor(docvars(corp, field = "Year") / 100)
+head(docvars(corp))
+```
+
+{{% notice tip %}}
+`docvars()` is explained only in this section, but it works on other **quanteda** objects (tokens and dfm) in the same way.
+{{% /notice %}}

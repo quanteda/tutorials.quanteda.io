@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+options(width = 110)
 ```
 
 `tokens()` segments texts in a corpus into tokens (words or sentences) by word boundaries. 
@@ -22,23 +23,42 @@ A corpus is passed to `tokens()` in the code above, but it works with a characte
 
 ```r
 toks <- tokens(data_char_ukimmig2010)
-head(toks[[1]], 50)
+print(toks)
 ```
 
 ```
-##  [1] "IMMIGRATION"  ":"            "AN"           "UNPARALLELED"
-##  [5] "CRISIS"       "WHICH"        "ONLY"         "THE"         
-##  [9] "BNP"          "CAN"          "SOLVE"        "."           
-## [13] "-"            "At"           "current"      "immigration" 
-## [17] "and"          "birth"        "rates"        ","           
-## [21] "indigenous"   "British"      "people"       "are"         
-## [25] "set"          "to"           "become"       "a"           
-## [29] "minority"     "well"         "within"       "50"          
-## [33] "years"        "."            "-"            "This"        
-## [37] "will"         "result"       "in"           "the"         
-## [41] "extinction"   "of"           "the"          "British"     
-## [45] "people"       ","            "culture"      ","           
-## [49] "heritage"     "and"
+## Tokens consisting of 9 documents.
+## BNP :
+##  [1] "IMMIGRATION"  ":"            "AN"           "UNPARALLELED" "CRISIS"       "WHICH"        "ONLY"        
+##  [8] "THE"          "BNP"          "CAN"          "SOLVE"        "."           
+## [ ... and 3,268 more ]
+## 
+## Coalition :
+##  [1] "IMMIGRATION" "."           "The"         "Government"  "believes"    "that"        "immigration"
+##  [8] "has"         "enriched"    "our"         "culture"     "and"        
+## [ ... and 248 more ]
+## 
+## Conservative :
+##  [1] "Attract"     "the"         "brightest"   "and"         "best"        "to"          "our"        
+##  [8] "country"     "."           "Immigration" "has"         "enriched"   
+## [ ... and 487 more ]
+## 
+## Greens :
+##  [1] "Immigration" "."           "Migration"   "is"          "a"           "fact"        "of"         
+##  [8] "life"        "."           "People"      "have"        "always"     
+## [ ... and 665 more ]
+## 
+## Labour :
+##  [1] "Crime"       "and"         "immigration" "The"         "challenge"   "for"         "Britain"    
+##  [8] "We"          "will"        "control"     "immigration" "with"       
+## [ ... and 668 more ]
+## 
+## LibDem :
+##  [1] "firm"        "but"         "fair"        "immigration" "system"      "Britain"     "has"        
+##  [8] "always"      "been"        "an"          "open"        ","          
+## [ ... and 471 more ]
+## 
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 {{% notice tip %}}
@@ -50,23 +70,42 @@ By default, `tokens()` only removes separators (typically whitespaces), but you 
 
 ```r
 toks_nopunct <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
-head(toks_nopunct[[1]], 50)
+print(toks)
 ```
 
 ```
-##  [1] "IMMIGRATION"  "AN"           "UNPARALLELED" "CRISIS"      
-##  [5] "WHICH"        "ONLY"         "THE"          "BNP"         
-##  [9] "CAN"          "SOLVE"        "At"           "current"     
-## [13] "immigration"  "and"          "birth"        "rates"       
-## [17] "indigenous"   "British"      "people"       "are"         
-## [21] "set"          "to"           "become"       "a"           
-## [25] "minority"     "well"         "within"       "50"          
-## [29] "years"        "This"         "will"         "result"      
-## [33] "in"           "the"          "extinction"   "of"          
-## [37] "the"          "British"      "people"       "culture"     
-## [41] "heritage"     "and"          "identity"     "The"         
-## [45] "BNP"          "will"         "take"         "all"         
-## [49] "steps"        "necessary"
+## Tokens consisting of 9 documents.
+## BNP :
+##  [1] "IMMIGRATION"  ":"            "AN"           "UNPARALLELED" "CRISIS"       "WHICH"        "ONLY"        
+##  [8] "THE"          "BNP"          "CAN"          "SOLVE"        "."           
+## [ ... and 3,268 more ]
+## 
+## Coalition :
+##  [1] "IMMIGRATION" "."           "The"         "Government"  "believes"    "that"        "immigration"
+##  [8] "has"         "enriched"    "our"         "culture"     "and"        
+## [ ... and 248 more ]
+## 
+## Conservative :
+##  [1] "Attract"     "the"         "brightest"   "and"         "best"        "to"          "our"        
+##  [8] "country"     "."           "Immigration" "has"         "enriched"   
+## [ ... and 487 more ]
+## 
+## Greens :
+##  [1] "Immigration" "."           "Migration"   "is"          "a"           "fact"        "of"         
+##  [8] "life"        "."           "People"      "have"        "always"     
+## [ ... and 665 more ]
+## 
+## Labour :
+##  [1] "Crime"       "and"         "immigration" "The"         "challenge"   "for"         "Britain"    
+##  [8] "We"          "will"        "control"     "immigration" "with"       
+## [ ... and 668 more ]
+## 
+## LibDem :
+##  [1] "firm"        "but"         "fair"        "immigration" "system"      "Britain"     "has"        
+##  [8] "always"      "been"        "an"          "open"        ","          
+## [ ... and 471 more ]
+## 
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 

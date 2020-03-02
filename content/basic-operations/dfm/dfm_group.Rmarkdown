@@ -6,11 +6,12 @@ draft: false
 
 ```{r, message=FALSE}
 require(quanteda)
+options(width = 110)
 ```
 
 ```{r}
 dfmat_irish <- dfm(data_corpus_irishbudget2010)
-ndoc(dfmat_irish)
+print(dfmat_irish)
 head(colSums(dfmat_irish), 10)
 ```
 
@@ -18,7 +19,7 @@ head(colSums(dfmat_irish), 10)
 
 ```{r}
 dfmat_party <- dfm_group(dfmat_irish, groups = "party")
-ndoc(dfmat_party)
+print(dfmat_party)
 head(colSums(dfmat_party), 10)
 ```
 

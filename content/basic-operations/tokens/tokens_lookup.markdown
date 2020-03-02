@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+options(width = 110)
 ```
 
 
@@ -68,10 +69,7 @@ dict_newsmap[['AFRICA']][['NORTH']]
 ##   - sudan, sudanese, khartoum
 ## - [SS]:
 ##   - south sudan, s sudan, s sudanese, juba
-## - [TN]:
-##   - tunisia, tunisian*, tunis
-## - [EH]:
-##   - western sahara, western saharan*, el aaiun
+## [ reached max_nkey ... 2 more keys ]
 ```
 
 The `levels` argument determines the keys to be recored in a resulting tokens object.
@@ -79,23 +77,15 @@ The `levels` argument determines the keys to be recored in a resulting tokens ob
 
 ```r
 toks_region <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 1)
-head(toks_region)
+print(toks_region)
 ```
 
 ```
-## tokens from 6 documents.
+## Tokens consisting of 9 documents.
 ## BNP :
-##  [1] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
-##  [8] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "ASIA"   
-## [15] "ASIA"    "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
-## [22] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
-## [29] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
-## [36] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
-## [43] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
-## [50] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
-## [57] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
-## [64] "EUROPE"  "EUROPE"  "EUROPE"  "AFRICA"  "AFRICA"  "ASIA"    "OCEANIA"
-## [71] "ASIA"    "ASIA"    "EUROPE"  "EUROPE" 
+##  [1] "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE" "EUROPE"
+## [12] "EUROPE"
+## [ ... and 62 more ]
 ## 
 ## Coalition :
 ## [1] "EUROPE"
@@ -107,11 +97,13 @@ head(toks_region)
 ## [1] "EUROPE" "EUROPE"
 ## 
 ## Labour :
-##  [1] "EUROPE"  "OCEANIA" "OCEANIA" "OCEANIA" "EUROPE"  "OCEANIA" "EUROPE" 
-##  [8] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
+##  [1] "EUROPE"  "OCEANIA" "OCEANIA" "OCEANIA" "EUROPE"  "OCEANIA" "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE" 
+## [11] "EUROPE" 
 ## 
 ## LibDem :
 ## [1] "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "EUROPE"  "AMERICA"
+## 
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 ```r
@@ -120,7 +112,6 @@ dfm(toks_region)
 
 ```
 ## Document-feature matrix of: 9 documents, 5 features (62.2% sparse).
-## 9 x 5 sparse Matrix of class "dfm"
 ##               features
 ## docs           africa america asia europe oceania
 ##   BNP               2       0    5     66       1
@@ -129,26 +120,20 @@ dfm(toks_region)
 ##   Greens            0       0    0      2       0
 ##   Labour            0       0    0      7       4
 ##   LibDem            0       1    0      6       0
-##   PC                0       0    0      1       0
-##   SNP               0       1    0      0       1
-##   UKIP              0       1    0     20       2
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 
 ```r
 toks_country <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 3)
-head(toks_country)
+print(toks_country)
 ```
 
 ```
-## tokens from 6 documents.
+## Tokens consisting of 9 documents.
 ## BNP :
-##  [1] "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "BD"
-## [15] "PK" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB"
-## [29] "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB"
-## [43] "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB"
-## [57] "GB" "GB" "GB" "GB" "IM" "GB" "GB" "GB" "IE" "IT" "EG" "RW" "ID" "FJ"
-## [71] "LK" "IQ" "GB" "GB"
+##  [1] "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB" "GB"
+## [ ... and 62 more ]
 ## 
 ## Coalition :
 ## [1] "GB"
@@ -164,6 +149,8 @@ head(toks_country)
 ## 
 ## LibDem :
 ## [1] "GB" "GB" "GB" "GB" "GB" "GB" "CA"
+## 
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 ```r
@@ -172,6 +159,15 @@ dfm(toks_country)
 
 ```
 ## Document-feature matrix of: 9 documents, 241 features (98.8% sparse).
+##               features
+## docs           bi km dj er et ke mg mw mu yt
+##   BNP           0  0  0  0  0  0  0  0  0  0
+##   Coalition     0  0  0  0  0  0  0  0  0  0
+##   Conservative  0  0  0  0  0  0  0  0  0  0
+##   Greens        0  0  0  0  0  0  0  0  0  0
+##   Labour        0  0  0  0  0  0  0  0  0  0
+##   LibDem        0  0  0  0  0  0  0  0  0  0
+## [ reached max_ndoc ... 3 more documents, reached max_nfeat ... 231 more features ]
 ```
 
 
@@ -180,12 +176,9 @@ kwic(toks, dict_newsmap['AFRICA'])
 ```
 
 ```
-##                                                
-##  [BNP, 3116] , with Rome and Ancient | Egypt  |
-##  [BNP, 3149]   purpose. The Balkans, | Rwanda |
-##                              
-##  being well known examples of
-##  , Indonesia, Ulster,
+##                                                                             
+##  [BNP, 3116] , with Rome and Ancient | Egypt  | being well known examples of
+##  [BNP, 3149]   purpose. The Balkans, | Rwanda | , Indonesia, Ulster,
 ```
 
 You can define your own dictionary by passing a named list of characters to `dictionary()`.
@@ -207,14 +200,15 @@ print(dict)
 
 ```r
 dict_toks <- tokens_lookup(toks, dictionary = dict)
-head(dict_toks)
+print(dict_toks)
 ```
 
 ```
-## tokens from 6 documents.
+## Tokens consisting of 9 documents.
 ## BNP :
-##  [1] "refugee" "worker"  "refugee" "refugee" "refugee" "refugee" "refugee"
-##  [8] "refugee" "refugee" "refugee" "refugee" "refugee" "refugee" "worker" 
+##  [1] "refugee" "worker"  "refugee" "refugee" "refugee" "refugee" "refugee" "refugee" "refugee" "refugee"
+## [11] "refugee" "refugee"
+## [ ... and 2 more ]
 ## 
 ## Coalition :
 ## [1] "refugee"
@@ -226,11 +220,12 @@ head(dict_toks)
 ## [1] "worker"  "refugee" "refugee" "refugee" "refugee"
 ## 
 ## Labour :
-## [1] "refugee" "refugee" "refugee" "refugee" "worker"  "worker"  "worker" 
-## [8] "worker" 
+## [1] "refugee" "refugee" "refugee" "refugee" "worker"  "worker"  "worker"  "worker" 
 ## 
 ## LibDem :
 ## [1] "refugee" "refugee" "refugee" "refugee" "refugee" "refugee"
+## 
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 ```r
@@ -239,7 +234,6 @@ dfm(dict_toks)
 
 ```
 ## Document-feature matrix of: 9 documents, 2 features (38.9% sparse).
-## 9 x 2 sparse Matrix of class "dfm"
 ##               features
 ## docs           refugee worker
 ##   BNP               12      2
@@ -248,9 +242,7 @@ dfm(dict_toks)
 ##   Greens             4      1
 ##   Labour             4      4
 ##   LibDem             6      0
-##   PC                 3      0
-##   SNP                1      0
-##   UKIP               6      0
+## [ reached max_ndoc ... 3 more documents ]
 ```
 
 {{% notice tip %}}

@@ -8,6 +8,7 @@ Naive Bayes is a supervised model usually used to classify documents into two or
 
 ```{r, message=FALSE}
 require(quanteda)
+require(quanteda.textmodels)
 require(quanteda.corpora)
 require(caret)
 ```

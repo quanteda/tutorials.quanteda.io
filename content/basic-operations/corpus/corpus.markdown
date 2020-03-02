@@ -29,26 +29,49 @@ You can create a corpus from various available sources:
 ```r
 corp_immig <- corpus(data_char_ukimmig2010, 
                      docvars = data.frame(party = names(data_char_ukimmig2010)))
+print(corp_immig)
+```
+
+```
+## Corpus consisting of 9 documents and 1 docvar.
+## BNP :
+## "IMMIGRATION: AN UNPARALLELED CRISIS WHICH ONLY THE BNP CAN S..."
+## 
+## Coalition :
+## "IMMIGRATION.  The Government believes that immigration has e..."
+## 
+## Conservative :
+## "Attract the brightest and best to our country. Immigration h..."
+## 
+## Greens :
+## "Immigration. Migration is a fact of life.  People have alway..."
+## 
+## Labour :
+## "Crime and immigration The challenge for Britain We will cont..."
+## 
+## LibDem :
+## "firm but fair immigration system Britain has always been an ..."
+## 
+## [ reached max_ndoc ... 3 more documents ]
+```
+
+```r
 summary(corp_immig)
 ```
 
 ```
-## Corpus consisting of 9 documents:
+## Corpus consisting of 9 documents, showing 9 documents:
 ## 
 ##          Text Types Tokens Sentences        party
 ##           BNP  1125   3280        88          BNP
 ##     Coalition   142    260         4    Coalition
 ##  Conservative   251    499        15 Conservative
-##        Greens   322    679        21       Greens
-##        Labour   298    683        29       Labour
+##        Greens   322    677        21       Greens
+##        Labour   298    680        29       Labour
 ##        LibDem   251    483        14       LibDem
 ##            PC    77    114         5           PC
 ##           SNP    88    134         4          SNP
-##          UKIP   346    723        27         UKIP
-## 
-## Source: /home/kohei/packages/quanteda.tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Fri Jul 26 17:43:39 2019
-## Notes:
+##          UKIP   346    722        27         UKIP
 ```
 
 
@@ -72,6 +95,28 @@ Construct a corpus from `dat_inaug`.
 
 ```r
 corp_inaug <- corpus(dat_inaug)
+print(corp_inaug)
+```
+
+```
+## Corpus consisting of 5 documents and 3 docvars.
+## inaugCorpus.csv.1 :
+## "Fellow-Citizens of the Senate and of the House of Representa..."
+## 
+## inaugCorpus.csv.2 :
+## "Fellow citizens, I am again called upon by the voice of my c..."
+## 
+## inaugCorpus.csv.3 :
+## "When it was first perceived, in early times, that no middle ..."
+## 
+## inaugCorpus.csv.4 :
+## "Friends and Fellow Citizens: Called upon to undertake the du..."
+## 
+## inaugCorpus.csv.5 :
+## "Proceeding, fellow citizens, to that qualification which the..."
+```
+
+```r
 summary(corp_inaug, 5)
 ```
 
@@ -79,15 +124,11 @@ summary(corp_inaug, 5)
 ## Corpus consisting of 5 documents, showing 5 documents:
 ## 
 ##               Text Types Tokens Sentences Year  President FirstName
-##  inaugCorpus.csv.1   625   1540        23 1789 Washington    George
+##  inaugCorpus.csv.1   625   1539        23 1789 Washington    George
 ##  inaugCorpus.csv.2    96    147         4 1793 Washington    George
-##  inaugCorpus.csv.3   826   2578        37 1797      Adams      John
-##  inaugCorpus.csv.4   717   1927        41 1801  Jefferson    Thomas
-##  inaugCorpus.csv.5   804   2381        45 1805  Jefferson    Thomas
-## 
-## Source: /home/kohei/packages/quanteda.tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Fri Jul 26 17:43:40 2019
-## Notes:
+##  inaugCorpus.csv.3   826   2577        37 1797      Adams      John
+##  inaugCorpus.csv.4   717   1923        41 1801  Jefferson    Thomas
+##  inaugCorpus.csv.5   804   2380        45 1805  Jefferson    Thomas
 ```
 
 You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc to a meaningful identifier. 
@@ -98,22 +139,25 @@ docid <- paste(dat_inaug$Year,
                dat_inaug$FirstName, 
                dat_inaug$President, sep = " ")
 docnames(corp_inaug) <- docid
-summary(corp_inaug, 5)
+print(corp_inaug)
 ```
 
 ```
-## Corpus consisting of 5 documents, showing 5 documents:
+## Corpus consisting of 5 documents and 3 docvars.
+## 1789 George Washington :
+## "Fellow-Citizens of the Senate and of the House of Representa..."
 ## 
-##                    Text Types Tokens Sentences Year  President FirstName
-##  1789 George Washington   625   1540        23 1789 Washington    George
-##  1793 George Washington    96    147         4 1793 Washington    George
-##         1797 John Adams   826   2578        37 1797      Adams      John
-##   1801 Thomas Jefferson   717   1927        41 1801  Jefferson    Thomas
-##   1805 Thomas Jefferson   804   2381        45 1805  Jefferson    Thomas
+## 1793 George Washington :
+## "Fellow citizens, I am again called upon by the voice of my c..."
 ## 
-## Source: /home/kohei/packages/quanteda.tutorials/content/basic-operations/corpus/* on x86_64 by kohei
-## Created: Fri Jul 26 17:43:40 2019
-## Notes:
+## 1797 John Adams :
+## "When it was first perceived, in early times, that no middle ..."
+## 
+## 1801 Thomas Jefferson :
+## "Friends and Fellow Citizens: Called upon to undertake the du..."
+## 
+## 1805 Thomas Jefferson :
+## "Proceeding, fellow citizens, to that qualification which the..."
 ```
 
 ## Vcorpus

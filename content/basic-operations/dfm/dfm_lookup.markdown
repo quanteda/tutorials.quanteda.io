@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+options(width = 110)
 ```
 
 [laver-garry.cat](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/laver-garry.cat) is a Wordstat dictionary that contain political left-right ideology keywords (Laver and Garry 2000). 
@@ -22,96 +23,41 @@ dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat")
 ```r
 toks_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
 dfmat_irish <- dfm(toks_irish)
-dfmat_irish_lg <- dfm_lookup(dfmat_irish, dictionary = dict_lg)
-head(dfmat_irish_lg)
+print(dfmat_irish)
 ```
 
 ```
-## Document-feature matrix of: 6 documents, 20 features (30.0% sparse).
-## 6 x 20 sparse Matrix of class "dfm"
+## Document-feature matrix of: 14 documents, 5,129 features (81.3% sparse) and 6 docvars.
 ##                       features
-## docs                   CULTURE CULTURE.CULTURE-HIGH
-##   Lenihan, Brian (FF)        8                    1
-##   Bruton, Richard (FG)      35                    0
-##   Burton, Joan (LAB)        31                    1
-##   Morgan, Arthur (SF)       53                    0
-##   Cowen, Brian (FF)         15                    1
-##   Kenny, Enda (FG)          25                    1
-##                       features
-## docs                   CULTURE.CULTURE-POPULAR CULTURE.SPORT
-##   Lenihan, Brian (FF)                        0             0
-##   Bruton, Richard (FG)                       0             0
-##   Burton, Joan (LAB)                         1             0
-##   Morgan, Arthur (SF)                        3             0
-##   Cowen, Brian (FF)                          0             0
-##   Kenny, Enda (FG)                           0             0
-##                       features
-## docs                   ECONOMY.+STATE+ ECONOMY.=STATE= ECONOMY.-STATE-
-##   Lenihan, Brian (FF)              115             355             113
-##   Bruton, Richard (FG)              35             131              35
-##   Burton, Joan (LAB)               134             206              61
-##   Morgan, Arthur (SF)               92             286              49
-##   Cowen, Brian (FF)                 92             244              81
-##   Kenny, Enda (FG)                  46             138              27
-##                       features
-## docs                   ENVIRONMENT.CON ENVIRONMENT
-##   Lenihan, Brian (FF)                            4
-##   Bruton, Richard (FG)                           3
-##   Burton, Joan (LAB)                             0
-##   Morgan, Arthur (SF)                            1
-##   Cowen, Brian (FF)                              7
-##   Kenny, Enda (FG)                               2
-##                       features
-## docs                   ENVIRONMENT.PRO ENVIRONMENT GROUPS.ETHNIC
-##   Lenihan, Brian (FF)                           17             0
-##   Bruton, Richard (FG)                           2             0
-##   Burton, Joan (LAB)                             6             0
-##   Morgan, Arthur (SF)                            9             0
-##   Cowen, Brian (FF)                             17             0
-##   Kenny, Enda (FG)                               6             0
-##                       features
-## docs                   GROUPS.WOMEN INSTITUTIONS.CONSERVATIVE
-##   Lenihan, Brian (FF)             0                        13
-##   Bruton, Richard (FG)            0                         6
-##   Burton, Joan (LAB)              3                         5
-##   Morgan, Arthur (SF)             0                         6
-##   Cowen, Brian (FF)               0                        19
-##   Kenny, Enda (FG)                1                        10
-##                       features
-## docs                   INSTITUTIONS.NEUTRAL INSTITUTIONS.RADICAL
-##   Lenihan, Brian (FF)                    63                   17
-##   Bruton, Richard (FG)                   63                   26
-##   Burton, Joan (LAB)                     68                   11
-##   Morgan, Arthur (SF)                    48                    9
-##   Cowen, Brian (FF)                      34                   10
-##   Kenny, Enda (FG)                       34                    9
-##                       features
-## docs                   LAW_AND_ORDER.LAW-CONSERVATIVE
-##   Lenihan, Brian (FF)                              11
-##   Bruton, Richard (FG)                             14
-##   Burton, Joan (LAB)                                6
-##   Morgan, Arthur (SF)                              22
-##   Cowen, Brian (FF)                                 4
-##   Kenny, Enda (FG)                                 18
-##                       features
-## docs                   LAW_AND_ORDER.LAW-LIBERAL RURAL URBAN
-##   Lenihan, Brian (FF)                          0     9     0
-##   Bruton, Richard (FG)                         0     0     0
-##   Burton, Joan (LAB)                           0     2     3
-##   Morgan, Arthur (SF)                          0     2     1
-##   Cowen, Brian (FF)                            0     8     1
-##   Kenny, Enda (FG)                             0     0     2
-##                       features
-## docs                   VALUES.CONSERVATIVE VALUES.LIBERAL
-##   Lenihan, Brian (FF)                   19              0
-##   Bruton, Richard (FG)                  14              0
-##   Burton, Joan (LAB)                     5              1
-##   Morgan, Arthur (SF)                   16              2
-##   Cowen, Brian (FF)                     13              0
-##   Kenny, Enda (FG)                       7              1
+## docs                   when  i presented the supplementary budget  to this house last
+##   Lenihan, Brian (FF)     5 73         1 539             7     23 305   99    10    6
+##   Bruton, Richard (FG)    2  6         0 305             0     27 172   55     0    5
+##   Burton, Joan (LAB)     11 40         0 428             0     37 157   53     6    4
+##   Morgan, Arthur (SF)    21 26         0 501             1     26 204   85     5    4
+##   Cowen, Brian (FF)       4 17         0 394             0     21 209   43     4    6
+##   Kenny, Enda (FG)       12 25         1 304             1     23 119   47     0    4
+## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 5,119 more features ]
 ```
 
-You can also pass a dictionary to `dfm()` to simplify your code. Therefore, the code above and below are equivalent.
+```r
+dfmat_irish_lg <- dfm_lookup(dfmat_irish, dictionary = dict_lg, levels = 1)
+print(dfmat_irish_lg)
+```
+
+```
+## Document-feature matrix of: 14 documents, 9 features (19.8% sparse) and 6 docvars.
+##                       features
+## docs                   CULTURE ECONOMY ENVIRONMENT GROUPS INSTITUTIONS LAW_AND_ORDER RURAL URBAN VALUES
+##   Lenihan, Brian (FF)        9     583          21      0           93            11     9     0     19
+##   Bruton, Richard (FG)      35     201           5      0           95            14     0     0     14
+##   Burton, Joan (LAB)        33     401           6      3           84             6     2     3      6
+##   Morgan, Arthur (SF)       56     427          10      0           63            22     2     1     18
+##   Cowen, Brian (FF)         16     417          24      0           63             4     8     1     13
+##   Kenny, Enda (FG)          26     211           8      1           53            18     0     2      8
+## [ reached max_ndoc ... 8 more documents ]
+```
+
+You can also pass a dictionary to `dfm()` to simplify your code, but you cannot specify `levels` in this method.
 
 
 ```r
