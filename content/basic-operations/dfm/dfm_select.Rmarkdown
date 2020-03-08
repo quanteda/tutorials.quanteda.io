@@ -6,32 +6,33 @@ draft: false
 
 ```{r, message=FALSE}
 require(quanteda)
+options(width = 110)
 ```
 
 ```{r}
 dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-nfeat(dfmat_irish)
+print(dfmat_irish)
 ```
 
 You can select features from a DFM using `dfm_select()`.
 
 ```{r}
 dfmat_irish_nostop <- dfm_select(dfmat_irish, pattern = stopwords('en'), selection = 'remove')
-nfeat(dfmat_irish_nostop)
+print(dfmat_irish_nostop)
 ```
 
 `dfm_remove()` is an alias to `dfm_select(selection = 'remove')`. Therefore, the code above and below are equivalent.
 
 ```{r}
 dfmat_irish_nostop <- dfm_remove(dfmat_irish, pattern = stopwords('en'))
-nfeat(dfmat_irish_nostop)
+print(dfmat_irish_nostop)
 ```
 
 You can also select features based on the length of features. 
 
 ```{r}
 dfmat_irish_long <- dfm_select(dfmat_irish, min_nchar = 5)
-nfeat(dfmat_irish_long)
+print(dfmat_irish_long)
 topfeatures(dfmat_irish_long, 10)
 ```
 
@@ -39,12 +40,12 @@ While `dfm_select()` selects features based on patterns, `dfm_trim()` does this 
 
 ```{r}
 dfmat_irish_freq <- dfm_trim(dfmat_irish, min_termfreq = 10)
-nfeat(dfmat_irish_freq)
+print(dfmat_irish_freq)
 ```
 
 If `max_docfreq = 0.1`, features that occur in more than 10% of the documents are removed.
 
 ```{r}
 dfmat_irish_docfreq <- dfm_trim(dfmat_irish, max_docfreq = 0.1, docfreq_type = "prop")
-nfeat(dfmat_irish_docfreq)
+print(dfmat_irish_docfreq)
 ```

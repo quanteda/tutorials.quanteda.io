@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+options(width = 110)
 ```
 
 
@@ -23,28 +24,17 @@ head(kw_immig, 10)
 ```
 
 ```
-##                                                                  
-##    [BNP, 1]                                       | IMMIGRATION |
-##   [BNP, 16]                    SOLVE.- At current | immigration |
-##   [BNP, 78]                 a halt to all further | immigration |
-##   [BNP, 85]        the deportation of all illegal | immigrants  |
-##  [BNP, 169]          Britain, regardless of their | immigration |
-##  [BNP, 197] admission that they orchestrated mass | immigration |
-##  [BNP, 272]            grave peril, threatened by | immigration |
-##  [BNP, 374]                  ), legal Third World | immigrants  |
-##  [BNP, 531]        to second and third generation |  immigrant  |
-##  [BNP, 661]                     are added in, the |  immigrant  |
-##                                           
-##  : AN UNPARALLELED CRISIS WHICH           
-##  and birth rates, indigenous              
-##  , the deportation of all                 
-##  , a halt to the                          
-##  status.- The BNP                         
-##  to change forcibly Britain's demographics
-##  and multiculturalism. In the             
-##  made up 14.7 percent(                    
-##  mothers. Figures released by             
-##  birth rate is estimated to
+##                                                                                                            
+##    [BNP, 1]                                       | IMMIGRATION | : AN UNPARALLELED CRISIS WHICH           
+##   [BNP, 16]                    SOLVE.- At current | immigration | and birth rates, indigenous              
+##   [BNP, 78]                 a halt to all further | immigration | , the deportation of all                 
+##   [BNP, 85]        the deportation of all illegal | immigrants  | , a halt to the                          
+##  [BNP, 169]          Britain, regardless of their | immigration | status.- The BNP                         
+##  [BNP, 197] admission that they orchestrated mass | immigration | to change forcibly Britain's demographics
+##  [BNP, 272]            grave peril, threatened by | immigration | and multiculturalism. In the             
+##  [BNP, 374]                  ), legal Third World | immigrants  | made up 14.7 percent(                    
+##  [BNP, 531]        to second and third generation |  immigrant  | mothers. Figures released by             
+##  [BNP, 661]                     are added in, the |  immigrant  | birth rate is estimated to
 ```
 
 `kwic()` also takes multiple keywords in a character vector.
@@ -56,28 +46,17 @@ head(kw_immig2, 10)
 ```
 
 ```
-##                                                                  
-##    [BNP, 1]                                       | IMMIGRATION |
-##   [BNP, 16]                    SOLVE.- At current | immigration |
-##   [BNP, 78]                 a halt to all further | immigration |
-##   [BNP, 85]        the deportation of all illegal | immigrants  |
-##  [BNP, 169]          Britain, regardless of their | immigration |
-##  [BNP, 197] admission that they orchestrated mass | immigration |
-##  [BNP, 272]            grave peril, threatened by | immigration |
-##  [BNP, 374]                  ), legal Third World | immigrants  |
-##  [BNP, 531]        to second and third generation |  immigrant  |
-##  [BNP, 661]                     are added in, the |  immigrant  |
-##                                           
-##  : AN UNPARALLELED CRISIS WHICH           
-##  and birth rates, indigenous              
-##  , the deportation of all                 
-##  , a halt to the                          
-##  status.- The BNP                         
-##  to change forcibly Britain's demographics
-##  and multiculturalism. In the             
-##  made up 14.7 percent(                    
-##  mothers. Figures released by             
-##  birth rate is estimated to
+##                                                                                                            
+##    [BNP, 1]                                       | IMMIGRATION | : AN UNPARALLELED CRISIS WHICH           
+##   [BNP, 16]                    SOLVE.- At current | immigration | and birth rates, indigenous              
+##   [BNP, 78]                 a halt to all further | immigration | , the deportation of all                 
+##   [BNP, 85]        the deportation of all illegal | immigrants  | , a halt to the                          
+##  [BNP, 169]          Britain, regardless of their | immigration | status.- The BNP                         
+##  [BNP, 197] admission that they orchestrated mass | immigration | to change forcibly Britain's demographics
+##  [BNP, 272]            grave peril, threatened by | immigration | and multiculturalism. In the             
+##  [BNP, 374]                  ), legal Third World | immigrants  | made up 14.7 percent(                    
+##  [BNP, 531]        to second and third generation |  immigrant  | mothers. Figures released by             
+##  [BNP, 661]                     are added in, the |  immigrant  | birth rate is estimated to
 ```
 
 With the `window` argument, you can specify the number of words to be displayed around the keyword.
@@ -122,20 +101,13 @@ head(kw_asylum)
 ```
 
 ```
-##                                                                      
-##  [BNP, 1958:1959] all illegal immigrants and bogus | asylum seekers |
-##  [BNP, 2159:2160]            region concerned. An' | asylum seeker  |
-##  [BNP, 2192:2193]          country. Because every' | asylum seeker  |
-##  [BNP, 2218:2219]     there are currently no legal | asylum seekers |
-##  [BNP, 2265:2266]  of illegal immigrants and bogus | asylum seekers |
-##  [BNP, 2296:2297]  benefits system for these bogus | asylum seekers |
-##                               
-##  , including their dependents.
-##  ' who has crossed dozens     
-##  ' in Britain has crossed     
-##  in Britain today. It         
-##  , that there are no          
-##  is removed, the flood
+##                                                                                                    
+##  [BNP, 1958:1959] all illegal immigrants and bogus | asylum seekers | , including their dependents.
+##  [BNP, 2159:2160]            region concerned. An' | asylum seeker  | ' who has crossed dozens     
+##  [BNP, 2192:2193]          country. Because every' | asylum seeker  | ' in Britain has crossed     
+##  [BNP, 2218:2219]     there are currently no legal | asylum seekers | in Britain today. It         
+##  [BNP, 2265:2266]  of illegal immigrants and bogus | asylum seekers | , that there are no          
+##  [BNP, 2296:2297]  benefits system for these bogus | asylum seekers | is removed, the flood
 ```
 
 Texts do not always appear nicely in your R console, so you can use `View()` to see the keywords-in-context in an interactive HTML table.

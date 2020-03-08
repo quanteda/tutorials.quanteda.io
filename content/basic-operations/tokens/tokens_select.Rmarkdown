@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+options(width = 110)
 ```
 
 ```{r}
@@ -16,35 +17,35 @@ You can remove tokens that you are not interested in using `tokens_select()`. Us
 
 ```{r}
 toks_nostop <- tokens_select(toks, pattern = stopwords('en'), selection = 'remove')
-head(toks_nostop[[1]], 50)
+print(toks_nostop)
 ```
 
 `tokens_remove()` is an alias to `tokens_select(selection = 'remove')`. Therefore, the code above and below are equivalent.
 
 ```{r}
-tooks_nostop2 <- tokens_remove(toks, pattern = stopwords('en'))
-head(tooks_nostop2[[1]], 50)
+toks_nostop2 <- tokens_remove(toks, pattern = stopwords('en'))
+print(toks_nostop2)
 ```
 
 Removal of tokens changes the lengths of documents, but they remain the same if you set `padding = TRUE`. This option is useful especially when you perform positional analysis.
 
 ```{r}
 toks_nostop_pad <- tokens_remove(toks, pattern = stopwords('en'), padding = TRUE)
-head(toks_nostop_pad[[1]], 50)
+print(toks_nostop_pad)
 ```
 
 If you are only interested in certain words, you can keep these and remove others.
 
 ```{r}
 toks_immig <- tokens_select(toks, pattern = c('immig*', 'migra*'), padding = TRUE)
-head(toks_immig[[1]], 50)
+print(toks_immig)
 ```
 
 If you want to analyze words that appear around keywords, use the `window` argument.
 
 ```{r}
 toks_immig_window <- tokens_select(toks, pattern = c('immig*', 'migra*'), padding = TRUE, window = 5)
-head(toks_immig_window[[1]], 50)
+print(toks_immig_window)
 ```
 
 {{% notice tip %}}
