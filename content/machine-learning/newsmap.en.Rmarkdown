@@ -49,8 +49,8 @@ agency <- c('AP', 'AFP', 'Reuters')
 
 ```{r}
 toks_news <- tokens(corp_news)
-toks_news_small <- tokens_remove(toks_news, pattern = stopwords('english'), valuetype = 'fixed', padding = TRUE)
-toks_news_small <- tokens_remove(toks_news_small, pattern = c(month, day, agency), valuetype = 'fixed', padding = TRUE)
+toks_news_small <- tokens_remove(toks_news, pattern = stopwords('english'), valuetype = 'fixed', padding = TRUE) %>% 
+                   tokens_remove(pattern = c(month, day, agency), valuetype = 'fixed', padding = TRUE)
 ```
 
 **newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
@@ -60,10 +60,11 @@ toks_label <- tokens_lookup(toks_news_small, dictionary = data_dictionary_newsma
 dfmat_label <- dfm(toks_label, tolower = FALSE)
 
 dfmat_feat <- dfm(toks_news_small, tolower = FALSE)
-dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', case_insensitive = FALSE)
-dfmat_feat_select_trim <- dfm_trim(dfmat_feat_select, min_termfreq = 10)
+dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', 
+                                case_insensitive = FALSE) %>% 
+                     dfm_trim(min_termfreq = 10)
 
-tmod_nm <- textmodel_newsmap(dfmat_feat_select_trim, y = dfmat_label)
+tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)
 ```
 
 The seed dictionary contains only names of countries and capital cities, but the model additional extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).

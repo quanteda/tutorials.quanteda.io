@@ -8,7 +8,8 @@ themesdir = "./themes"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-
+PygmentsCodeFences = false
+min_version = 0.25
 
 [params]
   editURL = "https://github.com/quanteda/tutorials.quanteda.io/tree/master/content/"
@@ -27,7 +28,7 @@ weight = 1
 languageName = "English"
 
 [[Languages.en.menu.shortcuts]]
-name = "<i class='fa fa-github'></i> Github repo"
+name = "<i class='fab fa-github'></i> Github repo"
 identifier = "ds"
 url = "https://github.com/quanteda/tutorials.quanteda.io/"
 weight = 10

@@ -9,6 +9,7 @@ Wordscores is a scaling model for estimating the positions (mostly of political 
 
 ```r
 require(quanteda)
+require(quanteda.textmodels)
 require(quanteda.corpora)
 ```
 
@@ -29,25 +30,21 @@ summary(corp_ger)
 ```
 
 ```
-## Corpus consisting of 12 documents:
+## Corpus consisting of 12 documents, showing 12 documents:
 ## 
 ##          Text Types Tokens Sentences year   party ref_score
-##      AfD 2013   450    951        43 2013     AfD        NA
-##  CDU-CSU 2013  7546  46771      2526 2013 CDU-CSU      5.92
-##      FDP 2013  7909  42488      2376 2013     FDP      6.53
-##   Gruene 2013 13722  94065      5134 2013  Gruene      3.61
-##    Linke 2013  8370  43695      1852 2013   Linke      1.23
-##      SPD 2013  8298  47634      2536 2013     SPD      3.76
-##      AfD 2017  5860  19461       725 2017     AfD        NA
-##  CDU-CSU 2017  4827  22003      1256 2017 CDU-CSU        NA
-##      FDP 2017  8563  38738      1928 2017     FDP        NA
-##   Gruene 2017 13064  75390      3221 2017  Gruene        NA
-##    Linke 2017 11570  67808      2757 2017   Linke        NA
-##      SPD 2017  8283  43028      2403 2017     SPD        NA
-## 
-## Source: /Users/stefan/Desktop/german_manifestos/* on x86_64 by stefan
-## Created: Sun Jan 28 13:54:30 2018
-## Notes:
+##      AfD 2013   450    944        43 2013     AfD        NA
+##  CDU-CSU 2013  7615  46535      2526 2013 CDU-CSU      5.92
+##      FDP 2013  7953  42298      2376 2013     FDP      6.53
+##   Gruene 2013 13839  93595      5134 2013  Gruene      3.61
+##    Linke 2013  8451  43382      1852 2013   Linke      1.23
+##      SPD 2013  8360  47348      2536 2013     SPD      3.76
+##      AfD 2017  5947  18754       725 2017     AfD        NA
+##  CDU-CSU 2017  4890  21510      1256 2017 CDU-CSU        NA
+##      FDP 2017  8676  37609      1928 2017     FDP        NA
+##   Gruene 2017 13353  72645      3221 2017  Gruene        NA
+##    Linke 2017 11830  65728      2757 2017   Linke        NA
+##      SPD 2017  8400  41938      2403 2017     SPD        NA
 ```
 
 Now we can apply the Wordscores algorithm to a document-feature matrix.
@@ -55,53 +52,53 @@ Now we can apply the Wordscores algorithm to a document-feature matrix.
 
 ```r
 dfmat_ger <- dfm(corp_ger, remove = stopwords("de"), remove_punct = TRUE)
-tmod_ws <- textmodel_wordscores(dfmat_ger, y = docvars(corp_ger, "ref_score"), smooth = 1)
+tmod_ws <- textmodel_wordscores(dfmat_ger, y = corp_ger$ref_score, smooth = 1)
 summary(tmod_ws)
 ```
 
 ```
 ## 
 ## Call:
-## textmodel_wordscores.dfm(x = dfmat_ger, y = docvars(corp_ger, 
-##     "ref_score"), smooth = 1)
+## textmodel_wordscores.dfm(x = dfmat_ger, y = corp_ger$ref_score, 
+##     smooth = 1)
 ## 
 ## Reference Document Statistics:
 ##              score total min  max    mean median
-## AfD 2013        NA   455   0   23 0.01121      0
-## CDU-CSU 2013  5.92 23054   0  245 0.56792      0
-## FDP 2013      6.53 20593   0  187 0.50729      0
-## Gruene 2013   3.61 45749   0  398 1.12699      0
-## Linke 2013    1.23 21001   0  234 0.51734      0
-## SPD 2013      3.76 23142   0  214 0.57008      0
-## AfD 2017        NA  9850   0  108 0.24265      0
-## CDU-CSU 2017    NA 10711   0  136 0.26386      0
-## FDP 2017        NA 19291   0  261 0.47522      0
-## Gruene 2017     NA 40689   0 1100 1.00234      0
-## Linke 2017      NA 33243   0  788 0.81891      0
-## SPD 2017        NA 20765   0  186 0.51153      0
+## AfD 2013        NA   455   0   23 0.01093      0
+## CDU-CSU 2013  5.92 23060   0  245 0.55373      0
+## FDP 2013      6.53 20603   0  186 0.49473      0
+## Gruene 2013   3.61 45759   0  398 1.09879      0
+## Linke 2013    1.23 21011   0  234 0.50453      0
+## SPD 2013      3.76 23150   0  214 0.55589      0
+## AfD 2017        NA  9899   0  108 0.23770      0
+## CDU-CSU 2017    NA 10753   0  136 0.25821      0
+## FDP 2017        NA 19358   0  261 0.46483      0
+## Gruene 2017     NA 40982   0 1086 0.98408      0
+## Linke 2017      NA 33347   0  788 0.80074      0
+## SPD 2017        NA 20836   0  186 0.50032      0
 ## 
 ## Wordscores:
 ## (showing first 30 elements)
 ##           alternative           deutschland          wahlprogramm 
-##                 3.290                 4.742                 3.296 
+##                 3.291                 4.741                 3.296 
 ##       währungspolitik               fordern             geordnete 
-##                 4.531                 3.255                 4.242 
+##                 4.530                 3.255                 4.241 
 ##             auflösung euro-währungsgebietes               braucht 
-##                 3.336                 4.242                 4.155 
+##                 3.337                 4.241                 4.153 
 ##                  euro               ländern               schadet 
-##                 3.333                 4.228                 3.912 
+##                 3.329                 4.227                 3.912 
 ##      wiedereinführung            nationaler             währungen 
-##                 4.466                 4.579                 4.242 
+##                 4.464                 4.578                 4.241 
 ##             schaffung             kleinerer            stabilerer 
-##                 4.290                 4.427                 4.242 
+##                 4.289                 4.426                 4.241 
 ##      währungsverbünde                    dm                  darf 
-##                 4.242                 4.242                 3.871 
+##                 4.241                 4.241                 3.871 
 ##                  tabu              änderung          europäischen 
-##                 4.159                 4.227                 4.360 
+##                 4.159                 4.227                 4.359 
 ##              verträge                 staat           ausscheiden 
-##                 3.553                 4.794                 3.698 
+##                 3.553                 4.792                 3.698 
 ##           ermöglichen                  volk          demokratisch 
-##                 4.356                 4.242                 2.271
+##                 4.355                 4.241                 2.271
 ```
 
 Next, we predict the Wordscores for the unknown virgin texts.

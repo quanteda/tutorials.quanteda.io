@@ -43,7 +43,7 @@ ndoc(corp_news)
 ```
 
 ```r
-range(docvars(corp_news, "date"))
+range(corp_news$date)
 ```
 
 ```
@@ -63,8 +63,8 @@ agency <- c('AP', 'AFP', 'Reuters')
 
 ```r
 toks_news <- tokens(corp_news)
-toks_news_small <- tokens_remove(toks_news, pattern = stopwords('english'), valuetype = 'fixed', padding = TRUE)
-toks_news_small <- tokens_remove(toks_news_small, pattern = c(month, day, agency), valuetype = 'fixed', padding = TRUE)
+toks_news_small <- tokens_remove(toks_news, pattern = stopwords('english'), valuetype = 'fixed', padding = TRUE) %>% 
+                   tokens_remove(pattern = c(month, day, agency), valuetype = 'fixed', padding = TRUE)
 ```
 
 **newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
@@ -75,10 +75,11 @@ toks_label <- tokens_lookup(toks_news_small, dictionary = data_dictionary_newsma
 dfmat_label <- dfm(toks_label, tolower = FALSE)
 
 dfmat_feat <- dfm(toks_news_small, tolower = FALSE)
-dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', case_insensitive = FALSE)
-dfmat_feat_select_trim <- dfm_trim(dfmat_feat_select, min_termfreq = 10)
+dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', 
+                                case_insensitive = FALSE) %>% 
+                     dfm_trim(min_termfreq = 10)
 
-tmod_nm <- textmodel_newsmap(dfmat_feat_select_trim, y = dfmat_label)
+tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)
 ```
 
 The seed dictionary contains only names of countries and capital cities, but the model additional extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -90,34 +91,34 @@ coef(tmod_nm, n = 10)[c("US", "GB", "FR", "BR", "JP")]
 
 ```
 ## $US
-## WASHINGTON         US   American Washington       YORK     States 
-##   7.153905   7.036452   6.829497   6.605441   6.369661   6.054237 
-##  Americans       York Brunnstrom      Kirby 
-##   5.359504   4.992954   3.781319   3.701276 
+## WASHINGTON         US   American Washington       YORK     States  Americans 
+##   7.154365   7.036912   6.829957   6.605901   6.370121   6.054697   5.359964 
+##       York Brunnstrom      Kirby 
+##   4.993414   3.781779   3.701736 
 ## 
 ## $GB
-##   British    LONDON    London   Britain Britain's        UK      UKIP 
-##  7.878120  7.848022  7.564036  7.265223  6.671448  5.488278  4.906357 
-##   Kingdom     Tesco     Hamza 
-##  4.775328  4.446824  4.359813 
+##   British    LONDON    London   Britain Britain's        UK      UKIP   Kingdom 
+##  7.877779  7.847681  7.563696  7.264882  6.671107  5.487937  4.906016  4.774988 
+##     Tesco     Hamza 
+##  4.446484  4.359472 
 ## 
 ## $FR
 ##        French        France         PARIS         Paris      Hollande 
-##      8.185413      8.091340      7.543559      7.305600      6.534895 
+##      8.185087      8.091015      7.543233      7.305275      6.534569 
 ##    Hollande's        Fabius         Valls      Francois Saint-Germain 
-##      5.403493      5.298132      5.298132      5.279440      4.972710 
+##      5.403167      5.297807      5.297807      5.279115      4.972384 
 ## 
 ## $BR
-##    Brazil       SAO     PAULO       RIO   JANEIRO Brazilian       Rio 
-##  8.175273  7.261726  7.247932  7.048804  7.048804  6.996618  6.922510 
-##        DE   Janeiro       Sao 
-##  6.355656  6.303471  5.966998 
+##    Brazil       SAO     PAULO       RIO   JANEIRO Brazilian       Rio        DE 
+##  8.175207  7.261659  7.247866  7.048737  7.048737  6.996552  6.922444  6.355590 
+##   Janeiro       Sao 
+##  6.303404  5.966932 
 ## 
 ## $JP
-##     Japan  Japanese     TOKYO       Abe     Tokyo    Shinzo     Abe's 
-##  8.191764  7.895498  7.762951  7.061899  6.961815  6.789965  5.809136 
-##   Tokyo's Fukushima   Japan's 
-##  5.316659  5.170056  4.389616
+##     Japan  Japanese     TOKYO       Abe     Tokyo    Shinzo     Abe's   Tokyo's 
+##  8.167129  7.896838  7.764292  7.063239  6.963156  6.791306  5.810476  5.318000 
+## Fukushima   Japan's 
+##  5.171397  4.390956
 ```
 
 {{% notice tip %}}
@@ -133,10 +134,10 @@ head(pred_nm, 20)
 ```
 
 ```
-##  text1  text2  text3  text4  text5  text6  text7  text8  text9 text10 
-##   "KP"   "SY"   "IQ"   "RU"   "TH"   "CN"   "UA"   "SY"   "GB"   "US" 
-## text11 text12 text13 text14 text15 text16 text17 text18 text19 text20 
-##   "SY"   "US"   "UA"   "SY"   "LK"   "ES"   "AU"   "CR"   "ID"   "BH"
+##  text1  text2  text3  text4  text5  text6  text7  text8  text9 text10 text11 
+##   "KP"   "SY"   "IQ"   "RU"   "TH"   "CN"   "UA"   "SY"   "GB"   "US"   "SY" 
+## text12 text13 text14 text15 text16 text17 text18 text19 text20 
+##   "US"   "UA"   "SY"   "LK"   "ES"   "AU"   "CR"   "ID"   "BH"
 ```
 
 Factor levels are set to obtain zero counts for countries that did not appear in the corpus.
@@ -149,10 +150,8 @@ head(count, 20)
 
 ```
 ## 
-##  GB  US  RU  UA  AU  CN  CA  FR  IQ  BR  SY  DE  ZA  NZ  JP  IL  IN  ES 
-## 622 578 516 439 367 363 319 312 295 278 260 251 237 227 197 197 187 182 
-##  EG  PS 
-## 157 155
+##  GB  US  RU  UA  AU  CN  CA  FR  IQ  BR  SY  DE  ZA  NZ  JP  IL  IN  ES  EG  PS 
+## 621 578 516 439 367 362 319 312 295 278 260 251 236 227 198 197 187 182 157 155
 ```
 
 You can visualize the distribution of global news attention using `geom_map()`.

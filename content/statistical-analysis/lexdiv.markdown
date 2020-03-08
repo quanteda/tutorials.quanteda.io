@@ -22,18 +22,18 @@ tail(tstat_lexdiv, 5)
 
 ```
 ##      document       TTR
-## 54  2001-Bush 0.6424010
+## 54  2001-Bush 0.6436782
 ## 55  2005-Bush 0.6176753
 ## 56 2009-Obama 0.6828645
-## 57 2013-Obama 0.6605238
-## 58 2017-Trump 0.6409537
+## 57 2013-Obama 0.6608527
+## 58 2017-Trump 0.6414566
 ```
 
 
 ```r
 plot(tstat_lexdiv$TTR, type = 'l', xaxt = 'n', xlab = NULL, ylab = "TTR")
 grid()
-axis(1, at = seq_len(nrow(tstat_lexdiv)), labels = docvars(dfmat_inaug, 'President'))
+axis(1, at = seq_len(nrow(tstat_lexdiv)), labels = dfmat_inaug$President)
 ```
 
 <img src="/statistical-analysis/lexdiv_files/figure-html/unnamed-chunk-3-1.png" width="672" />

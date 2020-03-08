@@ -36,26 +36,26 @@ head(tstat_col_caps, 20)
 
 ```
 ##           collocation count count_nested length    lambda         z
-## 1       david cameron   861            0      2  8.159404 147.28035
-## 2        donald trump   774            0      2  8.327022 122.69670
-## 3      george osborne   364            0      2  8.660851 107.62169
-## 4     hillary clinton   527            0      2  9.106770 102.39787
-## 5            new york  1016            0      2 10.447921 100.26711
-## 6       islamic state   330            0      2  9.802254  98.14615
-## 7         white house   479            0      2  9.922039  96.17660
-## 8      european union   351            0      2  8.261630  94.76272
-## 9       jeremy corbyn   244            0      2  8.729600  90.79495
-## 10      boris johnson   245            0      2  9.664232  84.76851
-## 11     bernie sanders   394            0      2  9.901473  84.61829
-## 12 guardian australia   237            0      2  6.327400  83.68386
-## 13   northern ireland   205            0      2  9.883259  83.25818
-## 14        home office   216            0      2  9.681956  78.79434
-## 15        ed miliband   174            0      2  9.868134  78.44901
-## 16           ted cruz   417            0      2 10.756440  77.87898
-## 17       barack obama   344            0      2  9.775376  77.72772
-## 18       south africa   172            0      2  7.568725  77.61284
-## 19     south carolina   271            0      2  9.404828  76.80195
-## 20       black friday   190            0      2  8.459065  76.80004
+## 1       david cameron   861            0      2  8.186204 147.76424
+## 2        donald trump   774            0      2  8.353825 123.09172
+## 3      george osborne   364            0      2  8.687642 107.95464
+## 4     hillary clinton   526            0      2  9.125667 102.77227
+## 5            new york  1016            0      2 10.474717 100.52429
+## 6       islamic state   330            0      2  9.829042  98.41439
+## 7         white house   478            0      2  9.938211  96.55956
+## 8      european union   351            0      2  8.288426  95.07011
+## 9       jeremy corbyn   244            0      2  8.756390  91.07361
+## 10      boris johnson   245            0      2  9.691020  85.00349
+## 11     bernie sanders   394            0      2  9.938365  84.61889
+## 12 guardian australia   237            0      2  6.354201  84.03836
+## 13   northern ireland   204            0      2  9.895964  83.42198
+## 14        home office   216            0      2  9.717364  78.88860
+## 15        ed miliband   174            0      2  9.894920  78.66196
+## 16           ted cruz   417            0      2 10.783229  78.07295
+## 17       barack obama   344            0      2  9.802167  77.94076
+## 18       south africa   172            0      2  7.595517  77.88760
+## 19       black friday   190            0      2  8.485856  77.04329
+## 20     south carolina   271            0      2  9.431619  77.02074
 ```
 
 You can also discover collocations larger than two words.
@@ -71,12 +71,9 @@ head(tstat_col2, 20)
 ```
 
 ```
-##                   collocation count count_nested length     lambda
-## 1 international monetary fund   101            0      3  2.2425556
-## 2              new york times   128            0      3 -0.5072603
-##            z
-## 1  1.0791468
-## 2 -0.3338532
+##                   collocation count count_nested length     lambda          z
+## 1 international monetary fund   101            0      3  2.2157340  1.0662399
+## 2              new york times   128            0      3 -0.5340926 -0.3515129
 ```
 
 {{% notice tip %}}

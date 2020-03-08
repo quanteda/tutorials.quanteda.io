@@ -59,7 +59,7 @@ dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))
 Let's inspect how well the classification worked.
 
 ```{r}
-actual_class <- dfmat_matched$Sentiment"
+actual_class <- dfmat_matched$Sentiment
 predicted_class <- predict(tmod_nb, newdata = dfmat_matched)
 tab_class <- table(actual_class, predicted_class)
 tab_class
