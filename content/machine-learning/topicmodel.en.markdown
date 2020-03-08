@@ -62,45 +62,45 @@ terms(lda, 10)
 ```
 
 ```
-##       Topic 1         Topic 2      Topic 3         Topic 4   Topic 5     
-##  [1,] "climate"       "australia"  "officers"      "game"    "mps"       
-##  [2,] "energy"        "australian" "investigation" "music"   "referendum"
-##  [3,] "water"         "budget"     "justice"       "friends" "corbyn"    
-##  [4,] "food"          "cuts"       "officer"       "town"    "tory"      
-##  [5,] "development"   "labor"      "prison"        "games"   "mp"        
-##  [6,] "gas"           "funding"    "arrested"      "film"    "johnson"   
-##  [7,] "emissions"     "osborne"    "trial"         "road"    "scottish"  
-##  [8,] "project"       "spending"   "allegations"   "park"    "voters"    
-##  [9,] "environmental" "turnbull"   "criminal"      "airport" "brexit"    
-## [10,] "environment"   "changes"    "inquiry"       "space"   "2016"      
-##       Topic 6     Topic 7     Topic 8    Topic 9        Topic 10   
-##  [1,] "nhs"       "child"     "syria"    "trump"        "markets"  
-##  [2,] "customers" "education" "military" "clinton"      "prices"   
-##  [3,] "online"    "parents"   "refugees" "republican"   "rate"     
-##  [4,] "data"      "violence"  "isis"     "sanders"      "shares"   
-##  [5,] "sales"     "students"  "attacks"  "obama"        "oil"      
-##  [6,] "patients"  "schools"   "russian"  "donald"       "rates"    
-##  [7,] "users"     "mental"    "syrian"   "cruz"         "banks"    
-##  [8,] "buy"       "church"    "forces"   "presidential" "investors"
-##  [9,] "google"    "girls"     "russia"   "2016"         "quarter"  
-## [10,] "apple"     "society"   "islamic"  "hillary"      "euro"
+##       Topic 1     Topic 2    Topic 3     Topic 4    Topic 5        
+##  [1,] "prices"    "mps"      "water"     "syria"    "officers"     
+##  [2,] "rate"      "corbyn"   "game"      "military" "investigation"
+##  [3,] "oil"       "tory"     "music"     "refugees" "justice"      
+##  [4,] "markets"   "osborne"  "games"     "isis"     "officer"      
+##  [5,] "rates"     "mp"       "friends"   "russian"  "prison"       
+##  [6,] "shares"    "shadow"   "town"      "syrian"   "abuse"        
+##  [7,] "sales"     "scotland" "park"      "forces"   "trial"        
+##  [8,] "banks"     "cuts"     "space"     "attacks"  "victims"      
+##  [9,] "investors" "scottish" "film"      "russia"   "sexual"       
+## [10,] "quarter"   "voters"   "residents" "islamic"  "arrested"     
+##       Topic 6        Topic 7     Topic 8       Topic 9      Topic 10     
+##  [1,] "trump"        "customers" "australia"   "french"     "climate"    
+##  [2,] "clinton"      "online"    "australian"  "brussels"   "energy"     
+##  [3,] "republican"   "account"   "labor"       "2016"       "food"       
+##  [4,] "sanders"      "firm"      "turnbull"    "greece"     "development"
+##  [5,] "obama"        "data"      "education"   "paris"      "nhs"        
+##  [6,] "donald"       "stores"    "senate"      "february"   "doctors"    
+##  [7,] "cruz"         "website"   "federal"     "brexit"     "patients"   
+##  [8,] "presidential" "sales"     "schools"     "talks"      "data"       
+##  [9,] "2016"         "buy"       "aest"        "referendum" "gas"        
+## [10,] "hillary"      "deals"     "immigration" "france"     "emissions"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
 
 
 ```r
-docvars(dfmat_news, 'topic') <- topics(lda)
+dfmat_news$topic <- topics(lda)
 head(topics(lda), 20)
 ```
 
 ```
 ## text136751 text118588  text45146  text93623 text136585  text65682 text107174 
-##          1          4         10          2          5          3          6 
+##         10          3          1          8          9          5          7 
 ##  text22792  text32425 text139163 text169133  text90312 text153451  text31104 
-##          3          8          6          4          1          3          5 
+##          5          4          7          5          8          5          2 
 ## text163885  text81309 text157885  text99128 text173244  text27905 
-##          1         10          4          4          1          8
+##         10          1          3          3          7          4
 ```
 
 {{% notice info %}}

@@ -21,9 +21,9 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
 ```{r}
-docvars(corp_news, 'year') <- year(docvars(corp_news, 'date'))
-docvars(corp_news, 'month') <- month(docvars(corp_news, 'date'))
-docvars(corp_news, 'week') <- week(docvars(corp_news, 'date'))
+corp_news$year <- year(corp_news$date)
+corp_news$month <- month(corp_news$date)
+corp_news$week <- week(corp_news$date)
 
 corp_news <- corpus_subset(corp_news, 'year' >= 2016)
 toks_news <- tokens(corp_news, remove_punct = TRUE)
@@ -60,7 +60,7 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 ```
 
 ```{r}
-n_eu <- ntoken(dfm(toks_eu, group = docvars(toks_eu, 'week')))
+n_eu <- ntoken(dfm(toks_eu, group = toks_eu$week))
 plot((dfmat_eu_lsd[,2] - dfmat_eu_lsd[,1]) / n_eu, 
      type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
 axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
@@ -83,7 +83,7 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 ```
 
 ```{r}
-n_immig <- ntoken(dfm(toks_immig, group = docvars(toks_immig, 'week')))
+n_immig <- ntoken(dfm(toks_immig, group = toks_immig$week))
 plot((dfmat_immig_lsd[,2] - dfmat_immig_lsd[,1]) / n_immig, 
      type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
 axis(1, seq_len(ndoc(dfmat_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_immig_lsd)) - 1))

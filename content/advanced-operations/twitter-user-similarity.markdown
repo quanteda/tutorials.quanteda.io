@@ -29,7 +29,7 @@ Construct a document-feature matrix removing tags and links.
 
 ```r
 dfmat_tweets <- dfm(corp_tweets,
-                 remove_punct = TRUE, remove_url = TRUE,
+                 remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE,
                  remove = c('*.tt', '*.uk', '*.com', 'rt', '#*', '@*')) %>% 
              dfm_remove(stopwords('en'))
 
@@ -45,10 +45,10 @@ topfeatures(dfmat_tweets)
 ```
 
 ```
-##          vote conservatives             ↓        labour         today 
-##          1873           953           792           757           674 
-##         share       britain          find        fairer        voting 
-##           648           639           615           571           570
+##          vote conservatives        labour         today         share 
+##          1873           953           757           674           648 
+##       britain          find        fairer        voting      tomorrow 
+##           639           615           571           570           564
 ```
 
 Group documents by usernames.

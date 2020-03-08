@@ -28,7 +28,7 @@ textplot_scale1d(tmod_wf)
 The function also allows to plot scores by a grouping variable, in this case the party affiliation of the speakers.
 
 ```{r}
-textplot_scale1d(tmod_wf, groups = docvars(dfmat_irish, "party"))
+textplot_scale1d(tmod_wf, groups = dfmat_irish$party)
 ```
 
 Finally, we can plot the estimated word positions and highlight certain features.

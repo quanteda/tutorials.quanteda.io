@@ -57,30 +57,29 @@ head(id_train, 10)
 
 ```r
 # create docvar with ID
-docvars(corp_movies, "id_numeric") <- 1:ndoc(corp_movies)
+corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
 # get training set
 dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-    dfm(stem = TRUE)
+    dfm(remove = stopwords("english"), stem = TRUE)
 
 # get test set (documents not in id_train)
 dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-    dfm(stem = TRUE)
+    dfm(remove = stopwords("english"), stem = TRUE)
 ```
 
 Next we train the naive Bayes classifier using `textmodel_nb()`.
 
 
 ```r
-tmod_nb <- textmodel_nb(dfmat_training, docvars(dfmat_training, "Sentiment"))
+tmod_nb <- textmodel_nb(dfmat_training, dfmat_training$Sentiment)
 summary(tmod_nb)
 ```
 
 ```
 ## 
 ## Call:
-## textmodel_nb.dfm(x = dfmat_training, y = docvars(dfmat_training, 
-##     "Sentiment"))
+## textmodel_nb.dfm(x = dfmat_training, y = dfmat_training$Sentiment)
 ## 
 ## Class Priors:
 ## (showing first 2 elements)
@@ -88,15 +87,15 @@ summary(tmod_nb)
 ## 0.5 0.5 
 ## 
 ## Estimated Feature Scores:
-##        the  happi bastard  quick   movi review  damn   that    y2k    bug
-## neg 0.4821 0.3864  0.3492 0.5218 0.5682 0.5199 0.575 0.5198 0.6903 0.5089
-## pos 0.5179 0.6136  0.6508 0.4782 0.4318 0.4801 0.425 0.4802 0.3097 0.4911
-##          .     it    got      a   head  start     in   this   star   jami
-## neg 0.5151 0.5026 0.6071 0.4949 0.5322 0.5636 0.4878 0.5355 0.5111 0.5563
-## pos 0.4849 0.4974 0.3929 0.5051 0.4678 0.4364 0.5122 0.4645 0.4889 0.4437
-##        lee  curti    and  anoth baldwin brother      ( william   time      )
-## neg 0.5245 0.3864 0.4656 0.5342  0.5759  0.5593 0.5083  0.4777 0.5031 0.5125
-## pos 0.4755 0.6136 0.5344 0.4658  0.4241  0.4407 0.4917  0.5223 0.4969 0.4875
+##      happi bastard  quick   movi review   damn    y2k    bug      .    got
+## neg 0.3859  0.3486 0.5211 0.5676 0.5192 0.5744 0.6898 0.5083 0.5144 0.6065
+## pos 0.6141  0.6514 0.4789 0.4324 0.4808 0.4256 0.3102 0.4917 0.4856 0.3935
+##       head start   star   jami    lee  curti  anoth baldwin brother      (
+## neg 0.5315 0.563 0.5105 0.5557 0.5239 0.3859 0.5336  0.5753  0.5587 0.5077
+## pos 0.4685 0.437 0.4895 0.4443 0.4761 0.6141 0.4664  0.4247  0.4413 0.4923
+##     william   time      )  stori regard   crew tugboat   come across desert
+## neg  0.4771 0.5025 0.5118 0.4373 0.2765 0.5808  0.6898 0.5147 0.5105 0.4086
+## pos  0.5229 0.4975 0.4882 0.5627 0.7235 0.4192  0.3102 0.4853 0.4895 0.5914
 ```
 
 
@@ -111,7 +110,7 @@ Let's inspect how well the classification worked.
 
 
 ```r
-actual_class <- docvars(dfmat_matched, "Sentiment")
+actual_class <- dfmat_matched$Sentiment
 predicted_class <- predict(tmod_nb, newdata = dfmat_matched)
 tab_class <- table(actual_class, predicted_class)
 tab_class
@@ -120,8 +119,8 @@ tab_class
 ```
 ##             predicted_class
 ## actual_class neg pos
-##          neg 208  50
-##          pos  37 205
+##          neg 212  46
+##          pos  36 206
 ```
 
 From the cross-table we see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or underestimate one class.
@@ -138,29 +137,29 @@ confusionMatrix(tab_class, mode = "everything")
 ## 
 ##             predicted_class
 ## actual_class neg pos
-##          neg 208  50
-##          pos  37 205
+##          neg 212  46
+##          pos  36 206
 ##                                           
-##                Accuracy : 0.826           
-##                  95% CI : (0.7899, 0.8582)
-##     No Information Rate : 0.51            
+##                Accuracy : 0.836           
+##                  95% CI : (0.8006, 0.8674)
+##     No Information Rate : 0.504           
 ##     P-Value [Acc > NIR] : <2e-16          
 ##                                           
-##                   Kappa : 0.6522          
+##                   Kappa : 0.6721          
 ##                                           
-##  Mcnemar's Test P-Value : 0.1983          
+##  Mcnemar's Test P-Value : 0.3203          
 ##                                           
-##             Sensitivity : 0.8490          
-##             Specificity : 0.8039          
-##          Pos Pred Value : 0.8062          
-##          Neg Pred Value : 0.8471          
-##               Precision : 0.8062          
-##                  Recall : 0.8490          
-##                      F1 : 0.8270          
-##              Prevalence : 0.4900          
-##          Detection Rate : 0.4160          
+##             Sensitivity : 0.8548          
+##             Specificity : 0.8175          
+##          Pos Pred Value : 0.8217          
+##          Neg Pred Value : 0.8512          
+##               Precision : 0.8217          
+##                  Recall : 0.8548          
+##                      F1 : 0.8379          
+##              Prevalence : 0.4960          
+##          Detection Rate : 0.4240          
 ##    Detection Prevalence : 0.5160          
-##       Balanced Accuracy : 0.8265          
+##       Balanced Accuracy : 0.8361          
 ##                                           
 ##        'Positive' Class : neg             
 ## 

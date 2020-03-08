@@ -30,9 +30,7 @@ toks_news <- tokens(corp_news, remove_punct = TRUE)
 dfmat_news <- dfm(toks_news)
  
 tstat_key <- textstat_keyness(dfmat_news, 
-                              target = year(docvars(dfmat_news, 'date')) >= 2016)
-attr(tstat_key, 'documents') <- c('2016', '2012-2015')
-
+                              target = year(dfmat_news$date) >= 2016)
 textplot_keyness(tstat_key)
 ```
 

@@ -21,7 +21,7 @@ dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat")
 
 
 ```r
-toks_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
 dfmat_irish <- dfm(toks_irish)
 print(dfmat_irish)
 ```

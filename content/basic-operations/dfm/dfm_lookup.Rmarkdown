@@ -18,7 +18,7 @@ dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat")
 `dfm_lookup()` translates dictionary values to keys in a DFM.
 
 ```{r}
-toks_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
+toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
 dfmat_irish <- dfm(toks_irish)
 print(dfmat_irish)
 dfmat_irish_lg <- dfm_lookup(dfmat_irish, dictionary = dict_lg, levels = 1)

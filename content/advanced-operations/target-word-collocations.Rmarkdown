@@ -21,7 +21,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 
 ```{r}
 ndoc(corp_news)
-range(docvars(corp_news, 'date'))
+range(corp_news$date)
 
 toks_news <- tokens(corp_news, remove_punct = TRUE)
 ```

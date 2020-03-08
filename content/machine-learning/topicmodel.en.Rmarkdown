@@ -57,7 +57,7 @@ terms(lda, 10)
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
 
 ```{r}
-docvars(dfmat_news, 'topic') <- topics(lda)
+dfmat_news$topic <- topics(lda)
 head(topics(lda), 20)
 ```
 

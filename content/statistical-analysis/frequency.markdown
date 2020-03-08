@@ -87,7 +87,7 @@ Finally, it is possible to compare different groups within one Wordcloud. We fir
 
 ```r
 # create document-level variable indicating whether Tweet was in English or other language
-docvars(corp_tweets, "dummy_english") <- factor(ifelse(docvars(corp_tweets, "lang") == "English", "English", "Not English"))
+corp_tweets$dummy_english <- factor(ifelse(corp_tweets$lang == "English", "English", "Not English"))
 
 # create a grouped dfm and compare groups
 dfmat_corp_language <- dfm(corp_tweets, select = "#*", groups = "dummy_english")

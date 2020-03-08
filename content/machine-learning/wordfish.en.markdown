@@ -71,7 +71,7 @@ The function also allows to plot scores by a grouping variable, in this case the
 
 
 ```r
-textplot_scale1d(tmod_wf, groups = docvars(dfmat_irish, "party"))
+textplot_scale1d(tmod_wf, groups = dfmat_irish$party)
 ```
 
 <img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />

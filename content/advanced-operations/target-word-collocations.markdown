@@ -28,7 +28,7 @@ ndoc(corp_news)
 ```
 
 ```r
-range(docvars(corp_news, 'date'))
+range(corp_news$date)
 ```
 
 ```
