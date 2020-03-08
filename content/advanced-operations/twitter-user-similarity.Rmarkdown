@@ -25,7 +25,7 @@ Construct a document-feature matrix removing tags and links.
 
 ```{r}
 dfmat_tweets <- dfm(corp_tweets,
-                 remove_punct = TRUE, remove_url = TRUE,
+                 remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE,
                  remove = c('*.tt', '*.uk', '*.com', 'rt', '#*', '@*')) %>% 
              dfm_remove(stopwords('en'))
 
