@@ -21,7 +21,7 @@ draft: false
 
     * Represents frequencies of features in documents in a matrix
     * The most efficient structure, but it does not have information on positions of words 
-    * Non-positional (bag-of-words) analysis are profrmed using many of the `textstat_*` and `textmodel_*` functions 
+    * Non-positional (bag-of-words) analysis are performed using many of the `textstat_*` and `textmodel_*` functions 
 
 Text analysis with **quanteda** goes through all those three types of objects either explicitly or implicitly.
 
