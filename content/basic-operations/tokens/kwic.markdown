@@ -89,28 +89,28 @@ head(kw_immig3, 10)
 ```
 
 ```
-##                                                                 
-##    [BNP, 1]                                                    |
-##   [BNP, 16]                         BNP CAN SOLVE.- At current |
-##   [BNP, 78]                 will include a halt to all further |
-##   [BNP, 85]        immigration, the deportation of all illegal |
-##  [BNP, 169]             crimes in Britain, regardless of their |
-##  [BNP, 197] that party's admission that they orchestrated mass |
-##  [BNP, 272]                   is in grave peril, threatened by |
-##  [BNP, 374]                          ( ONS), legal Third World |
-##  [BNP, 531]      include births to second and third generation |
-##  [BNP, 661]                    these figures are added in, the |
-##                                                                
-##  IMMIGRATION | : AN UNPARALLELED CRISIS WHICH ONLY THE         
-##  immigration | and birth rates, indigenous British people      
-##  immigration | , the deportation of all illegal immigrants     
-##  immigrants  | , a halt to the" asylum                         
-##  immigration | status.- The BNP will review                    
-##  immigration | to change forcibly Britain's demographics and to
-##  immigration | and multiculturalism. In the absence of         
-##  immigrants  | made up 14.7 percent( 7.5 million               
-##   immigrant  | mothers. Figures released by the ONS            
-##   immigrant  | birth rate is estimated to be around
+##                                                                               
+##    [BNP, 1]                                                    | IMMIGRATION |
+##   [BNP, 16]                         BNP CAN SOLVE.- At current | immigration |
+##   [BNP, 78]                 will include a halt to all further | immigration |
+##   [BNP, 85]        immigration, the deportation of all illegal | immigrants  |
+##  [BNP, 169]             crimes in Britain, regardless of their | immigration |
+##  [BNP, 197] that party's admission that they orchestrated mass | immigration |
+##  [BNP, 272]                   is in grave peril, threatened by | immigration |
+##  [BNP, 374]                          ( ONS), legal Third World | immigrants  |
+##  [BNP, 531]      include births to second and third generation |  immigrant  |
+##  [BNP, 661]                    these figures are added in, the |  immigrant  |
+##                                                  
+##  : AN UNPARALLELED CRISIS WHICH ONLY THE         
+##  and birth rates, indigenous British people      
+##  , the deportation of all illegal immigrants     
+##  , a halt to the" asylum                         
+##  status.- The BNP will review                    
+##  to change forcibly Britain's demographics and to
+##  and multiculturalism. In the absence of         
+##  made up 14.7 percent( 7.5 million               
+##  mothers. Figures released by the ONS            
+##  birth rate is estimated to be around
 ```
 
 If you want to find multi-word expressions, separate words by whitespace and wrap the character vector by `phrase()`.

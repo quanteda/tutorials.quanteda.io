@@ -21,9 +21,9 @@ corp_news <- download('data_corpus_guardian')
 
 
 ```r
-docvars(corp_news, 'year') <- year(docvars(corp_news, 'date'))
-docvars(corp_news, 'month') <- month(docvars(corp_news, 'date'))
-docvars(corp_news, 'week') <- week(docvars(corp_news, 'date'))
+corp_news$year <- year(corp_news$date)
+corp_news$month <- month(corp_news$date)
+corp_news$week <- week(corp_news$date)
 
 corp_news <- corpus_subset(corp_news, 'year' >= 2016)
 toks_news <- tokens(corp_news, remove_punct = TRUE)
@@ -47,17 +47,14 @@ head(toks_news_lsd, 2)
 ```
 
 ```
-## tokens from 2 documents.
+## Tokens consisting of 2 documents and 12 docvars.
 ## text136751 :
 ## [1] "positive" "positive"
 ## 
 ## text118588 :
 ##  [1] "positive" "positive" "negative" "negative" "negative" "positive"
 ##  [7] "negative" "positive" "positive" "negative" "positive" "positive"
-## [13] "positive" "positive" "positive" "negative" "negative" "negative"
-## [19] "positive" "negative" "positive" "negative" "positive" "positive"
-## [25] "positive" "positive" "negative" "positive" "positive" "positive"
-## [31] "positive" "positive" "positive" "positive" "positive" "positive"
+## [ ... and 24 more ]
 ```
 
 ```r
@@ -66,8 +63,7 @@ head(dfmat_news_lsd, 2)
 ```
 
 ```
-## Document-feature matrix of: 2 documents, 2 features (25.0% sparse).
-## 2 x 2 sparse Matrix of class "dfm"
+## Document-feature matrix of: 2 documents, 2 features (25.0% sparse) and 12 docvars.
 ##             features
 ## docs         negative positive
 ##   text136751        0        2
@@ -97,7 +93,7 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 
 
 ```r
-n_eu <- ntoken(dfm(toks_eu, group = docvars(toks_eu, 'week')))
+n_eu <- ntoken(dfm(toks_eu, group = toks_eu$week))
 plot((dfmat_eu_lsd[,2] - dfmat_eu_lsd[,1]) / n_eu, 
      type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
 axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
@@ -126,7 +122,7 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 
 
 ```r
-n_immig <- ntoken(dfm(toks_immig, group = docvars(toks_immig, 'week')))
+n_immig <- ntoken(dfm(toks_immig, group = toks_immig$week))
 plot((dfmat_immig_lsd[,2] - dfmat_immig_lsd[,1]) / n_immig, 
      type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
 axis(1, seq_len(ndoc(dfmat_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_immig_lsd)) - 1))

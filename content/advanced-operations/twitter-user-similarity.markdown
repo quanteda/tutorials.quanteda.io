@@ -45,10 +45,10 @@ topfeatures(dfmat_tweets)
 ```
 
 ```
-##          vote conservatives        labour         today         share 
-##          1873           953           758           674           648 
-##       britain          find        fairer        voting      tomorrow 
-##           639           615           571           570           565
+##          vote conservatives             ↓        labour         today 
+##          1873           953           792           757           674 
+##         share       britain          find        fairer        voting 
+##           648           639           615           571           570
 ```
 
 Group documents by usernames.

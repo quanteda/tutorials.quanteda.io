@@ -122,9 +122,8 @@ head(toks_neg_bigram_select[[1]], 50)
 ```
 
 ```
-## [1] "not_born"     "not_\""       "not_include"  "not_from"    
-## [5] "not_share"    "not_the"      "not_become"   "not_merely"  
-## [9] "not_products"
+## [1] "not_born"     "not_\""       "not_include"  "not_from"     "not_share"   
+## [6] "not_the"      "not_become"   "not_merely"   "not_products"
 ```
 
 {{% notice tip %}}

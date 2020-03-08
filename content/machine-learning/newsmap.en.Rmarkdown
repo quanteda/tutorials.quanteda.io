@@ -35,7 +35,7 @@ corp_news <- readRDS("../data/data_corpus_yahoonews.rds")
 
 ```{r}
 ndoc(corp_news)
-range(docvars(corp_news, "date"))
+range(corp_news$date)
 ```
 
 In geographical classification, proper nouns are the most useful features of documents, but not all capitalized words are proper nouns, so we define custom stopwords.

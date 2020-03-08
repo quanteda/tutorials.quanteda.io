@@ -9,6 +9,7 @@ Correspondence analysis is a technique to scale documents on multiple dimensions
 
 ```r
 require(quanteda)
+require(quanteda.textmodels)
 ```
 
 `textmodel_ca()` provides similar functionality to the **ca** package, but **quanteda**'s version is more efficient for textual data.
@@ -32,18 +33,18 @@ If you want to plot documents on multi-dimensional scale, you use `coef()` to ob
 
 ```r
 dat_ca <- data.frame(dim1 = coef(tmod_ca, doc_dim = 1)$coef_document, 
-                      dim2 = coef(tmod_ca, doc_dim = 2)$coef_document)
+                     dim2 = coef(tmod_ca, doc_dim = 2)$coef_document)
 head(dat_ca)
 ```
 
 ```
 ##                            dim1        dim2
-## Lenihan, Brian (FF)   1.3947058  0.07857887
-## Bruton, Richard (FG) -0.7102673  0.75538166
-## Burton, Joan (LAB)   -1.0420867  1.82837918
-## Morgan, Arthur (SF)  -0.2428268 -0.09447121
-## Cowen, Brian (FF)     1.4579375 -0.12655387
-## Kenny, Enda (FG)     -0.9269172 -0.24479883
+## Lenihan, Brian (FF)   1.3828058  0.05765853
+## Bruton, Richard (FG) -0.7146625 -1.48053878
+## Burton, Joan (LAB)   -1.0058287 -1.22454364
+## Morgan, Arthur (SF)  -0.2365214 -0.01424761
+## Cowen, Brian (FF)     1.4590326  0.21164169
+## Kenny, Enda (FG)     -0.9335150  0.03923246
 ```
 
 ```r

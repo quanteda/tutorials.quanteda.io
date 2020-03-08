@@ -22,7 +22,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 
 ```{r}
 ndoc(corp_news)
-range(docvars(corp_news, 'date'))
+range(corp_news$date)
 ```
 
 Unlike in earlier examples, we remove punctuations in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. `[\\p{P}\\p{S}]` is a regular expression for punctuations or separators.

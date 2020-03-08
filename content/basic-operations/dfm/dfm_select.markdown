@@ -16,7 +16,7 @@ nfeat(dfmat_irish)
 ```
 
 ```
-## [1] 5127
+## [1] 5129
 ```
 
 You can select features from a DFM using `dfm_select()`.
@@ -28,7 +28,7 @@ nfeat(dfmat_irish_nostop)
 ```
 
 ```
-## [1] 5008
+## [1] 5010
 ```
 
 `dfm_remove()` is an alias to `dfm_select(selection = 'remove')`. Therefore, the code above and below are equivalent.
@@ -40,7 +40,7 @@ nfeat(dfmat_irish_nostop)
 ```
 
 ```
-## [1] 5008
+## [1] 5010
 ```
 
 You can also select features based on the length of features. 
@@ -52,7 +52,7 @@ nfeat(dfmat_irish_long)
 ```
 
 ```
-## [1] 4274
+## [1] 4275
 ```
 
 ```r
@@ -60,10 +60,10 @@ topfeatures(dfmat_irish_long, 10)
 ```
 
 ```
-##     people     budget government     public   minister    economy 
-##        266        260        236        179        170        160 
-##      those      which      there      their 
-##        160        156        147        144
+##     people     budget government     public   minister    economy      those 
+##        266        260        236        179        170        160        160 
+##      which      there      their 
+##        156        147        144
 ```
 
 While `dfm_select()` selects features based on patterns, `dfm_trim()` does this based on feature frequencies. If `min_termfreq = 10`, features that occur less than 10 times in the corpus are removed.
@@ -75,7 +75,7 @@ nfeat(dfmat_irish_freq)
 ```
 
 ```
-## [1] 660
+## [1] 661
 ```
 
 If `max_docfreq = 0.1`, features that occur in more than 10% of the documents are removed.
@@ -87,5 +87,5 @@ nfeat(dfmat_irish_docfreq)
 ```
 
 ```
-## [1] 2713
+## [1] 2714
 ```

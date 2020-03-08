@@ -42,7 +42,7 @@ nfeat(dfmat_irish)
 ```
 
 ```
-## [1] 5127
+## [1] 5129
 ```
 
 You can also obtain the names of documents and features by `docnames()` and `featnames()`.
@@ -83,11 +83,11 @@ head(rowSums(dfmat_irish), 10)
 
 ```
 ##    Lenihan, Brian (FF)   Bruton, Richard (FG)     Burton, Joan (LAB) 
-##                   7916                   4086                   5790 
+##                   7991                   4104                   5839 
 ##    Morgan, Arthur (SF)      Cowen, Brian (FF)       Kenny, Enda (FG) 
-##                   6510                   5964                   3896 
+##                   6552                   6002                   3916 
 ##  ODonnell, Kieran (FG)   Gilmore, Eamon (LAB) Higgins, Michael (LAB) 
-##                   2086                   3807                   1149 
+##                   2103                   3832                   1153 
 ##    Quinn, Ruairi (LAB) 
 ##                   1181
 ```
@@ -125,10 +125,10 @@ topfeatures(dfmat_irish_prop[1,])
 ```
 
 ```
-##        the         to         of         in        and          a 
-## 0.06808994 0.03852956 0.03688732 0.02892875 0.02475998 0.01806468 
-##       will        for       this         we 
-## 0.01755937 0.01364325 0.01250632 0.01237999
+##        the         to         of         in        and          a       will 
+## 0.06745088 0.03816794 0.03654111 0.02865724 0.02452759 0.01789513 0.01739457 
+##        for       this         we 
+## 0.01351520 0.01238894 0.01226380
 ```
 
 {{% notice tip %}}
@@ -146,10 +146,10 @@ topfeatures(dfmat_irish_tfidf[1,])
 ```
 
 ```
-##    details     review   measures reductions    shortly      level 
-##  11.831373   8.943161   7.525750   7.072885   6.876768   6.707370 
-##     scheme       body       2010    summary 
-##   6.321630   5.915686   5.832913   5.730640
+##    details     review   measures reductions    shortly      level     scheme 
+##  11.831373   8.943161   7.525750   7.072885   6.876768   6.707370   6.321630 
+##       body       2010    summary 
+##   5.915686   5.832913   5.730640
 ```
 
 {{% notice warning %}}

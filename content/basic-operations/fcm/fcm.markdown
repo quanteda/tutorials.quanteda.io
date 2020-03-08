@@ -31,10 +31,10 @@ topfeatures(dfmat_news)
 ```
 
 ```
-##       said     people        one        new       also         us 
-##      28413      11169       9884       8024       7901       7091 
-##        can government       year       last 
-##       6972       6821       6570       6335
+##          |       said     people        one        new       also         us 
+##     120731      28412      11168       9879       8024       7901       7090 
+##        can government       year 
+##       6972       6821       6570
 ```
 
 ```r
@@ -42,7 +42,7 @@ nfeat(dfmat_news)
 ```
 
 ```
-## [1] 4209
+## [1] 4210
 ```
 
 You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequntly co-occuring words.
@@ -54,7 +54,7 @@ dim(fcmat_news)
 ```
 
 ```
-## [1] 4209 4209
+## [1] 4210 4210
 ```
 
 You can select features of a FCM using `fcm_select()`.

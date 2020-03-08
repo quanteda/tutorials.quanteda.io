@@ -8,6 +8,7 @@ Naive Bayes is a supervised model usually used to classify documents into two or
 
 ```{r, message=FALSE}
 require(quanteda)
+require(quanteda.textmodels)
 require(quanteda.corpora)
 require(caret)
 ```
@@ -30,7 +31,7 @@ id_train <- sample(1:2000, 1500, replace = FALSE)
 head(id_train, 10)
 
 # create docvar with ID
-docvars(corp_movies, "id_numeric") <- 1:ndoc(corp_movies)
+corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
 # get training set
 dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
@@ -44,7 +45,7 @@ dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
 Next we train the naive Bayes classifier using `textmodel_nb()`.
 
 ```{r}
-tmod_nb <- textmodel_nb(dfmat_training, docvars(dfmat_training, "Sentiment"))
+tmod_nb <- textmodel_nb(dfmat_training, dfmat_training$Sentiment)
 summary(tmod_nb)
 ```
 
@@ -58,7 +59,7 @@ dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))
 Let's inspect how well the classification worked.
 
 ```{r}
-actual_class <- docvars(dfmat_matched, "Sentiment")
+actual_class <- dfmat_matched$Sentiment"
 predicted_class <- predict(tmod_nb, newdata = dfmat_matched)
 tab_class <- table(actual_class, predicted_class)
 tab_class

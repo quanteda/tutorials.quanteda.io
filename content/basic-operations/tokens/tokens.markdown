@@ -26,19 +26,16 @@ head(toks[[1]], 50)
 ```
 
 ```
-##  [1] "IMMIGRATION"  ":"            "AN"           "UNPARALLELED"
-##  [5] "CRISIS"       "WHICH"        "ONLY"         "THE"         
-##  [9] "BNP"          "CAN"          "SOLVE"        "."           
-## [13] "-"            "At"           "current"      "immigration" 
-## [17] "and"          "birth"        "rates"        ","           
-## [21] "indigenous"   "British"      "people"       "are"         
-## [25] "set"          "to"           "become"       "a"           
-## [29] "minority"     "well"         "within"       "50"          
-## [33] "years"        "."            "-"            "This"        
-## [37] "will"         "result"       "in"           "the"         
-## [41] "extinction"   "of"           "the"          "British"     
-## [45] "people"       ","            "culture"      ","           
-## [49] "heritage"     "and"
+##  [1] "IMMIGRATION"  ":"            "AN"           "UNPARALLELED" "CRISIS"      
+##  [6] "WHICH"        "ONLY"         "THE"          "BNP"          "CAN"         
+## [11] "SOLVE"        "."            "-"            "At"           "current"     
+## [16] "immigration"  "and"          "birth"        "rates"        ","           
+## [21] "indigenous"   "British"      "people"       "are"          "set"         
+## [26] "to"           "become"       "a"            "minority"     "well"        
+## [31] "within"       "50"           "years"        "."            "-"           
+## [36] "This"         "will"         "result"       "in"           "the"         
+## [41] "extinction"   "of"           "the"          "British"      "people"      
+## [46] ","            "culture"      ","            "heritage"     "and"
 ```
 
 {{% notice tip %}}
@@ -54,19 +51,16 @@ head(toks_nopunct[[1]], 50)
 ```
 
 ```
-##  [1] "IMMIGRATION"  "AN"           "UNPARALLELED" "CRISIS"      
-##  [5] "WHICH"        "ONLY"         "THE"          "BNP"         
-##  [9] "CAN"          "SOLVE"        "At"           "current"     
-## [13] "immigration"  "and"          "birth"        "rates"       
-## [17] "indigenous"   "British"      "people"       "are"         
-## [21] "set"          "to"           "become"       "a"           
-## [25] "minority"     "well"         "within"       "50"          
-## [29] "years"        "This"         "will"         "result"      
-## [33] "in"           "the"          "extinction"   "of"          
-## [37] "the"          "British"      "people"       "culture"     
-## [41] "heritage"     "and"          "identity"     "The"         
-## [45] "BNP"          "will"         "take"         "all"         
-## [49] "steps"        "necessary"
+##  [1] "IMMIGRATION"  "AN"           "UNPARALLELED" "CRISIS"       "WHICH"       
+##  [6] "ONLY"         "THE"          "BNP"          "CAN"          "SOLVE"       
+## [11] "At"           "current"      "immigration"  "and"          "birth"       
+## [16] "rates"        "indigenous"   "British"      "people"       "are"         
+## [21] "set"          "to"           "become"       "a"            "minority"    
+## [26] "well"         "within"       "50"           "years"        "This"        
+## [31] "will"         "result"       "in"           "the"          "extinction"  
+## [36] "of"           "the"          "British"      "people"       "culture"     
+## [41] "heritage"     "and"          "identity"     "The"          "BNP"         
+## [46] "will"         "take"         "all"          "steps"        "necessary"
 ```
 
 
