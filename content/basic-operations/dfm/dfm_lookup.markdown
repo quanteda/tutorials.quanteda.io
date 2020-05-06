@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+require(quanteda.textmodels)
 options(width = 110)
 ```
 

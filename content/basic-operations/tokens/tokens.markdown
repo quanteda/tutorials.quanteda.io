@@ -70,40 +70,40 @@ By default, `tokens()` only removes separators (typically whitespaces), but you 
 
 ```r
 toks_nopunct <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
-print(toks)
+print(toks_nopunct)
 ```
 
 ```
 ## Tokens consisting of 9 documents.
 ## BNP :
-##  [1] "IMMIGRATION"  ":"            "AN"           "UNPARALLELED" "CRISIS"       "WHICH"        "ONLY"        
-##  [8] "THE"          "BNP"          "CAN"          "SOLVE"        "."           
-## [ ... and 3,268 more ]
+##  [1] "IMMIGRATION"  "AN"           "UNPARALLELED" "CRISIS"       "WHICH"        "ONLY"         "THE"         
+##  [8] "BNP"          "CAN"          "SOLVE"        "At"           "current"     
+## [ ... and 2,839 more ]
 ## 
 ## Coalition :
-##  [1] "IMMIGRATION" "."           "The"         "Government"  "believes"    "that"        "immigration"
-##  [8] "has"         "enriched"    "our"         "culture"     "and"        
-## [ ... and 248 more ]
+##  [1] "IMMIGRATION"  "The"          "Government"   "believes"     "that"         "immigration"  "has"         
+##  [8] "enriched"     "our"          "culture"      "and"          "strengthened"
+## [ ... and 219 more ]
 ## 
 ## Conservative :
 ##  [1] "Attract"     "the"         "brightest"   "and"         "best"        "to"          "our"        
-##  [8] "country"     "."           "Immigration" "has"         "enriched"   
-## [ ... and 487 more ]
+##  [8] "country"     "Immigration" "has"         "enriched"    "our"        
+## [ ... and 440 more ]
 ## 
 ## Greens :
-##  [1] "Immigration" "."           "Migration"   "is"          "a"           "fact"        "of"         
-##  [8] "life"        "."           "People"      "have"        "always"     
-## [ ... and 665 more ]
+##  [1] "Immigration" "Migration"   "is"          "a"           "fact"        "of"          "life"       
+##  [8] "People"      "have"        "always"      "moved"       "from"       
+## [ ... and 598 more ]
 ## 
 ## Labour :
 ##  [1] "Crime"       "and"         "immigration" "The"         "challenge"   "for"         "Britain"    
 ##  [8] "We"          "will"        "control"     "immigration" "with"       
-## [ ... and 668 more ]
+## [ ... and 608 more ]
 ## 
 ## LibDem :
 ##  [1] "firm"        "but"         "fair"        "immigration" "system"      "Britain"     "has"        
-##  [8] "always"      "been"        "an"          "open"        ","          
-## [ ... and 471 more ]
+##  [8] "always"      "been"        "an"          "open"        "welcoming"  
+## [ ... and 423 more ]
 ## 
 ## [ reached max_ndoc ... 3 more documents ]
 ```

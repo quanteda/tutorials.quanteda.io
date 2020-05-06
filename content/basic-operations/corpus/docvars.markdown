@@ -63,18 +63,18 @@ corp$Year
 
 
 ```r
-docvars(corp, field = "Century") <- floor(docvars(corp, field = "Year") / 100)
+docvars(corp, field = "Century") <- floor(docvars(corp, field = "Year") / 100) + 1
 head(docvars(corp))
 ```
 
 ```
 ##   Year  President FirstName                 Party Century
-## 1 1789 Washington    George                  none      17
-## 2 1793 Washington    George                  none      17
-## 3 1797      Adams      John            Federalist      17
-## 4 1801  Jefferson    Thomas Democratic-Republican      18
-## 5 1805  Jefferson    Thomas Democratic-Republican      18
-## 6 1809    Madison     James Democratic-Republican      18
+## 1 1789 Washington    George                  none      18
+## 2 1793 Washington    George                  none      18
+## 3 1797      Adams      John            Federalist      18
+## 4 1801  Jefferson    Thomas Democratic-Republican      19
+## 5 1805  Jefferson    Thomas Democratic-Republican      19
+## 6 1809    Madison     James Democratic-Republican      19
 ```
 
 {{% notice tip %}}
