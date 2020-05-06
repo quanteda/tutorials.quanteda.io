@@ -31,7 +31,7 @@ By default, `tokens()` only removes separators (typically whitespaces), but you 
 
 ```{r}
 toks_nopunct <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
-print(toks)
+print(toks_nopunct)
 ```
 
 

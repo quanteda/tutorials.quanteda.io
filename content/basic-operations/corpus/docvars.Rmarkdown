@@ -34,7 +34,7 @@ corp$Year
 `docvars()` also allows you to create or update document variables.
 
 ```{r}
-docvars(corp, field = "Century") <- floor(docvars(corp, field = "Year") / 100)
+docvars(corp, field = "Century") <- floor(docvars(corp, field = "Year") / 100) + 1
 head(docvars(corp))
 ```
 
