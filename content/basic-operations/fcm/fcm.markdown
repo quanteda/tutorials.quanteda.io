@@ -62,7 +62,7 @@ You can select features of a FCM using `fcm_select()`.
 
 ```r
 feat <- names(topfeatures(fcmat_news, 50))
-fcmat_news_select <- fcm_select(fcmat_news, pattern = feat)
+fcmat_news_select <- fcm_select(fcmat_news, pattern = feat, selection = "keep")
 dim(fcmat_news_select)
 ```
 
@@ -74,7 +74,7 @@ A FCM can be used to train word embedding models with the **text2vec** package, 
 
 
 ```r
-size <- log(colSums(dfm_select(dfmat_news, feat)))
+size <- log(colSums(dfm_select(dfmat_news, feat, selection = "keep")))
 set.seed(144)
 textplot_network(fcmat_news_select, min_freq = 0.8, vertex_size = size / max(size) * 3)
 ```

@@ -31,13 +31,6 @@ By default, `tokens()` only removes separators (typically whitespaces), but you 
 
 ```{r}
 toks_nopunct <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
-print(toks)
+print(toks_nopunct)
 ```
-
-
-{{% notice tip %}}
-**stringi**'s word boundary detection splits Twitter hashtags into # and following keyword, but `tokens()` preserves these unless you set `remove_twitter = TRUE`.
-{{% /notice %}}
-
-
 

@@ -14,29 +14,29 @@ options(width = 110)
 
 
 ```r
-toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
-dfmat_irish <- dfm(toks_irish)
-print(dfmat_irish)
+toks_inaug <- tokens(data_corpus_inaugural, remove_punct = TRUE)
+dfmat_inaug <- dfm(toks_inaug)
+print(dfmat_inaug)
 ```
 
 ```
-## Document-feature matrix of: 14 documents, 5,129 features (81.3% sparse) and 6 docvars.
-##                       features
-## docs                   when  i presented the supplementary budget  to this house last
-##   Lenihan, Brian (FF)     5 73         1 539             7     23 305   99    10    6
-##   Bruton, Richard (FG)    2  6         0 305             0     27 172   55     0    5
-##   Burton, Joan (LAB)     11 40         0 428             0     37 157   53     6    4
-##   Morgan, Arthur (SF)    21 26         0 501             1     26 204   85     5    4
-##   Cowen, Brian (FF)       4 17         0 394             0     21 209   43     4    6
-##   Kenny, Enda (FG)       12 25         1 304             1     23 119   47     0    4
-## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 5,119 more features ]
+## Document-feature matrix of: 58 documents, 9,346 features (91.8% sparse) and 4 docvars.
+##                  features
+## docs              fellow-citizens  of the senate and house representatives among vicissitudes incident
+##   1789-Washington               1  71 116      1  48     2               2     1            1        1
+##   1793-Washington               0  11  13      0   2     0               0     0            0        0
+##   1797-Adams                    3 140 163      1 130     0               2     4            0        0
+##   1801-Jefferson                2 104 130      0  81     0               0     1            0        0
+##   1805-Jefferson                0 101 143      0  93     0               0     7            0        0
+##   1809-Madison                  1  69 104      0  43     0               0     0            0        0
+## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,336 more features ]
 ```
 
 If corpus is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
 
 
 ```r
-dfmat_irish <- data_corpus_irishbudget2010 %>% 
+dfmat_inaug <- data_corpus_inaugural %>% 
     tokens(remove_punct = TRUE) %>% 
     dfm()
 ```
@@ -45,113 +45,110 @@ You can get the number of documents and features `ndoc()` and `nfeat()`.
 
 
 ```r
-ndoc(dfmat_irish)
+ndoc(dfmat_inaug)
 ```
 
 ```
-## [1] 14
+## [1] 58
 ```
 
 ```r
-nfeat(dfmat_irish)
+nfeat(dfmat_inaug)
 ```
 
 ```
-## [1] 5129
+## [1] 9346
 ```
 
 You can also obtain the names of documents and features by `docnames()` and `featnames()`.
 
 
 ```r
-head(docnames(dfmat_irish), 20)
+head(docnames(dfmat_inaug), 20)
 ```
 
 ```
-##  [1] "Lenihan, Brian (FF)"       "Bruton, Richard (FG)"      "Burton, Joan (LAB)"       
-##  [4] "Morgan, Arthur (SF)"       "Cowen, Brian (FF)"         "Kenny, Enda (FG)"         
-##  [7] "ODonnell, Kieran (FG)"     "Gilmore, Eamon (LAB)"      "Higgins, Michael (LAB)"   
-## [10] "Quinn, Ruairi (LAB)"       "Gormley, John (Green)"     "Ryan, Eamon (Green)"      
-## [13] "Cuffe, Ciaran (Green)"     "OCaolain, Caoimhghin (SF)"
+##  [1] "1789-Washington" "1793-Washington" "1797-Adams"      "1801-Jefferson"  "1805-Jefferson" 
+##  [6] "1809-Madison"    "1813-Madison"    "1817-Monroe"     "1821-Monroe"     "1825-Adams"     
+## [11] "1829-Jackson"    "1833-Jackson"    "1837-VanBuren"   "1841-Harrison"   "1845-Polk"      
+## [16] "1849-Taylor"     "1853-Pierce"     "1857-Buchanan"   "1861-Lincoln"    "1865-Lincoln"
 ```
 
 ```r
-head(featnames(dfmat_irish), 20)
+head(featnames(dfmat_inaug), 20)
 ```
 
 ```
-##  [1] "when"          "i"             "presented"     "the"           "supplementary" "budget"       
-##  [7] "to"            "this"          "house"         "last"          "april"         "said"         
-## [13] "we"            "could"         "work"          "our"           "way"           "through"      
-## [19] "period"        "of"
+##  [1] "fellow-citizens" "of"              "the"             "senate"          "and"            
+##  [6] "house"           "representatives" "among"           "vicissitudes"    "incident"       
+## [11] "to"              "life"            "no"              "event"           "could"          
+## [16] "have"            "filled"          "me"              "with"            "greater"
 ```
 
 Just like normal matrices, you can use`rowSums()` and `colSums()` to calculate marginals. 
 
 
 ```r
-head(rowSums(dfmat_irish), 10)
+head(rowSums(dfmat_inaug), 10)
 ```
 
 ```
-##    Lenihan, Brian (FF)   Bruton, Richard (FG)     Burton, Joan (LAB)    Morgan, Arthur (SF) 
-##                   7991                   4104                   5839                   6552 
-##      Cowen, Brian (FF)       Kenny, Enda (FG)  ODonnell, Kieran (FG)   Gilmore, Eamon (LAB) 
-##                   6002                   3916                   2103                   3832 
-## Higgins, Michael (LAB)    Quinn, Ruairi (LAB) 
-##                   1153                   1181
+## 1789-Washington 1793-Washington      1797-Adams  1801-Jefferson  1805-Jefferson    1809-Madison 
+##            1430             135            2318            1726            2166            1175 
+##    1813-Madison     1817-Monroe     1821-Monroe      1825-Adams 
+##            1210            3370            4472            2915
 ```
 
 ```r
-head(colSums(dfmat_irish), 10)
+head(colSums(dfmat_inaug), 10)
 ```
 
 ```
-##          when             i     presented           the supplementary        budget            to 
-##            90           272             3          3598            10           260          1633 
-##          this         house          last 
-##           559            49            47
+## fellow-citizens              of             the          senate             and           house 
+##              39            7103           10082              15            5310              11 
+## representatives           among    vicissitudes        incident 
+##              19             108               5               8
 ```
 
 The most frequent features can be found using `topfeatures()`.
 
 
 ```r
-topfeatures(dfmat_irish, 10)
+topfeatures(dfmat_inaug, 10)
 ```
 
 ```
-##  the   to   of  and   in    a   is that   we  for 
-## 3598 1633 1537 1359 1231 1013  868  804  618  578
+##   the    of   and    to    in     a   our  that    we    be 
+## 10082  7103  5310  4526  2785  2246  2181  1789  1739  1481
 ```
 
 If you want to convert the frequency count to a proportion within documents, use `dfm_weight(scheme  = "prop")`.
 
 
 ```r
-dfmat_irish_prop <- dfm_weight(dfmat_irish, scheme  = "prop")
-print(dfmat_irish_prop)
+dfmat_inaug_prop <- dfm_weight(dfmat_inaug, scheme  = "prop")
+print(dfmat_inaug_prop)
 ```
 
 ```
-## Document-feature matrix of: 14 documents, 5,129 features (81.3% sparse) and 6 docvars.
-##                       features
-## docs                           when           i    presented        the supplementary      budget         to
-##   Lenihan, Brian (FF)  0.0006257039 0.009135277 0.0001251408 0.06745088  0.0008759855 0.002878238 0.03816794
-##   Bruton, Richard (FG) 0.0004873294 0.001461988 0            0.07431774  0            0.006578947 0.04191033
-##   Burton, Joan (LAB)   0.0018838842 0.006850488 0            0.07330022  0            0.006336701 0.02688817
-##   Morgan, Arthur (SF)  0.0032051282 0.003968254 0            0.07646520  0.0001526252 0.003968254 0.03113553
-##   Cowen, Brian (FF)    0.0006664445 0.002832389 0            0.06564479  0            0.003498834 0.03482173
-##   Kenny, Enda (FG)     0.0030643514 0.006384065 0.0002553626 0.07763023  0.0002553626 0.005873340 0.03038815
-##                       features
-## docs                          this        house         last
-##   Lenihan, Brian (FF)  0.012388938 0.0012514078 0.0007508447
-##   Bruton, Richard (FG) 0.013401559 0            0.0012183236
-##   Burton, Joan (LAB)   0.009076897 0.0010275732 0.0006850488
-##   Morgan, Arthur (SF)  0.012973138 0.0007631258 0.0006105006
-##   Cowen, Brian (FF)    0.007164279 0.0006664445 0.0009996668
-##   Kenny, Enda (FG)     0.012002043 0            0.0010214505
-## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 5,119 more features ]
+## Document-feature matrix of: 58 documents, 9,346 features (91.8% sparse) and 4 docvars.
+##                  features
+## docs              fellow-citizens         of        the       senate        and       house representatives
+##   1789-Washington    0.0006993007 0.04965035 0.08111888 0.0006993007 0.03356643 0.001398601    0.0013986014
+##   1793-Washington    0            0.08148148 0.09629630 0            0.01481481 0              0           
+##   1797-Adams         0.0012942192 0.06039689 0.07031924 0.0004314064 0.05608283 0              0.0008628128
+##   1801-Jefferson     0.0011587486 0.06025492 0.07531866 0            0.04692932 0              0           
+##   1805-Jefferson     0            0.04662973 0.06602031 0            0.04293629 0              0           
+##   1809-Madison       0.0008510638 0.05872340 0.08851064 0            0.03659574 0              0           
+##                  features
+## docs                     among vicissitudes     incident
+##   1789-Washington 0.0006993007 0.0006993007 0.0006993007
+##   1793-Washington 0            0            0           
+##   1797-Adams      0.0017256255 0            0           
+##   1801-Jefferson  0.0005793743 0            0           
+##   1805-Jefferson  0.0032317636 0            0           
+##   1809-Madison    0            0            0           
+## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,336 more features ]
 ```
 
 {{% notice tip %}}
@@ -163,21 +160,29 @@ You can also weight frequency count by uniqueness of the features across documen
 
 
 ```r
-dfmat_irish_tfidf <- dfm_tfidf(dfmat_irish)
-print(dfmat_irish_tfidf)
+dfmat_inaug_tfidf <- dfm_tfidf(dfmat_inaug)
+print(dfmat_inaug_tfidf)
 ```
 
 ```
-## Document-feature matrix of: 14 documents, 5,129 features (81.3% sparse) and 6 docvars.
-##                       features
-## docs                         when i presented the supplementary budget to this     house      last
-##   Lenihan, Brian (FF)  0.16092342 0 0.6690068   0      3.808476      0  0    0 1.0473535 0.1931081
-##   Bruton, Richard (FG) 0.06436937 0 0           0      0             0  0    0 0         0.1609234
-##   Burton, Joan (LAB)   0.35403152 0 0           0      0             0  0    0 0.6284121 0.1287387
-##   Morgan, Arthur (SF)  0.67587835 0 0           0      0.544068      0  0    0 0.5236768 0.1287387
-##   Cowen, Brian (FF)    0.12873873 0 0           0      0             0  0    0 0.4189414 0.1931081
-##   Kenny, Enda (FG)     0.38621620 0 0.6690068   0      0.544068      0  0    0 0         0.1287387
-## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 5,119 more features ]
+## Document-feature matrix of: 58 documents, 9,346 features (91.8% sparse) and 4 docvars.
+##                  features
+## docs              fellow-citizens of the    senate and    house representatives     among vicissitudes
+##   1789-Washington       0.4846744  0   0 0.8091855   0 1.720676          1.2346 0.1299595     1.064458
+##   1793-Washington       0          0   0 0           0 0                 0      0             0       
+##   1797-Adams            1.4540232  0   0 0.8091855   0 0                 1.2346 0.5198382     0       
+##   1801-Jefferson        0.9693488  0   0 0           0 0                 0      0.1299595     0       
+##   1805-Jefferson        0          0   0 0           0 0                 0      0.9097168     0       
+##   1809-Madison          0.4846744  0   0 0           0 0                 0      0             0       
+##                  features
+## docs               incident
+##   1789-Washington 0.9852767
+##   1793-Washington 0        
+##   1797-Adams      0        
+##   1801-Jefferson  0        
+##   1805-Jefferson  0        
+##   1809-Madison    0        
+## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,336 more features ]
 ```
 
 {{% notice warning %}}

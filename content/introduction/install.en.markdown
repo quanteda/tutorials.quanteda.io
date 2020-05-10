@@ -78,6 +78,7 @@ To sum up, you need to load the following packages to run all examples:
 ```r
 require(quanteda)
 require(readtext)
+require(quanteda.textmodels)
 require(quanteda.corpora)
 require(newsmap)
 ```

@@ -10,42 +10,42 @@ options(width = 110)
 ```
 
 ```{r}
-dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-print(dfmat_irish)
+dfmat_inaug <- dfm(data_corpus_inaugural, remove_punct = TRUE)
+print(dfmat_inaug)
 ```
 
 You can select features from a DFM using `dfm_select()`.
 
 ```{r}
-dfmat_irish_nostop <- dfm_select(dfmat_irish, pattern = stopwords('en'), selection = 'remove')
-print(dfmat_irish_nostop)
+dfmat_inaug_nostop <- dfm_select(dfmat_inaug, pattern = stopwords('en'), selection = 'remove')
+print(dfmat_inaug_nostop)
 ```
 
 `dfm_remove()` is an alias to `dfm_select(selection = 'remove')`. Therefore, the code above and below are equivalent.
 
 ```{r}
-dfmat_irish_nostop <- dfm_remove(dfmat_irish, pattern = stopwords('en'))
-print(dfmat_irish_nostop)
+dfmat_inaug_nostop <- dfm_remove(dfmat_inaug, pattern = stopwords('en'))
+print(dfmat_inaug_nostop)
 ```
 
 You can also select features based on the length of features. 
 
 ```{r}
-dfmat_irish_long <- dfm_select(dfmat_irish, min_nchar = 5)
-print(dfmat_irish_long)
-topfeatures(dfmat_irish_long, 10)
+dfmat_inaug_long <- dfm_select(dfmat_inaug, min_nchar = 5)
+print(dfmat_inaug_long)
+topfeatures(dfmat_inaug_long, 10)
 ```
 
 While `dfm_select()` selects features based on patterns, `dfm_trim()` does this based on feature frequencies. If `min_termfreq = 10`, features that occur less than 10 times in the corpus are removed.
 
 ```{r}
-dfmat_irish_freq <- dfm_trim(dfmat_irish, min_termfreq = 10)
-print(dfmat_irish_freq)
+dfmat_inaug_freq <- dfm_trim(dfmat_inaug, min_termfreq = 10)
+print(dfmat_inaug_freq)
 ```
 
 If `max_docfreq = 0.1`, features that occur in more than 10% of the documents are removed.
 
 ```{r}
-dfmat_irish_docfreq <- dfm_trim(dfmat_irish, max_docfreq = 0.1, docfreq_type = "prop")
-print(dfmat_irish_docfreq)
+dfmat_inaug_docfreq <- dfm_trim(dfmat_inaug, max_docfreq = 0.1, docfreq_type = "prop")
+print(dfmat_inaug_docfreq)
 ```
