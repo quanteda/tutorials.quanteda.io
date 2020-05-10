@@ -76,6 +76,12 @@ head(docvars(corp))
 ## 5 1805  Jefferson    Thomas Democratic-Republican      19
 ## 6 1809    Madison     James Democratic-Republican      19
 ```
+Alernatively, you can create the document-level variable using the `$` operator
+
+
+```r
+corp$Century <- floor(corp$Year / 100 + 1)
+```
 
 {{% notice tip %}}
 `docvars()` is explained only in this section, but it works on other **quanteda** objects (tokens and dfm) in the same way.

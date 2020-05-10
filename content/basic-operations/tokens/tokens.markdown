@@ -108,10 +108,3 @@ print(toks_nopunct)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-
-{{% notice tip %}}
-**stringi**'s word boundary detection splits Twitter hashtags into # and following keyword, but `tokens()` preserves these unless you set `remove_twitter = TRUE`.
-{{% /notice %}}
-
-
-

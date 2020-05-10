@@ -21,5 +21,5 @@ Examples in this tutorial are written for **quanteda** version 2.0.1. Please che
 {{% /notice %}}
 
 {{% notice info %}}
-If you use this website in courses or publications, please cite it as: Watanabe, Kohei and Stefan Müller. 2019. *Quanteda Tutorials*. https://tutorials.quanteda.io.
+If you use this website in courses or publications, please cite it as: Watanabe, Kohei and Stefan Müller. 2020 *Quanteda Tutorials*. https://tutorials.quanteda.io.
 {{% /notice %}}
