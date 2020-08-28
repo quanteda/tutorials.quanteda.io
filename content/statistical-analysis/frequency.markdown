@@ -44,17 +44,17 @@ head(tstat_freq, 20)
 ## 7         #yourvoice         1    1       1 Bulgarian
 ## 8      #eudebate2014         1    1       1 Bulgarian
 ## 9            #велико         1    1       1 Bulgarian
-## 10              <NA>        NA   NA      NA Bulgarian
-## 11 #savedonbaspeople         1    1       1  Croatian
-## 12   #vitoriagasteiz         1    1       1  Croatian
-## 13              <NA>        NA   NA      NA  Croatian
-## 14              <NA>        NA   NA      NA  Croatian
-## 15              <NA>        NA   NA      NA  Croatian
-## 16           #ep14dk        31    1      31    Danish
-## 17            #dkpol        17    2      17    Danish
-## 18            #eupol         7    3       7    Danish
-## 19        #vindtilep         6    4       6    Danish
-## 20    #patentdomstol         4    5       4    Danish
+## 10 #savedonbaspeople         1    1       1  Croatian
+## 11   #vitoriagasteiz         1    1       1  Croatian
+## 12           #ep14dk        31    1      31    Danish
+## 13            #dkpol        17    2      17    Danish
+## 14            #eupol         7    3       7    Danish
+## 15        #vindtilep         6    4       6    Danish
+## 16    #patentdomstol         4    5       4    Danish
+## 17           #ep2014        34    1      34     Dutch
+## 18              #vvd        10    2      10     Dutch
+## 19               #eu         8    3       6     Dutch
+## 20             #pvda         8    3       8     Dutch
 ```
 
 You can also plot the Twitter hashtag frequencies easily using `ggplot()`.
