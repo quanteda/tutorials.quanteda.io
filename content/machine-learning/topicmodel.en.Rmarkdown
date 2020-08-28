@@ -25,7 +25,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 We only select news stories published in 2016 using `corpus_subset()`. 
 
 ```{r}
-corp_news_subset <- corpus_subset(corp_news, 'date' >= 2016)
+corp_news_subset <- corpus_subset(corp_news, year(date) >= 2016)
 ndoc(corp_news_subset)
 ```
 
@@ -62,6 +62,7 @@ You can then obtain the most likely topics using `topics()` and save them as a d
 ```{r}
 head(topics(tmod_lda), 20)
 dfmat_news$topic <- topics(tmod_lda)
+table(dfmat_news$topic)
 ```
 
 ### Seeded LDA
@@ -90,11 +91,13 @@ terms(tmod_slda, 20)
 ```{r}
 head(topics(tmod_slda), 20)
 dfmat_news$topic2 <- topics(tmod_slda)
+table(dfmat_news$topic2)
 ```
 
-{{% notice info %}}
-If you want to learn more about Topic Models, see:  
-Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
-Lu, B., Ott, M., Cardie, C., & Tsou, B. K. (2011). _Multi-aspect sentiment analysis with topic models_. 2011 IEEE 11th International Conference on Data Mining Workshops, 81–88.
+{{% notice ref %}}
+
+- Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
+- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. (2011). _Multi-aspect sentiment analysis with topic models_. 2011 IEEE 11th International Conference on Data Mining Workshops, 81–88.
+
 {{% /notice %}}
 
