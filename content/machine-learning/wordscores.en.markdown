@@ -34,17 +34,17 @@ summary(corp_ger)
 ## 
 ##          Text Types Tokens Sentences year   party ref_score
 ##      AfD 2013   450    944        43 2013     AfD        NA
-##  CDU-CSU 2013  7615  46535      2526 2013 CDU-CSU      5.92
-##      FDP 2013  7953  42298      2376 2013     FDP      6.53
-##   Gruene 2013 13839  93595      5134 2013  Gruene      3.61
-##    Linke 2013  8451  43382      1852 2013   Linke      1.23
-##      SPD 2013  8360  47348      2536 2013     SPD      3.76
-##      AfD 2017  5947  18754       725 2017     AfD        NA
+##  CDU-CSU 2013  7615  46535      2527 2013 CDU-CSU      5.92
+##      FDP 2013  7953  42298      2375 2013     FDP      6.53
+##   Gruene 2013 13839  93595      5126 2013  Gruene      3.61
+##    Linke 2013  8451  43382      1850 2013   Linke      1.23
+##      SPD 2013  8360  47348      2532 2013     SPD      3.76
+##      AfD 2017  5947  18754       715 2017     AfD        NA
 ##  CDU-CSU 2017  4890  21510      1256 2017 CDU-CSU        NA
-##      FDP 2017  8676  37609      1928 2017     FDP        NA
-##   Gruene 2017 13353  72645      3221 2017  Gruene        NA
-##    Linke 2017 11830  65728      2757 2017   Linke        NA
-##      SPD 2017  8400  41938      2403 2017     SPD        NA
+##      FDP 2017  8676  37609      1925 2017     FDP        NA
+##   Gruene 2017 13353  72645      3220 2017  Gruene        NA
+##    Linke 2017 11830  65728      2755 2017   Linke        NA
+##      SPD 2017  8400  41938      2401 2017     SPD        NA
 ```
 
 Now we can apply the Wordscores algorithm to a document-feature matrix.

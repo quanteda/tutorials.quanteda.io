@@ -78,26 +78,26 @@ head(tstat_col_cap, 20)
 
 ```
 ##           collocation count count_nested length    lambda         z
-## 1       David Cameron   860            0      2  8.311799 150.04426
-## 2        Donald Trump   774            0      2  8.482504 124.98812
-## 3      George Osborne   362            0      2  8.803311 109.38162
-## 4     Hillary Clinton   525            0      2  9.249271 104.31392
-## 5            New York  1016            0      2 10.603363 101.75901
-## 6       Islamic State   330            0      2  9.957651  99.70223
-## 7         White House   478            0      2 10.066833  97.80937
-## 8      European Union   348            0      2  8.394312  96.46374
-## 9       Jeremy Corbyn   244            0      2  8.885006  92.41145
-## 10      Boris Johnson   245            0      2  9.819628  86.13165
-## 11 Guardian Australia   237            0      2  6.481272  85.72551
-## 12     Bernie Sanders   394            0      2 10.066987  85.71410
-## 13   Northern Ireland   204            0      2 10.024566  84.50616
-## 14        Home Office   216            0      2  9.845972  79.93275
-## 15        Ed Miliband   173            0      2 10.007708  79.60873
-## 16       South Africa   172            0      2  7.724146  79.20673
-## 17       Barack Obama   343            0      2  9.915042  79.17483
-## 18           Ted Cruz   417            0      2 10.911843  79.00420
-## 19       Black Friday   190            0      2  8.614479  78.21115
-## 20     South Carolina   271            0      2  9.560241  78.07117
+## 1       David Cameron   860            0      2  8.311883 150.04578
+## 2        Donald Trump   774            0      2  8.482588 124.98936
+## 3      George Osborne   362            0      2  8.803395 109.38266
+## 4     Hillary Clinton   525            0      2  9.249355 104.31487
+## 5            New York  1016            0      2 10.603448 101.75982
+## 6       Islamic State   330            0      2  9.957735  99.70308
+## 7         White House   478            0      2 10.066917  97.81019
+## 8      European Union   348            0      2  8.394396  96.46471
+## 9       Jeremy Corbyn   244            0      2  8.885090  92.41232
+## 10      Boris Johnson   245            0      2  9.819712  86.13238
+## 11     Bernie Sanders   394            0      2 10.056969  85.94727
+## 12 Guardian Australia   237            0      2  6.483484  85.74628
+## 13   Northern Ireland   204            0      2 10.024651  84.50687
+## 14        Home Office   216            0      2  9.846056  79.93343
+## 15        Ed Miliband   173            0      2 10.007792  79.60940
+## 16       South Africa   172            0      2  7.724230  79.20759
+## 17       Barack Obama   343            0      2  9.915126  79.17550
+## 18           Ted Cruz   417            0      2 10.911927  79.00480
+## 19       Black Friday   190            0      2  8.614564  78.21191
+## 20     South Carolina   271            0      2  9.560325  78.07186
 ```
 
 ### Compound multi-word expressions

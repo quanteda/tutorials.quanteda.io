@@ -46,9 +46,9 @@ topfeatures(dfmat_tweets)
 
 ```
 ##          vote conservatives        labour         today         share 
-##          1873           953           757           674           648 
-##       britain          find        fairer        voting      tomorrow 
-##           639           615           571           570           564
+##          1886           959           773           676           649 
+##       britain          find        fairer      tomorrow        voting 
+##           639           615           571           570           570
 ```
 
 Group documents by usernames.

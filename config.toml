@@ -9,7 +9,10 @@ metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 PygmentsCodeFences = false
-min_version = 0.25
+min_version = 0.6
+
+[markup.goldmark.renderer]
+unsafe = true
 
 [params]
   editURL = "https://github.com/quanteda/tutorials.quanteda.io/tree/master/content/"

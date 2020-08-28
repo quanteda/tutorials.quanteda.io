@@ -57,7 +57,7 @@ print(corp_sent)
 ```
 
 ```
-## Corpus consisting of 207 documents.
+## Corpus consisting of 206 documents.
 ## BNP.1 :
 ## "IMMIGRATION: AN UNPARALLELED CRISIS WHICH ONLY THE BNP CAN S..."
 ## 
@@ -76,7 +76,7 @@ print(corp_sent)
 ## BNP.6 :
 ## "Figures released by the ONS in January 2009 revealed that th..."
 ## 
-## [ reached max_ndoc ... 201 more documents ]
+## [ reached max_ndoc ... 200 more documents ]
 ```
 
 ```r
@@ -84,7 +84,7 @@ ndoc(corp_sent)
 ```
 
 ```
-## [1] 207
+## [1] 206
 ```
 
 Restore the original documents.
@@ -135,7 +135,7 @@ ndoc(corp_sent_long)
 ```
 
 ```
-## [1] 183
+## [1] 182
 ```
 
 ```r
