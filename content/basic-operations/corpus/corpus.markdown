@@ -71,7 +71,7 @@ summary(corp_immig)
 ##        LibDem   251    483        14       LibDem
 ##            PC    77    114         5           PC
 ##           SNP    88    134         4          SNP
-##          UKIP   346    722        27         UKIP
+##          UKIP   346    722        26         UKIP
 ```
 
 

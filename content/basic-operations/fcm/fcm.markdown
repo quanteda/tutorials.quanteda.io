@@ -42,7 +42,7 @@ nfeat(dfmat_news)
 ```
 
 ```
-## [1] 4210
+## [1] 4211
 ```
 
 You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequntly co-occuring words.
@@ -54,7 +54,7 @@ dim(fcmat_news)
 ```
 
 ```
-## [1] 4210 4210
+## [1] 4211 4211
 ```
 
 You can select features of a FCM using `fcm_select()`.
@@ -77,12 +77,6 @@ A FCM can be used to train word embedding models with the **text2vec** package, 
 size <- log(colSums(dfm_select(dfmat_news, feat, selection = "keep")))
 set.seed(144)
 textplot_network(fcmat_news_select, min_freq = 0.8, vertex_size = size / max(size) * 3)
-```
-
-```
-## Registered S3 method overwritten by 'network':
-##   method            from    
-##   summary.character quanteda
 ```
 
 <img src="/basic-operations/fcm/fcm_files/figure-html/unnamed-chunk-7-1.png" width="672" />
