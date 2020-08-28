@@ -25,12 +25,12 @@ We only select news stories published in 2016 using `corpus_subset()`.
 
 
 ```r
-corp_news_subset <- corpus_subset(corp_news, 'date' >= 2016)
+corp_news_subset <- corpus_subset(corp_news, year(date) >= 2016)
 ndoc(corp_news_subset)
 ```
 
 ```
-## [1] 6000
+## [1] 1959
 ```
 
 Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`)
@@ -104,6 +104,13 @@ head(topics(tmod_lda), 20)
 
 ```r
 dfmat_news$topic <- topics(tmod_lda)
+table(dfmat_news$topic)
+```
+
+```
+## 
+##  topic1 topic10  topic2  topic3  topic4  topic5  topic6  topic7  topic8  topic9 
+##     707     699     537     759     632     609     651     350     614     430
 ```
 
 ### Seeded LDA
@@ -184,11 +191,19 @@ head(topics(tmod_slda), 20)
 
 ```r
 dfmat_news$topic2 <- topics(tmod_slda)
+table(dfmat_news$topic2)
 ```
 
-{{% notice info %}}
-If you want to learn more about Topic Models, see:  
-Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
-Lu, B., Ott, M., Cardie, C., & Tsou, B. K. (2011). _Multi-aspect sentiment analysis with topic models_. 2011 IEEE 11th International Conference on Data Mining Workshops, 81–88.
+```
+## 
+## diplomacy   economy  military  politics   society 
+##       937      1690      1032       866      1463
+```
+
+{{% notice ref %}}
+
+- Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
+- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. (2011). _Multi-aspect sentiment analysis with topic models_. 2011 IEEE 11th International Conference on Data Mining Workshops, 81–88.
+
 {{% /notice %}}
 

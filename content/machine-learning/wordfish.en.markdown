@@ -88,7 +88,6 @@ textplot_scale1d(tmod_wf, margin = "features",
 
 <img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-{{% notice info %}}
-If you want to learn more about Wordfish, see:  
-Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_ 52(3): 705-772.
+{{% notice ref %}}
+- Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_ 52(3): 705-772.
 {{% /notice %}}
