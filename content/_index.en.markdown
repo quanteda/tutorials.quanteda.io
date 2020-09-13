@@ -4,7 +4,9 @@ chapter: false
 ---
 # Quanteda tutorials
 
-{{% author %}}By [Kohei Watanabe](http://koheiw.net) and [Stefan Müller](http://muellerstefan.net){{% /author %}} 
+{{% author %}}
+By [Kohei Watanabe](http://koheiw.net) and [Stefan Müller](http://muellerstefan.net)
+{{% /author %}} 
 
 This website contains a step-by-step introduction to quantitative text analysis using **quanteda**. The chapters cover a brief introduction to the statistical programming language R, how to import text data, basic operations of **quanteda**, how to construct a corpus, tokens objects, a document-feature matrix, and how to conduct advanced operations. The final chapter deals with text scaling (e.g., Wordscores, Wordfish, correspondence analysis), document classification using Naive Bayes and topic models.
 
