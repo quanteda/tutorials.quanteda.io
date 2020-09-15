@@ -9,12 +9,12 @@ Topics models are unsupervised document classification techniques. By modeling d
 ```{r message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
-require(lubridate)
 require(seededlda)
+require(lubridate)
 ```
 
 ```{r eval=FALSE}
-corp_news <- download('data_corpus_guardian')
+corp_news <- download("data_corpus_guardian")
 ```
 
 ```{r include=FALSE}
@@ -22,22 +22,23 @@ corp_news <- download('data_corpus_guardian')
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We only select news stories published in 2016 using `corpus_subset()`. 
+We only select news stories published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
 
 ```{r}
 corp_news_subset <- corpus_subset(corp_news, year(date) >= 2016)
 ndoc(corp_news_subset)
 ```
 
-Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`)
- using `dfm_trim()` to focus on common but distinguishing features.
+Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`) using `dfm_trim()` to focus on common but distinguishing features.
 
 ```{r}
-dfmat_news <- dfm(corp_news, remove_punct = TRUE, remove = stopwords('en')) %>% 
-    dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
+dfmat_news <- corp_news %>% 
+    dfm(remove_punct = TRUE, remove = stopwords("en")) %>% 
+    dfm_remove(c("*-time", "*-timeUpdated", "GMT", "BST")) %>% 
     dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
              max_docfreq = 0.1, docfreq_type = "prop")
 
+# remove "empty" documents without any tokens
 dfmat_news <- dfmat_news[ntoken(dfmat_news) > 0,]
 ```
 
@@ -45,7 +46,7 @@ dfmat_news <- dfmat_news[ntoken(dfmat_news) > 0,]
 
 ### LDA
 
-`k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values.
+`k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values and validate the outputs of your topic models thoroughly.
 
 ```{r cache=TRUE}
 tmod_lda <- textmodel_lda(dfmat_news, k = 10)
@@ -61,7 +62,11 @@ You can then obtain the most likely topics using `topics()` and save them as a d
 
 ```{r}
 head(topics(tmod_lda), 20)
+
+# assign topic as a new document-level variable
 dfmat_news$topic <- topics(tmod_lda)
+
+# cross-table of the topic frequency
 table(dfmat_news$topic)
 ```
 
@@ -70,11 +75,12 @@ table(dfmat_news$topic)
 In the seeded LDA, you can predefine topics in LDA using a dictionary of "seed" words.
 
 ```{r}
+# load dictionary containing seed words
 dict_topic <- dictionary(file = "../dictionary/topics.yml")
 print(dict_topic)
 ```
 
-The number of topics is determined by the number keys in the dictionary.
+The number of topics is determined by the number keys in the dictionary. Next, we fit the seeded LDA model using `textmodel_seededlda()` and specify the dictionary with our relevant  keywords.
 
 ```{r, cache=TRUE}
 tmod_slda <- textmodel_seededlda(dfmat_news, dictionary = dict_topic)
@@ -90,7 +96,11 @@ terms(tmod_slda, 20)
 
 ```{r}
 head(topics(tmod_slda), 20)
+
+# assign topics from seeded LDA as a document-level variable to the dfm
 dfmat_news$topic2 <- topics(tmod_slda)
+
+# cross-table of the topic frequency
 table(dfmat_news$topic2)
 ```
 

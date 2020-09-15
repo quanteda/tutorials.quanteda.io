@@ -16,15 +16,15 @@ toks <- tokens(data_char_ukimmig2010)
 There are several multi-word expressions that are important in social scientific reserach.
 
 ```{r}
-kw_multiword <- kwic(toks, pattern = phrase(c('asylum seeker*', 'british citizen*')))
+kw_multiword <- kwic(toks, pattern = phrase(c("asylum seeker*", "british citizen*")))
 head(kw_multiword, 10)
 ```
 
-To preserve these expressions in bag-of-word analysis, you have to compound them using `tokens_compound()`.
+To preserve these expressions in a bag-of-word analysis, you have to compound them using `tokens_compound()`.
 
 ```{r}
-toks_comp <- tokens_compound(toks, pattern = phrase(c('asylum seeker*', 'british citizen*')))
-kw_comp <- kwic(toks_comp, pattern = c('asylum_seeker*', 'british_citizen*'))
+toks_comp <- tokens_compound(toks, pattern = phrase(c("asylum seeker*", "british citizen*")))
+kw_comp <- kwic(toks_comp, pattern = c("asylum_seeker*", "british_citizen*"))
 head(kw_comp, 10)
 ```
 

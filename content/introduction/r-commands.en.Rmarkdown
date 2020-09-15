@@ -12,13 +12,13 @@ R has three types of objects: *vector*, *data frame* and *matrix*. Since many of
 
 ### Vectors
 
-As a language for statistical analysis, R's most basic objects are vectors. Vectors contain a set of values. In the examples below, `vec_num` is a *numeric vector*, while `vec_char` is a *chracter vector*. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
+As a language for statistical analysis, R"s most basic objects are vectors. Vectors contain a set of values. In the examples below, `vec_num` is a *numeric vector*, while `vec_char` is a *chracter vector*. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
 
 ```{r}
 vec_num <- c(1, 5, 6, 3)
 print(vec_num)
 
-vec_char <- c('apple', 'banana', 'mandarin', 'melon')
+vec_char <- c("apple", "banana", "mandarin", "melon")
 print(vec_char)
 ```
 
@@ -47,14 +47,14 @@ print(vec_logi_gt5)
 You cannot apply arithmetical operations on character vectors, but can apply the equality operator.
 
 ```{r}
-vec_logi_apple <- vec_char == 'apple'
+vec_logi_apple <- vec_char == "apple"
 print(vec_logi_apple)
 ```
 
 You can also concatenate elements of character vectors using `paste()`. Since the two vectors in the example have the same length, elements at the same positions of the vectors are concatenated. 
 
 ```{r}
-vec_char2 <- paste(c('red', 'yellow', 'orange', 'green'), vec_char)
+vec_char2 <- paste(c("red", "yellow", "orange", "green"), vec_char)
 print(vec_char2)
 ```
 
@@ -103,7 +103,7 @@ You can use `colnames()` or `rownames()` to set/retrieve names to rows or column
 ```{r}
 colnames(mat) <- vec_char
 print(mat)
-rownames(mat) <- c('bag1', 'bag2') 
+rownames(mat) <- c("bag1", "bag2") 
 print(mat)
 ```
 
@@ -116,8 +116,8 @@ print(dim(mat))
 If a matrix has column and row names, you can extract rows or columns by their names.
 
 ```{r}
-print(mat['bag1', ])
-print(mat[, 'banana'])
+print(mat["bag1", ])
+print(mat[, "banana"])
 ```
 
 Finally, you can obtain marginals of matrix by `colSums()` or `rowSums()`.

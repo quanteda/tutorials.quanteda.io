@@ -26,7 +26,7 @@ dfmat_irish_lg <- dfm_lookup(dfmat_irish, dictionary = dict_lg, levels = 1)
 print(dfmat_irish_lg)
 ```
 
-You can also pass a dictionary to `dfm()` to simplify your code, but you cannot specify `levels` in this method.
+You can also pass a dictionary to `dfm()` to simplify your code, but you cannot specify `levels` with this method.
 
 ```{r eval=FALSE}
 dfmat_irish_lg <- dfm(data_corpus_irishbudget2010, dictionary = dict_lg, remove_punct = TRUE)
