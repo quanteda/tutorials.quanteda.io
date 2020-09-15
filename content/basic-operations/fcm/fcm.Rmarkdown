@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-A feature co-occurrence matrix (FCM) records number of co-occurances of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
+A feature co-occurrence matrix (FCM) records the number of co-occurrences of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
 
 ```{r message=FALSE}
 require(quanteda)
@@ -24,7 +24,7 @@ When a corpus is large, you have to select features of a DFM before constructing
 
 ```{r}
 dfmat_news <- dfm(corp_news, remove = stopwords("en"), remove_punct = TRUE)
-dfmat_news <- dfm_remove(dfmat_news, pattern = c("*-time", "updated-*", "gmt", "bst"))
+dfmat_news <- dfm_remove(dfmat_news, pattern = c("*-time", "updated-*", "gmt", "bst", "|"))
 dfmat_news <- dfm_trim(dfmat_news, min_termfreq = 100)
 
 topfeatures(dfmat_news)

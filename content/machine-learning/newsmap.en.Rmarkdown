@@ -91,7 +91,7 @@ count <- sort(table(factor(pred_nm, levels = colnames(dfmat_label))), decreasing
 head(count, 20)
 ```
 
-You can visualize the distribution of global news attention using `geom_map()`.
+You can visualise the distribution of global news attention using `geom_map()`.
 
 ```{r fig.height=5, fig.width=10}
 dat_country <- as.data.frame(count, stringsAsFactors = FALSE)

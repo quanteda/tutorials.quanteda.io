@@ -29,7 +29,7 @@ You can also access to individual document-level variables using the `$` operato
 corp$Year
 ```
 
-## Assigning document variables
+## Assigning document-level variables
 
 `docvars()` also allows you to create or update document variables.
 

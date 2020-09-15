@@ -23,7 +23,7 @@ print(dfmat_party)
 head(colSums(dfmat_party), 10)
 ```
 
-`dfm_group()` identify document-level variables that are the same within groups and keeps them.
+`dfm_group()` identifies document-level variables that are the same within groups and keeps these variables.
 
 ```{r}
 docvars(dfmat_party)
