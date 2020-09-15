@@ -1,5 +1,5 @@
 ---
-title: Document variables
+title: Document-level variables
 weight: 15
 draft: false
 ---
@@ -9,7 +9,7 @@ draft: false
 require(quanteda)
 ```
 
-**quanteda**'s objects keep information associated with documents. They are called "document variables", or "docvars" and accessed using `docvars()`.
+**quanteda**'s objects keep information associated with documents. They are called "document-level variables", or "docvars" and accessed using `docvars()`.
 
 
 ```r
@@ -27,7 +27,7 @@ head(docvars(corp))
 ## 6 1809    Madison     James Democratic-Republican
 ```
 
-## Extracting document variables
+## Extracting document-level variables
 
 If you want to extract individual elements of document variables, you can specify `field`.
 
@@ -43,7 +43,7 @@ docvars(corp, field = "Year")
 ## [46] 1969 1973 1977 1981 1985 1989 1993 1997 2001 2005 2009 2013 2017
 ```
 
-You can also access to individual document variables using the `$` operator. 
+You can also access to individual document-level variables using the `$` operator. 
 
 
 ```r
@@ -76,6 +76,7 @@ head(docvars(corp))
 ## 5 1805  Jefferson    Thomas Democratic-Republican      19
 ## 6 1809    Madison     James Democratic-Republican      19
 ```
+
 Alernatively, you can create the document-level variable using the `$` operator
 
 

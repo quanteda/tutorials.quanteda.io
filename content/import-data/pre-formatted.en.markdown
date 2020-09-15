@@ -36,5 +36,5 @@ The most common problem in loading data into R is misspecifing locations of file
 {{% /notice%}}
 
 {{% notice tip %}}
-If you have more than a few R files in a project, you should create a RStudio Project to better manage files and settings. You can create a RStudio project from the menu (_File > New Project_).
+If you have more than a few R files in a project, you should create an [RStudio Project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) to better manage files and settings. You can create an RStudio project from the menu (_File > New Project_).
 {{% /notice%}}

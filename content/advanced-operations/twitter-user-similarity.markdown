@@ -24,15 +24,14 @@ Construct a corpus of Tweets.
 corp_tweets <- corpus(dat_twitter)
 ```
 
-Construct a document-feature matrix removing tags and links.
+Construct a document-feature matrix, and remove tags, links, and English stopwords.
 
 
 ```r
-dfmat_tweets <- dfm(corp_tweets,
-                 remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE,
-                 remove = c('*.tt', '*.uk', '*.com', 'rt', '#*', '@*')) %>% 
-             dfm_remove(stopwords('en'))
-
+dfmat_tweets <- corp_tweets %>% 
+    dfm(remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE) %>% 
+    dfm_remove(pattern = c("*.tt", "*.uk", "*.com", "rt", "#*", "@*")) %>% 
+    dfm_remove(pattern = stopwords("en"))
 ndoc(dfmat_tweets)
 ```
 
@@ -51,11 +50,11 @@ topfeatures(dfmat_tweets)
 ##           639           615           571           570           570
 ```
 
-Group documents by usernames.
+Group documents by user names.
 
 
 ```r
-dfmat_users <- dfm_group(dfmat_tweets, groups = 'screen_name')
+dfmat_users <- dfm_group(dfmat_tweets, groups = "screen_name")
 ndoc(dfmat_users)
 ```
 

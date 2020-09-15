@@ -15,19 +15,19 @@ This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
 ```r
-corp_news <- download('data_corpus_guardian')
+corp_news <- download("data_corpus_guardian")
 ```
 
 
 
 
-By collocation analysis, we can identify contiguous collocations of words. One of the most common types of multi-word expressions are proper names, which can be identified simply based on capitalization in English texts.
+A collocation analysis allows us to identify contiguous collocations of words. One of the most common types of multi-word expressions are proper names, which can be identified simply based on capitalization in English texts.
 
 
 ```r
 toks_news <- tokens(corp_news, remove_punct = TRUE)
-tstat_col_caps <- tokens_select(toks_news, pattern = '^[A-Z]', 
-                                valuetype = 'regex', 
+tstat_col_caps <- tokens_select(toks_news, pattern = "^[A-Z]", 
+                                valuetype = "regex", 
                                 case_insensitive = FALSE, 
                                 padding = TRUE) %>% 
            textstat_collocations(min_count = 100)
@@ -58,12 +58,12 @@ head(tstat_col_caps, 20)
 ## 20     south carolina   271            0      2  9.431656  77.02105
 ```
 
-You can also discover collocations larger than two words.
+You can also discover collocations longer than two words. In the example below we identify collocations consisting of three words.
 
 
 ```r
-tstat_col2 <- tokens_select(toks_news, pattern = '^[A-Z]', 
-                                valuetype = 'regex', 
+tstat_col2 <- tokens_select(toks_news, pattern = "^[A-Z]", 
+                                valuetype = "regex", 
                                 case_insensitive = FALSE, 
                                 padding = TRUE) %>% 
             textstat_collocations(min_count = 100, size = 3)

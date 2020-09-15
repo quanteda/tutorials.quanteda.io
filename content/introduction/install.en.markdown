@@ -36,15 +36,15 @@ We will use the **readtext** package to read in different types of text data in 
 install.packages("readtext")
 ```
 
-We will also use extra datasets in tutorials that are available in **quanteda.corpora**.
+We will also use extra datasets in tutorials that are available in **quanteda.corpora**. This package is not on CRAN, but can be installed with the `install_github()` fucntion from the **devools** package
 
 
 ```r
-install.packages("devtools")
+install.packages("devtools") # get devtools to install quanteda.corpora
 devtools::install_github("quanteda/quanteda.corpora")
 ```
 
-In **quanteda** version 2.0, `textmodel_*` functions are separated in **quanteda.textmodels** that we will use in Scaling and Classification.
+In **quanteda** version 2.0, `textmodel_*` functions are separated in **quanteda.textmodels**. We will use several of these functions in the sections on scaling and classification.
 
 
 ```r
@@ -56,7 +56,7 @@ If you already have **quanteda** and other packages installed, run Tools > Check
 {{% /notice %}}
 
 
-## Extra packages
+## Additional packages
 
 The tutorials do not cover syntactical analysis, but you should install **spacyr** for  part-of-speech tagging, entity recognition, and dependency parsing. It provides an interface to the spaCy library and works well with **quanteda**. Note that you need to have Python installed to use the **spacyr** package. See the [package description](https://github.com/quanteda/spacyr/blob/master/README.md) for more information.
 
@@ -65,11 +65,12 @@ The tutorials do not cover syntactical analysis, but you should install **spacyr
 install.packages("spacyr")
 ```
 
-Finally, we show how to use **newsmap** to [classify documents](https://tutorials.quanteda.io/machine-learning/newsmap/) based on "seed words" in dictionaries. You can download the pacakge from [CRAN](https://cran.r-project.org/package=newsmap).
+Finally, we show how to use **newsmap** to [classify documents](https://tutorials.quanteda.io/machine-learning/newsmap/) based on "seed words" in dictionaries and the **seededlda** package to run topic models. You can download the packages from [CRAN](https://cran.r-project.org/package=newsmap).
 
 
 ```r
 install.packages("newsmap")
+install.packages("seededlda")
 ```
 
 To sum up, you need to load the following packages to run all examples: 
@@ -79,8 +80,10 @@ To sum up, you need to load the following packages to run all examples:
 require(quanteda)
 require(readtext)
 require(quanteda.textmodels)
+require(devtools)
 require(quanteda.corpora)
 require(newsmap)
+require(seededlda)
 ```
 
 {{% notice note %}}

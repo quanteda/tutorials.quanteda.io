@@ -26,7 +26,7 @@ Download a corpus with news articles using **quanteda.corpora**'s `download()` f
 
 
 ```r
-corp_news <- download(url = 'https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpus_yahoonews.rds?dl=1')
+corp_news <- download(url = "https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpus_yahoonews.rds?dl=1")
 ```
 
 
@@ -54,17 +54,17 @@ In geographical classification, proper nouns are the most useful features of doc
 
 
 ```r
-month <- c('January', 'February', 'March', 'April', 'May', 'June',
-           'July', 'August', 'September', 'October', 'November', 'December')
-day <- c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
-agency <- c('AP', 'AFP', 'Reuters')
+month <- c("January", "February", "March", "April", "May", "June",
+           "July", "August", "September", "October", "November", "December")
+day <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+agency <- c("AP", "AFP", "Reuters")
 ```
 
 
 ```r
 toks_news <- tokens(corp_news)
-toks_news_small <- tokens_remove(toks_news, pattern = stopwords('english'), valuetype = 'fixed', padding = TRUE) %>% 
-                   tokens_remove(pattern = c(month, day, agency), valuetype = 'fixed', padding = TRUE)
+toks_news_small <- tokens_remove(toks_news, pattern = stopwords("en"), valuetype = "fixed", padding = TRUE) %>% 
+                   tokens_remove(pattern = c(month, day, agency), valuetype = "fixed", padding = TRUE)
 ```
 
 **newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
@@ -75,7 +75,7 @@ toks_label <- tokens_lookup(toks_news_small, dictionary = data_dictionary_newsma
 dfmat_label <- dfm(toks_label, tolower = FALSE)
 
 dfmat_feat <- dfm(toks_news_small, tolower = FALSE)
-dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = 'regex', 
+dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z1-2]+", valuetype = "regex", 
                                 case_insensitive = FALSE) %>% 
                      dfm_trim(min_termfreq = 10)
 
@@ -162,7 +162,7 @@ dat_country <- as.data.frame(count, stringsAsFactors = FALSE)
 colnames(dat_country) <- c("id", "frequency")
 
 world_map <- map_data(map = "world")
-world_map$region <- iso.alpha(world_map$region) # convert contry name to ISO code
+world_map$region <- iso.alpha(world_map$region) # convert country name to ISO code
 
 ggplot(dat_country, aes(map_id = id)) +
       geom_map(aes(fill = frequency), map = world_map) +
@@ -174,7 +174,6 @@ ggplot(dat_country, aes(map_id = id)) +
 
 <img src="/machine-learning/newsmap.en_files/figure-html/unnamed-chunk-12-1.png" width="960" />
 
-{{% notice info %}}
-If you want to learn more about Newsmap, see:  
-Watanabe, Kohei. 2018. "Newsmap: A semi-supervised approach to geographical news classification." _Digital Journalism_ 6(3): 294-309.
+{{% notice ref %}}
+- Watanabe, Kohei. 2018. "Newsmap: A semi-supervised approach to geographical news classification." _Digital Journalism_ 6(3): 294-309.
 {{% /notice %}}

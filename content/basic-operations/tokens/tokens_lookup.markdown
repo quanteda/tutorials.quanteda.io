@@ -44,7 +44,7 @@ names(dict_newsmap)
 ```
 
 ```r
-names(dict_newsmap[['AFRICA']])
+names(dict_newsmap[["AFRICA"]])
 ```
 
 ```
@@ -52,7 +52,7 @@ names(dict_newsmap[['AFRICA']])
 ```
 
 ```r
-dict_newsmap[['AFRICA']][['NORTH']]
+dict_newsmap[["AFRICA"]][["NORTH"]]
 ```
 
 ```
@@ -76,6 +76,7 @@ The `levels` argument determines the keys to be recored in a resulting tokens ob
 
 
 ```r
+# use level of continents
 toks_region <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 1)
 print(toks_region)
 ```
@@ -106,25 +107,9 @@ print(toks_region)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-```r
-dfm(toks_region)
-```
-
-```
-## Document-feature matrix of: 9 documents, 5 features (62.2% sparse).
-##               features
-## docs           africa america asia europe oceania
-##   BNP               2       0    5     66       1
-##   Coalition         0       0    0      1       0
-##   Conservative      0       0    0      5       0
-##   Greens            0       0    0      2       0
-##   Labour            0       0    0      7       4
-##   LibDem            0       1    0      6       0
-## [ reached max_ndoc ... 3 more documents ]
-```
-
 
 ```r
+# use level of countries
 toks_country <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 3)
 print(toks_country)
 ```
@@ -153,26 +138,11 @@ print(toks_country)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-```r
-dfm(toks_country)
-```
-
-```
-## Document-feature matrix of: 9 documents, 241 features (98.8% sparse).
-##               features
-## docs           bi km dj er et ke mg mw mu yt
-##   BNP           0  0  0  0  0  0  0  0  0  0
-##   Coalition     0  0  0  0  0  0  0  0  0  0
-##   Conservative  0  0  0  0  0  0  0  0  0  0
-##   Greens        0  0  0  0  0  0  0  0  0  0
-##   Labour        0  0  0  0  0  0  0  0  0  0
-##   LibDem        0  0  0  0  0  0  0  0  0  0
-## [ reached max_ndoc ... 3 more documents, reached max_nfeat ... 231 more features ]
-```
+You can also use run a keyword-in-context analysis by looking up the mentions of all African countries and the words surrounding the countries.
 
 
 ```r
-kwic(toks, dict_newsmap['AFRICA'])
+kwic(toks, dict_newsmap["AFRICA"])
 ```
 
 ```
@@ -185,8 +155,8 @@ You can define your own dictionary by passing a named list of characters to `dic
 
 
 ```r
-dict <- dictionary(list(refugee = c('refugee*', 'asylum*'),
-                        worker = c('worker*', 'employee*')))
+dict <- dictionary(list(refugee = c("refugee*", "asylum*"),
+                        worker = c("worker*", "employee*")))
 print(dict)
 ```
 
@@ -246,5 +216,5 @@ dfm(dict_toks)
 ```
 
 {{% notice tip %}}
-`tokens_lookup()` ignores multiple matches of dictionary values for the same key with the same token to avoide double counting. For example, if `US = c('United States of America', 'United States')` is in your dictionary, you get 'US' only once for a sequence of tokens `'United' 'States' 'of' 'America'`.
+`tokens_lookup()` ignores multiple matches of dictionary values for the same key with the same token to avoide double counting. For example, if `US = c("United States of America", "United States")` is in your dictionary, you get "US" only once for a sequence of tokens `"United" "States" "of" "America"`.
 {{% /notice %}}

@@ -9,12 +9,12 @@ Topics models are unsupervised document classification techniques. By modeling d
 ```{r message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
+require(seededlda)
 require(lubridate)
-require(topicmodels)
 ```
 
 ```{r eval=FALSE}
-corp_news <- download('data_corpus_guardian')
+corp_news <- download("data_corpus_guardian")
 ```
 
 ```{r include=FALSE}
@@ -22,47 +22,92 @@ corp_news <- download('data_corpus_guardian')
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We only select news stories published in 2016 using `corpus_subset()`. 
+We only select news stories published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
 
 ```{r}
-corp_news_subset <- corpus_subset(corp_news, 'date' >= 2016)
-ndoc(corp_news_subset)
+corp_news_2016 <- corpus_subset(corp_news, year(date) >= 2016)
+ndoc(corp_news_2016)
 ```
 
-Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`)
- using `dfm_trim()` to focus on common but distinguishing features.
+Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`) using `dfm_trim()` to focus on common but distinguishing features.
 
 ```{r}
-dfmat_news <- dfm(corp_news, remove_punct = TRUE, remove = stopwords('en')) %>% 
-    dfm_remove(c('*-time', '*-timeUpdated', 'GMT', 'BST')) %>% 
+dfmat_news <- corp_news_2016 %>% 
+    dfm(remove_punct = TRUE, remove = stopwords("en")) %>% 
+    dfm_remove(c("*-time", "*-timeUpdated", "GMT", "BST")) %>% 
     dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
              max_docfreq = 0.1, docfreq_type = "prop")
 
+# remove "empty" documents without any tokens
 dfmat_news <- dfmat_news[ntoken(dfmat_news) > 0,]
 ```
 
-**quanteda** does not implement topic models, but you can easily access `LDA()` from the **topicmodel** package through `convert()`. `k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values.
+**quanteda** does not implement topic models, but you can fit LDA and seeded-LDA with the **seededlda** package.
+
+### LDA
+
+`k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values and validate the outputs of your topic models thoroughly.
 
 ```{r cache=TRUE}
-dtm <- convert(dfmat_news, to = "topicmodels")
-lda <- LDA(dtm, k = 10)
+tmod_lda <- textmodel_lda(dfmat_news, k = 10)
 ```
 
 You can extract the most important terms for each topic from the model using `terms()`.
 
 ```{r}
-terms(lda, 10)
+terms(tmod_lda, 10)
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
 
 ```{r}
-dfmat_news$topic <- topics(lda)
-head(topics(lda), 20)
+head(topics(tmod_lda), 20)
+
+# assign topic as a new document-level variable
+dfmat_news$topic <- topics(tmod_lda)
+
+# cross-table of the topic frequency
+table(dfmat_news$topic)
 ```
 
-{{% notice info %}}
-If you want to learn more about Topic Models, see:  
-Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation."" _The Journal of Machine Learning Research_ 3(1): 993-1022.
+### Seeded LDA
+
+In the seeded LDA, you can predefine topics in LDA using a dictionary of "seed" words.
+
+```{r}
+# load dictionary containing seed words
+dict_topic <- dictionary(file = "../dictionary/topics.yml")
+print(dict_topic)
+```
+
+The number of topics is determined by the number of keys in the dictionary. Next, we fit the seeded LDA model using `textmodel_seededlda()` and specify the dictionary with our relevant keywords.
+
+```{r, cache=TRUE}
+tmod_slda <- textmodel_seededlda(dfmat_news, dictionary = dict_topic)
+```
+
+Some of the topic words are seed words, but the seeded LDA identifies many other related words.
+
+```{r}
+terms(tmod_slda, 20)
+```
+
+`topics()` on returns dictionary keys as the most likely topics of documents.
+
+```{r}
+head(topics(tmod_slda), 20)
+
+# assign topics from seeded LDA as a document-level variable to the dfm
+dfmat_news$topic2 <- topics(tmod_slda)
+
+# cross-table of the topic frequency
+table(dfmat_news$topic2)
+```
+
+{{% notice ref %}}
+
+- Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
+- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. (2011). _Multi-aspect sentiment analysis with topic models_. 2011 IEEE 11th International Conference on Data Mining Workshops, 81–88.
+
 {{% /notice %}}
 

@@ -28,7 +28,7 @@ Text analysis with **quanteda** goes through all those three types of objects ei
 {{<mermaid align="left">}}
     graph TD
     D[Text files]
-    V[Document variables]
+    V[Document-level variables]
     C(Corpus)
     T(Tokens)
     AP["Positional analysis (string-of-words)"]
@@ -45,4 +45,4 @@ Text analysis with **quanteda** goes through all those three types of objects ei
     M -.-> AN
 {{< /mermaid >}}
 
-For example, if character vectors are given to `dfm()`, it internally constructs corpus and tokens, before a DFM. 
+For example, if character vectors are given to `dfm()`, it internally constructs corpus and tokens objects before creating a DFM. 

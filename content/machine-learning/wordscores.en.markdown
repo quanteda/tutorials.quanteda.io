@@ -19,7 +19,7 @@ We use manifestos of the 2013 and 2017 German federal elections. For the 2013 el
 
 
 ```r
-corp_ger <- download(url = 'https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1')
+corp_ger <- download(url = "https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1")
 ```
 
 
@@ -51,7 +51,10 @@ Now we can apply the Wordscores algorithm to a document-feature matrix.
 
 
 ```r
+# create a document-feature matrix
 dfmat_ger <- dfm(corp_ger, remove = stopwords("de"), remove_punct = TRUE)
+
+# apply Wordscores algorithm to document-feature matrix
 tmod_ws <- textmodel_wordscores(dfmat_ger, y = corp_ger$ref_score, smooth = 1)
 summary(tmod_ws)
 ```
@@ -118,8 +121,7 @@ textplot_scale1d(pred_ws)
 <img src="/machine-learning/wordscores.en_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 
-{{% notice info %}}
-If you want to learn more about Wordscores, see:  
-Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "Extracting Policy Positions From Political Texts Using Words as Data." _American Political Science Review_ 97(2): 311-331.  
-Lowe, Will. 2008. "Understanding Wordscores." _Political Analysis_ 16(4): 356-371.
+{{% notice ref %}}
+- Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "Extracting Policy Positions From Political Texts Using Words as Data." _American Political Science Review_ 97(2): 311-331.  
+- Lowe, Will. 2008. "Understanding Wordscores." _Political Analysis_ 16(4): 356-371.
 {{% /notice%}}

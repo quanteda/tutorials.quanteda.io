@@ -114,6 +114,46 @@ div.author {
   margin: 1.7rem 0;
 }
 
+/* ------------- references ------------- */
+
+div.notices ul {
+    padding: 15px;
+    display: block;
+    font-size: 1rem;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    color: #666;
+    list-style: none;
+    list-style-position: outside;
+}
+div.notices ul li {
+    padding-left: 2em;
+    text-indent: -2em;
+}
+div.notices ul:first-child:before {
+    position: absolute;
+    top: 2px;
+    color: #fff;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f02d";
+    left: 10px;
+}
+div.notices ul:first-child:after {
+    position: absolute;
+    top: 2px;
+    color: #fff;
+    left: 2rem;
+}
+
+div.notices.ref ul {
+    border-top: 30px solid #F0B37E;
+    background: #FFF2DB;
+}
+div.notices.ref ul:first-child:after {
+    content: 'References';
+}
+
 /* ------------- fullscreen ------------- */
 
 @media all and (display-mode: fullscreen) {

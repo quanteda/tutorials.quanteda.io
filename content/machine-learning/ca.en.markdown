@@ -12,15 +12,15 @@ require(quanteda)
 require(quanteda.textmodels)
 ```
 
-`textmodel_ca()` provides similar functionality to the **ca** package, but **quanteda**'s version is more efficient for textual data.
+`textmodel_ca()` provides similar functionality to the **ca** package, but **quanteda**"s version is more efficient for textual data.
 
 You can plot positions of documents on a one-dimensional scale using `textplot_scale1d()`.
 
 
 ```r
 dfmat_irish <- dfm(data_corpus_irishbudget2010, 
-          remove_punct = TRUE, 
-          remove = stopwords('en'))
+                   remove_punct = TRUE, 
+                   remove = stopwords("en"))
 
 tmod_ca <- textmodel_ca(dfmat_irish)
 textplot_scale1d(tmod_ca)
@@ -48,7 +48,7 @@ head(dat_ca)
 ```
 
 ```r
-plot(1, xlim = c(-2, 2), ylim = c(-2, 2), type = 'n', xlab = 'Dimension 1', ylab = 'Dimension 2')
+plot(1, xlim = c(-2, 2), ylim = c(-2, 2), type = "n", xlab = "Dimension 1", ylab = "Dimension 2")
 grid()
 text(dat_ca$dim1, dat_ca$dim2, labels = rownames(dat_ca), cex = 0.8, col = rgb(0, 0, 0, 0.7))
 ```

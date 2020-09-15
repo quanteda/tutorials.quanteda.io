@@ -18,7 +18,7 @@ Using the `download()` function from **quanteda.corpora**, you can retrieve a te
 
 
 ```r
-corp_tweets <- download(url = 'https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1')
+corp_tweets <- download(url = "https://www.dropbox.com/s/846skn1i5elbnd2/data_corpus_sampletweets.rds?dl=1")
 ```
 
 
@@ -72,7 +72,7 @@ dfmat_tweets %>%
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-Alternative, you can create a Wordcloud of the  100 most common tags.
+Alternative, you can create a Wordcloud of the  100 most common hashtags.
 
 
 ```r

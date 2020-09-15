@@ -60,7 +60,7 @@ print(dfmat_inaug_prop)
 ```
 
 {{% notice tip %}}
-`textstat_frequency()`, desribed in chapter 4 offers more advanced functionalities than `topfeatures()` and returns a `data.frame` object, making it easier to use the output for further analyses.
+`textstat_frequency()`, desribed in Chapter 4, offers more advanced functionalities than `topfeatures()` and returns a `data.frame` object, making it easier to use the output for further analyses.
 {{% /notice %}}
 
 

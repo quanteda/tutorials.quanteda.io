@@ -52,7 +52,7 @@ Change the unit of texts to sentences.
 
 
 ```r
-corp_sent <- corpus_reshape(corp, to = 'sentences')
+corp_sent <- corpus_reshape(corp, to = "sentences")
 print(corp_sent)
 ```
 
@@ -91,7 +91,7 @@ Restore the original documents.
 
 
 ```r
-corp_doc <- corpus_reshape(corp_sent, to = 'documents')
+corp_doc <- corpus_reshape(corp_sent, to = "documents")
 print(corp_doc)
 ```
 
@@ -139,7 +139,7 @@ ndoc(corp_sent_long)
 ```
 
 ```r
-corp_doc_long <- corpus_reshape(corp_sent_long, to = 'documents')
+corp_doc_long <- corpus_reshape(corp_sent_long, to = "documents")
 ndoc(corp_doc_long)
 ```
 

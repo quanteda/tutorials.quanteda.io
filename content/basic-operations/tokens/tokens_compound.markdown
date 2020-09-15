@@ -19,7 +19,7 @@ There are several multi-word expressions that are important in social scientific
 
 
 ```r
-kw_multiword <- kwic(toks, pattern = phrase(c('asylum seeker*', 'british citizen*')))
+kw_multiword <- kwic(toks, pattern = phrase(c("asylum seeker*", "british citizen*")))
 head(kw_multiword, 10)
 ```
 
@@ -37,12 +37,12 @@ head(kw_multiword, 10)
 ##      [Labour, 337:338]        economy and the values of | British citizenship | , and step up our
 ```
 
-To preserve these expressions in bag-of-word analysis, you have to compound them using `tokens_compound()`.
+To preserve these expressions in a bag-of-word analysis, you have to compound them using `tokens_compound()`.
 
 
 ```r
-toks_comp <- tokens_compound(toks, pattern = phrase(c('asylum seeker*', 'british citizen*')))
-kw_comp <- kwic(toks_comp, pattern = c('asylum_seeker*', 'british_citizen*'))
+toks_comp <- tokens_compound(toks, pattern = phrase(c("asylum seeker*", "british citizen*")))
+kw_comp <- kwic(toks_comp, pattern = c("asylum_seeker*", "british_citizen*"))
 head(kw_comp, 10)
 ```
 

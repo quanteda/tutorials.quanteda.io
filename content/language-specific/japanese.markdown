@@ -14,7 +14,7 @@ require(quanteda.corpora)
 
 ## Tokenization
 
-You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan's Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017
+You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan"s Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017
 
 
 ```r
@@ -58,7 +58,7 @@ head(toks_icu[[20]], 100)
 
 ### Morphological analysis
 
-If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. [Mecab](https://en.wikipedia.org/wiki/MeCab) is one of the most popular tools for tokenizing Japanese texts, and we can use it from R with **RMecab**. The package is not available on CRAN, so you have to install the library from the [author's repository](http://rmecab.jp).
+If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. [Mecab](https://en.wikipedia.org/wiki/MeCab) is one of the most popular tools for tokenizing Japanese texts, and we can use it from R with **RMecab**. The package is not available on CRAN, so you have to install the library from the [author"s repository](http://rmecab.jp).
 
 
 
@@ -105,22 +105,22 @@ Even if you use a morphological analysis tool, tokenization of Japanese text is 
 ```r
 toks_icu_refi <- toks_icu
 tstat_kanji <- toks_icu %>% 
-    tokens_select('^[一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
+    tokens_select("^[一-龠]+$", valuetype = "regex", padding = TRUE) %>% 
     textstat_collocations(min_count = 5, tolower = FALSE)
 toks_icu_refi <- tokens_compound(toks_icu_refi, tstat_kanji[tstat_kanji$z > 2],
-                                 concatenator = '', join = TRUE)
+                                 concatenator = "", join = TRUE)
 
 tstat_kana <- toks_icu_refi %>% 
-    tokens_select('^[ァ-ヶー]+$', valuetype = 'regex', padding = TRUE) %>% 
+    tokens_select("^[ァ-ヶー]+$", valuetype = "regex", padding = TRUE) %>% 
     textstat_collocations(min_count = 5, tolower = FALSE)
 toks_icu_refi <- tokens_compound(toks_icu_refi, tstat_kana[tstat_kana$z > 2],
-                                 concatenator = '', join = TRUE)
+                                 concatenator = "", join = TRUE)
 
 tstast_any <- toks_icu_refi %>% 
-            tokens_select('^[０-９ァ-ヶー一-龠]+$', valuetype = 'regex', padding = TRUE) %>% 
+            tokens_select("^[０-９ァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE) %>% 
             textstat_collocations(min_count = 5, tolower = FALSE)
 toks_icu_refi <- tokens_compound(toks_icu_refi, tstast_any[tstast_any$z > 2],
-                                 concatenator = '', join = TRUE)
+                                 concatenator = "", join = TRUE)
 ```
 
 

@@ -13,7 +13,7 @@ This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
 ```r
-corp_news <- download('data_corpus_guardian')
+corp_news <- download("data_corpus_guardian")
 ```
 
 
@@ -45,9 +45,9 @@ We can also find words associated with target words using the `window` argument 
 
 
 ```r
-toks_brexit <- tokens_keep(toks_news, pattern = 'brexit', window = 10) # equivalent to tokens_select(selection = 'keep')
-toks_nobrexit <- tokens_remove(toks_news, pattern = 'brexit', window = 10) # equivalent to tokens_select(selection = 'remove')
-print(toks_brexit[['text173244']])
+toks_brexit <- tokens_keep(toks_news, pattern = "brexit", window = 10) # equivalent to tokens_select(selection = "keep")
+toks_nobrexit <- tokens_remove(toks_news, pattern = "brexit", window = 10) # equivalent to tokens_select(selection = "remove")
+print(toks_brexit[["text173244"]])
 ```
 
 ```
@@ -131,7 +131,7 @@ Targeted frequency analysis might look complex, but can be done in five lines.
 
 
 ```r
-trump <- c('donald trump', 'trump')
+trump <- c("donald trump", "trump")
 dfmat_trump <- tokens_keep(toks_news, pattern = phrase(trump), window = 10) %>% 
     dfm()
 

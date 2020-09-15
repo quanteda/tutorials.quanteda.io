@@ -12,7 +12,7 @@ require(quanteda)
 require(quanteda.textmodels)
 ```
 
-In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.
+In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create a document-feature matrix. Afterwards, we run Wordfish.
 
 
 ```r
@@ -88,7 +88,6 @@ textplot_scale1d(tmod_wf, margin = "features",
 
 <img src="/machine-learning/wordfish.en_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-{{% notice info %}}
-If you want to learn more about Wordfish, see:  
-Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_ 52(3): 705-772.
+{{% notice ref %}}
+- Slapin, Jonathan and Sven-Oliver Proksch. 2008. "A Scaling Model for Estimating Time-Series Party Positions from Texts." _American Journal of Political Science_ 52(3): 705-772.
 {{% /notice %}}

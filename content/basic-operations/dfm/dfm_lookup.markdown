@@ -15,7 +15,12 @@ options(width = 110)
 
 
 ```r
-dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat")
+dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat", encoding = "UTF-8")
+```
+
+```
+## Warning in stri_read_lines(path, encoding = encoding, fallback_encoding = "windows-1252"): `fallback_encoding`
+## is no longer used and has been scheduled for removal
 ```
 
 `dfm_lookup()` translates dictionary values to keys in a DFM.
@@ -58,7 +63,7 @@ print(dfmat_irish_lg)
 ## [ reached max_ndoc ... 8 more documents ]
 ```
 
-You can also pass a dictionary to `dfm()` to simplify your code, but you cannot specify `levels` in this method.
+You can also pass a dictionary to `dfm()` to simplify your code, but you cannot specify `levels` with this method.
 
 
 ```r
