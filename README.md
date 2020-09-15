@@ -1,6 +1,6 @@
 # quanteda tutorials website
 
-[quanteda tutorials website](https://quanteda-tutorials.netlify.com) is created by Hugo based on the [Learn theme](https://github.com/matcornic/hugo-theme-learn). Since Hugo accepts only Markdown and HTML, we use [**blogdown**](https://github.com/rstudio/blogdown) to generate those files from Rmarkdown. 
+[quanteda tutorials website](https://tutorials.quanteda.io) is created by Hugo based on the [Learn theme](https://github.com/matcornic/hugo-theme-learn). Since Hugo accepts only Markdown and HTML, we use [**blogdown**](https://github.com/rstudio/blogdown) to generate those files from Rmarkdown. 
 
 ## How to add new pages?
 You can add new pages to the `content` folder, but note that the file extension must be `.Rmarkdown` not `.rmd`, because 
