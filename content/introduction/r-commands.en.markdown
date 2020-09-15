@@ -12,7 +12,7 @@ R has three types of objects: *vector*, *data frame* and *matrix*. Since many of
 
 ### Vectors
 
-As a language for statistical analysis, R's most basic objects are vectors. Vectors contain a set of values. In the examples below, `vec_num` is a *numeric vector*, while `vec_char` is a *chracter vector*. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
+As a language for statistical analysis, R"s most basic objects are vectors. Vectors contain a set of values. In the examples below, `vec_num` is a *numeric vector*, while `vec_char` is a *chracter vector*. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
 
 
 ```r
@@ -25,7 +25,7 @@ print(vec_num)
 ```
 
 ```r
-vec_char <- c('apple', 'banana', 'mandarin', 'melon')
+vec_char <- c("apple", "banana", "mandarin", "melon")
 print(vec_char)
 ```
 
@@ -88,7 +88,7 @@ You cannot apply arithmetical operations on character vectors, but can apply the
 
 
 ```r
-vec_logi_apple <- vec_char == 'apple'
+vec_logi_apple <- vec_char == "apple"
 print(vec_logi_apple)
 ```
 
@@ -100,7 +100,7 @@ You can also concatenate elements of character vectors using `paste()`. Since th
 
 
 ```r
-vec_char2 <- paste(c('red', 'yellow', 'orange', 'green'), vec_char)
+vec_char2 <- paste(c("red", "yellow", "orange", "green"), vec_char)
 print(vec_char2)
 ```
 
@@ -220,7 +220,7 @@ print(mat)
 ```
 
 ```r
-rownames(mat) <- c('bag1', 'bag2') 
+rownames(mat) <- c("bag1", "bag2") 
 print(mat)
 ```
 
@@ -245,7 +245,7 @@ If a matrix has column and row names, you can extract rows or columns by their n
 
 
 ```r
-print(mat['bag1', ])
+print(mat["bag1", ])
 ```
 
 ```
@@ -254,7 +254,7 @@ print(mat['bag1', ])
 ```
 
 ```r
-print(mat[, 'banana'])
+print(mat[, "banana"])
 ```
 
 ```

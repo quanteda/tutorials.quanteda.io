@@ -14,10 +14,12 @@ This corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
 ```r
-corp_news <- download('data_corpus_guardian')
+corp_news <- download("data_corpus_guardian")
 ```
 
 
+
+We use the **lubridate** package to retrieve the publication month, year, and week from each news article.
 
 
 ```r
@@ -25,7 +27,7 @@ corp_news$year <- year(corp_news$date)
 corp_news$month <- month(corp_news$date)
 corp_news$week <- week(corp_news$date)
 
-corp_news <- corpus_subset(corp_news, 'year' >= 2016)
+corp_news <- corpus_subset(corp_news, "year" >= 2016)
 toks_news <- tokens(corp_news, remove_punct = TRUE)
 ```
 
@@ -78,15 +80,22 @@ You can use `tokens_select()` with `window` argument to perform more targeted se
 
 
 ```r
-eu <- c('EU', 'europ*', 'european union')
-toks_eu <- tokens_keep(toks_news, pattern = phrase(eu), window = 10)
-dfmat_eu_lsd <- dfm(toks_eu, dictionary = data_dictionary_LSD2015[1:2]) %>% 
-    dfm_group(group = 'week', fill = TRUE) 
+# get relevant keywords and phrases
+eu <- c("EU", "europ*", "european union")
 
-matplot(dfmat_eu_lsd, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
+# only keep tokens specified above and their context of ±10 tokens
+toks_eu <- tokens_keep(toks_news, pattern = phrase(eu), window = 10)
+
+toks_eu <- tokens_lookup(toks_eu, dictionary = data_dictionary_LSD2015[1:2])
+
+# create a document document-feature matrix and group it by weeks in 2016
+dfmat_eu_lsd <- dfm(toks_eu) %>% 
+    dfm_group(group = "week", fill = TRUE) 
+
+matplot(dfmat_eu_lsd, type = "l", xaxt = "n", lty = 1, ylab = "Frequency")
 grid()
 axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
-legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
+legend("topleft", col = 1:2, legend = c("Negative", "Positive"), lty = 1, bg = "white")
 ```
 
 <img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" />
@@ -95,7 +104,7 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 ```r
 n_eu <- ntoken(dfm(toks_eu, group = toks_eu$week))
 plot((dfmat_eu_lsd[,2] - dfmat_eu_lsd[,1]) / n_eu, 
-     type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
+     type = "l", ylab = "Sentiment", xlab = "", xaxt = "n")
 axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
 grid()
 abline(h = 0, lty = 2)
@@ -105,17 +114,23 @@ abline(h = 0, lty = 2)
 
 ### Immigration
 
+We repeat the sentiment analysis using words relating to immigration and their context of 10 words.
+
 
 ```r
-immig <- c('immig*', 'migra*')
+immig <- c("immig*", "migra*")
 toks_immig <- tokens_keep(toks_news, pattern = phrase(immig), window = 10)
-dfmat_immig_lsd <- dfm(toks_immig, dictionary = data_dictionary_LSD2015[1:2]) %>% 
-    dfm_group(group = 'week', fill = TRUE) 
 
-matplot(dfmat_immig_lsd, type = 'l', xaxt = 'n', lty = 1, ylab = 'Frequency')
+toks_immig <- tokens_lookup(toks_immig, dictionary = data_dictionary_LSD2015[1:2])
+
+# create a document document-feature matrix and group it by weeks in 2016
+dfmat_immig_lsd <- dfm(toks_immig) %>% 
+    dfm_group(group = "week", fill = TRUE) 
+
+matplot(dfmat_immig_lsd, type = "l", xaxt = "n", lty = 1, ylab = "Frequency")
 grid()
 axis(1, seq_len(ndoc(dfmat_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_immig_lsd)) - 1))
-legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = 'white')
+legend("topleft", col = 1:2, legend = c("Negative", "Positive"), lty = 1, bg = "white")
 ```
 
 <img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" />
@@ -124,7 +139,7 @@ legend('topleft', col = 1:2, legend = c('Negative', 'Positive'), lty = 1, bg = '
 ```r
 n_immig <- ntoken(dfm(toks_immig, group = toks_immig$week))
 plot((dfmat_immig_lsd[,2] - dfmat_immig_lsd[,1]) / n_immig, 
-     type = 'l', ylab = 'Sentiment', xlab = '', xaxt = 'n')
+     type = "l", ylab = "Sentiment", xlab = "", xaxt = "n")
 axis(1, seq_len(ndoc(dfmat_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_immig_lsd)) - 1))
 grid()
 abline(h = 0, lty = 2)

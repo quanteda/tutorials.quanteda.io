@@ -39,8 +39,8 @@ cbind(texts(corp_sect), docvars(corp_sect))
 
 ```r
 corp_speeches <- corpus("Mr. Smith: Text.
-                       Mrs. Jones: More text.
-                       Mr. Smith: I'm speaking, again.")
+                        Mrs. Jones: More text.
+                        Mr. Smith: I'm speaking, again.")
 corp_speakers <- corpus_segment(corp_speeches, pattern = "\\b[A-Z].+\\s[A-Z][a-z]+:", valuetype = "regex")
 cbind(texts(corp_speakers), docvars(corp_speakers))
 ```

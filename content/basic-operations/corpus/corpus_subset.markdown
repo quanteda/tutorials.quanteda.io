@@ -45,7 +45,7 @@ ndoc(corp_recent)
 ```
 
 ```r
-corp_dem <- corpus_subset(corp, President %in% c('Obama', 'Clinton', 'Carter'))
+corp_dem <- corpus_subset(corp, President %in% c("Obama", "Clinton", "Carter"))
 ndoc(corp_dem)
 ```
 

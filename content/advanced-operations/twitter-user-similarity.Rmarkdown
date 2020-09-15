@@ -24,11 +24,10 @@ corp_tweets <- corpus(dat_twitter)
 Construct a document-feature matrix, and remove tags, links, and English stopwords.
 
 ```{r}
-dfmat_tweets <- dfm(corp_tweets,
-                 remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE) %>% 
-             dfm_remove(pattern = c("*.tt", "*.uk", "*.com", "rt", "#*", "@*"))
-             dfm_remove(pattern = stopwords("en"))
-
+dfmat_tweets <- corp_tweets %>% 
+    dfm(remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE) %>% 
+    dfm_remove(pattern = c("*.tt", "*.uk", "*.com", "rt", "#*", "@*")) %>% 
+    dfm_remove(pattern = stopwords("en"))
 ndoc(dfmat_tweets)
 topfeatures(dfmat_tweets)
 ```

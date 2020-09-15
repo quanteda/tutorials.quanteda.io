@@ -33,7 +33,7 @@ You can select features from a DFM using `dfm_select()`.
 
 
 ```r
-dfmat_inaug_nostop <- dfm_select(dfmat_inaug, pattern = stopwords('en'), selection = 'remove')
+dfmat_inaug_nostop <- dfm_select(dfmat_inaug, pattern = stopwords("en"), selection = "remove")
 print(dfmat_inaug_nostop)
 ```
 
@@ -50,11 +50,11 @@ print(dfmat_inaug_nostop)
 ## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,200 more features ]
 ```
 
-`dfm_remove()` is an alias to `dfm_select(selection = 'remove')`. Therefore, the code above and below are equivalent.
+`dfm_remove()` is an alias to `dfm_select(selection = "remove")`. Therefore, the code above and below are equivalent.
 
 
 ```r
-dfmat_inaug_nostop <- dfm_remove(dfmat_inaug, pattern = stopwords('en'))
+dfmat_inaug_nostop <- dfm_remove(dfmat_inaug, pattern = stopwords("en"))
 print(dfmat_inaug_nostop)
 ```
 
@@ -71,11 +71,11 @@ print(dfmat_inaug_nostop)
 ## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,200 more features ]
 ```
 
-You can also select features based on the length of features. 
+You can also select features based on the length of features. In the example below, we only keep features consisting of at least five characters.
 
 
 ```r
-dfmat_inaug_long <- dfm_select(dfmat_inaug, min_nchar = 5)
+dfmat_inaug_long <- dfm_keep(dfmat_inaug, min_nchar = 5)
 print(dfmat_inaug_long)
 ```
 

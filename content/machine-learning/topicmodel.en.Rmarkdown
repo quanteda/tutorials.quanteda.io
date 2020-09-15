@@ -25,14 +25,14 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 We only select news stories published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
 
 ```{r}
-corp_news_subset <- corpus_subset(corp_news, year(date) >= 2016)
-ndoc(corp_news_subset)
+corp_news_2016 <- corpus_subset(corp_news, year(date) >= 2016)
+ndoc(corp_news_2016)
 ```
 
 Further, after removal of function words and punctuation in `dfm()`, we keep only the top 5% of the most frequent features (`min_termfreq = 0.95`) that appear in less than 10% of all documents (`max_docfreq = 0.1`) using `dfm_trim()` to focus on common but distinguishing features.
 
 ```{r}
-dfmat_news <- corp_news %>% 
+dfmat_news <- corp_news_2016 %>% 
     dfm(remove_punct = TRUE, remove = stopwords("en")) %>% 
     dfm_remove(c("*-time", "*-timeUpdated", "GMT", "BST")) %>% 
     dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
@@ -80,7 +80,7 @@ dict_topic <- dictionary(file = "../dictionary/topics.yml")
 print(dict_topic)
 ```
 
-The number of topics is determined by the number keys in the dictionary. Next, we fit the seeded LDA model using `textmodel_seededlda()` and specify the dictionary with our relevant  keywords.
+The number of topics is determined by the number of keys in the dictionary. Next, we fit the seeded LDA model using `textmodel_seededlda()` and specify the dictionary with our relevant keywords.
 
 ```{r, cache=TRUE}
 tmod_slda <- textmodel_seededlda(dfmat_news, dictionary = dict_topic)

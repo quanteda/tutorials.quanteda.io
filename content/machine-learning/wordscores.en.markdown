@@ -19,7 +19,7 @@ We use manifestos of the 2013 and 2017 German federal elections. For the 2013 el
 
 
 ```r
-corp_ger <- download(url = 'https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1')
+corp_ger <- download(url = "https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1")
 ```
 
 
@@ -51,7 +51,10 @@ Now we can apply the Wordscores algorithm to a document-feature matrix.
 
 
 ```r
+# create a document-feature matrix
 dfmat_ger <- dfm(corp_ger, remove = stopwords("de"), remove_punct = TRUE)
+
+# apply Wordscores algorithm to document-feature matrix
 tmod_ws <- textmodel_wordscores(dfmat_ger, y = corp_ger$ref_score, smooth = 1)
 summary(tmod_ws)
 ```

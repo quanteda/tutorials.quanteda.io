@@ -12,7 +12,7 @@ require(quanteda)
 require(quanteda.textmodels)
 ```
 
-In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create `dfm`, afterwards we run Wordfish.
+In this example, we show how to apply Wordfish to the Irish budget speeches from 2010. First, we create a document-feature matrix. Afterwards, we run Wordfish.
 
 
 ```r

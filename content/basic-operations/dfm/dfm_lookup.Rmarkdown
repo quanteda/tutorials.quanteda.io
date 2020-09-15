@@ -13,7 +13,7 @@ options(width = 110)
 [laver-garry.cat](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/laver-garry.cat) is a Wordstat dictionary that contain political left-right ideology keywords (Laver and Garry 2000). 
 
 ```{r}
-dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat")
+dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat", encoding = "UTF-8")
 ```
 
 `dfm_lookup()` translates dictionary values to keys in a DFM.
