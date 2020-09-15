@@ -25,7 +25,7 @@ We only select news stories published in 2016 using `corpus_subset()` and the `y
 
 
 ```r
-corp_news_2016 <- corpus_subset(corp_news, year(date) >= 2016)
+corp_news_2016 <- corpus_subset(corp_news, year(date) == 2016)
 ndoc(corp_news_2016)
 ```
 
