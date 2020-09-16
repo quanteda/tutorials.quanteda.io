@@ -4,7 +4,7 @@ weight: 40
 draft: false
 ---
 
-Even if files are not saved in UTF8, you can can extract information on character encoding from the file names and import the texts correctly.
+Even if files are not saved in UTF-8, you can can extract information on character encoding from the file names and import the texts correctly.
 
 
 ```r
@@ -59,7 +59,7 @@ setdiff(encoding, iconvlist())
 ## [1] "UTF-8-BOM"
 ```
 
-You then pass `encoding` to `readtext()` to convert various character encodings into UTF8.
+You then pass `encoding` to `readtext()` to convert various character encodings into UTF-8.
 
 
 ```r

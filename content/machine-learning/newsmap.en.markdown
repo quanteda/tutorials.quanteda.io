@@ -154,7 +154,7 @@ head(count, 20)
 ## 621 578 516 439 367 362 319 312 295 278 260 251 236 227 198 197 187 182 157 155
 ```
 
-You can visualize the distribution of global news attention using `geom_map()`.
+You can visualise the distribution of global news attention using `geom_map()`.
 
 
 ```r

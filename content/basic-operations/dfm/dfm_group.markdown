@@ -72,7 +72,7 @@ head(colSums(dfmat_party), 10)
 ##              19             134             108               5
 ```
 
-`dfm_group()` identify document-level variables that are the same within groups and keeps them.
+`dfm_group()` identifies document-level variables that are the same within groups and keeps these variables.
 
 
 ```r

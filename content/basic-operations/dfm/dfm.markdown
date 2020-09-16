@@ -32,7 +32,7 @@ print(dfmat_inaug)
 ## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,336 more features ]
 ```
 
-If corpus is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
+If a corpus object is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
 
 
 ```r
@@ -152,7 +152,7 @@ print(dfmat_inaug_prop)
 ```
 
 {{% notice tip %}}
-`textstat_frequency()`, desribed in Chapter 4, offers more advanced functionalities than `topfeatures()` and returns a `data.frame` object, making it easier to use the output for further analyses.
+`textstat_frequency()`, described in Chapter 4, offers more advanced functionalities than `topfeatures()` and returns a `data.frame` object, making it easier to use the output for further analyses.
 {{% /notice %}}
 
 

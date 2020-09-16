@@ -32,7 +32,7 @@ dat_dail <- readtext(paste0(path_data, "/tsv/dailsample.tsv"), text_field = "spe
 ```
 
 {{% notice warning %}}
-The most common problem in loading data into R is misspecifing locations of files or directories. If a path is relative, check where you are using `getwd()` and set the root directory of your project using `setwd()`. On Windows, you also have to replace all `\` in a path with `/`.
+The most common problem related to loading data into R are misspecified locations of files or directories. If a path is relative, check where you are using `getwd()` and set the root directory of your project using `setwd()`. On Windows, you also have to replace all `\` in a path with `/`.
 {{% /notice%}}
 
 {{% notice tip %}}

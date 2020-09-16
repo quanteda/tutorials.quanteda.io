@@ -77,7 +77,7 @@ summary(corp_immig)
 
 ## Data frame
 
-Using **readtext**, loead an example file from `path_data` as a data frame called `dat_inaug`.
+Using **readtext**, load an example file from `path_data` as a data frame called `dat_inaug`.
 
 
 ```r

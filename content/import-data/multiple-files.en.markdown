@@ -10,16 +10,16 @@ require(quanteda)
 require(readtext)
 ```
 
-A second option is to load multiple text files at once that are stored in the same folder or subfolders. Again, `path_data`is the location of sample files on your computer.
+A second option is to load multiple text files at once that are stored in the same folder or subfolders. Again, `path_data` is the location of sample files on your computer.
 
 
 ```r
 path_data <- system.file("extdata/", package = "readtext")
 ```
 
-Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can create document variables using the **readtext** package.
+Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can create document-level variables using the **readtext** package.
 
-The directory "/txt/UDHR" contains text files (.txt) of the Universal Declaration of Human Rights in 13 languages. 
+The directory `/txt/UDHR` contains text files (".txt") of the Universal Declaration of Human Rights in 13 languages. 
 
 
 ```r

@@ -35,7 +35,7 @@ toks_news <- tokens(corp_news) %>%
 
 ## Collocation analysis
 
-Through collocation analysis, we can identify multi-word expressions that are very frequent in newspaper articles. One of the most common type of multi-word expressions are proper names, which we can select simply based on capitalization in English texts.
+Through collocation analysis, we can identify multi-word expressions that are very frequent in newspaper articles. One of the most common type of multi-word expressions is proper names, which we can select simply based on capitalization in English texts.
 
 ```{r}
 toks_news_cap <- tokens_select(toks_news, 

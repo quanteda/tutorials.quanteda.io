@@ -72,7 +72,7 @@ dfmat_tweets %>%
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-Alternative, you can create a Wordcloud of the  100 most common hashtags.
+Alternatively, you can create a word cloud of the  100 most common hashtags.
 
 
 ```r
@@ -86,13 +86,13 @@ Finally, it is possible to compare different groups within one Wordcloud. We fir
 
 
 ```r
-# create document-level variable indicating whether Tweet was in English or other language
+# create document-level variable indicating whether tweet was in English or other language
 corp_tweets$dummy_english <- factor(ifelse(corp_tweets$lang == "English", "English", "Not English"))
 
 # create a grouped dfm and compare groups
 dfmat_corp_language <- dfm(corp_tweets, select = "#*", groups = "dummy_english")
 
-# create worcloud
+# create wor cloud
 set.seed(132)
 textplot_wordcloud(dfmat_corp_language, comparison = TRUE, max_words = 200)
 ```
