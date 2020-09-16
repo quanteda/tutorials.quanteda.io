@@ -10,7 +10,7 @@ draft: false
 require(quanteda)
 ```
 
-`textstat_dist()` calcuates similarites of documents or features for various measures. Its output is compatible with R"s `dist()`, so hierachical clustering can be perfromed without any transformation.
+`textstat_dist()` calculates similarities of documents or features for various measures. Its output is compatible with R's `dist()`, so hierarchical clustering can be performed without any transformation.
 
 
 ```r

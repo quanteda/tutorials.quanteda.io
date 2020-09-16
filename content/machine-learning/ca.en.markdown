@@ -12,7 +12,7 @@ require(quanteda)
 require(quanteda.textmodels)
 ```
 
-`textmodel_ca()` provides similar functionality to the **ca** package, but **quanteda**"s version is more efficient for textual data.
+`textmodel_ca()` provides similar functionality to the **ca** package, but **quanteda**'s version is more efficient for textual data.
 
 You can plot positions of documents on a one-dimensional scale using `textplot_scale1d()`.
 

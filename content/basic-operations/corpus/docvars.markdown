@@ -57,7 +57,7 @@ corp$Year
 ## [46] 1969 1973 1977 1981 1985 1989 1993 1997 2001 2005 2009 2013 2017
 ```
 
-## Assigning document variables
+## Assigning document-level variables
 
 `docvars()` also allows you to create or update document variables.
 

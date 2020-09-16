@@ -17,7 +17,7 @@ In this example, we show how to apply Wordfish to the Irish budget speeches from
 
 ```r
 dfmat_irish <- dfm(data_corpus_irishbudget2010, remove_punct = TRUE)
-tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6,5))
+tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6, 5))
 summary(tmod_wf)
 ```
 

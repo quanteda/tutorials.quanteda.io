@@ -19,9 +19,9 @@ toks <- tokens(data_char_ukimmig2010)
 dict_newsmap <- dictionary(file = "../../dictionary/newsmap.yml")
 ```
 
-Note that you can access the dictionary in various languages (currently English, German, Japanese, Russian, and Spanish) with the **newsmap** package. 
+Note that you can access the dictionary in various languages (currently English, German, Japanese, Russian, and Spanish) with the **newsmap** package.
 
-The geographical dictionary comprises of names of countries and cities (and their demonyms) in a hierachical structure ( which countries are nested in world regions and sub-regions).
+The geographical dictionary comprises of names of countries and cities (and their demonyms) in a hierarchical structure (countries are nested in world regions and sub-regions).
 
 ```{r}
 length(dict_newsmap)

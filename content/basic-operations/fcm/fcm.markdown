@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-A feature co-occurrence matrix (FCM) records number of co-occurances of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
+A feature co-occurrence matrix (FCM) records the number of co-occurrences of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
 
 
 ```r
@@ -24,17 +24,17 @@ When a corpus is large, you have to select features of a DFM before constructing
 
 ```r
 dfmat_news <- dfm(corp_news, remove = stopwords("en"), remove_punct = TRUE)
-dfmat_news <- dfm_remove(dfmat_news, pattern = c("*-time", "updated-*", "gmt", "bst"))
+dfmat_news <- dfm_remove(dfmat_news, pattern = c("*-time", "updated-*", "gmt", "bst", "|"))
 dfmat_news <- dfm_trim(dfmat_news, min_termfreq = 100)
 
 topfeatures(dfmat_news)
 ```
 
 ```
-##          |       said     people        one        new       also         us 
-##     120731      28412      11168       9879       8024       7901       7090 
-##        can government       year 
-##       6972       6821       6570
+##       said     people        one        new       also         us        can 
+##      28412      11168       9879       8024       7901       7090       6972 
+## government       year       last 
+##       6821       6570       6335
 ```
 
 ```r
@@ -42,7 +42,7 @@ nfeat(dfmat_news)
 ```
 
 ```
-## [1] 4211
+## [1] 4210
 ```
 
 You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequntly co-occuring words.
@@ -54,7 +54,7 @@ dim(fcmat_news)
 ```
 
 ```
-## [1] 4211 4211
+## [1] 4210 4210
 ```
 
 ```r
@@ -62,8 +62,8 @@ topfeatures(fcmat_news)
 ```
 
 ```
-##       |   trump    said clinton     one    cruz sanders     new    also    2015 
-## 4731920 3245751 3189328 2232368 2175205 2066883 2002256 1914408 1755909 1611077
+##   trump    said clinton    cruz sanders     one     new    also    2015  donald 
+## 2864015 2181723 2003017 1873907 1806663 1721386 1507496 1408247 1388364 1181398
 ```
 
 You can select features of a FCM using `fcm_select()`.

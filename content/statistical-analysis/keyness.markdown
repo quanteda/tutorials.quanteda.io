@@ -22,7 +22,7 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-Using `textstat_keyness()`, you can compare frequencies of words between target and reference documents. Target documents are news articles published in 2016 and reference documents are those published in 2012-2015 in this example. We use the **lubridate** package to retrieve the year of the publication of an article.
+Using `textstat_keyness()`, you can compare frequencies of words between target and reference documents. In this example, target documents are news articles published in 2016 and reference documents are those published in 2012-2015. We use the **lubridate** package to retrieve the year of the publication of an article.
 
 
 ```r

@@ -4,11 +4,11 @@ weight: 10
 draft: false
 ---
 
-You do not need to have advanced knowledge of the R programming language to perform text analysis with **quanteda** because the package has wide range of functions. However, you still have to understand a number of basic R commands.
+You do not need to have advanced knowledge of the R programming language to perform text analysis with **quanteda** because the package has a wide range of functions. However, you still have to understand a number of basic R commands.
 
 ## Basic R objects and commands
 
-R has three types of objects: *vector*, *data frame* and *matrix*. Since many of the **quanteda** objects behave similarly to these objects, it is essential for you to understand how to interact with them.
+R has three types of objects: *vector*, *data frame* and *matrix*. Since many of the **quanteda** objects behave similarly to these objects, you need to understand how to interact with them.
 
 ### Vectors
 

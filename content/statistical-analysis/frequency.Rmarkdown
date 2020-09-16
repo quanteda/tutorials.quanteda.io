@@ -45,7 +45,7 @@ dfmat_tweets %>%
   theme_minimal()
 ```
 
-Alternative, you can create a Wordcloud of the  100 most common hashtags.
+Alternatively, you can create a word cloud of the  100 most common hashtags.
 
 ```{r, height = 8, width = 8}
 set.seed(132)
@@ -55,13 +55,13 @@ textplot_wordcloud(dfmat_tweets, max_words = 100)
 Finally, it is possible to compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
 
 ```{r message=FALSE, warning=FALSE, height=8, width=8}
-# create document-level variable indicating whether Tweet was in English or other language
+# create document-level variable indicating whether tweet was in English or other language
 corp_tweets$dummy_english <- factor(ifelse(corp_tweets$lang == "English", "English", "Not English"))
 
 # create a grouped dfm and compare groups
 dfmat_corp_language <- dfm(corp_tweets, select = "#*", groups = "dummy_english")
 
-# create worcloud
+# create wor cloud
 set.seed(132)
 textplot_wordcloud(dfmat_corp_language, comparison = TRUE, max_words = 200)
 ```
