@@ -1,0 +1,129 @@
+---
+title: Regularized Regression Classifier
+weight: 15
+draft: false
+---
+
+{{% author %}}By Frederik Hjorth{{% /author %}} 
+
+
+Regularized regression is a classification technique where the category of interest is regressed on text features using a penalized form of regression where parameter estimates are biased towards zero. Here we will be using a specific type of regularized regression, the Least Absolute Shrinkage and Selection Operator (or simply 'lasso'), but its main alternative, ridge regression, is conceptually very similar. 
+
+In the lasso estimator, the degree of penalization is determined by the regularization parameter $\lambda$: 
+
+$$
+L_{lasso} (\hat{\beta}) = \sum_{i=1}^n (y_i - x_i \hat{\beta})^2 + \lambda \sum_{j=1}^m | \hat{\beta_j} |
+$$
+
+Note that for $\lambda = 0$, the lasso estimator reduces to the OLS estimator. For high values of $\lambda$, many coefficients are set to exactly 0.
+
+We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents. Although regularized regression is not part of the **quanteda.textmodels** package, the functions for regularized regression from the **glmnet** package can be easily worked in to a quanteda workflow.
+
+```{r, message=FALSE}
+require(dplyr)
+require(quanteda)
+require(quanteda.textmodels)
+require(glmnet)
+require(caret)
+```
+
+`data_corpus_moviereviews` from the **quanteda.textmodels** package contains 2000 movie reviews classified either as "positive" or "negative".
+
+```{r}
+corp_movies <- data_corpus_moviereviews
+summary(corp_movies, 5)
+```
+
+The variable "Sentiment" indicates whether a movie review was classified as positive or negative. In this example we use 1500 reviews as the training set and build a regularized regression classifier based on this subset. In a second step, we predict the sentiment for the remaining reviews (our test set).
+
+Since the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents.
+
+```{r}
+# generate 1500 numbers without replacement
+set.seed(300)
+id_train <- sample(1:2000, 1500, replace = FALSE)
+head(id_train, 10)
+
+# create docvar with ID
+corp_movies$id_numeric <- 1:ndoc(corp_movies)
+
+# get training set
+dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
+    dfm(remove = stopwords("en"), stem = TRUE)
+
+# get test set (documents not in id_train)
+dfmat_test <- corpus_subset(corp_movies, !(id_numeric %in% id_train)) %>%
+    dfm(remove = stopwords("en"), stem = TRUE)
+```
+
+Next we choose $\lambda$ using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix X and a response vector Y. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with negative reviews coded as 1 and positive reviews as 0. 
+
+`cv.glmnet` uses cross-validation to select the value of $\lambda$ yielding the smallest classification error. Setting `alpha=1` selects the lasso estimator. Setting `nfold=5` sets cross-validation across 5 'folds', i.e. partitions of the training set.
+
+```{r}
+trainingmat <- as(dfmat_training, "dgCMatrix")
+trainingyvec <- ifelse(dfmat_training$sentiment == "neg", 1, 0)
+
+lasso <- cv.glmnet(x = trainingmat,
+                   y = trainingyvec,
+                   alpha = 1,
+                   nfold = 5,
+                   family = "binomial")
+```
+
+As an initial evaluation of the model, let's take a look at the most predictive features. We begin by obtaining the best value of the penalty parameter $\lambda$:
+
+```{r}
+best.lambda <- which(lasso$lambda == lasso$lambda.min)
+beta <- lasso$glmnet.fit$beta[, best.lambda]
+```
+
+We can now look at the most predictive features for this value of $\lambda$:
+
+```{r}
+mostpreddf <- data.frame(
+    coef = as.numeric(beta),
+    word = names(beta)) %>% 
+  arrange(-coef)
+
+head(mostpreddf,10)
+```
+
+`predict.glmnet` can only take features into consideration that occur both in the training set and the test set, but we can make the features identical by passing `training_dfm` to `dfm_match()` as a pattern.
+
+```{r}
+dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))
+```
+
+Next we obtain predicted probabilities for each review in the test set, again converting the document-feature matrix to a sparse matrix:
+
+```{r}
+testmat <- as(dfmat_matched, "dgCMatrix")
+
+preds <- predict(lasso, testmat, type = "response", s = lasso$lambda.min)
+```
+
+Let's inspect how well the classification worked.
+
+```{r}
+actual_class <- ifelse(dfmat_matched$sentiment == "neg", 1, 0) 
+predicted_class <- predict(lasso, testmat, type = "class") %>% as.numeric()
+tab_class <- table(actual_class, predicted_class)
+tab_class
+```
+
+From the cross-table we see that the model slightly underpredicts negative reviews, i.e. produces slightly more false negatives than false positives, but most reviews are correctly predicted. 
+
+We can use the function `confusionMatrix()` from the **caret** package to quantify the performance of the classification.
+
+```{r}
+confusionMatrix(tab_class, mode = "everything")
+```
+
+{{% notice note %}}
+Precision, recall and the F1 score are frequently used to assess the classification performance. Precision is measured as `TP / (TP + FP)`, where `TP` are the number of true positives and  `FP`  the false positives. Recall divides the false positives by the sum of true positives and false negatives `TP / (TP + FN)`. Finally, the F1 score is a harmonic mean of precision and recall `2 * (Precision * Recall) / (Precision + Recall)`.
+{{% /notice %}}
+
+{{% notice ref %}}
+- Jurafsky, Daniel, and James H. Martin. 2018. [_Speech and Language Processing. An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition_](https://web.stanford.edu/~jurafsky/slp3/4.pdf). Draft of 3rd edition, September 23, 2018 (Chapter 4). 
+{{% /notice%}}
