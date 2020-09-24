@@ -9,7 +9,7 @@ draft: false
 
 Regularized regression is a classification technique where the category of interest is regressed on text features using a penalized form of regression where parameter estimates are biased towards zero. Here we will be using a specific type of regularized regression, the Least Absolute Shrinkage and Selection Operator (or simply LASSO), but its main alternative, ridge regression, is conceptually very similar. 
 
-In the lasso estimator, the degree of penalization is determined by the regularization parameter `lambda`. We use the cross-validation function available in the **glmnet** package to select the optimal value for `lambda`. 
+In the LASSO estimator, the degree of penalization is determined by the regularization parameter `lambda`. We use the cross-validation function available in the **glmnet** package to select the optimal value for `lambda`. 
 We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents. Although regularized regression is not part of the **quanteda.textmodels** package, the functions for regularized regression from the **glmnet** package can be easily worked in to a quanteda workflow.
 
 ```{r, message=FALSE}
@@ -48,9 +48,9 @@ dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
     dfm(remove = stopwords("en"), stem = TRUE)
 ```
 
-Next we choose `lambda` using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix X and a response vector Y. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with negative reviews coded as 1 and positive reviews as 0. 
+Next we choose `lambda` using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix `x` and a response vector `y`. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with positive reviews coded as 1 and negative reviews as 0. 
 
-`cv.glmnet` uses cross-validation to select the value of `lambda` yielding the smallest classification error. Setting `alpha = 1` selects the lasso estimator. Setting `nfold = 5` sets cross-validation across 5 'folds', i.e. partitions of the training set.
+We use `cv.glmnet()` to selects the value of `lambda` that yields the smallest classification error. If you set `alpha = 1`, it selects the LASSO estimator. If you set `nfold = 5`, it partitions the data into five subsets.
 
 ```{r}
 lasso <- cv.glmnet(x = dfmat_training,
