@@ -147,7 +147,7 @@ div.notices ul:first-child:after {
 }
 
 div.notices.ref ul,
-div.notices.cite ul{
+div.notices.cite ul {
     border-top: 30px solid #F0B37E;
     background: #FFF2DB;
 }
@@ -157,6 +157,10 @@ div.notices.ref ul:first-child:after {
 
 div.notices.cite ul:first-child:after {
     content: 'Citation';
+}
+
+div.notices ul li a {
+  text-indent: 0;
 }
 
 /* ------------- fullscreen ------------- */
