@@ -71,7 +71,7 @@ best.lambda <- which(lasso$lambda == lasso$lambda.min)
 beta <- lasso$glmnet.fit$beta[, best.lambda]
 ```
 
-We can now look at the most predictive features for this value of $\lambda$:
+We can now look at the most predictive features for this value of λ:
 
 ```{r}
 mostpreddf <- data.frame(
