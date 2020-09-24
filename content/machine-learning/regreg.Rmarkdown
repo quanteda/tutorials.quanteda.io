@@ -49,9 +49,9 @@ dfmat_test <- corpus_subset(corp_movies, !(id_numeric %in% id_train)) %>%
     dfm(remove = stopwords("en"), stem = TRUE)
 ```
 
-Next we choose $\lambda$ using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix X and a response vector Y. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with negative reviews coded as 1 and positive reviews as 0. 
+Next we choose λ using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix X and a response vector Y. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with negative reviews coded as 1 and positive reviews as 0. 
 
-`cv.glmnet` uses cross-validation to select the value of $\lambda$ yielding the smallest classification error. Setting `alpha=1` selects the lasso estimator. Setting `nfold=5` sets cross-validation across 5 'folds', i.e. partitions of the training set.
+`cv.glmnet` uses cross-validation to select the value of λ yielding the smallest classification error. Setting `alpha=1` selects the lasso estimator. Setting `nfold=5` sets cross-validation across 5 'folds', i.e. partitions of the training set.
 
 ```{r}
 trainingmat <- as(dfmat_training, "dgCMatrix")
