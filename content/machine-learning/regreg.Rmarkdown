@@ -9,9 +9,7 @@ draft: false
 
 Regularized regression is a classification technique where the category of interest is regressed on text features using a penalized form of regression where parameter estimates are biased towards zero. Here we will be using a specific type of regularized regression, the Least Absolute Shrinkage and Selection Operator (or simply 'lasso'), but its main alternative, ridge regression, is conceptually very similar. 
 
-In the lasso estimator, the degree of penalization is determined by the regularization parameter $\lambda$: 
-
-$$
+In the lasso estimator, the degree of penalization is determined by the regularization parameter λ. We use the cross-validation function available in the **glmnet** package to select the optimal value for λ. 
 L_{lasso} (\hat{\beta}) = \sum_{i=1}^n (y_i - x_i \hat{\beta})^2 + \lambda \sum_{j=1}^m | \hat{\beta_j} |
 $$
 
