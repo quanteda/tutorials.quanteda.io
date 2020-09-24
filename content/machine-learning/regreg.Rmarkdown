@@ -13,7 +13,6 @@ In the lasso estimator, the degree of penalization is determined by the regulari
 We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents. Although regularized regression is not part of the **quanteda.textmodels** package, the functions for regularized regression from the **glmnet** package can be easily worked in to a quanteda workflow.
 
 ```{r, message=FALSE}
-require(dplyr)
 require(quanteda)
 require(quanteda.textmodels)
 require(glmnet)
