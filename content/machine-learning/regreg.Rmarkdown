@@ -79,7 +79,7 @@ dat_pred <- data.frame(
     word = names(beta)) %>% 
   arrange(-coef)
 
-head(mostpreddf,10)
+head(dat_pred,10)
 ```
 
 `predict.glmnet` can only take features into consideration that occur both in the training set and the test set, but we can make the features identical by passing `training_dfm` to `dfm_match()` as a pattern.
