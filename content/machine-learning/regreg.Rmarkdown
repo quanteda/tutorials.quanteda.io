@@ -64,7 +64,7 @@ lasso <- cv.glmnet(x = trainingmat,
                    family = "binomial")
 ```
 
-As an initial evaluation of the model, let's take a look at the most predictive features. We begin by obtaining the best value of the penalty parameter $\lambda$:
+As an initial evaluation of the model, let's take a look at the most predictive features. We begin by obtaining the best value of λ:
 
 ```{r}
 best.lambda <- which(lasso$lambda == lasso$lambda.min)
