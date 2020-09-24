@@ -75,8 +75,8 @@ We can now look at the most predictive features for this value of λ:
 ```{r}
 dat_pred <- data.frame(
     coef = as.numeric(beta),
-    word = names(beta)) %>% 
-  arrange(-coef)
+    word = names(beta))
+dat_pred <- dat_pred[order(-dat_pred$coef),]
 
 head(dat_pred,10)
 ```
