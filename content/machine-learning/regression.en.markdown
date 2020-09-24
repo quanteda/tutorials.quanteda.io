@@ -64,7 +64,7 @@ dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
     dfm(remove = stopwords("en"), stem = TRUE)
 
 # get test set (documents not in id_train)
-dfmat_test <- corpus_subset(corp_movies, !(id_numeric %in% id_train)) %>%
+dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
     dfm(remove = stopwords("en"), stem = TRUE)
 ```
 
@@ -93,11 +93,8 @@ We can now look at the most predictive features for this value of `lambda`:
 
 
 ```r
-dat_pred <- data.frame(
-    coef = as.numeric(beta),
-    word = names(beta))
-dat_pred <- dat_pred[order(-dat_pred$coef),]
-
+dat_pred <- data.frame(coef = as.numeric(beta), word = names(beta))
+dat_pred <- dat_pred[order(dat_pred$coef, decreasing = TRUE),]
 head(dat_pred,10)
 ```
 
@@ -115,7 +112,7 @@ head(dat_pred,10)
 ## 19727 0.7933393   gingrich
 ```
 
-`predict.glmnet` can only take features into consideration that occur both in the training set and the test set, but we can make the features identical by using `dfm_match()`.
+`predict.glmnet` can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`.
 
 
 ```r
@@ -126,7 +123,18 @@ Next we obtain predicted probabilities for each review in the test set.
 
 
 ```r
-preds <- predict(lasso, dfmat_matched, type = "response", s = lasso$lambda.min)
+pred <- predict(lasso, dfmat_matched, type = "response", s = lasso$lambda.min)
+head(pred)
+```
+
+```
+##                           1
+## cv000_29416.txt 0.477049120
+## cv013_10494.txt 0.091823014
+## cv032_23718.txt 0.415851015
+## cv033_25680.txt 0.440823050
+## cv036_18385.txt 0.240942140
+## cv038_9781.txt  0.004779297
 ```
 
 Let's inspect how well the classification worked.
