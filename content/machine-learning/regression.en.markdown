@@ -61,16 +61,16 @@ corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
 # get training set
 dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), stem = TRUE)
+    dfm(remove = stopwords("en"), remove_number = TRUE, stem = TRUE)
 
 # get test set (documents not in id_train)
 dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), stem = TRUE)
+    dfm(remove = stopwords("en"), remove_number = TRUE, stem = TRUE)
 ```
 
 Next we choose `lambda` using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix `x` and a response vector `y`. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with positive reviews coded as 1 and negative reviews as 0. 
 
-We use `cv.glmnet()` to selects the value of `lambda` that yields the smallest classification error. If you set `alpha = 1`, it selects the LASSO estimator. If you set `nfold = 5`, it partitions the data into five subsets.
+We use `cv.glmnet()` to select the value of `lambda` that yields the smallest classification error. If you set `alpha = 1`, it selects the LASSO estimator. If you set `nfold = 5`, it partitions the data into five subsets.
 
 
 ```r
@@ -81,7 +81,7 @@ lasso <- cv.glmnet(x = dfmat_training,
                    family = "binomial")
 ```
 
-As an initial evaluation of the model, let's take a look at the most predictive features. We begin by obtaining the best value of `lambda`:
+As an initial evaluation of the model, we print the most predictive features. We begin by obtaining the best value of `lambda`:
 
 
 ```r
@@ -89,27 +89,20 @@ index_best <- which(lasso$lambda == lasso$lambda.min)
 beta <- lasso$glmnet.fit$beta[, index_best]
 ```
 
-We can now look at the most predictive features for this value of `lambda`:
+We can now look at the most predictive features for the chosen `lambda`:
 
 
 ```r
-dat_pred <- data.frame(coef = as.numeric(beta), word = names(beta))
-dat_pred <- dat_pred[order(dat_pred$coef, decreasing = TRUE),]
-head(dat_pred,10)
+head(sort(beta, decreasing = TRUE), 20)
 ```
 
 ```
-##            coef       word
-## 22970 1.2112800        250
-## 20530 1.1208702  chopsocki
-## 20013 1.0245674   flammabl
-## 20405 0.8521184 neccessari
-## 23379 0.8435197    maniaci
-## 5484  0.8128065     finest
-## 20525 0.8024634   standoff
-## 7540  0.8011388  breathtak
-## 22917 0.7999109     haywir
-## 19727 0.7933393   gingrich
+##   standoff  chopsocki   flammabl neccessari    ratchet     finest   murtaugh 
+##  1.2794182  1.0423264  0.9164967  0.8265698  0.8041738  0.7942931  0.7856391 
+##    refresh     immers    maniaci  breathtak     haywir   gingrich   sullivan 
+##  0.7849440  0.7754108  0.7750264  0.7686371  0.7515278  0.7420324  0.6698001 
+##      brisk      meryl     darker      efect     bizaar     gallon 
+##  0.6380300  0.6344401  0.6319653  0.6151842  0.6135632  0.5812287
 ```
 
 `predict.glmnet` can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`.
@@ -129,12 +122,12 @@ head(pred)
 
 ```
 ##                           1
-## cv000_29416.txt 0.477049120
-## cv013_10494.txt 0.091823014
-## cv032_23718.txt 0.415851015
-## cv033_25680.txt 0.440823050
-## cv036_18385.txt 0.240942140
-## cv038_9781.txt  0.004779297
+## cv000_29416.txt 0.431846425
+## cv013_10494.txt 0.097593376
+## cv032_23718.txt 0.441776910
+## cv033_25680.txt 0.449284562
+## cv036_18385.txt 0.243848604
+## cv038_9781.txt  0.005570028
 ```
 
 Let's inspect how well the classification worked.
@@ -150,8 +143,8 @@ tab_class
 ```
 ##             predicted_class
 ## actual_class   0   1
-##            0 199  59
-##            1  33 209
+##            0 198  60
+##            1  34 208
 ```
 
 From the cross-table we see that the model slightly underpredicts negative reviews, i.e. produces slightly more false negatives than false positives, but most reviews are correctly predicted. 
@@ -168,31 +161,31 @@ confusionMatrix(tab_class, mode = "everything")
 ## 
 ##             predicted_class
 ## actual_class   0   1
-##            0 199  59
-##            1  33 209
-##                                          
-##                Accuracy : 0.816          
-##                  95% CI : (0.7792, 0.849)
-##     No Information Rate : 0.536          
-##     P-Value [Acc > NIR] : < 2.2e-16      
-##                                          
-##                   Kappa : 0.6328         
-##                                          
-##  Mcnemar's Test P-Value : 0.009149       
-##                                          
-##             Sensitivity : 0.8578         
-##             Specificity : 0.7799         
-##          Pos Pred Value : 0.7713         
-##          Neg Pred Value : 0.8636         
-##               Precision : 0.7713         
-##                  Recall : 0.8578         
-##                      F1 : 0.8122         
-##              Prevalence : 0.4640         
-##          Detection Rate : 0.3980         
-##    Detection Prevalence : 0.5160         
-##       Balanced Accuracy : 0.8188         
-##                                          
-##        'Positive' Class : 0              
+##            0 198  60
+##            1  34 208
+##                                           
+##                Accuracy : 0.812           
+##                  95% CI : (0.7749, 0.8453)
+##     No Information Rate : 0.536           
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.6249          
+##                                           
+##  Mcnemar's Test P-Value : 0.009922        
+##                                           
+##             Sensitivity : 0.8534          
+##             Specificity : 0.7761          
+##          Pos Pred Value : 0.7674          
+##          Neg Pred Value : 0.8595          
+##               Precision : 0.7674          
+##                  Recall : 0.8534          
+##                      F1 : 0.8082          
+##              Prevalence : 0.4640          
+##          Detection Rate : 0.3960          
+##    Detection Prevalence : 0.5160          
+##       Balanced Accuracy : 0.8148          
+##                                           
+##        'Positive' Class : 0               
 ## 
 ```
 
