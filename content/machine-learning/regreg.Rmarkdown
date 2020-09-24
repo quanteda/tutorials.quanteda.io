@@ -74,7 +74,7 @@ beta <- lasso$glmnet.fit$beta[, best.lambda]
 We can now look at the most predictive features for this value of λ:
 
 ```{r}
-mostpreddf <- data.frame(
+dat_pred <- data.frame(
     coef = as.numeric(beta),
     word = names(beta)) %>% 
   arrange(-coef)
