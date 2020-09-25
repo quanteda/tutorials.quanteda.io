@@ -48,8 +48,7 @@ tmod_nb <- textmodel_nb(dfmat_training, dfmat_training$sentiment)
 summary(tmod_nb)
 ```
 
-
-Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical by passing `training_dfm` to `dfm_match()` as a pattern.
+Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`
 
 ```{r}
 dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))

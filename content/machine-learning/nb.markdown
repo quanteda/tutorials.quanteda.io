@@ -94,8 +94,7 @@ summary(tmod_nb)
 ## pos 0.01184 0.002727 8.303e-05 0.0001894 2.595e-06 0.001702 0.0002128 9.600e-05
 ```
 
-
-Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical by passing `training_dfm` to `dfm_match()` as a pattern.
+Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`
 
 
 ```r
