@@ -22,7 +22,7 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We only select news stories published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
+We only select news articles published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
 
 ```{r}
 corp_news_2016 <- corpus_subset(corp_news, year(date) == 2016)
