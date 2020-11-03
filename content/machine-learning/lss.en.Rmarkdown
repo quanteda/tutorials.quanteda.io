@@ -4,13 +4,21 @@ weight: 70
 draft: false
 ---
 
-Latent Semantic Scaling (LSS) is a flexible and cost-efficient semi-supervised document scaling technique. Users only need to provide a small set of "seed words" to scale documents on a specific dimension.
+Latent Semantic Scaling (LSS) is a flexible and cost-efficient semisupervised document scaling technique. Users only need to provide a small set of "seed words" to locate documents on a specific dimension.
+
+Install the **LSX** package from CRAN.
+
+```{r eval=FALSE}
+install.packages("LSX")
+```
 
 ```{r message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
 require(LSX)
 ```
+
+Download a corpus with news articles using **quanteda.corpora**'s `download()` function.
 
 ```{r eval=FALSE}
 corp_news <- download("data_corpus_guardian")
@@ -21,7 +29,7 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We segment news articles into sentences to accurately estimate semantic proximity between words. In addition to standard pre-processing, we use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`) to remove words commonly used in news articles.
+We segment news articles into sentences in the corpus to accurately estimate semantic proximity between words. We also use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`) to remove words commonly used in news reports.
 
 ```{r, cache=TRUE}
 corp_sent <- corpus_reshape(corp_news, to =  "sentences")
@@ -46,7 +54,7 @@ seed <- as.seedwords(data_dictionary_sentiment)
 print(seed)
 ```
 
-With the seed words, LSS computes polarity of words that frequently occur around ecnomy, economic etc (`pattern = "econom*"`).
+With the seed words, LSS computes polarity of words that frequently in the context of economy. We identify context words by `char_context(pattern = "econom*")` before fitting the model.
 
 ```{r}
 eco <- char_context(toks_sent, pattern = "econom*", p = 0.05)
@@ -59,7 +67,7 @@ head(coef(lss), 20) # most positive words
 tail(coef(lss), 20) # most negative words
 ```
 
-By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many but no all the words are scored negatively by LSS.
+By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many but no all the words have negative meanings in the corpus.
 
 ```{r words}
 textplot_terms(tmod_lss, data_dictionary_LSD2015["negative"])
@@ -73,14 +81,14 @@ dat <- docvars(dfmat_doc)
 dat$fit <- predict(lss, newdata = dfmat_doc)
 ```
 
-We can smooth polarity of documents to visualize the trend using `smooth_lss()`. If `engine = "locfit"`, smoothing is very fast even when we have many documents.
+We can smooth polarity of documents to visualize the trend using `smooth_lss()`. If `engine = "locfit"`, smoothing is very fast even when there are many documents.
 
 ```{r}
 dat_smooth <- smooth_lss(dat, engine = "locfit")
 head(dat_smooth)
 ```
 
-The circles are polarity scores of documents and the curve is their local means with 95% confidence intervals.
+In the plot, the circles are polarity scores of documents and the curve is their local means with 95% confidence intervals.
 
 ```{r fig.height=5, fig.width=10}
 plot(dat$date, dat$fit, col = rgb(0, 0, 0, 0.05), pch = 16, ylim = c(-0.5, 0.5),
@@ -90,5 +98,6 @@ lines(dat_smooth$date, dat_smooth$fit + dat_smooth$se.fit * 1.96, type = "l", lt
 lines(dat_smooth$date, dat_smooth$fit - dat_smooth$se.fit * 1.96, type = "l", lty = 3)
 abline(h = 0, lty = c(1, 2))
 ```
+
 {{% notice ref %}}
 - Watanabe, K. 2020. [Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976). Communication Methods and Measures. {{% /notice %}}
