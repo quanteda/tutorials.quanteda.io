@@ -75,7 +75,7 @@ print(seed)
 ##          -1          -1
 ```
 
-With the seed words, LSS computes polarity of words that frequently in the context of economy. We identify context words by `char_context(pattern = "econom*")` before fitting the model.
+With the seed words, LSS computes polarity of words frequent in the context of economy. We identify context words by `char_context(pattern = "econom*")` before fitting the model.
 
 
 ```r
@@ -117,7 +117,7 @@ tail(coef(tmod_lss), 20) # most negative words
 ## -0.14773609 -0.20868570
 ```
 
-By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many but no all the words have negative meanings in the corpus.
+By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many of the words but not all have negative meanings in the corpus.
 
 
 ```r
@@ -135,7 +135,7 @@ dat <- docvars(dfmat_doc)
 dat$fit <- predict(tmod_lss, newdata = dfmat_doc)
 ```
 
-We can smooth polarity of documents to visualize the trend using `smooth_lss()`. If `engine = "locfit"`, smoothing is very fast even when there are many documents.
+We can smooth polarity scores of documents to visualize the trend using `smooth_lss()`. If `engine = "locfit"`, smoothing is very fast even when there are many documents.
 
 
 ```r

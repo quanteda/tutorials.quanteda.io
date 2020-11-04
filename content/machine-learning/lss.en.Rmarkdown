@@ -54,7 +54,7 @@ seed <- as.seedwords(data_dictionary_sentiment)
 print(seed)
 ```
 
-With the seed words, LSS computes polarity of words that frequently in the context of economy. We identify context words by `char_context(pattern = "econom*")` before fitting the model.
+With the seed words, LSS computes polarity of words frequent in the context of economy. We identify context words by `char_context(pattern = "econom*")` before fitting the model.
 
 ```{r}
 eco <- char_context(toks_sent, pattern = "econom*", p = 0.05)
@@ -67,7 +67,7 @@ head(coef(tmod_lss), 20) # most positive words
 tail(coef(tmod_lss), 20) # most negative words
 ```
 
-By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many but no all the words have negative meanings in the corpus.
+By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many of the words but not all have negative meanings in the corpus.
 
 ```{r fig.height=6, fig.width=8}
 textplot_terms(tmod_lss, data_dictionary_LSD2015["negative"])
@@ -81,7 +81,7 @@ dat <- docvars(dfmat_doc)
 dat$fit <- predict(tmod_lss, newdata = dfmat_doc)
 ```
 
-We can smooth polarity of documents to visualize the trend using `smooth_lss()`. If `engine = "locfit"`, smoothing is very fast even when there are many documents.
+We can smooth polarity scores of documents to visualize the trend using `smooth_lss()`. If `engine = "locfit"`, smoothing is very fast even when there are many documents.
 
 ```{r}
 dat_smooth <- smooth_lss(dat, engine = "locfit")
