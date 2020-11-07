@@ -1,217 +1,134 @@
   ---
 title: Japanese
-weight: 10
+weight: 30
 draft: false
 ---
 
 {{% author %}}By Kohei Watanabe{{% /author %}} 
 
+We usually do not need to use external tools such as Mecab to pre-process and analyze Japanese texts, because `tokens()` can segment Japanese texts based on rules defined in the Unicode library. 
+
 
 ```r
 require(quanteda)
 require(quanteda.corpora)
+options(width = 110)
 ```
 
-## Tokenization
-
-You can use `tokens()` or a morphological analysis tool such as [Mecab](http://taku910.github.io/mecab/) to tokenize Japanese texts. The sample corpus contains transcripts of all the speeches at Japan"s Committee on Foreign Affairs and Defense of the lower house (Shugiin) from 1947 to 2017
+`data_corpus_udhr` contains the Universal Declaration of Human Rights in multiple languages including Japanese. After tokenization, we remove grammatical words using `stopwords("ja", source = "marimo")`.
 
 
 ```r
-corp <- download("data_corpus_foreignaffairscommittee")
-
-# use the latest 1000 speeches
-txt <- tail(texts(corp), 1000)
+corp_ja <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
+toks_ja <- tokens(corp_ja, remove_punct = TRUE, padding = TRUE) %>% 
+  tokens_remove(stopwords("ja", source = "marimo"), padding = TRUE)
+print(toks_ja[4:5], max_ndoc = 1, max_ntok = -1)
 ```
 
+```
+## Tokens consisting of 2 documents and 2 docvars.
+## jpn :
+##   [1] "人類"     "社会"     "の"       ""         "の"       "構成"     "員"       "の"       "固有"    
+##  [10] "の"       "尊厳"     "と"       "平等"     "で"       "譲る"     "こと"     "の"       ""        
+##  [19] ""         "権利"     "と"       "を"       "承"       "認"       ""         "こと"     "は"      
+##  [28] ""         "世界"     "における" "自由"     ""         "正義"     "及び"     "平和"     "の"      
+##  [37] "基礎"     "で"       ""         "ので"     ""         "人権"     "の"       "無視"     "及び"    
+##  [46] "軽侮"     "が"       ""         "人類"     "の"       "良心"     "を"       "踏"       "み"      
+##  [55] "に"       "じ"       "っ"       "た"       "野蛮"     "行為"     "を"       "も"       "たら"    
+##  [64] "し"       ""         "言論"     "及"       "び"       "信仰"     "の"       "自由"     "が"      
+##  [73] "受け"     "ら"       "れ"       ""         "恐怖"     "及び"     "欠乏"     "の"       ""        
+##  [82] "世界"     "の"       "到来"     "が"       ""         "一般"     "の"       "人々"     "の"      
+##  [91] "最高"     "の"       "願望"     ""         "宣言"     "さ"       "れ"       "た"       "ので"    
+## [100] ""         "人間"     "が"       "専制"     "と"       "圧迫"     "と"       ""         "最後"    
+## [109] "の"       "手段"     ""         "反逆"     "に"       "訴える"   "こと"     "が"       ""        
+## [118] ""         "に"       "す"       "る"       ""         "に"       "は"       ""         "法"      
+## [127] "の"       "支配"     ""         "人権"     "を"       "保護"     ""         "こと"     "が"      
+## [136] "肝要"     "で"       ""         "ので"     ""         "諸国"     ""         "の"       "友好"    
+## [145] "関係"     "の"       "発展"     "を"       "促進"     ""         "こと"     "が"       "肝要"    
+## [154] "で"       ""         "ので"     ""         "国際"     "連合"     "の"       "諸"       "国民"    
+## [163] "は"       ""         "国"       "連"       "憲章"     "において" ""         "基本"     "的"      
+## [172] "人権"     ""         "人間"     "の"       "尊厳"     "及び"     "価値"     "並び"     "に"      
+## [181] "男女"     "の"       "同権"     ""         "の"       "信念"     "を"       "再"       "確認"    
+## [190] "し"       ""         "かつ"     ""         ""         "大きな"   "自由"     "の"       "うち"    
+## [199] "で"       "社会"     "的"       "進歩"     "と"       "生活"     "水準"     "の"       "向上"    
+## [208] "と"       "を"       "促進"     ""         "こと"     "を"       "決意"     ""         "ので"    
+## [217] ""         "加盟"     "国"       "は"       ""         "国際"     "連合"     "と"       "協力"    
+## [226] "し"       "て"       ""         "人権"     "及び"     "基本"     "的"       "自由"     "の"      
+## [235] "普遍"     "的"       "な"       "尊重"     "及び"     "遵守"     "の"       "促進"     "を"      
+## [244] "達成"     ""         "こと"     "を"       "誓約"     ""         "ので"     ""         ""        
+## [253] "権利"     "及び"     "自由"     ""         "共通"     "の"       "理解"     "は"       ""        
+## [262] ""         "誓約"     "を"       "完全"     "に"       ""         ""         "に"       "も"      
+## [271] "っ"       "とも"     "重要"     "で"       ""         "ので"     ""         ""         ""        
+## [280] ""         "に"       ""         "国"       "連"       "総会"     "は"       ""         "社会"    
+## [289] "の"       "各"       "個人"     "及び"     "各"       "機関"     "が"       ""         ""        
+## [298] "世界"     "人権"     "宣言"     "を"       "常に"     "念頭"     "に"       "置"       "き"      
+## [307] ""         ""         "加盟"     "国"      
+## 
+## [ reached max_ndoc ... 1 more document ]
+```
 
-
-### Dictionary-based boundary detection
-
-`tokens()` can segment Japanese texts without additional tools based on the rules defined in the [ICU library](http://site.icu-project.org/home), which is available via the **stringi** package. ICU detects boundaries of Japanese words using [a dictonary with frequency information](http://source.icu-project.org/repos/icu/icu/tags/release-58-rc/source/data/brkitr/dictionaries/).
+We can imporove tokenization by collocation analysis in a similar way as [compound multi-word expressions](advanced-operations/compound-mutiword-expressions/) in English texts. `"^[ァ-ヶー一-龠]+$"` is a regular expression to select only katakana and kanji. We set `padding = TRUE` to keep the distance between words.
 
 
 ```r
-toks_icu <- tokens(txt)
-head(toks_icu[[20]], 100)
+tstat_col <- toks_ja %>% 
+  tokens_select("^[ァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE) %>%  
+  textstat_collocations()
+print(tstat_col)
 ```
 
 ```
-##   [1] "○"        "森"       "政府"     "参考"     "人"       "お答え"  
-##   [7] "申"       "し"       "上げ"     "ます"     "。"       "ＡＣＳＡ"
-##  [13] "は"       "、"       "自衛隊"   "と"       "相手"     "国"      
-##  [19] "の"       "軍隊"     "と"       "の"       "間"       "の"      
-##  [25] "物品"     "、"       "役務"     "の"       "相互"     "提供"    
-##  [31] "に"       "適用"     "さ"       "れる"     "決済"     "手続"    
-##  [37] "等"       "の"       "枠組み"   "を"       "定める"   "もの"    
-##  [43] "で"       "ご"       "ざ"       "い"       "ます"     "。"      
-##  [49] "これ"     "を"       "締結"     "する"     "こと"     "により"  
-##  [55] "、"       "自衛隊"   "と"       "相手"     "国"       "の"      
-##  [61] "軍隊"     "と"       "の"       "間"       "の"       "物品"    
-##  [67] "、"       "役務"     "の"       "相互"     "提供"     "を"      
-##  [73] "円滑"     "かつ"     "迅速"     "に"       "行う"     "こと"    
-##  [79] "が"       "可能"     "と"       "なる"     "。"       "我が国"  
-##  [85] "を"       "取り巻く" "安全"     "保障"     "環境"     "が"      
-##  [91] "一層"     "厳"       "し"       "さ"       "を"       "増す"    
-##  [97] "中"       "で"       "、"       "今回"
+##    collocation count count_nested length    lambda        z
+## 1      社会 的     6            0      2  3.960312 7.350570
+## 2    人権 宣言     3            0      2  5.510407 6.988230
+## 3    世界 人権     2            0      2  5.963975 6.105295
+## 4      条 何人     3            0      2  4.337049 5.861139
+## 5    国際 連合     5            0      2  8.729990 5.629984
+## 6        国 連     2            0      2  5.994041 5.559816
+## 7        権 利     4            0      2 10.728518 5.220942
+## 8      連 総会     2            0      2  9.042513 5.163307
+## 9    生活 水準     2            0      2  8.194427 4.999848
+## 10   友好 関係     2            0      2 10.141520 4.834563
+## 11     加盟 国     3            0      2  7.429125 4.814223
+## 12     基礎 的     2            0      2  4.226534 4.645392
+## 13     基本 的     4            0      2  6.480911 4.319065
+## 14     国際 的     2            0      2  3.125919 4.172971
+## 15     的 保護     2            0      2  3.000355 4.062534
+## 16     普遍 的     2            0      2  5.836771 3.745989
+## 17     的 権利     3            0      2  1.649864 2.847150
+## 18     的 自由     2            0      2  1.782464 2.619885
 ```
 
-### Morphological analysis
-
-If you want to perform more accurate tokenization, you need to install a morphological analysis tool, and call it from R. [Mecab](https://en.wikipedia.org/wiki/MeCab) is one of the most popular tools for tokenizing Japanese texts, and we can use it from R with **RMecab**. The package is not available on CRAN, so you have to install the library from the [author"s repository](http://rmecab.jp).
-
-
+After compounding of statistically significantly associated collocations (`tstat_col$z > 3`), we can remove single-character tokens (`min_nchar = 2`) to further remove grammatical words.
 
 
 ```r
-install.packages("RMeCab", repos = "http://rmecab.jp/R")
-library(RMeCab)
-toks_mecab <- txt %>% 
-  lapply(function(x) unlist(RMeCab::RMeCabC(x))) %>% 
-  as.tokens()
-```
-
-
-```r
-head(toks_mecab[[20]], 100)
+toks_ja_comp <- tokens_compound(toks_ja, tstat_col[tstat_col$z > 3], concatenator = "") %>% 
+  tokens_select(min_nchar = 2)
+print(toks_ja_comp[4:5], max_ndoc = 1, max_ntok = -1)
 ```
 
 ```
-##   [1] "○"        "森"       "政府"     "参考"     "人"       "　"      
-##   [7] "お答え"   "申し上げ" "ます"     "。"       "　"       "ＡＣＳＡ"
-##  [13] "は"       "、"       "自衛隊"   "と"       "相手"     "国"      
-##  [19] "の"       "軍隊"     "と"       "の"       "間"       "の"      
-##  [25] "物品"     "、"       "役務"     "の"       "相互"     "提供"    
-##  [31] "に"       "適用"     "さ"       "れる"     "決済"     "手続"    
-##  [37] "等"       "の"       "枠組み"   "を"       "定める"   "もの"    
-##  [43] "で"       "ござい"   "ます"     "。"       "これ"     "を"      
-##  [49] "締結"     "する"     "こと"     "により"   "、"       "自衛隊"  
-##  [55] "と"       "相手"     "国"       "の"       "軍隊"     "と"      
-##  [61] "の"       "間"       "の"       "物品"     "、"       "役務"    
-##  [67] "の"       "相互"     "提供"     "を"       "円滑"     "かつ"    
-##  [73] "迅速"     "に"       "行う"     "こと"     "が"       "可能"    
-##  [79] "と"       "なる"     "。"       "　"       "我が国"   "を"      
-##  [85] "取り巻く" "安全"     "保障"     "環境"     "が"       "一層"    
-##  [91] "厳し"     "さ"       "を"       "増す"     "中"       "で"      
-##  [97] "、"       "今回"     "の"       "日"
+## Tokens consisting of 2 documents and 2 docvars.
+## jpn :
+##   [1] "人類"         "社会"         "構成"         "固有"         "尊厳"         "平等"         "譲る"        
+##   [8] "こと"         "権利"         "こと"         "世界"         "における"     "自由"         "正義"        
+##  [15] "及び"         "平和"         "基礎"         "ので"         "人権"         "無視"         "及び"        
+##  [22] "軽侮"         "人類"         "良心"         "野蛮"         "行為"         "たら"         "言論"        
+##  [29] "信仰"         "自由"         "受け"         "恐怖"         "及び"         "欠乏"         "世界"        
+##  [36] "到来"         "一般"         "人々"         "最高"         "願望"         "宣言"         "ので"        
+##  [43] "人間"         "専制"         "圧迫"         "最後"         "手段"         "反逆"         "訴える"      
+##  [50] "こと"         "支配"         "人権"         "保護"         "こと"         "肝要"         "ので"        
+##  [57] "諸国"         "友好関係"     "発展"         "促進"         "こと"         "肝要"         "ので"        
+##  [64] "国際連合"     "国民"         "国連"         "憲章"         "において"     "基本的"       "人権"        
+##  [71] "人間"         "尊厳"         "及び"         "価値"         "並び"         "男女"         "同権"        
+##  [78] "信念"         "確認"         "かつ"         "大きな"       "自由"         "うち"         "社会的"      
+##  [85] "進歩"         "生活水準"     "向上"         "促進"         "こと"         "決意"         "ので"        
+##  [92] "加盟国"       "国際連合"     "協力"         "人権"         "及び"         "基本的"       "自由"        
+##  [99] "普遍的"       "尊重"         "及び"         "遵守"         "促進"         "達成"         "こと"        
+## [106] "誓約"         "ので"         "権利"         "及び"         "自由"         "共通"         "理解"        
+## [113] "誓約"         "完全"         "とも"         "重要"         "ので"         "国連総会"     "社会"        
+## [120] "個人"         "及び"         "機関"         "世界人権宣言" "常に"         "念頭"         "加盟国"      
+## 
+## [ reached max_ndoc ... 1 more document ]
 ```
-
-
-## Refining tokens
-
-Even if you use a morphological analysis tool, tokenization of Japanese text is far from perfect. However, you can refine tokens by compounding sequence of the same character class using `textstat_collocations()` and `tokens_compound()`. `^[一-龠]+$` and `^[ァ-ヶー]+$` regular expressions that match tokens are compromised only of kanji and katakana, respectively. `^[０-９ァ-ヶー一-龠]+$` is for tokens that is a combination of numbers, katakana, or kanji.
-
-
-```r
-toks_icu_refi <- toks_icu
-tstat_kanji <- toks_icu %>% 
-    tokens_select("^[一-龠]+$", valuetype = "regex", padding = TRUE) %>% 
-    textstat_collocations(min_count = 5, tolower = FALSE)
-toks_icu_refi <- tokens_compound(toks_icu_refi, tstat_kanji[tstat_kanji$z > 2],
-                                 concatenator = "", join = TRUE)
-
-tstat_kana <- toks_icu_refi %>% 
-    tokens_select("^[ァ-ヶー]+$", valuetype = "regex", padding = TRUE) %>% 
-    textstat_collocations(min_count = 5, tolower = FALSE)
-toks_icu_refi <- tokens_compound(toks_icu_refi, tstat_kana[tstat_kana$z > 2],
-                                 concatenator = "", join = TRUE)
-
-tstast_any <- toks_icu_refi %>% 
-            tokens_select("^[０-９ァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE) %>% 
-            textstat_collocations(min_count = 5, tolower = FALSE)
-toks_icu_refi <- tokens_compound(toks_icu_refi, tstast_any[tstast_any$z > 2],
-                                 concatenator = "", join = TRUE)
-```
-
-
-```r
-head(toks_icu_refi[[20]], 100)
-```
-
-```
-##   [1] "○"            "森政府参考人" "お答え"       "申"           "し"          
-##   [6] "上げ"         "ます"         "。"           "ＡＣＳＡ"     "は"          
-##  [11] "、"           "自衛隊"       "と"           "相手国"       "の"          
-##  [16] "軍隊"         "と"           "の"           "間"           "の"          
-##  [21] "物品"         "、"           "役務"         "の"           "相互提供"    
-##  [26] "に"           "適用"         "さ"           "れる"         "決済手続等"  
-##  [31] "の"           "枠組み"       "を"           "定める"       "もの"        
-##  [36] "で"           "ご"           "ざ"           "い"           "ます"        
-##  [41] "。"           "これ"         "を"           "締結"         "する"        
-##  [46] "こと"         "により"       "、"           "自衛隊"       "と"          
-##  [51] "相手国"       "の"           "軍隊"         "と"           "の"          
-##  [56] "間"           "の"           "物品"         "、"           "役務"        
-##  [61] "の"           "相互提供"     "を"           "円滑"         "かつ"        
-##  [66] "迅速"         "に"           "行う"         "こと"         "が"          
-##  [71] "可能"         "と"           "なる"         "。"           "我が国"      
-##  [76] "を"           "取り巻く"     "安全保障環境" "が"           "一層"        
-##  [81] "厳"           "し"           "さ"           "を"           "増す"        
-##  [86] "中"           "で"           "、"           "今回"         "の"          
-##  [91] "日米"         "ＡＣＳＡ"     "の"           "締結"         "は"          
-##  [96] "、"           "昨年"         "三月"         "に"           "施行"
-```
-
-{{% notice note %}}
-You have to be careful not to compound too many tokens to reduce their semantic ambiguity, because large ngrams increase sparsity of the data and make statistical analysis more difficult.
-{{% /notice %}}
-
-## Feature selection
-
-We did not remove punctuation marks in the initial tokenization, but we do it here by `tokens(remove_punct = TRUE)`. There is no standard list of stop words for Japanese, but we can hiragana-only tokens are usually function words that we can remove.
-
-
-```r
-toks_icu_refi <- tokens(toks_icu_refi, remove_punct = TRUE)
-toks_icu_refi <- tokens_remove(toks_icu_refi, "^[ぁ-ん]+$", valuetype = "regex")
-head(toks_icu_refi[[20]], 100)
-```
-
-```
-##  [1] "○"            "森政府参考人" "お答え"       "申"           "上げ"        
-##  [6] "ＡＣＳＡ"     "自衛隊"       "相手国"       "軍隊"         "間"          
-## [11] "物品"         "役務"         "相互提供"     "適用"         "決済手続等"  
-## [16] "枠組み"       "定める"       "締結"         "自衛隊"       "相手国"      
-## [21] "軍隊"         "間"           "物品"         "役務"         "相互提供"    
-## [26] "円滑"         "迅速"         "行う"         "可能"         "我が国"      
-## [31] "取り巻く"     "安全保障環境" "一層"         "厳"           "増す"        
-## [36] "中"           "今回"         "日米"         "ＡＣＳＡ"     "締結"        
-## [41] "昨年"         "三月"         "施行"         "平和安全法制" "幅"          
-## [46] "広"           "日米間"       "安全保障"     "協力"         "円滑"        
-## [51] "実施"         "貢献"         "協力"         "実効性"       "一層"        
-## [56] "高める"       "上"           "大きな"       "意義"         "考え"
-```
-
-Even after hiragana-only tokens are removed, there are many one-character tokens, many of which are very common verbs in Japanese texts. These tokens can be removed by `dfm_select(min_nchar = 2)`.
-
-
-```r
-dfmat_icu_refi <- dfm(toks_icu_refi, tolower = FALSE)
-topfeatures(dfmat_icu_refi, 20)
-```
-
-```
-##        ○     思い       私     考え       言       中       今     問題 
-##      995      658      567      381      363      317      314      303 
-##   我が国     上げ     日本       申       行     大臣   北朝鮮       方 
-##      280      278      273      253      248      246      242      238 
-##       思     議論 ＡＣＳＡ       等 
-##      235      219      214      208
-```
-
-```r
-dfmat_icu_refi <- dfm_select(dfmat_icu_refi, min_nchar = 2)
-topfeatures(dfmat_icu_refi, 20)
-```
-
-```
-##     思い     考え     問題   我が国     上げ     日本     大臣   北朝鮮 
-##      658      381      303      280      278      273      246      242 
-##     議論 ＡＣＳＡ に対して     状況     委員     活動     政府   自衛隊 
-##      219      214      194      192      187      184      183      178 
-##     確認     質問   先ほど     今回 
-##      175      169      169      158
-```
-
-{{% notice info %}}
-If you want to learn more about how to analyze speeches at at Japan's Committee on Foreign Affairs and Defense of the lower house, see the [example](https://docs.quanteda.io/articles/pkgdown/examples/japanese_speech_ja.html) on the documentation site.
-{{% /notice%}}
