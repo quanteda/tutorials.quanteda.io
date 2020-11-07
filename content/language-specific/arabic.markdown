@@ -15,10 +15,10 @@ options(width = 110)
 
 
 ```r
-corp_ar <- corpus_reshape(data_corpus_udhr["arz"], to = "paragraphs")
-toks_ar <- tokens(corp_ar, remove_punct = TRUE) %>% 
+corp <- corpus_reshape(data_corpus_udhr["arz"], to = "paragraphs")
+toks <- tokens(corp, remove_punct = TRUE) %>% 
   tokens_remove(stopwords("ar", source = "marimo"))
-print(toks_ar[4:5], max_ndoc = 1, max_ntoken = -1)
+print(toks[4:5], max_ndoc = 1, max_ntoken = -1)
 ```
 
 ```
@@ -64,5 +64,24 @@ print(toks_ar[4:5], max_ndoc = 1, max_ntoken = -1)
 ## [186] "ﻟﻪ"                 ".‬"                  "اﻟﻤﺎدة"             "11‬"                
 ## 
 ## [ reached max_ndoc ... 1 more document ]
+```
+
+
+```r
+dfmat <- dfm(toks)
+print(dfmat)
+```
+
+```
+## Document-feature matrix of: 9 documents, 786 features (85.6% sparse) and 2 docvars.
+##        features
+## docs    اﻹﻋﻼن اﻟﻌﺎﻟﻤﻲ ﻟﺤﻘﻮق اﻹﻧﺴﺎن أ (‬ اﻟﺪﻳﺒﺎﺟﺔ‬ ﻟ  ّ ﺎ
+##   arz.1     1       1     1      1 1 1        0 0 0 0
+##   arz.2     3       1     1      4 0 0        1 1 1 3
+##   arz.3     0       0     0      0 1 0        0 0 0 0
+##   arz.4     1       0     0      0 0 0        0 0 0 0
+##   arz.5     0       0     0      0 0 0        0 0 0 0
+##   arz.6     0       0     0      1 0 0        0 0 0 0
+## [ reached max_ndoc ... 3 more documents, reached max_nfeat ... 776 more features ]
 ```
 

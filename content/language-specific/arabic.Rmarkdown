@@ -13,9 +13,14 @@ options(width = 110)
 ```
 
 ```{r}
-corp_ar <- corpus_reshape(data_corpus_udhr["arz"], to = "paragraphs")
-toks_ar <- tokens(corp_ar, remove_punct = TRUE) %>% 
+corp <- corpus_reshape(data_corpus_udhr["arz"], to = "paragraphs")
+toks <- tokens(corp, remove_punct = TRUE) %>% 
   tokens_remove(stopwords("ar", source = "marimo"))
-print(toks_ar[4:5], max_ndoc = 1, max_ntoken = -1)
+print(toks[4:5], max_ndoc = 1, max_ntoken = -1)
+```
+
+```{r}
+dfmat <- dfm(toks)
+print(dfmat)
 ```
 

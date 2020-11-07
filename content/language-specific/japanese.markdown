@@ -19,10 +19,10 @@ options(width = 110)
 
 
 ```r
-corp_ja <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
-toks_ja <- tokens(corp_ja, remove_punct = TRUE, padding = TRUE) %>% 
+corp <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
+toks <- tokens(corp, remove_punct = TRUE, padding = TRUE) %>% 
   tokens_remove(stopwords("ja", source = "marimo"), padding = TRUE)
-print(toks_ja[4:5], max_ndoc = 1, max_ntok = -1)
+print(toks[4:5], max_ndoc = 1, max_ntok = -1)
 ```
 
 ```
@@ -71,7 +71,7 @@ We can imporove tokenization by collocation analysis in a similar way as [compou
 
 
 ```r
-tstat_col <- toks_ja %>% 
+tstat_col <- toks %>% 
   tokens_select("^[ァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE) %>%  
   textstat_collocations()
 print(tstat_col)
@@ -103,9 +103,9 @@ After compounding of statistically significantly associated collocations (`tstat
 
 
 ```r
-toks_ja_comp <- tokens_compound(toks_ja, tstat_col[tstat_col$z > 3], concatenator = "") %>% 
+toks_comp <- tokens_compound(toks, tstat_col[tstat_col$z > 3], concatenator = "") %>% 
   tokens_select(min_nchar = 2)
-print(toks_ja_comp[4:5], max_ndoc = 1, max_ntok = -1)
+print(toks_comp[4:5], max_ndoc = 1, max_ntok = -1)
 ```
 
 ```
@@ -132,3 +132,23 @@ print(toks_ja_comp[4:5], max_ndoc = 1, max_ntok = -1)
 ## 
 ## [ reached max_ndoc ... 1 more document ]
 ```
+
+
+```r
+dfmat <- dfm(toks_comp)
+print(dfmat)
+```
+
+```
+## Document-feature matrix of: 14 documents, 417 features (88.6% sparse) and 2 docvars.
+##        features
+## docs    世界 人権 宣言 1948.12.10 回国 採択 前文 人類 社会 構成
+##   jpn.1    0    0    0          0    0    0    0    0    0    0
+##   jpn.2    0    0    0          1    1    1    0    0    0    0
+##   jpn.3    0    0    0          0    0    0    1    0    0    0
+##   jpn.4    2    4    1          0    0    0    0    2    2    1
+##   jpn.5    0    0    0          0    0    0    0    0    0    0
+##   jpn.6    0    0    0          0    0    0    0    0    0    0
+## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 407 more features ]
+```
+

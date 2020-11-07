@@ -17,16 +17,16 @@ options(width = 110)
 `data_corpus_udhr` contains the Universal Declaration of Human Rights in multiple languages including Japanese. After tokenization, we remove grammatical words using `stopwords("ja", source = "marimo")`.
 
 ```{r}
-corp_ja <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
-toks_ja <- tokens(corp_ja, remove_punct = TRUE, padding = TRUE) %>% 
+corp <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
+toks <- tokens(corp, remove_punct = TRUE, padding = TRUE) %>% 
   tokens_remove(stopwords("ja", source = "marimo"), padding = TRUE)
-print(toks_ja[4:5], max_ndoc = 1, max_ntok = -1)
+print(toks[4:5], max_ndoc = 1, max_ntok = -1)
 ```
 
 We can imporove tokenization by collocation analysis in a similar way as [compound multi-word expressions](advanced-operations/compound-mutiword-expressions/) in English texts. `"^[ァ-ヶー一-龠]+$"` is a regular expression to select only katakana and kanji. We set `padding = TRUE` to keep the distance between words.
 
 ```{r}
-tstat_col <- toks_ja %>% 
+tstat_col <- toks %>% 
   tokens_select("^[ァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE) %>%  
   textstat_collocations()
 print(tstat_col)
@@ -35,7 +35,13 @@ print(tstat_col)
 After compounding of statistically significantly associated collocations (`tstat_col$z > 3`), we can remove single-character tokens (`min_nchar = 2`) to further remove grammatical words.
 
 ```{r}
-toks_ja_comp <- tokens_compound(toks_ja, tstat_col[tstat_col$z > 3], concatenator = "") %>% 
+toks_comp <- tokens_compound(toks, tstat_col[tstat_col$z > 3], concatenator = "") %>% 
   tokens_select(min_nchar = 2)
-print(toks_ja_comp[4:5], max_ndoc = 1, max_ntok = -1)
+print(toks_comp[4:5], max_ndoc = 1, max_ntok = -1)
 ```
+
+```{r}
+dfmat <- dfm(toks_comp)
+print(dfmat)
+```
+
