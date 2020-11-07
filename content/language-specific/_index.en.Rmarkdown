@@ -1,5 +1,5 @@
 ---
-title: Different Languages
+title: Multilingual Analysis
 weight: 70
 pre: "<b>7. </b>"
 chapter: true
@@ -10,4 +10,4 @@ draft: false
 
 # Processing different languages
 
-Learn language-specific processing of texts
+Learn processing of non-English texts
