@@ -12,6 +12,8 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
+`data_corpus_udhr` contains the Universal Declaration of Human Rights in multiple languages including Arabic. After tokenization, we remove grammatical words using `stopwords("ar", source = "marimo")`.
+
 ```{r}
 corp <- corpus_reshape(data_corpus_udhr["arz"], to = "paragraphs")
 toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
