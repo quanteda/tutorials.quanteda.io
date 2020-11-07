@@ -18,7 +18,7 @@ options(width = 110)
 
 ```{r}
 corp <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
-toks <- tokens(corp, remove_punct = TRUE, padding = TRUE) %>% 
+toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE, padding = TRUE) %>% 
   tokens_remove(stopwords("ja", source = "marimo"), padding = TRUE)
 print(toks[4:5], max_ndoc = 1, max_ntok = -1)
 ```

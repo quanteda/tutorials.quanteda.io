@@ -20,7 +20,7 @@ options(width = 110)
 
 ```r
 corp <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
-toks <- tokens(corp, remove_punct = TRUE, padding = TRUE) %>% 
+toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE, padding = TRUE) %>% 
   tokens_remove(stopwords("ja", source = "marimo"), padding = TRUE)
 print(toks[4:5], max_ndoc = 1, max_ntok = -1)
 ```
@@ -140,15 +140,15 @@ print(dfmat)
 ```
 
 ```
-## Document-feature matrix of: 14 documents, 417 features (88.6% sparse) and 2 docvars.
+## Document-feature matrix of: 14 documents, 395 features (88.4% sparse) and 2 docvars.
 ##        features
-## docs    世界 人権 宣言 1948.12.10 回国 採択 前文 人類 社会 構成
-##   jpn.1    0    0    0          0    0    0    0    0    0    0
-##   jpn.2    0    0    0          1    1    1    0    0    0    0
-##   jpn.3    0    0    0          0    0    0    1    0    0    0
-##   jpn.4    2    4    1          0    0    0    0    2    2    1
-##   jpn.5    0    0    0          0    0    0    0    0    0    0
-##   jpn.6    0    0    0          0    0    0    0    0    0    0
-## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 407 more features ]
+## docs    世界 人権 宣言 回国 採択 前文 人類 社会 構成 固有
+##   jpn.1    0    0    0    0    0    0    0    0    0    0
+##   jpn.2    0    0    0    1    1    0    0    0    0    0
+##   jpn.3    0    0    0    0    0    1    0    0    0    0
+##   jpn.4    2    4    1    0    0    0    2    2    1    1
+##   jpn.5    0    0    0    0    0    0    0    0    0    0
+##   jpn.6    0    0    0    0    0    0    0    0    0    0
+## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 385 more features ]
 ```
 

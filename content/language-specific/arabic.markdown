@@ -16,7 +16,7 @@ options(width = 110)
 
 ```r
 corp <- corpus_reshape(data_corpus_udhr["arz"], to = "paragraphs")
-toks <- tokens(corp, remove_punct = TRUE) %>% 
+toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
   tokens_remove(stopwords("ar", source = "marimo"))
 print(toks[4:5], max_ndoc = 1, max_ntoken = -1)
 ```
@@ -73,7 +73,7 @@ print(dfmat)
 ```
 
 ```
-## Document-feature matrix of: 9 documents, 786 features (85.6% sparse) and 2 docvars.
+## Document-feature matrix of: 9 documents, 780 features (85.7% sparse) and 2 docvars.
 ##        features
 ## docs    اﻹﻋﻼن اﻟﻌﺎﻟﻤﻲ ﻟﺤﻘﻮق اﻹﻧﺴﺎن أ (‬ اﻟﺪﻳﺒﺎﺟﺔ‬ ﻟ  ّ ﺎ
 ##   arz.1     1       1     1      1 1 1        0 0 0 0
@@ -82,6 +82,6 @@ print(dfmat)
 ##   arz.4     1       0     0      0 0 0        0 0 0 0
 ##   arz.5     0       0     0      0 0 0        0 0 0 0
 ##   arz.6     0       0     0      1 0 0        0 0 0 0
-## [ reached max_ndoc ... 3 more documents, reached max_nfeat ... 776 more features ]
+## [ reached max_ndoc ... 3 more documents, reached max_nfeat ... 770 more features ]
 ```
 
