@@ -13,10 +13,10 @@ options(width = 110)
 ```
 
 ```{r}
-corp <- corpus_reshape(data_corpus_udhr["arz"], to = "paragraphs")
+corp <- corpus_reshape(data_corpus_udhr["arb"], to = "paragraphs")
 toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
   tokens_remove(stopwords("ar", source = "marimo"))
-print(toks[4:5], max_ndoc = 1, max_ntoken = -1)
+print(toks[2], max_ndoc = 1, max_ntoken = -1)
 ```
 
 ```{r}
