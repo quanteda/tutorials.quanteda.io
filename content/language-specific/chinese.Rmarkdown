@@ -1,0 +1,76 @@
+  ---
+title: Chinese
+weight: 30
+draft: false
+---
+
+{{% author %}}By Yuan Zhou{{% /author %}} 
+
+For Chinese texts, I highly recommend you to use the [jieba](https://github.com/fxsjy/jieba) algorithm to achieve a better text segmentation. The algorithm can be applied through the [jiebaR](https://github.com/qinwf/jiebaR) package in R.
+
+```{r, message=FALSE}
+require(quanteda)
+require(jiebaR)
+options(width = 110)
+```
+
+The following is a comparison of results produced by `jieba::segment()` and `quanteda::tokens()`.
+
+```{r}
+text1 <- "小熊维尼"
+text2 <- "联合国大会一九四八年十二月十日第217A(III)号决议通过并颁布"
+text3 <- "张华考上了北京大学，在化学系学习；李萍进了中等技术学校，读机械制造专业；我在百货公司当售货员：我们都有光明的前途。"
+text4 <- '中国共产党以马克思列宁主义、毛泽东思想、邓小平理论、“三个代表”重要思想和科学发展观、习近平新时代中国特色社会主义思想作为自己的行动指南。'
+
+cc <- worker() # create a jieba tokenizer
+
+tokens(text1)
+segment(text1, cc)
+
+print(tokens(text2), max_ntok = -1)
+segment(text2, cc)
+
+print(tokens(text3), max_ntok = -1)
+segment(text3, cc)
+
+print(tokens(text4), max_ntok = -1)
+segment(text4, cc)
+```
+
+The jieba algorithm removes the punctuation by default. If you want to keep the punctuation, you can set `worker()$symbol` as `TRUE`.
+
+```{r}
+cc$symbol <- TRUE
+segment(text3, cc)
+
+cc$symbol <- FALSE
+```
+
+The results produced by jieba segmentation can be converted to quanteda tokens.
+
+```{r}
+cc$bylines <- TRUE
+toks_jieba <- c(text1, text2, text3, text4) %>% segment(cc) %>% as.tokens()
+
+toks_jieba
+```
+
+There does not exist an authoritative Chinese stopword list. You can use either [Baidu stopwords](http://www.baiduguide.com/baidu-stopwords/) or [marimo stopwords](https://github.com/koheiw/marimo) to remove the meaningless tokens.
+
+```{r}
+head(stopwords("zh", source = "misc"), 50) # Baidu stopwords
+head(stopwords("zh_cn", source = "marimo"), 50)
+
+toks_jieba <- tokens_remove(toks_jieba, stopwords("zh", source = "misc"))
+print((toks_jieba[[3]]), max_ntok = -1)
+```
+
+You can also create your own new words or stop words.
+
+```{r}
+new_user_word(cc, c("李萍", "中等技术学校"))
+segment(text3, cc)
+
+stwords <- c("了", "在")
+segment(text3, cc) %>% as.tokens() %>% tokens_remove(stwords)
+```
