@@ -6,11 +6,17 @@ draft: false
 
 {{% author %}}By Dai Yamao{{% /author %}} 
 
+We usually need to use Linux OS in analyzing Arabic text, because result will be shown in Unicode in Windows OS and in opposite way in pieces in Mac OS.
+
 ```{r, message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
 options(width = 110)
 ```
+
+`data_corpus_udhr` contains the Universal Declaration of Human Rights in multiple languages including Arabic. After tokenization, we remove grammatical words using `stopwords("ar", source = "marimo")`.
+
+Result should be read from right-to-left order.
 
 ```{r}
 corp <- corpus_reshape(data_corpus_udhr["arb"], to = "paragraphs")
@@ -19,7 +25,16 @@ toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>%
 print(toks[2], max_ndoc = 1, max_ntoken = -1)
 ```
 
+We can improve tokenization by removing all non-Arabic letters by `"^[a-z]+$"`.
 ```{r}
+toks <- tokens_remove(toks, "^[a-z]+$", valuetype = "regex") %>%
+  tokens_select("^[\\p{Nd}\\p{L}\\-']+$", valuetype = "regex")
+print(toks[2], max_ndoc = 1, max_ntoken = -1)
+
+```
+
+```{r}
+# create a document-feature matrix
 dfmat <- dfm(toks)
 print(dfmat)
 ```
