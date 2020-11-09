@@ -18,17 +18,15 @@ There does not exist an authoritative Chinese stopword list. Here we use the [ma
 
 ```{r}
 corp <- corpus_reshape(data_corpus_udhr["cmn_hans"], to = "paragraphs")
-toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE, padding = TRUE) %>% 
-  tokens_remove(stopwords("zh_cn", source = "marimo"), padding = TRUE)
+toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+  tokens_remove(stopwords("zh_cn", source = "marimo"))
 
 print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
-Also, you can create your own stopword list.
 
 ```{r}
-stwords <- c("", "已", "了", "使")
-toks <- tokens_remove(toks, stwords)
+toks <- tokens_select(toks, "^\\p{Han}+$", valuetype = 'regex', min_nchar = 2)
 print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
