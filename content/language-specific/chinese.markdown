@@ -6,229 +6,116 @@ draft: false
 
 {{% author %}}By Yuan Zhou{{% /author %}} 
 
-For Chinese texts, I highly recommend you to use the [jieba](https://github.com/fxsjy/jieba) algorithm to achieve a better text segmentation. The algorithm can be applied through the [jiebaR](https://github.com/qinwf/jiebaR) package in R.
+This tutorial will show how to use quanteda's internal function `corpus()`, `tokens()`, and `dfm()` to preprocess Chinese texts using the example of the Universal Declaration of Human Rights.
 
 
 ```r
 require(quanteda)
-require(jiebaR)
+require(quanteda.corpora)
 options(width = 110)
 ```
 
-The following is a comparison of results produced by `jieba::segment()` and `quanteda::tokens()`.
+There does not exist an authoritative Chinese stopword list. Here we use the [marimo stopwords](https://github.com/koheiw/marimo) to remove the meaningless tokens.
 
 
 ```r
-text1 <- "小熊维尼"
-text2 <- "联合国大会一九四八年十二月十日第217A(III)号决议通过并颁布"
-text3 <- "张华考上了北京大学，在化学系学习；李萍进了中等技术学校，读机械制造专业；我在百货公司当售货员：我们都有光明的前途。"
-text4 <- '中国共产党以马克思列宁主义、毛泽东思想、邓小平理论、“三个代表”重要思想和科学发展观、习近平新时代中国特色社会主义思想作为自己的行动指南。'
+corp <- corpus_reshape(data_corpus_udhr["cmn_hans"], to = "paragraphs")
+toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE, padding = TRUE) %>% 
+  tokens_remove(stopwords("zh_cn", source = "marimo"), padding = TRUE)
 
-cc <- worker() # create a jieba tokenizer
-
-tokens(text1)
+print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
 ```
-## Tokens consisting of 1 document.
-## text1 :
-## [1] "小熊" "维"   "尼"
+## Tokens consisting of 1 document and 4 docvars.
+## cmn_hans :
+##   [1] "鉴于"     ""         "人类"     "家庭"     ""         "成员"     ""         "固有"     "尊严"    
+##  [10] "及其"     "平等"     ""         ""         "不移"     ""         "权利"     ""         "承认"    
+##  [19] ""         "乃是"     "世界"     "自由"     ""         "正义"     ""         "和平"     ""        
+##  [28] "基础"     ""         "鉴于"     ""         "人权"     ""         "无视"     ""         "侮蔑"    
+##  [37] "已"       "发展"     ""         "野蛮"     "暴行"     ""         ""         "暴行"     "玷污"    
+##  [46] "了"       "人类"     ""         "良心"     ""         ""         "一个"     "人人"     "享有"    
+##  [55] "言论"     ""         "信仰"     "自由"     ""         "免"       "予"       "恐惧"     ""        
+##  [64] "匮"       "乏"       ""         "世界"     ""         "来临"     ""         "已"       "被"      
+##  [73] "宣布"     ""         "普通"     "人民"     ""         "最高"     "愿望"     ""         "鉴于"    
+##  [82] ""         "使"       "人类"     "不致"     "迫不得已" "铤"       ""         "走"       "险"      
+##  [91] ""         "暴政"     ""         "压迫"     "进行"     "反叛"     ""         ""         "必要"    
+## [100] "使"       "人权"     ""         "法治"     ""         "保护"     ""         "鉴于"     ""        
+## [109] "必要"     "促进"     "各国"     "间"       "友好"     "关系"     ""         "发展"     ""        
+## [118] "鉴于"     "各"       "联合"     "国"       "国家"     ""         "人民"     "已"       ""        
+## [127] "联合"     "国"       "宪章"     ""         "重申"     "他们"     ""         "基本"     "人权"    
+## [136] ""         "人格"     "尊严"     ""         "价值"     ""         "男女平等" "权利"     ""        
+## [145] "信念"     ""         ""         "决心"     "促成"     "较大"     "自由"     "中的"     "社会"    
+## [154] "进步"     ""         "生活"     "水平"     ""         "改善"     ""         "鉴于"     "各"      
+## [163] "会员"     "国"       "业"       "已"       "誓"       "愿"       ""         "联合"     "国"      
+## [172] "合作"     ""         "促进"     ""         "人权"     ""         "基本"     "自由"     ""        
+## [181] "普遍"     "尊重"     ""         "遵行"     ""         "鉴于"     ""         ""         "权利"    
+## [190] ""         "自由"     ""         "普遍"     "了解"     ""         ""         "誓"       "愿"      
+## [199] ""         "充分"     "实现"     "具有"     "很大"     ""         "重要性"   ""         ""        
+## [208] "现在"     ""         "大会"     ""         "发布"     ""         ""         "世界"     "人权"    
+## [217] "宣言"     ""         ""         ""         "人民"     ""         ""         "国家"     "努力"    
+## [226] "实现"     ""         "共同"     "标准"     ""         "以期"     "每一个人" ""         "社会"    
+## [235] "机构"     "经常"     "铭"       "念"       "本"       "宣言"     ""         "努力"     ""        
+## [244] "教诲"     ""         "教育"     "促进"     ""         "权利"     ""         "自由"     ""        
+## [253] "尊重"     ""         ""         ""         "国家"     ""         ""         "国际"     ""        
+## [262] "渐进"     "措施"     ""         "使"       ""         "权利"     ""         "自由"     ""        
+## [271] "各"       "会员"     "国"       "本身"     "人民"     ""         ""         ""         "管辖"    
+## [280] ""         "领土"     ""         "人民"     ""         "得到"     "普遍"     ""         "有效"    
+## [289] ""         "承认"     ""         "遵行"     ""
 ```
 
-```r
-segment(text1, cc)
-```
-
-```
-## [1] "小熊维尼"
-```
-
-```r
-print(tokens(text2), max_ntok = -1)
-```
-
-```
-## Tokens consisting of 1 document.
-## text1 :
-##  [1] "联合"   "国"     "大会"   "一九"   "四"     "八年"   "十二月" "十日"   "第"     "217A"   "("     
-## [12] "III"    ")"      "号"     "决议"   "通过"   "并"     "颁布"
-```
-
-```r
-segment(text2, cc)
-```
-
-```
-##  [1] "联合国大会" "一九四八年" "十二月"     "十日"       "第"         "217"        "A"          "III"       
-##  [9] "号"         "决议"       "通过"       "并"         "颁布"
-```
-
-```r
-print(tokens(text3), max_ntok = -1)
-```
-
-```
-## Tokens consisting of 1 document.
-## text1 :
-##  [1] "张"   "华"   "考"   "上了" "北京" "大学" "，"   "在"   "化学" "系"   "学习" "；"   "李"   "萍"   "进"  
-## [16] "了"   "中等" "技术" "学校" "，"   "读"   "机械" "制造" "专业" "；"   "我在" "百货" "公司" "当"   "售货"
-## [31] "员"   "："   "我们" "都有" "光明" "的"   "前途" "。"
-```
-
-```r
-segment(text3, cc)
-```
-
-```
-##  [1] "张华"     "考上"     "了"       "北京大学" "在"       "化学系"   "学习"     "李"       "萍"      
-## [10] "进"       "了"       "中等"     "技术学校" "读"       "机械制造" "专业"     "我"       "在"      
-## [19] "百货公司" "当"       "售货员"   "我们"     "都"       "有"       "光明"     "的"       "前途"
-```
-
-```r
-print(tokens(text4), max_ntok = -1)
-```
-
-```
-## Tokens consisting of 1 document.
-## text1 :
-##  [1] "中国"   "共产"   "党"     "以"     "马克"   "思"     "列宁"   "主义"   "、"     "毛泽东" "思想"  
-## [12] "、"     "邓小平" "理论"   "、"     "\""     "三"     "个"     "代表"   "\""     "重要"   "思想"  
-## [23] "和"     "科学"   "发展"   "观"     "、"     "习"     "近平"   "新时代" "中国"   "特色"   "社会"  
-## [34] "主义"   "思想"   "作为"   "自己"   "的"     "行动"   "指南"   "。"
-```
-
-```r
-segment(text4, cc)
-```
-
-```
-##  [1] "中国共产党"     "以"             "马克思列宁主义" "毛泽东思想"     "邓小平理论"     "三个代表"      
-##  [7] "重要"           "思想"           "和"             "科学"           "发展观"         "习近平"        
-## [13] "新"             "时代"           "中国"           "特色"           "社会主义"       "思想"          
-## [19] "作为"           "自己"           "的"             "行动指南"
-```
-
-The jieba algorithm removes the punctuation by default. If you want to keep the punctuation, you can set `worker()$symbol` as `TRUE`.
+Also, you can create your own stopword list.
 
 
 ```r
-cc$symbol <- TRUE
-segment(text3, cc)
+stwords <- c("", "已", "了", "使")
+toks <- tokens_remove(toks, stwords)
+print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
 ```
-##  [1] "张华"     "考上"     "了"       "北京大学" "，"       "在"       "化学系"   "学习"     "；"      
-## [10] "李"       "萍"       "进"       "了"       "中等"     "技术学校" "，"       "读"       "机械制造"
-## [19] "专业"     "；"       "我"       "在"       "百货公司" "当"       "售货员"   "："       "我们"    
-## [28] "都"       "有"       "光明"     "的"       "前途"     "。"
+## Tokens consisting of 1 document and 4 docvars.
+## cmn_hans :
+##   [1] "鉴于"     "人类"     "家庭"     "成员"     "固有"     "尊严"     "及其"     "平等"     "不移"    
+##  [10] "权利"     "承认"     "乃是"     "世界"     "自由"     "正义"     "和平"     "基础"     "鉴于"    
+##  [19] "人权"     "无视"     "侮蔑"     "发展"     "野蛮"     "暴行"     "暴行"     "玷污"     "人类"    
+##  [28] "良心"     "一个"     "人人"     "享有"     "言论"     "信仰"     "自由"     "免"       "予"      
+##  [37] "恐惧"     "匮"       "乏"       "世界"     "来临"     "被"       "宣布"     "普通"     "人民"    
+##  [46] "最高"     "愿望"     "鉴于"     "人类"     "不致"     "迫不得已" "铤"       "走"       "险"      
+##  [55] "暴政"     "压迫"     "进行"     "反叛"     "必要"     "人权"     "法治"     "保护"     "鉴于"    
+##  [64] "必要"     "促进"     "各国"     "间"       "友好"     "关系"     "发展"     "鉴于"     "各"      
+##  [73] "联合"     "国"       "国家"     "人民"     "联合"     "国"       "宪章"     "重申"     "他们"    
+##  [82] "基本"     "人权"     "人格"     "尊严"     "价值"     "男女平等" "权利"     "信念"     "决心"    
+##  [91] "促成"     "较大"     "自由"     "中的"     "社会"     "进步"     "生活"     "水平"     "改善"    
+## [100] "鉴于"     "各"       "会员"     "国"       "业"       "誓"       "愿"       "联合"     "国"      
+## [109] "合作"     "促进"     "人权"     "基本"     "自由"     "普遍"     "尊重"     "遵行"     "鉴于"    
+## [118] "权利"     "自由"     "普遍"     "了解"     "誓"       "愿"       "充分"     "实现"     "具有"    
+## [127] "很大"     "重要性"   "现在"     "大会"     "发布"     "世界"     "人权"     "宣言"     "人民"    
+## [136] "国家"     "努力"     "实现"     "共同"     "标准"     "以期"     "每一个人" "社会"     "机构"    
+## [145] "经常"     "铭"       "念"       "本"       "宣言"     "努力"     "教诲"     "教育"     "促进"    
+## [154] "权利"     "自由"     "尊重"     "国家"     "国际"     "渐进"     "措施"     "权利"     "自由"    
+## [163] "各"       "会员"     "国"       "本身"     "人民"     "管辖"     "领土"     "人民"     "得到"    
+## [172] "普遍"     "有效"     "承认"     "遵行"
 ```
 
-```r
-cc$symbol <- FALSE
-```
-
-The results produced by jieba segmentation can be converted to quanteda tokens.
-
-
-```r
-cc$bylines <- TRUE
-toks_jieba <- c(text1, text2, text3, text4) %>% segment(cc) %>% as.tokens()
-
-toks_jieba
-```
-
-```
-## Tokens consisting of 4 documents.
-## text1 :
-## [1] "小熊维尼"
-## 
-## text2 :
-##  [1] "联合国大会" "一九四八年" "十二月"     "十日"       "第"         "217"        "A"          "III"       
-##  [9] "号"         "决议"       "通过"       "并"        
-## [ ... and 1 more ]
-## 
-## text3 :
-##  [1] "张华"     "考上"     "了"       "北京大学" "在"       "化学系"   "学习"     "李"       "萍"      
-## [10] "进"       "了"       "中等"    
-## [ ... and 15 more ]
-## 
-## text4 :
-##  [1] "中国共产党"     "以"             "马克思列宁主义" "毛泽东思想"     "邓小平理论"     "三个代表"      
-##  [7] "重要"           "思想"           "和"             "科学"           "发展观"         "习近平"        
-## [ ... and 10 more ]
-```
-
-There does not exist an authoritative Chinese stopword list. You can use either [Baidu stopwords](http://www.baiduguide.com/baidu-stopwords/) or [marimo stopwords](https://github.com/koheiw/marimo) to remove the meaningless tokens.
+After tokenization, you can create a document-feature matrix just as other languages.
 
 
 ```r
-head(stopwords("zh", source = "misc"), 50) # Baidu stopwords
+dfmat <- dfm(toks)
+
+print(dfmat)
 ```
 
 ```
-##  [1] "按"     "按照"   "俺"     "们"     "阿"     "别"     "别人"   "别处"   "是"     "别的"   "别管"  
-## [12] "说"     "不"     "不仅"   "不但"   "不光"   "不单"   "不只"   "不外乎" "不如"   "不妨"   "不尽"  
-## [23] "然"     "不得"   "不怕"   "不惟"   "不成"   "不拘"   "料"     "不是"   "不比"   "不然"   "特"    
-## [34] "不独"   "不管"   "不至于" "若"     "不论"   "不过"   "不问"   "比"     "方"     "比如"   "及"    
-## [45] "本身"   "本着"   "本地"   "本人"   "本"     "巴巴"
-```
-
-```r
-head(stopwords("zh_cn", source = "marimo"), 50)
-```
-
-```
-##  [1] "我"       "把我"     "对我"     "我自己"   "我们"     "把我们"   "对我们"   "我们自己" "你"      
-## [10] "把你"     "对你"     "你自己"   "你们"     "把你们"   "对你们"   "你们自己" "您"       "把您"    
-## [19] "对您"     "您自己"   "您们"     "把您们"   "对您们"   "您们自己" "他"       "把他"     "对他"    
-## [28] "他自己"   "她"       "把她"     "对她"     "她自己"   "它"       "把它"     "对它"     "它自己"  
-## [37] "你们"     "把你们"   "对你们"   "你们自己" "这"       "那"       "这些"     "那些"     "该"      
-## [46] "这个"     "这么"     "这样"     "这是"     "我的"
-```
-
-```r
-toks_jieba <- tokens_remove(toks_jieba, stopwords("zh", source = "misc"))
-print((toks_jieba[[3]]), max_ntok = -1)
-```
-
-```
-##  [1] "张华"     "考上"     "北京大学" "化学系"   "学习"     "李"       "萍"       "进"       "中等"    
-## [10] "技术学校" "读"       "机械制造" "专业"     "百货公司" "售货员"   "光明"     "前途"
-```
-
-You can also create your own new words or stop words.
-
-
-```r
-new_user_word(cc, c("李萍", "中等技术学校"))
-```
-
-```
-## [1] TRUE
-```
-
-```r
-segment(text3, cc)
-```
-
-```
-## [[1]]
-##  [1] "张华"         "考上"         "了"           "北京大学"     "在"           "化学系"       "学习"        
-##  [8] "李萍"         "进"           "了"           "中等技术学校" "读"           "机械制造"     "专业"        
-## [15] "我"           "在"           "百货公司"     "当"           "售货员"       "我们"         "都"          
-## [22] "有"           "光明"         "的"           "前途"
-```
-
-```r
-stwords <- c("了", "在")
-segment(text3, cc) %>% as.tokens() %>% tokens_remove(stwords)
-```
-
-```
-## Tokens consisting of 1 document.
-## text1 :
-##  [1] "张华"         "考上"         "北京大学"     "化学系"       "学习"         "李萍"         "进"          
-##  [8] "中等技术学校" "读"           "机械制造"     "专业"         "我"          
-## [ ... and 9 more ]
+## Document-feature matrix of: 82 documents, 484 features (97.7% sparse) and 4 docvars.
+##             features
+## docs         序言 鉴于 人类 家庭 成员 固有 尊严 及其 平等 不移
+##   cmn_hans.1    1    0    0    0    0    0    0    0    0    0
+##   cmn_hans.2    0    7    3    1    1    1    2    1    1    1
+##   cmn_hans.3    0    0    0    0    0    0    0    0    0    0
+##   cmn_hans.4    0    0    0    0    0    0    1    0    1    0
+##   cmn_hans.5    0    0    0    0    0    0    0    0    0    0
+##   cmn_hans.6    0    0    0    0    0    0    0    0    0    0
+## [ reached max_ndoc ... 76 more documents, reached max_nfeat ... 474 more features ]
 ```
