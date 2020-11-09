@@ -22,7 +22,7 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We only select news stories published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
+We only select news articles published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
 
 ```{r}
 corp_news_2016 <- corpus_subset(corp_news, year(date) == 2016)
@@ -107,7 +107,7 @@ table(dfmat_news$topic2)
 {{% notice ref %}}
 
 - Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
-- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. (2011). _Multi-aspect sentiment analysis with topic models_. 2011 IEEE 11th International Conference on Data Mining Workshops, 81–88.
+- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. 2011. "[Multi-aspect sentiment analysis with topic models_](https://www.cs.cornell.edu/home/cardie/papers/masa-sentire-2011.pdf)". _Proceeding of the 2011 IEEE 11th International Conference on Data Mining Workshops_, 81–88.
 
 {{% /notice %}}
 

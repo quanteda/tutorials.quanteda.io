@@ -4,7 +4,7 @@ weight: 60
 draft: false
 ---
 
-Newsmap is a semi-supervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learns from "seed words" in dictionaries. 
+Newsmap is a semisupervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learns from "seed words" in dictionaries. 
 
 Install the **newsmap** package from CRAN.
 
