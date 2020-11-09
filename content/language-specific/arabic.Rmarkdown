@@ -24,12 +24,13 @@ toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>%
   tokens_remove(stopwords("ar", source = "marimo"))
 print(toks[2], max_ndoc = 1, max_ntoken = -1)
 ```
-We can improve tokenization by removing all non-Arabic letters by `"^[a-z]+$"`.
 
+We can improve tokenization by removing all non-Arabic letters by `"^[a-z]+$"`.
 ```{r}
 toks <- tokens_remove(toks, "^[a-z]+$", valuetype = "regex") %>%
   tokens_select("^[\\p{Nd}\\p{L}\\-']+$", valuetype = "regex")
 print(toks[2], max_ndoc = 1, max_ntoken = -1)
+
 ```
 
 ```{r}

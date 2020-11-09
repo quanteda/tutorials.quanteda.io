@@ -1,0 +1,26 @@
+---
+title: Hebrew
+weight: 20
+draft: false
+---
+
+{{% author %}}By Elad Segev{{% /author %}} 
+
+```{r, message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+options(width = 110)
+```
+
+```{r}
+corp <- corpus_reshape(data_corpus_udhr["heb"], to = "paragraphs")
+toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+  tokens_remove(stopwords("he", source = "marimo"))
+print(toks[2], max_ndoc = 1, max_ntoken = -1)
+```
+
+```{r}
+dfmat <- dfm(toks)
+print(dfmat)
+```
+
