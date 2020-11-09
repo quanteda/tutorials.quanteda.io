@@ -1,0 +1,41 @@
+  ---
+title: Chinese
+weight: 30
+draft: false
+---
+
+{{% author %}}By Yuan Zhou{{% /author %}} 
+
+This tutorial will show how to use quanteda's internal function `corpus()`, `tokens()`, and `dfm()` to preprocess Chinese texts using the example of the Universal Declaration of Human Rights.
+
+```{r, message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+options(width = 110)
+```
+
+There does not exist an authoritative Chinese stopword list. Here we use the [marimo stopwords](https://github.com/koheiw/marimo) to remove the meaningless tokens.
+
+```{r}
+corp <- corpus_reshape(data_corpus_udhr["cmn_hans"], to = "paragraphs")
+toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE, padding = TRUE) %>% 
+  tokens_remove(stopwords("zh_cn", source = "marimo"), padding = TRUE)
+
+print(toks[2], max_ndoc = 1, max_ntok = -1)
+```
+
+Also, you can create your own stopword list.
+
+```{r}
+stwords <- c("", "已", "了", "使")
+toks <- tokens_remove(toks, stwords)
+print(toks[2], max_ndoc = 1, max_ntok = -1)
+```
+
+After tokenization, you can create a document-feature matrix just as other languages.
+
+```{r}
+dfmat <- dfm(toks)
+
+print(dfmat)
+```
