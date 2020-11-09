@@ -6,7 +6,7 @@ draft: false
 
 {{% author %}}By Dai Yamao{{% /author %}} 
 
-We need to use Linux OS in analyzing Arabic text, because result will be shown in Unicode in Windows OS and in oppositet way in pieces in Mac OS.
+We usually need to use Linux OS in analyzing Arabic text, because result will be shown in Unicode in Windows OS and in opposite way in pieces in Mac OS.
 
 ```{r, message=FALSE}
 require(quanteda)
@@ -24,8 +24,16 @@ toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>%
   tokens_remove(stopwords("ar", source = "marimo"))
 print(toks[2], max_ndoc = 1, max_ntoken = -1)
 ```
+We can improve tokenization by removing all non-Arabic letters by `"^[a-z]+$"`.
 
 ```{r}
+toks <- tokens_remove(toks, "^[a-z]+$", valuetype = "regex") %>%
+  tokens_select("^[\\p{Nd}\\p{L}\\-']+$", valuetype = "regex")
+print(toks[2], max_ndoc = 1, max_ntoken = -1)
+```
+
+```{r}
+# create a document-feature matrix
 dfmat <- dfm(toks)
 print(dfmat)
 ```
