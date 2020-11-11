@@ -4,7 +4,7 @@ weight: 70
 draft: false
 ---
 
-Latent Semantic Scaling (LSS) is a flexible and cost-efficient semisupervised document scaling technique. Users only need to provide a small set of "seed words" to locate documents on a specific dimension.
+Latent Semantic Scaling (LSS) is a flexible and cost-efficient semisupervised document scaling technique. The technique relies on word embeddings and users only need to provide a small set of "seed words" to locate documents on a specific dimension.
 
 Install the **LSX** package from CRAN.
 
@@ -33,12 +33,15 @@ We segment news articles into sentences in the corpus to accurately estimate sem
 
 
 ```r
+# tokenize text corpus and remove various features
 corp_sent <- corpus_reshape(corp_news, to =  "sentences")
 toks_sent <- corp_sent %>% 
     tokens(remove_punct = TRUE, remove_symbols = TRUE, 
            remove_numbers = TRUE, remove_url = TRUE) %>% 
     tokens_remove(stopwords("en", source = "marimo")) %>%
     tokens_remove(c("*-time", "*-timeUpdated", "GMT", "BST", "*.com"))  
+
+# create a document feature matrix from the tokens object
 dfmat_sent <- toks_sent %>% 
     dfm(remove = "") %>% 
     dfm_trim(min_termfreq = 5)
@@ -79,9 +82,12 @@ With the seed words, LSS computes polarity of words frequent in the context of e
 
 
 ```r
+# identify context words 
 eco <- char_context(toks_sent, pattern = "econom*", p = 0.05)
+
+# run LSS model
 tmod_lss <- textmodel_lss(dfmat_sent, seeds = seed,
-                     terms = eco, k = 300, cache = TRUE)
+                          terms = eco, k = 300, cache = TRUE)
 ```
 
 ```
@@ -117,7 +123,7 @@ tail(coef(tmod_lss), 20) # most negative words
 ## -0.14773609 -0.20868570
 ```
 
-By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many of the words but not all have negative meanings in the corpus.
+By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many of the words (but not all of them) have negative meanings in the corpus.
 
 
 ```r
@@ -153,7 +159,7 @@ head(dat_smooth)
 ## 6 2012-01-07    5 -0.1987576 0.1166221
 ```
 
-In the plot, the circles are polarity scores of documents and the curve is their local means with 95% confidence intervals.
+In the plot below, the circles are polarity scores of documents and the curve is their local means with 95% confidence intervals.
 
 
 ```r
@@ -168,4 +174,5 @@ abline(h = 0, lty = c(1, 2))
 <img src="/machine-learning/lss.en_files/figure-html/unnamed-chunk-13-1.png" width="960" />
 
 {{% notice ref %}}
-- Watanabe, K. 2020. [Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976). Communication Methods and Measures. {{% /notice %}}
+- Watanabe, K. 2020. "[Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976)". _Communication Methods and Measures_. 
+{{% /notice %}}

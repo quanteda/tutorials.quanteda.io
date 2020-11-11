@@ -106,4 +106,5 @@ abline(h = 0, lty = c(1, 2))
 ```
 
 {{% notice ref %}}
-- Watanabe, K. 2020. [Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976). Communication Methods and Measures. {{% /notice %}}
+- Watanabe, K. 2020. "[Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976)". _Communication Methods and Measures_. 
+{{% /notice %}}

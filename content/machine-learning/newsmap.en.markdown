@@ -182,5 +182,5 @@ ggplot(dat_country, aes(map_id = id)) +
 <img src="/machine-learning/newsmap.en_files/figure-html/unnamed-chunk-12-1.png" width="960" />
 
 {{% notice ref %}}
-- Watanabe, Kohei. 2018. "Newsmap: A semi-supervised approach to geographical news classification." _Digital Journalism_ 6(3): 294-309.
+- Watanabe, Kohei. 2018. "[Newsmap: A semi-supervised approach to geographical news classification](https://www.tandfonline.com/doi/abs/10.1080/21670811.2017.1293487)". _Digital Journalism_ 6(3): 294-309.
 {{% /notice %}}
