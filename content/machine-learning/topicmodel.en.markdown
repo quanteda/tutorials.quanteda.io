@@ -21,7 +21,7 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-We only select news stories published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
+We only select news articles published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
 
 
 ```r
@@ -37,14 +37,11 @@ Further, after removal of function words and punctuation in `dfm()`, we keep onl
 
 
 ```r
-dfmat_news <- corp_news_2016 %>% 
-    dfm(remove_punct = TRUE, remove = stopwords("en")) %>% 
-    dfm_remove(c("*-time", "*-timeUpdated", "GMT", "BST")) %>% 
-    dfm_trim(min_termfreq = 0.95, termfreq_type = "quantile", 
-             max_docfreq = 0.1, docfreq_type = "prop")
-
-# remove "empty" documents without any tokens
-dfmat_news <- dfmat_news[ntoken(dfmat_news) > 0,]
+dfmat_news <- dfm(corp_news_2016, 
+                  remove_punct = TRUE, remove_numbers = TRUE, remove_symbol = TRUE,
+                  remove = c(stopwords("en"), "*-time", "*-timeUpdated", "GMT", "BST")) %>% 
+              dfm_trim(min_termfreq = 0.8, termfreq_type = "quantile",
+                       max_docfreq = 0.1, docfreq_type = "prop")
 ```
 
 **quanteda** does not implement topic models, but you can fit LDA and seeded-LDA with the **seededlda** package.
@@ -66,28 +63,28 @@ terms(tmod_lda, 10)
 ```
 
 ```
-##       topic1     topic2     topic3       topic4   topic5     topic6     
-##  [1,] "refugees" "officers" "australia"  "game"   "corbyn"   "oil"      
-##  [2,] "syria"    "victims"  "australian" "video"  "johnson"  "markets"  
-##  [3,] "isis"     "prison"   "labor"      "son"    "benefits" "prices"   
-##  [4,] "syrian"   "criminal" "turnbull"   "story"  "brussels" "shares"   
-##  [5,] "military" "charges"  "senate"     "mother" "talks"    "rates"    
-##  [6,] "islamic"  "crime"    "coalition"  "love"   "cabinet"  "banks"    
-##  [7,] "un"       "sexual"   "budget"     "church" "boris"    "investors"
-##  [8,] "turkey"   "officer"  "liberal"    "felt"   "19"       "trading"  
-##  [9,] "muslim"   "incident" "malcolm"    "read"   "tory"     "sector"   
-## [10,] "forces"   "arrested" "royal"      "heart"  "jeremy"   "quarter"  
-##       topic7    topic8       topic9        topic10    
-##  [1,] "clinton" "sales"      "climate"     "doctors"  
-##  [2,] "sanders" "customers"  "water"       "nhs"      
-##  [3,] "cruz"    "apple"      "energy"      "housing"  
-##  [4,] "obama"   "google"     "food"        "education"
-##  [5,] "hillary" "businesses" "china"       "violence" 
-##  [6,] "trump's" "users"      "gas"         "hospital" 
-##  [7,] "bernie"  "technology" "project"     "funding"  
-##  [8,] "ted"     "sold"       "development" "medical"  
-##  [9,] "rubio"   "sale"       "chinese"     "drug"     
-## [10,] "senator" "iphone"     "air"         "child"
+##       topic1       topic2      topic3          topic4     topic5       topic6  
+##  [1,] "housing"    "oil"       "climate"       "syria"    "labor"      "church"
+##  [2,] "sales"      "markets"   "water"         "isis"     "corbyn"     "love"  
+##  [3,] "apple"      "prices"    "energy"        "military" "turnbull"   "game"  
+##  [4,] "customers"  "banks"     "food"          "un"       "budget"     "story" 
+##  [5,] "google"     "investors" "gas"           "islamic"  "johnson"    "video" 
+##  [6,] "users"      "rates"     "project"       "syrian"   "australian" "wife"  
+##  [7,] "technology" "shares"    "air"           "forces"   "shadow"     "son"   
+##  [8,] "property"   "trading"   "environmental" "china"    "leadership" "events"
+##  [9,] "iphone"     "quarter"   "land"          "muslim"   "coalition"  "black" 
+## [10,] "app"        "sector"    "residents"     "peace"    "senate"     "couple"
+##       topic7     topic8    topic9      topic10      
+##  [1,] "officers" "clinton" "doctors"   "refugees"   
+##  [2,] "prison"   "sanders" "violence"  "brussels"   
+##  [3,] "victims"  "cruz"    "nhs"       "talks"      
+##  [4,] "criminal" "hillary" "education" "french"     
+##  [5,] "officer"  "obama"   "funding"   "immigration"
+##  [6,] "arrested" "trump's" "hospital"  "summit"     
+##  [7,] "incident" "bernie"  "australia" "migrants"   
+##  [8,] "alleged"  "ted"     "medical"   "benefits"   
+##  [9,] "shooting" "rubio"   "drug"      "refugee"    
+## [10,] "dead"     "senator" "schools"   "asylum"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -98,9 +95,9 @@ head(topics(tmod_lda), 20)
 ```
 
 ```
-##  [1] "topic5" "topic5" "topic8" "topic4" "topic2" "topic9" "topic4" "topic9"
-##  [9] "topic3" "topic4" "topic5" "topic2" "topic5" "topic6" "topic4" "topic9"
-## [17] "topic9" "topic7" "topic4" "topic5"
+##  [1] "topic3"  "topic5"  "topic1"  "topic6"  "topic7"  "topic3"  "topic6" 
+##  [8] "topic3"  "topic5"  "topic6"  "topic5"  "topic7"  "topic10" "topic2" 
+## [15] "topic6"  "topic3"  "topic3"  "topic8"  "topic6"  "topic5"
 ```
 
 ```r
@@ -114,7 +111,7 @@ table(dfmat_news$topic)
 ```
 ## 
 ##  topic1 topic10  topic2  topic3  topic4  topic5  topic6  topic7  topic8  topic9 
-##     183     190     267     118     261     223     160     179     186     184
+##     218      86     181     186     167     275     216     227     191     212
 ```
 
 ### Seeded LDA
@@ -157,27 +154,27 @@ terms(tmod_slda, 20)
 ```
 
 ```
-##       economy      politics      society      diplomacy      military    
-##  [1,] "markets"    "politicians" "hospital"   "treaty"       "military"  
-##  [2,] "banks"      "elections"   "schools"    "refugees"     "terrorist" 
-##  [3,] "stock"      "politician"  "prison"     "corbyn"       "army"      
-##  [4,] "banking"    "voter"       "hospitals"  "johnson"      "soldiers"  
-##  [5,] "shop"       "clinton"     "prisons"    "brussels"     "terrorists"
-##  [6,] "shopping"   "sanders"     "australia"  "talks"        "officers"  
-##  [7,] "bank's"     "cruz"        "australian" "19"           "isis"      
-##  [8,] "marketing"  "obama"       "labor"      "cabinet"      "syria"     
-##  [9,] "oil"        "hillary"     "turnbull"   "benefits"     "islamic"   
-## [10,] "energy"     "trump's"     "funding"    "boris"        "forces"    
-## [11,] "sales"      "senator"     "doctors"    "chancellor"   "victims"   
-## [12,] "climate"    "bernie"      "education"  "shadow"       "video"     
-## [13,] "prices"     "ted"         "nhs"        "negotiations" "died"      
-## [14,] "food"       "rubio"       "violence"   "leadership"   "un"        
-## [15,] "businesses" "gun"         "drug"       "french"       "officer"   
-## [16,] "sector"     "primary"     "medical"    "tory"         "syrian"    
-## [17,] "investors"  "race"        "laws"       "jeremy"       "son"       
-## [18,] "china"      "candidates"  "budget"     "summit"       "facebook"  
-## [19,] "rates"      "photograph"  "senate"     "membership"   "criminal"  
-## [20,] "shares"     "kasich"      "royal"      "migrants"     "mother"
+##       economy       politics      society       diplomacy    military    
+##  [1,] "markets"     "politicians" "hospital"    "treaty"     "military"  
+##  [2,] "banks"       "elections"   "schools"     "ambassador" "terrorist" 
+##  [3,] "stock"       "politician"  "prison"      "diplomatic" "army"      
+##  [4,] "banking"     "voter"       "hospitals"   "diplomats"  "soldiers"  
+##  [5,] "shop"        "lawmakers"   "prisons"     "diplomat"   "terrorists"
+##  [6,] "shopping"    "clinton"     "prisoners"   "embassy"    "navy"      
+##  [7,] "bank's"      "sanders"     "hospitality" "labor"      "marine"    
+##  [8,] "marketing"   "cruz"        "prisoner"    "corbyn"     "soldier"   
+##  [9,] "shops"       "obama"       "violence"    "turnbull"   "refugees"  
+## [10,] "bankers"     "hillary"     "officers"    "johnson"    "syria"     
+## [11,] "stocks"      "trump's"     "victims"     "budget"     "water"     
+## [12,] "shoppers"    "bernie"      "cases"       "cabinet"    "isis"      
+## [13,] "bond"        "senator"     "parents"     "australian" "syrian"    
+## [14,] "bonds"       "ted"         "sexual"      "talks"      "un"        
+## [15,] "bankruptcy"  "rubio"       "abuse"       "brussels"   "turkey"    
+## [16,] "bankrupt"    "gun"         "child"       "benefits"   "islamic"   
+## [17,] "banker"      "primary"     "drug"        "shadow"     "aid"       
+## [18,] "stockport"   "race"        "facebook"    "coalition"  "climate"   
+## [19,] "marketplace" "candidates"  "mental"      "leadership" "forces"    
+## [20,] "oil"         "kasich"      "officer"     "australia"  "air"
 ```
 
 `topics()` on returns dictionary keys as the most likely topics of documents.
@@ -188,9 +185,9 @@ head(topics(tmod_slda), 20)
 ```
 
 ```
-##  [1] "society"   "diplomacy" "economy"   "military"  "military"  "economy"  
-##  [7] "politics"  "diplomacy" "society"   "military"  "diplomacy" "military" 
-## [13] "diplomacy" "economy"   "military"  "economy"   "economy"   "politics" 
+##  [1] "economy"   "diplomacy" "economy"   "society"   "society"   "military" 
+##  [7] "politics"  "military"  "diplomacy" "society"   "diplomacy" "military" 
+## [13] "diplomacy" "economy"   "politics"  "economy"   "economy"   "society"  
 ## [19] "society"   "diplomacy"
 ```
 
@@ -205,13 +202,13 @@ table(dfmat_news$topic2)
 ```
 ## 
 ## diplomacy   economy  military  politics   society 
-##       266       498       610       210       367
+##       363       473       354       217       552
 ```
 
 {{% notice ref %}}
 
 - Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
-- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. (2011). _Multi-aspect sentiment analysis with topic models_. 2011 IEEE 11th International Conference on Data Mining Workshops, 81–88.
+- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. 2011. "[Multi-aspect sentiment analysis with topic models_](https://www.cs.cornell.edu/home/cardie/papers/masa-sentire-2011.pdf)". _Proceeding of the 2011 IEEE 11th International Conference on Data Mining Workshops_, 81–88.
 
 {{% /notice %}}
 
