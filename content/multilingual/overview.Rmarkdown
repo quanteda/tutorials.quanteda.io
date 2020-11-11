@@ -1,0 +1,35 @@
+---
+title: Overview
+weight: 5
+draft: false
+---
+
+{{% author %}}By Kohei Watanabe{{% /author %}} 
+
+All the examples in this tutorial written using a corpus of English texts, but it does not mean that we cannot analyse texts in other languages. Thanks to the creation of the **stringi** package and the recent development in [International Component for Unicode (ICU)](http://site.icu-project.org/home), we can process all the major lanuages in Unicode.
+
+```{r, message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+options(width = 110)
+```
+
+The corpus `data_corpus_udhr` contains the Universal Declaration of Human Rights in over 400 languages languages. We can process European languages (English and German), but also the Middle Eastern (Arabic and Hebrew) and East Asian (Chinese and Japanese) languages appropriately.
+
+```{r}
+corp <- data_corpus_udhr[c("eng", "deu_1996", "arb", "heb", "cmn_hans", "jpn")]
+print(corp)
+```
+
+Words are segmented by the whitespace or punctuation marks in the first four langauges, but they are not in the last two languages. For this reason, morphorogial analysis tools such as Jieba or Mecab have been used only to tokenizing Chinese and Japanese texts, but `tokens()` does not require such tools. The ability to funciton to tokenize texts in different languages makes it possible to perform multilingual quantitative text analysis.
+
+```{r}
+toks <- tokens(corp)
+print(toks)
+```
+This chapter explains how to preprocess these langauges before constructing a DFM. Once a DFM is constructed, we can perform the statistical analysis and machine learning techniques, ignoring syntactical and lexical differences between languages.
+
+{{% notice note %}}
+`tokens()` tokenizes of Chinese and Japanese texts using a dictionary in the ICU library. The library also [detect boundaries](http://userguide.icu-project.org/boundaryanalysis) between words and other elements such symbols and numbers. This is why `tokens()` separates words punctuation marks from words even without the white space between them.
+{{% /notice %}}
+
