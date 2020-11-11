@@ -1,0 +1,53 @@
+  ---
+title: Arabic
+weight: 10
+draft: false
+---
+
+{{% author %}}By Dai Yamao and Elad Segev{{% /author %}} 
+
+
+We usually need to use Linux OS in analyzing Arabic text, because result will be shown in Unicode in Windows OS and in opposite way in pieces in Mac OS.
+
+```{r, message=FALSE}
+require(quanteda)
+require(quanteda.corpora)
+options(width = 110)
+```
+
+`data_corpus_udhr` contains the Universal Declaration of Human Rights in multiple languages including Arabic. 
+
+## Arabic 
+
+After tokenization, we remove grammatical words using `stopwords("ar", source = "marimo")`. We can improve tokenization by removing all non-Arabic letters by `"^[\\p{script=Arab}]+$"`.
+
+Result should be read from right-to-left order.
+
+```{r}
+corp_arb <- corpus_reshape(data_corpus_udhr["arb"], to = "paragraphs")
+toks_arb <- tokens(corp_arb, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+  tokens_select("^[\\p{script=Arab}]+$", valuetype = "regex") %>% 
+  tokens_remove(stopwords("ar", source = "marimo"))
+print(toks_arb[2], max_ndoc = 1, max_ntoken = -1)
+```
+
+```{r}
+# create a document-feature matrix
+dfmat_arb <- dfm(toks_arb)
+print(dfmat_arb)
+```
+
+## Hebrew
+
+```{r}
+corp_heb <- corpus_reshape(data_corpus_udhr["heb"], to = "paragraphs")
+toks_heb <- tokens(corp_heb, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+  tokens_select("^[\\p{script=Hebr}]+$", valuetype = "regex") %>% 
+  tokens_remove(stopwords("he", source = "marimo"))
+print(toks_heb[2], max_ndoc = 1, max_ntoken = -1)
+```
+
+```{r}
+dfmat_heb <- dfm(toks_heb)
+print(dfmat_heb)
+```
