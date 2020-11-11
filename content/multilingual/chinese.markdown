@@ -6,8 +6,6 @@ draft: false
 
 {{% author %}}By Yuan Zhou{{% /author %}} 
 
-This tutorial will show how to use quanteda's internal function `corpus()`, `tokens()`, and `dfm()` to preprocess Chinese texts using the example of the Universal Declaration of Human Rights.
-
 
 ```r
 require(quanteda)
@@ -15,47 +13,14 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-There does not exist an authoritative Chinese stopword list. Here we use the [marimo stopwords](https://github.com/koheiw/marimo) to remove the meaningless tokens.
+We resort to the [Marimo]((https://github.com/koheiw/marimo)) stopwords list (`stopwords("he", source = "zh_cn")`) and the length of words (`min_nchar = 2`) to remove function words. You can keep only Chinese characters with `"^\\p{script=Hani}+$"`.
 
 
 ```r
 corp <- corpus_reshape(data_corpus_udhr["cmn_hans"], to = "paragraphs")
 toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_remove(stopwords("zh_cn", source = "marimo"))
-
-print(toks[2], max_ndoc = 1, max_ntok = -1)
-```
-
-```
-## Tokens consisting of 1 document and 4 docvars.
-## cmn_hans :
-##   [1] "鉴于"     "人类"     "家庭"     "成员"     "固有"     "尊严"     "及其"     "平等"     "不移"    
-##  [10] "权利"     "承认"     "乃是"     "世界"     "自由"     "正义"     "和平"     "基础"     "鉴于"    
-##  [19] "人权"     "无视"     "侮蔑"     "已"       "发展"     "野蛮"     "暴行"     "暴行"     "玷污"    
-##  [28] "了"       "人类"     "良心"     "一个"     "人人"     "享有"     "言论"     "信仰"     "自由"    
-##  [37] "免"       "予"       "恐惧"     "匮"       "乏"       "世界"     "来临"     "已"       "被"      
-##  [46] "宣布"     "普通"     "人民"     "最高"     "愿望"     "鉴于"     "使"       "人类"     "不致"    
-##  [55] "迫不得已" "铤"       "走"       "险"       "暴政"     "压迫"     "进行"     "反叛"     "必要"    
-##  [64] "使"       "人权"     "法治"     "保护"     "鉴于"     "必要"     "促进"     "各国"     "间"      
-##  [73] "友好"     "关系"     "发展"     "鉴于"     "各"       "联合"     "国"       "国家"     "人民"    
-##  [82] "已"       "联合"     "国"       "宪章"     "重申"     "他们"     "基本"     "人权"     "人格"    
-##  [91] "尊严"     "价值"     "男女平等" "权利"     "信念"     "决心"     "促成"     "较大"     "自由"    
-## [100] "中的"     "社会"     "进步"     "生活"     "水平"     "改善"     "鉴于"     "各"       "会员"    
-## [109] "国"       "业"       "已"       "誓"       "愿"       "联合"     "国"       "合作"     "促进"    
-## [118] "人权"     "基本"     "自由"     "普遍"     "尊重"     "遵行"     "鉴于"     "权利"     "自由"    
-## [127] "普遍"     "了解"     "誓"       "愿"       "充分"     "实现"     "具有"     "很大"     "重要性"  
-## [136] "现在"     "大会"     "发布"     "世界"     "人权"     "宣言"     "人民"     "国家"     "努力"    
-## [145] "实现"     "共同"     "标准"     "以期"     "每一个人" "社会"     "机构"     "经常"     "铭"      
-## [154] "念"       "本"       "宣言"     "努力"     "教诲"     "教育"     "促进"     "权利"     "自由"    
-## [163] "尊重"     "国家"     "国际"     "渐进"     "措施"     "使"       "权利"     "自由"     "各"      
-## [172] "会员"     "国"       "本身"     "人民"     "管辖"     "领土"     "人民"     "得到"     "普遍"    
-## [181] "有效"     "承认"     "遵行"
-```
-
-
-
-```r
-toks <- tokens_select(toks, "^\\p{Han}+$", valuetype = 'regex', min_nchar = 2)
+  tokens_remove(stopwords("zh_cn", source = "marimo"), min_nchar = 2) %>% 
+  tokens_select("^\\p{script=Hani}+$", valuetype = 'regex')
 print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
@@ -81,12 +46,9 @@ print(toks[2], max_ndoc = 1, max_ntok = -1)
 ## [145] "人民"     "得到"     "普遍"     "有效"     "承认"     "遵行"
 ```
 
-After tokenization, you can create a document-feature matrix just as other languages.
-
 
 ```r
 dfmat <- dfm(toks)
-
 print(dfmat)
 ```
 

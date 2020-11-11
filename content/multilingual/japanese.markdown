@@ -1,12 +1,10 @@
   ---
 title: Japanese
-weight: 30
+weight: 40
 draft: false
 ---
 
 {{% author %}}By Kohei Watanabe{{% /author %}} 
-
-We usually do not need to use external tools such as Mecab to pre-process and analyze Japanese texts, because `tokens()` can segment Japanese texts based on rules defined in the Unicode library. 
 
 
 ```r
@@ -15,14 +13,14 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-`data_corpus_udhr` contains the Universal Declaration of Human Rights in multiple languages including Japanese. After tokenization, we remove grammatical words using `stopwords("ja", source = "marimo")`.
+We remove grammatical words using `stopwords("ja", source = "marimo")`. You can select tokens only with Japanese words (Hiragana, Katakana, Kanji) with `"^[ぁ-んァ-ヶー一-龠]+$"`. There are also Unicode character class for hiragana (`\p{script=Hira}`) and katakana (`\p{script=Kana}`) that you can use.
 
 
 ```r
 corp <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
 toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE, padding = TRUE) %>% 
-  tokens_remove(stopwords("ja", source = "marimo"), padding = TRUE)
-
+  tokens_remove(stopwords("ja", source = "marimo"), padding = TRUE) %>% 
+  tokens_select("^[ぁ-んァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE)
 print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
@@ -38,7 +36,7 @@ print(toks[2], max_ndoc = 1, max_ntok = -1)
 ##  [55] "じ"       "っ"       "た"       "野蛮"     "行為"     "を"       "も"       "たら"     "し"      
 ##  [64] ""         "言論"     "及び"     "信仰"     "の"       "自由"     "が"       "受け"     "ら"      
 ##  [73] "れ"       ""         "恐怖"     "及び"     "欠乏"     "の"       ""         "世界"     "の"      
-##  [82] "到来"     "が"       ""         "一般"     "の"       "人々"     "の"       "最高"     "の"      
+##  [82] "到来"     "が"       ""         "一般"     "の"       ""         "の"       "最高"     "の"      
 ##  [91] "願望"     ""         "宣言"     "さ"       "れ"       "た"       "ので"     ""         "人間"    
 ## [100] "が"       "専制"     "と"       "圧迫"     "と"       ""         "最後"     "の"       "手段"    
 ## [109] ""         "反逆"     "に"       "訴える"   "こと"     "が"       ""         ""         "に"      
@@ -73,16 +71,14 @@ print(toks[2], max_ndoc = 1, max_ntok = -1)
 ## [370] "き"       "共通"     "の"       "基準"     ""         ""         ""         "人権"     "宣言"    
 ## [379] "を"       "公布"     ""         ""
 ```
-
-We can imporove tokenization by collocation analysis in a similar way as [compound multi-word expressions](advanced-operations/compound-mutiword-expressions/) in English texts. `"^[ァ-ヶー一-龠]+$"` is a regular expression to select only katakana and kanji. We set `padding = TRUE` to keep the distance between words.
+We can improve tokenization by collocation analysis in a similar way as [compound multi-word expressions](advanced-operations/compound-mutiword-expressions/) in English texts. We identify collocations of katakana or kanji (`"^[ァ-ヶー一-龠]+$"`) using `textstat_collocations()`. We set `padding = TRUE` to keep the distance between words.
 
 
 ```r
 tstat_col <- toks %>% 
   tokens_select("^[ァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE) %>%  
   textstat_collocations()
-
-print(tstat_col)
+head(tstat_col, 10)
 ```
 
 ```
@@ -97,19 +93,14 @@ print(tstat_col)
 ## 8        国 連     2            0      2  6.921787 4.388809
 ## 9      基本 的     4            0      2  6.430032 4.284303
 ## 10     国際 的     2            0      2  3.073171 4.099615
-## 11     的 保護     2            0      2  2.835913 3.881293
-## 12     普遍 的     2            0      2  5.784258 3.711671
-## 13     的 権利     3            0      2  1.512286 2.613049
-## 14     的 自由     2            0      2  1.729004 2.539099
 ```
 
-After compounding of statistically significantly associated collocations (`tstat_col$z > 3`), we can remove single-character tokens (`min_nchar = 2`) to further remove grammatical words.
+After compounding of statistically significantly associated collocations (`tstat_col$z > 3`), we can resort to the lengths of words (`min_nchar = 2`) to further remove grammatical words.
 
 
 ```r
 toks_comp <- tokens_compound(toks, tstat_col[tstat_col$z > 3], concatenator = "") %>% 
   tokens_select(min_nchar = 2)
-
 print(toks_comp[2], max_ndoc = 1, max_ntok = -1)
 ```
 
@@ -120,32 +111,30 @@ print(toks_comp[2], max_ndoc = 1, max_ntok = -1)
 ##  [10] "承認"     "こと"     "世界"     "における" "自由"     "正義"     "及び"     "平和"     "基礎"    
 ##  [19] "ので"     "人権"     "無視"     "及び"     "軽侮"     "人類"     "良心"     "野蛮"     "行為"    
 ##  [28] "たら"     "言論"     "及び"     "信仰"     "自由"     "受け"     "恐怖"     "及び"     "欠乏"    
-##  [37] "世界"     "到来"     "一般"     "人々"     "最高"     "願望"     "宣言"     "ので"     "人間"    
-##  [46] "専制"     "圧迫"     "最後"     "手段"     "反逆"     "訴える"   "こと"     "支配"     "人権"    
-##  [55] "保護"     "こと"     "肝要"     "ので"     "諸国"     "友好関係" "発展"     "促進"     "こと"    
-##  [64] "肝要"     "ので"     "国際連合" "国民"     "国連"     "憲章"     "において" "基本的"   "人権"    
-##  [73] "人間"     "尊厳"     "及び"     "価値"     "並びに"   "男女"     "同権"     "信念"     "確認"    
-##  [82] "かつ"     "大きな"   "自由"     "うち"     "社会的"   "進歩"     "生活水準" "向上"     "促進"    
-##  [91] "こと"     "決意"     "ので"     "加盟国"   "国際連合" "協力"     "人権"     "及び"     "基本的"  
-## [100] "自由"     "普遍的"   "尊重"     "及び"     "遵守"     "促進"     "達成"     "こと"     "誓約"    
-## [109] "ので"     "権利"     "及び"     "自由"     "共通"     "理解"     "誓約"     "完全"     "もっとも"
-## [118] "重要"     "ので"     "国連"     "総会"     "社会"     "個人"     "及び"     "機関"     "世界"    
-## [127] "人権宣言" "常に"     "念頭"     "加盟国"   "人民"     "加盟国"   "管轄"     "地域"     "人民"    
-## [136] "権利"     "自由"     "尊重"     "指導"     "及び"     "教育"     "促進"     "こと"     "並びに"  
-## [145] "普遍的"   "措置"     "確保"     "ことに"   "努力"     "人民"     "達成"     "共通"     "基準"    
-## [154] "人権宣言" "公布"
+##  [37] "世界"     "到来"     "一般"     "最高"     "願望"     "宣言"     "ので"     "人間"     "専制"    
+##  [46] "圧迫"     "最後"     "手段"     "反逆"     "訴える"   "こと"     "支配"     "人権"     "保護"    
+##  [55] "こと"     "肝要"     "ので"     "諸国"     "友好関係" "発展"     "促進"     "こと"     "肝要"    
+##  [64] "ので"     "国際連合" "国民"     "国連"     "憲章"     "において" "基本的"   "人権"     "人間"    
+##  [73] "尊厳"     "及び"     "価値"     "並びに"   "男女"     "同権"     "信念"     "確認"     "かつ"    
+##  [82] "大きな"   "自由"     "うち"     "社会的"   "進歩"     "生活水準" "向上"     "促進"     "こと"    
+##  [91] "決意"     "ので"     "加盟国"   "国際連合" "協力"     "人権"     "及び"     "基本的"   "自由"    
+## [100] "普遍的"   "尊重"     "及び"     "遵守"     "促進"     "達成"     "こと"     "誓約"     "ので"    
+## [109] "権利"     "及び"     "自由"     "共通"     "理解"     "誓約"     "完全"     "もっとも" "重要"    
+## [118] "ので"     "国連"     "総会"     "社会"     "個人"     "及び"     "機関"     "世界"     "人権宣言"
+## [127] "常に"     "念頭"     "加盟国"   "人民"     "加盟国"   "管轄"     "地域"     "人民"     "権利"    
+## [136] "自由"     "尊重"     "指導"     "及び"     "教育"     "促進"     "こと"     "並びに"   "普遍的"  
+## [145] "措置"     "確保"     "ことに"   "努力"     "人民"     "達成"     "共通"     "基準"     "人権宣言"
+## [154] "公布"
 ```
 
 
 ```r
-# create a document-feature matrix
 dfmat <- dfm(toks_comp)
-
 print(dfmat)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 393 features (97.4% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 392 features (97.4% sparse) and 4 docvars.
 ##        features
 ## docs    前文 人類 社会 構成 固有 尊厳 平等 譲る こと 権利
 ##   jpn.1    1    0    0    0    0    0    0    0    0    0
@@ -154,6 +143,5 @@ print(dfmat)
 ##   jpn.4    0    0    0    0    0    1    1    0    0    1
 ##   jpn.5    0    0    0    0    0    0    0    0    0    0
 ##   jpn.6    0    0    0    0    0    0    0    0    2    1
-## [ reached max_ndoc ... 76 more documents, reached max_nfeat ... 383 more features ]
+## [ reached max_ndoc ... 76 more documents, reached max_nfeat ... 382 more features ]
 ```
-

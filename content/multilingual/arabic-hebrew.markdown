@@ -1,13 +1,10 @@
-  ---
-title: Arabic
-weight: 10
+---
+title: Arabic and Hebrew
+weight: 20
 draft: false
 ---
 
 {{% author %}}By Dai Yamao and Elad Segev{{% /author %}} 
-
-
-We usually need to use Linux OS in analyzing Arabic text, because result will be shown in Unicode in Windows OS and in opposite way in pieces in Mac OS.
 
 
 ```r
@@ -16,13 +13,11 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-`data_corpus_udhr` contains the Universal Declaration of Human Rights in multiple languages including Arabic. 
+## Arabic
 
-## Arabic 
+It is challenging to deal with the right-to-left languages in R because of the design of its console, but it is still possible to analyze Arabic texts.
 
-After tokenization, we remove grammatical words using `stopwords("ar", source = "marimo")`. We can improve tokenization by removing all non-Arabic letters by `"^[\\p{script=Arab}]+$"`.
-
-Result should be read from right-to-left order.
+We use the Arabic stopwords list in [Marimo](https://github.com/koheiw/marimo) `stopwords("ar", source = "marimo")`. You can also remove all the non-Arabic words by `"^[\\p{script=Arab}]+$"`.
 
 
 ```r
@@ -60,7 +55,6 @@ print(toks_arb[2], max_ndoc = 1, max_ntoken = -1)
 
 
 ```r
-# create a document-feature matrix
 dfmat_arb <- dfm(toks_arb)
 print(dfmat_arb)
 ```
@@ -80,12 +74,14 @@ print(dfmat_arb)
 
 ## Hebrew
 
+We resort to the stopwords list (`stopwords("he", source = "marimo")`) and the length of words (`min_nchar = 2`) to remove function words. You can also remove all the non-Hebrew words with `"^[\\p{script=Hebr}]+$"`.
+
 
 ```r
 corp_heb <- corpus_reshape(data_corpus_udhr["heb"], to = "paragraphs")
 toks_heb <- tokens(corp_heb, remove_punct = TRUE, remove_numbers = TRUE) %>% 
   tokens_select("^[\\p{script=Hebr}]+$", valuetype = "regex") %>% 
-  tokens_remove(stopwords("he", source = "marimo"))
+  tokens_remove(stopwords("he", source = "marimo"), min_nchar = 2)
 print(toks_heb[2], max_ndoc = 1, max_ntoken = -1)
 ```
 
@@ -127,7 +123,7 @@ print(dfmat_heb)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 701 features (98.4% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 690 features (98.4% sparse) and 4 docvars.
 ##        features
 ## docs    הכרזה באי עולם בדבר זכויות האדם הואיל והכרה בכבוד הטבעי
 ##   heb.1     1   1    1    1      1    1     0     0     0     0
@@ -136,5 +132,9 @@ print(dfmat_heb)
 ##   heb.4     0   0    0    0      0    0     0     0     0     0
 ##   heb.5     0   0    0    0      0    0     0     0     0     0
 ##   heb.6     0   0    0    0      0    0     0     0     0     0
-## [ reached max_ndoc ... 76 more documents, reached max_nfeat ... 691 more features ]
+## [ reached max_ndoc ... 76 more documents, reached max_nfeat ... 680 more features ]
 ```
+
+{{% notice note %}}
+Analysis of right-to-left language is easiest on Linux because it supports Unicode better than Windows and in  Mac.
+{{% /notice %}}

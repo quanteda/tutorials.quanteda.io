@@ -1,5 +1,5 @@
-  ---
-title: English & German
+---
+title: English and German
 weight: 10
 draft: false
 ---
@@ -13,20 +13,16 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-`data_corpus_udhr` contains the Universal Declaration of Human Rights in multiple languages including Arabic. 
-
 ## English 
 
-After tokenization, we remove grammatical words using `stopwords("ar", source = "marimo")`. We can improve tokenization by removing all non-Arabic letters by `"^[\\p{script=Arab}]+$"`.
-
-Result should be read from right-to-left order.
+After tokenization, we remove grammatical words using `stopwords("en", source = "marimo")`. If you want tokens to comprise only of English alphabet, you can select them by `"^[a-zA-Z]+$"`.
 
 
 ```r
 corp_eng <- corpus_reshape(data_corpus_udhr["eng"], to = "paragraphs")
 toks_eng <- tokens(corp_eng, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_select("^[\\p{script=Latin}]+$", valuetype = "regex") %>% 
-  tokens_remove(stopwords("en", source = "marimo"))
+  tokens_remove(stopwords("en", source = "marimo")) %>% 
+  tokens_select("^[a-zA-Z]+$", valuetype = "regex")
 print(toks_eng[2], max_ndoc = 1, max_ntoken = -1)
 ```
 
@@ -65,7 +61,6 @@ print(toks_eng[2], max_ndoc = 1, max_ntoken = -1)
 
 
 ```r
-# create a document-feature matrix
 dfmat_eng <- dfm(toks_eng)
 print(dfmat_eng)
 ```
@@ -85,12 +80,14 @@ print(dfmat_eng)
 
 ## German
 
+Pre-processing of German texts is very similar to English texts, but we have to use [Unicode character class](http://www.unicode.org/reports/tr31/#Table_Recommended_Scripts) `"^[\\p{script=Latn}]+$"` to include alphabet with umlauts.
+
 
 ```r
 corp_ger <- corpus_reshape(data_corpus_udhr["deu_1996"], to = "paragraphs")
 toks_ger <- tokens(corp_ger, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_select("^[\\p{script=Latn}]+$", valuetype = "regex") %>% 
-  tokens_remove(stopwords("de", source = "marimo"))
+  tokens_remove(stopwords("de", source = "marimo")) %>% 
+  tokens_select("^[\\p{script=Latn}]+$", valuetype = "regex")
 print(toks_ger[2], max_ndoc = 1, max_ntoken = -1)
 ```
 

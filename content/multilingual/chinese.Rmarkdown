@@ -6,34 +6,23 @@ draft: false
 
 {{% author %}}By Yuan Zhou{{% /author %}} 
 
-This tutorial will show how to use quanteda's internal function `corpus()`, `tokens()`, and `dfm()` to preprocess Chinese texts using the example of the Universal Declaration of Human Rights.
-
 ```{r, message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
 options(width = 110)
 ```
 
-There does not exist an authoritative Chinese stopword list. Here we use the [marimo stopwords](https://github.com/koheiw/marimo) to remove the meaningless tokens.
+We resort to the [Marimo]((https://github.com/koheiw/marimo)) stopwords list (`stopwords("he", source = "zh_cn")`) and the length of words (`min_nchar = 2`) to remove function words. You can keep only Chinese characters with `"^\\p{script=Hani}+$"`.
 
 ```{r}
 corp <- corpus_reshape(data_corpus_udhr["cmn_hans"], to = "paragraphs")
 toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_remove(stopwords("zh_cn", source = "marimo"))
-
+  tokens_remove(stopwords("zh_cn", source = "marimo"), min_nchar = 2) %>% 
+  tokens_select("^\\p{script=Hani}+$", valuetype = 'regex')
 print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
-
-
-```{r}
-toks <- tokens_select(toks, "^\\p{Han}+$", valuetype = 'regex', min_nchar = 2)
-print(toks[2], max_ndoc = 1, max_ntok = -1)
-```
-
-After tokenization, you can create a document-feature matrix just as other languages.
 
 ```{r}
 dfmat <- dfm(toks)
-
 print(dfmat)
 ```
