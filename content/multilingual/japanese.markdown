@@ -27,7 +27,7 @@ print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
 ```
-## Tokens consisting of 1 document and 3 docvars.
+## Tokens consisting of 1 document and 4 docvars.
 ## jpn :
 ##   [1] "人類"     "社会"     "の"       ""         "の"       "構成"     "員"       "の"       "固有"    
 ##  [10] "の"       "尊厳"     "と"       "平等"     "で"       "譲る"     "こと"     "の"       ""        
@@ -114,7 +114,7 @@ print(toks_comp[2], max_ndoc = 1, max_ntok = -1)
 ```
 
 ```
-## Tokens consisting of 1 document and 3 docvars.
+## Tokens consisting of 1 document and 4 docvars.
 ## jpn :
 ##   [1] "人類"     "社会"     "構成"     "固有"     "尊厳"     "平等"     "譲る"     "こと"     "権利"    
 ##  [10] "承認"     "こと"     "世界"     "における" "自由"     "正義"     "及び"     "平和"     "基礎"    
@@ -145,7 +145,7 @@ print(dfmat)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 393 features (97.4% sparse) and 3 docvars.
+## Document-feature matrix of: 82 documents, 393 features (97.4% sparse) and 4 docvars.
 ##        features
 ## docs    前文 人類 社会 構成 固有 尊厳 平等 譲る こと 権利
 ##   jpn.1    1    0    0    0    0    0    0    0    0    0
