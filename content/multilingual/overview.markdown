@@ -15,7 +15,7 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-The corpus `data_corpus_udhr` contains the Universal Declaration of Human Rights in over 400 languages languages. We can process European languages (English and German), but also the Middle Eastern (Arabic and Hebrew) and East Asian (Chinese and Japanese) languages appropriately.
+The corpus `data_corpus_udhr` contains the Universal Declaration of Human Rights in over 400 languages. We can process European languages (English and German), but also the Middle Eastern (Arabic and Hebrew) and East Asian (Chinese and Japanese) languages appropriately.
 
 
 ```r
@@ -86,7 +86,7 @@ print(toks)
 ```
 This chapter explains how to preprocess these langauges before constructing a DFM. Once a DFM is constructed, we can perform the statistical analysis and machine learning techniques, ignoring syntactical and lexical differences between languages.
 
-{{% notice info %}}
-`tokens()` tokenizes of Chinese and Japanese texts using a dictionary in the ICU library. The library also [detect boundaries](http://userguide.icu-project.org/boundaryanalysis) between words and other elements such symbols and numbers. This is why `tokens()` separates words punctuation marks from words even without the white space between them.
+{{% notice note %}}
+`tokens()` tokenizes of Chinese and Japanese texts using a dictionary in the ICU library. The library also [detects boundaries](http://userguide.icu-project.org/boundaryanalysis) between words and other elements such symbols and numbers. This is why the function separates words punctuation marks from words even without the white space between them.
 {{% /notice %}}
 
