@@ -98,11 +98,11 @@ head(sort(beta, decreasing = TRUE), 20)
 
 ```
 ##   standoff  chopsocki   flammabl neccessari    ratchet     finest   murtaugh 
-##  1.2794182  1.0423264  0.9164967  0.8265698  0.8041738  0.7942931  0.7856391 
-##    refresh     immers    maniaci  breathtak     haywir   gingrich   sullivan 
-##  0.7849440  0.7754108  0.7750264  0.7686371  0.7515278  0.7420324  0.6698001 
-##      brisk      meryl     darker      efect     bizaar     gallon 
-##  0.6380300  0.6344401  0.6319653  0.6151842  0.6135632  0.5812287
+##  1.2795117  1.0423291  0.9192710  0.8266107  0.8040950  0.7942861  0.7855814 
+##    refresh     immers    maniaci  breathtak     haywir   gingrich      efect 
+##  0.7849592  0.7754278  0.7734870  0.7686552  0.7524778  0.7420820  0.6921080 
+##   sullivan      brisk      meryl     darker     bizaar     gallon 
+##  0.6698100  0.6380964  0.6344098  0.6319629  0.6137428  0.5812438
 ```
 
 `predict.glmnet` can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`.
@@ -122,12 +122,12 @@ head(pred)
 
 ```
 ##                           1
-## cv000_29416.txt 0.431846425
-## cv013_10494.txt 0.097593376
-## cv032_23718.txt 0.441776910
-## cv033_25680.txt 0.449284562
-## cv036_18385.txt 0.243848604
-## cv038_9781.txt  0.005570028
+## cv000_29416.txt 0.431803402
+## cv013_10494.txt 0.097596612
+## cv032_23718.txt 0.441825243
+## cv033_25680.txt 0.449263831
+## cv036_18385.txt 0.243845522
+## cv038_9781.txt  0.005570001
 ```
 
 Let's inspect how well the classification worked.

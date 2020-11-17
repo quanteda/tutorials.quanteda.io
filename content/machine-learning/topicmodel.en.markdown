@@ -63,28 +63,28 @@ terms(tmod_lda, 10)
 ```
 
 ```
-##       topic1      topic2   topic3       topic4        topic5      
-##  [1,] "oil"       "church" "sales"      "refugees"    "labor"     
-##  [2,] "markets"   "love"   "housing"    "brussels"    "corbyn"    
-##  [3,] "prices"    "son"    "apple"      "talks"       "turnbull"  
-##  [4,] "banks"     "story"  "customers"  "french"      "budget"    
-##  [5,] "investors" "wife"   "google"     "immigration" "johnson"   
-##  [6,] "shares"    "game"   "technology" "migrants"    "shadow"    
-##  [7,] "trading"   "mother" "users"      "summit"      "australian"
-##  [8,] "rates"     "room"   "sold"       "refugee"     "leadership"
-##  [9,] "sector"    "music"  "iphone"     "benefits"    "coalition" 
-## [10,] "quarter"   "black"  "buy"        "asylum"      "senate"    
-##       topic6          topic7    topic8      topic9     topic10   
-##  [1,] "climate"       "clinton" "doctors"   "syria"    "officers"
-##  [2,] "water"         "sanders" "nhs"       "isis"     "prison"  
-##  [3,] "energy"        "cruz"    "education" "military" "victims" 
-##  [4,] "gas"           "hillary" "violence"  "islamic"  "criminal"
-##  [5,] "food"          "obama"   "funding"   "syrian"   "officer" 
-##  [6,] "project"       "trump's" "medical"   "un"       "crime"   
-##  [7,] "air"           "bernie"  "australia" "forces"   "incident"
-##  [8,] "environmental" "ted"     "hospital"  "muslim"   "arrested"
-##  [9,] "residents"     "rubio"   "drug"      "china"    "shooting"
-## [10,] "sea"           "senator" "drugs"     "peace"    "charges"
+##       topic1       topic2        topic3         topic4       topic5    
+##  [1,] "corbyn"     "climate"     "brussels"     "australia"  "syria"   
+##  [2,] "johnson"    "energy"      "refugees"     "australian" "isis"    
+##  [3,] "leadership" "food"        "talks"        "labor"      "military"
+##  [4,] "boris"      "water"       "summit"       "turnbull"   "islamic" 
+##  [5,] "shadow"     "development" "french"       "budget"     "syrian"  
+##  [6,] "jeremy"     "project"     "benefits"     "funding"    "un"      
+##  [7,] "doctors"    "gas"         "migrants"     "senate"     "forces"  
+##  [8,] "tory"       "drug"        "greece"       "coalition"  "muslim"  
+##  [9,] "khan"       "population"  "refugee"      "malcolm"    "peace"   
+## [10,] "cabinet"    "drugs"       "negotiations" "review"     "russian" 
+##       topic6    topic7    topic8       topic9      topic10   
+##  [1,] "church"  "clinton" "apple"      "oil"       "officers"
+##  [2,] "love"    "sanders" "china"      "markets"   "prison"  
+##  [3,] "son"     "cruz"    "google"     "sales"     "victims" 
+##  [4,] "parents" "hillary" "users"      "prices"    "sexual"  
+##  [5,] "park"    "obama"   "games"      "investors" "abuse"   
+##  [6,] "felt"    "trump's" "chinese"    "rates"     "criminal"
+##  [7,] "birth"   "bernie"  "game"       "banks"     "crime"   
+##  [8,] "gay"     "ted"     "facebook"   "shares"    "violence"
+##  [9,] "born"    "rubio"   "technology" "trading"   "officer" 
+## [10,] "island"  "senator" "iphone"     "quarter"   "arrested"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -95,9 +95,9 @@ head(topics(tmod_lda), 20)
 ```
 
 ```
-##  [1] "topic6"  "topic5"  "topic3"  "topic2"  "topic10" "topic6"  "topic2" 
-##  [8] "topic6"  "topic5"  "topic2"  "topic5"  "topic10" "topic4"  "topic1" 
-## [15] "topic2"  "topic6"  "topic6"  "topic7"  "topic2"  "topic5"
+##  [1] "topic2"  "topic1"  "topic8"  "topic6"  "topic10" "topic2"  "topic6" 
+##  [8] "topic1"  "topic1"  "topic6"  "topic1"  "topic10" "topic1"  "topic9" 
+## [15] "topic6"  "topic2"  "topic2"  "topic7"  "topic6"  "topic1"
 ```
 
 ```r
@@ -111,7 +111,7 @@ table(dfmat_news$topic)
 ```
 ## 
 ##  topic1 topic10  topic2  topic3  topic4  topic5  topic6  topic7  topic8  topic9 
-##     197     220     218     213      82     270     179     195     215     170
+##     228     225     233      71     170     186     241     195     168     242
 ```
 
 ### Seeded LDA
@@ -154,27 +154,27 @@ terms(tmod_slda, 20)
 ```
 
 ```
-##       economy       politics      society       diplomacy      military    
-##  [1,] "markets"     "politicians" "hospital"    "treaty"       "military"  
-##  [2,] "banks"       "elections"   "schools"     "ambassador"   "terrorist" 
-##  [3,] "stock"       "politician"  "prison"      "diplomatic"   "army"      
-##  [4,] "banking"     "voter"       "hospitals"   "diplomats"    "soldiers"  
-##  [5,] "shop"        "lawmakers"   "prisons"     "diplomat"     "terrorists"
-##  [6,] "shopping"    "clinton"     "prisoners"   "embassy"      "navy"      
-##  [7,] "bank's"      "sanders"     "hospitality" "corbyn"       "marine"    
-##  [8,] "marketing"   "cruz"        "prisoner"    "johnson"      "soldier"   
-##  [9,] "shops"       "obama"       "officers"    "brussels"     "australia" 
-## [10,] "bankers"     "hillary"     "violence"    "cabinet"      "australian"
-## [11,] "stocks"      "trump's"     "sexual"      "talks"        "refugees"  
-## [12,] "shoppers"    "senator"     "cases"       "benefits"     "syria"     
-## [13,] "bond"        "bernie"      "drug"        "shadow"       "labor"     
-## [14,] "bonds"       "ted"         "parents"     "chancellor"   "turnbull"  
-## [15,] "bankruptcy"  "rubio"       "abuse"       "boris"        "isis"      
-## [16,] "bankrupt"    "gun"         "child"       "leadership"   "syrian"    
-## [17,] "banker"      "primary"     "facebook"    "negotiations" "un"        
-## [18,] "stockport"   "race"        "medical"     "doctors"      "aid"       
-## [19,] "marketplace" "candidates"  "water"       "tory"         "islamic"   
-## [20,] "oil"         "kasich"      "officer"     "jeremy"       "forces"
+##       economy       politics      society       diplomacy    military    
+##  [1,] "markets"     "politicians" "hospital"    "treaty"     "military"  
+##  [2,] "banks"       "elections"   "schools"     "ambassador" "terrorist" 
+##  [3,] "stock"       "politician"  "prison"      "diplomatic" "army"      
+##  [4,] "banking"     "voter"       "hospitals"   "diplomats"  "soldiers"  
+##  [5,] "shop"        "lawmakers"   "prisons"     "diplomat"   "terrorists"
+##  [6,] "shopping"    "clinton"     "prisoners"   "embassy"    "navy"      
+##  [7,] "bank's"      "sanders"     "hospitality" "labor"      "marine"    
+##  [8,] "marketing"   "cruz"        "prisoner"    "corbyn"     "soldier"   
+##  [9,] "shops"       "obama"       "violence"    "turnbull"   "refugees"  
+## [10,] "bankers"     "hillary"     "officers"    "johnson"    "syria"     
+## [11,] "stocks"      "trump's"     "cases"       "budget"     "isis"      
+## [12,] "shoppers"    "bernie"      "abuse"       "australian" "un"        
+## [13,] "bond"        "senator"     "sexual"      "cabinet"    "syrian"    
+## [14,] "bonds"       "ted"         "drug"        "benefits"   "islamic"   
+## [15,] "bankruptcy"  "rubio"       "child"       "talks"      "turkey"    
+## [16,] "bankrupt"    "gun"         "facebook"    "shadow"     "aid"       
+## [17,] "banker"      "primary"     "victims"     "brussels"   "forces"    
+## [18,] "stockport"   "race"        "parents"     "coalition"  "peace"     
+## [19,] "marketplace" "candidates"  "officer"     "australia"  "french"    
+## [20,] "oil"         "kasich"      "mental"      "leadership" "border"
 ```
 
 `topics()` on returns dictionary keys as the most likely topics of documents.
@@ -186,8 +186,8 @@ head(topics(tmod_slda), 20)
 
 ```
 ##  [1] "economy"   "diplomacy" "economy"   "society"   "society"   "economy"  
-##  [7] "politics"  "diplomacy" "diplomacy" "society"   "diplomacy" "society"  
-## [13] "diplomacy" "economy"   "society"   "economy"   "economy"   "society"  
+##  [7] "politics"  "military"  "diplomacy" "society"   "diplomacy" "society"  
+## [13] "diplomacy" "economy"   "politics"  "economy"   "economy"   "society"  
 ## [19] "society"   "diplomacy"
 ```
 
@@ -202,7 +202,7 @@ table(dfmat_news$topic2)
 ```
 ## 
 ## diplomacy   economy  military  politics   society 
-##       287       508       319       220       625
+##       364       509       316       219       551
 ```
 
 {{% notice ref %}}

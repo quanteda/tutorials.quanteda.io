@@ -13,14 +13,14 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-We resort to the [Marimo]((https://github.com/koheiw/marimo)) stopwords list (`stopwords("he", source = "zh_cn")`) and the length of words (`min_nchar = 2`) to remove function words. You can keep only Chinese characters with `"^\\p{script=Hani}+$"`.
+We resort to the [Marimo]((https://github.com/koheiw/marimo)) stopwords list (`stopwords("he", source = "zh_cn")`) and the length of words (`min_nchar = 2`) to remove function words. You can keep only Chinese characters using `"^\\p{script=Hani}+$"`.
 
 
 ```r
 corp <- corpus_reshape(data_corpus_udhr["cmn_hans"], to = "paragraphs")
 toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_remove(stopwords("zh_cn", source = "marimo"), min_nchar = 2) %>% 
-  tokens_select("^\\p{script=Hani}+$", valuetype = 'regex')
+  tokens_remove(pattern = stopwords("zh_cn", source = "marimo"), min_nchar = 2) %>% 
+  tokens_keep(pattern = "^\\p{script=Hani}+$", valuetype = 'regex')
 print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
@@ -48,6 +48,7 @@ print(toks[2], max_ndoc = 1, max_ntok = -1)
 
 
 ```r
+# construct document-feature matrix
 dfmat <- dfm(toks)
 print(dfmat)
 ```

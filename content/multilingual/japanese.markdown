@@ -13,14 +13,17 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-We remove grammatical words using `stopwords("ja", source = "marimo")`. You can select tokens only with Japanese words (Hiragana, Katakana, Kanji) with `"^[ぁ-んァ-ヶー一-龠]+$"`. There are also Unicode character class for hiragana (`\p{script=Hira}`) and katakana (`\p{script=Kana}`) that you can use.
+We remove grammatical words using `stopwords("ja", source = "marimo")`. You can select tokens only with Japanese words (Hiragana, Katakana, Kanji) with `"^[ぁ-んァ-ヶー一-龠]+$"`. There are also Unicode character classes for hiragana (`\p{script=Hira}`) and katakana (`\p{script=Kana}`) that you can use.
 
 
 ```r
+# reshape document to the level of paragraphs
 corp <- corpus_reshape(data_corpus_udhr["jpn"], to = "paragraphs")
+
+# tokenize corpus and apply pre-processing
 toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE, padding = TRUE) %>% 
-  tokens_remove(stopwords("ja", source = "marimo"), padding = TRUE) %>% 
-  tokens_select("^[ぁ-んァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE)
+  tokens_remove(pattern = stopwords("ja", source = "marimo"), padding = TRUE) %>% 
+  tokens_select(pattern = "^[ぁ-んァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE)
 print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```
 
@@ -71,10 +74,12 @@ print(toks[2], max_ndoc = 1, max_ntok = -1)
 ## [370] "き"       "共通"     "の"       "基準"     ""         ""         ""         "人権"     "宣言"    
 ## [379] "を"       "公布"     ""         ""
 ```
-We can improve tokenization by collocation analysis in a similar way as [compound multi-word expressions](advanced-operations/compound-mutiword-expressions/) in English texts. We identify collocations of katakana or kanji (`"^[ァ-ヶー一-龠]+$"`) using `textstat_collocations()`. We set `padding = TRUE` to keep the distance between words.
+
+We can improve tokenization by collocation analysis in a similar way as [compounding multi-word expressions](advanced-operations/compound-mutiword-expressions/) in English texts. We identify collocations of katakana or kanji (`"^[ァ-ヶー一-龠]+$"`) using `textstat_collocations()`. We set `padding = TRUE` to keep the distance between words.
 
 
 ```r
+# perform collocation analysis
 tstat_col <- toks %>% 
   tokens_select("^[ァ-ヶー一-龠]+$", valuetype = "regex", padding = TRUE) %>%  
   textstat_collocations()
@@ -99,8 +104,9 @@ After compounding of statistically significantly associated collocations (`tstat
 
 
 ```r
+# compound collocations
 toks_comp <- tokens_compound(toks, tstat_col[tstat_col$z > 3], concatenator = "") %>% 
-  tokens_select(min_nchar = 2)
+  tokens_keep(min_nchar = 2)
 print(toks_comp[2], max_ndoc = 1, max_ntok = -1)
 ```
 
@@ -129,6 +135,7 @@ print(toks_comp[2], max_ndoc = 1, max_ntok = -1)
 
 
 ```r
+# construct document-feature matrix
 dfmat <- dfm(toks_comp)
 print(dfmat)
 ```

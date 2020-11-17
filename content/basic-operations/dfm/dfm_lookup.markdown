@@ -18,11 +18,6 @@ options(width = 110)
 dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat", encoding = "UTF-8")
 ```
 
-```
-## Warning in stri_read_lines(path, encoding = encoding, fallback_encoding = "windows-1252"): `fallback_encoding`
-## is no longer used and has been scheduled for removal
-```
-
 `dfm_lookup()` translates dictionary values to keys in a DFM.
 
 
