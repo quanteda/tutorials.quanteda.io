@@ -54,11 +54,11 @@ corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
 # get training set
 dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("english"), stem = TRUE)
+    dfm(remove = stopwords("en"), stem = TRUE)
 
 # get test set (documents not in id_train)
 dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("english"), stem = TRUE)
+    dfm(remove = stopwords("en"), stem = TRUE)
 ```
 
 Next we train the naive Bayes classifier using `textmodel_nb()`.
