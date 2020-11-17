@@ -10,4 +10,4 @@ draft: false
 
 # Processing different languages
 
-Learn language-specific processing of texts
+Learn pre-processing of texts in different languages
