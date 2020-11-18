@@ -13,7 +13,7 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-We resort to the [Marimo]((https://github.com/koheiw/marimo)) stopwords list (`stopwords("he", source = "zh_cn")`) and the length of words (`min_nchar = 2`) to remove function words. You can keep only Chinese characters using `"^\\p{script=Hani}+$"`.
+We resort to the [Marimo](https://github.com/koheiw/marimo) stopwords list (`stopwords("zh_cn", source = "marimo")`) and the length of words (`min_nchar = 2`) to remove function words. You can keep only Chinese characters with `"^\\p{script=Hani}+$"`.
 
 
 ```r
