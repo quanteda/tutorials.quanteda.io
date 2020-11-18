@@ -81,7 +81,7 @@ Alernatively, you can create the document-level variable using the `$` operator
 
 
 ```r
-corp$Century <- floor(corp$Year / 100 + 1)
+corp$Century <- floor(corp$Year / 100) + 1
 ```
 
 {{% notice tip %}}
