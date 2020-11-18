@@ -17,7 +17,7 @@ options(width = 110)
 
 It is challenging to deal with the right-to-left languages in R because of the design of its console, but it is still possible to analyze Arabic texts.
 
-We use the Arabic stopwords list in [Marimo](https://github.com/koheiw/marimo) `stopwords("ar", source = "marimo")`. You can also remove all the non-Arabic words by `"^[\\p{script=Arab}]+$"`.
+We use the Arabic stopwords list in [Marimo](https://github.com/koheiw/marimo) `stopwords("ar", source = "marimo")`. You can also remove all the non-Arabic words with `"^[\\p{script=Arab}]+$"`.
 
 
 ```r
