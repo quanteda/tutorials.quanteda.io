@@ -53,14 +53,6 @@ str(dat_eu)
 ##  $ party   : chr  "PSE" "V" "PSE" "V" ...
 ```
 
-`readtext()` can also read files from sub-directories. The directory `txt/movie_reviews`, for example, contains two directories: `neg` and `pos`. All text files from both folders in `movie_reviews` are considered automatically.
-
-
-```r
-dat_reviews <- readtext(paste0(path_data, "/txt/movie_reviews/*"), 
-                        docvarsfrom = "filenames", dvsep = "_")
-```
-
 ### JSON
 
 You can also read JSON files (.json) downloaded from the Twititer stream API. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in data directory of this tutorial package.
