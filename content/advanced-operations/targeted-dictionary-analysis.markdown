@@ -8,6 +8,7 @@ draft: false
 ```r
 require(quanteda)
 require(lubridate)
+require(quanteda.corpora)
 ```
 
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.
