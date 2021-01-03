@@ -4,6 +4,8 @@ weight: 20
 draft: false
 ---
 
+We can compound multi-word expressions through collocation analysis. In this example, we identify sequences of capitalized words and compound them as proper names, which are important linguistic features of newspaper articles.
+
 
 ```r
 require(quanteda)
@@ -20,34 +22,20 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-```r
-ndoc(corp_news)
-```
 
-```
-## [1] 6000
-```
-
-```r
-range(corp_news$date)
-```
-
-```
-## [1] "2012-01-02" "2016-12-31"
-```
-
-Unlike in earlier examples, we remove punctuations in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. `[\\p{P}\\p{S}]` is a regular expression for punctuations or separators.
+We remove punctuation and symbols marks in `tokens()` and stopwords in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. 
 
 
 ```r
-toks_news <- tokens(corp_news) %>% 
-    tokens_remove(stopwords("english"), padding = TRUE) %>% 
-    tokens_remove("[\\p{P}\\p{S}]", valuetype = "regex", padding = TRUE)
+toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, pading = TRUE) %>% 
+    tokens_remove(stopwords("en"), padding = TRUE)
 ```
 
-## Collocation analysis
+```
+## Warning: pading argument is not used.
+```
 
-Through collocation analysis, we can identify multi-word expressions that are very frequent in newspaper articles. One of the most common type of multi-word expressions is proper names, which we can select simply based on capitalization in English texts.
+One of the most common type of multi-word expressions is proper names, which we can select simply based on capitalization in English texts.
 
 
 ```r
@@ -56,173 +44,66 @@ toks_news_cap <- tokens_select(toks_news,
                                valuetype = "regex",
                                case_insensitive = FALSE, 
                                padding = TRUE)
-head(toks_news_cap[[1]], 50)
-```
 
-```
-##  [1] "London"    ""          ""          ""          ""          ""         
-##  [7] ""          ""          ""          ""          ""          ""         
-## [13] ""          ""          ""          ""          ""          ""         
-## [19] "March"     ""          ""          ""          ""          ""         
-## [25] ""          "James"     "Randerson" ""          ""          ""         
-## [31] ""          ""          ""          ""          ""          "London"   
-## [37] ""          ""          ""          ""          ""          ""         
-## [43] ""          ""          ""          ""          ""          ""         
-## [49] ""          ""
-```
-
-```r
 tstat_col_cap <- textstat_collocations(toks_news_cap, min_count = 10, tolower = FALSE)
 head(tstat_col_cap, 20)
 ```
 
 ```
 ##           collocation count count_nested length    lambda         z
-## 1       David Cameron   860            0      2  8.311883 150.04578
-## 2        Donald Trump   774            0      2  8.482588 124.98936
-## 3      George Osborne   362            0      2  8.803395 109.38266
-## 4     Hillary Clinton   525            0      2  9.249355 104.31487
-## 5            New York  1016            0      2 10.603448 101.75982
-## 6       Islamic State   330            0      2  9.957735  99.70308
-## 7         White House   478            0      2 10.066917  97.81019
-## 8      European Union   348            0      2  8.394396  96.46471
-## 9       Jeremy Corbyn   244            0      2  8.885090  92.41232
-## 10      Boris Johnson   245            0      2  9.819712  86.13238
-## 11     Bernie Sanders   394            0      2 10.056969  85.94727
-## 12 Guardian Australia   237            0      2  6.483484  85.74628
-## 13   Northern Ireland   204            0      2 10.024651  84.50687
-## 14        Home Office   216            0      2  9.846056  79.93343
-## 15        Ed Miliband   173            0      2 10.007792  79.60940
-## 16       South Africa   172            0      2  7.724230  79.20759
-## 17       Barack Obama   343            0      2  9.915126  79.17550
-## 18           Ted Cruz   417            0      2 10.911927  79.00480
-## 19       Black Friday   190            0      2  8.614564  78.21191
-## 20     South Carolina   271            0      2  9.560325  78.07186
+## 1       David Cameron   861            0      2  8.159231 147.27723
+## 2        Donald Trump   774            0      2  8.326849 122.69415
+## 3      George Osborne   364            0      2  8.660678 107.61954
+## 4     Hillary Clinton   527            0      2  9.109435 102.41481
+## 5            New York  1016            0      2 10.447748 100.26545
+## 6       Islamic State   330            0      2  9.802081  98.14441
+## 7         White House   479            0      2  9.921866  96.17492
+## 8      European Union   351            0      2  8.261457  94.76073
+## 9       Jeremy Corbyn   244            0      2  8.729427  90.79315
+## 10      Boris Johnson   245            0      2  9.664059  84.76699
+## 11     Bernie Sanders   394            0      2  9.901300  84.61681
+## 12 Guardian Australia   237            0      2  6.329358  83.70145
+## 13   Northern Ireland   205            0      2  9.883086  83.25672
+## 14        Home Office   216            0      2  9.690404  78.66971
+## 15        Ed Miliband   174            0      2  9.867961  78.44763
+## 16           Ted Cruz   417            0      2 10.756267  77.87773
+## 17       Barack Obama   344            0      2  9.775203  77.72634
+## 18       South Africa   172            0      2  7.568552  77.61107
+## 19     South Carolina   271            0      2  9.404655  76.80054
+## 20       Black Friday   190            0      2  8.458892  76.79847
 ```
 
-### Compound multi-word expressions
-
-The result of collocation analysis is not only very interesting but useful: you can be use it to compound tokens. Compounding makes tokens less ambiguous and significantly improves quality of statistical analysis in the downstream. We will only compound strongly associated (p<0.005) multi-word expressions here by subsetting `tstat_col_cap$collocation`.
-
-{{% notice note %}}
-Collocations are automatically recognized as multi-word expressions by `tokens_compound()` in *case-sensitive fixed pattern matching*. This is the fastest way to compound large numbers of multi-word expressions, but make sure to set `tolower = FALSE` in `textstat_collocations()`.
-{{% /notice %}}
+We will only compound strongly associated multi-word expressions here by subsetting `tstat_col_cap` with the z-score (`z < 3`).
 
 
 ```r
-toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3])
-toks_news[["text7005"]][370:450] # before compounding
+toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3], 
+                             case_insensitive = FALSE)
+kw_comp <- kwic(toks_comp, pattern = c("London_*", "British_*"))
+head(kw_comp, 10)
 ```
 
 ```
-##  [1] ""              ""              ""              "need"         
-##  [5] ""              ""              "incriminate"   ""             
-##  [9] ""              "anyone"        "else"          ""             
-## [13] "Scotland"      ""              "investigation" ""             
-## [17] ""              ""              "rejected"      "conspiracy"   
-## [21] "theories"      ""              ""              "old"          
-## [25] "boss"          ""              "Rupert"        "Murdoch"      
-## [29] ""              ""              "deals"         ""             
-## [33] "people"        "like"          ""              "last"         
-## [37] "boss"          ""              "David"         "Cameron"      
-## [41] ""              ""              ""              ""             
-## [45] "George"        "Osborne"       ""              ""             
-## [49] "keen"          ""              "recruit"       ""             
-## [53] ""              ""              "Murdoch"       "apparatchik"  
-## [57] ""              "despite"       ""              "resignation"  
-## [61] ""              ""              "News"          ""             
-## [65] ""              "World"         ""              ""             
-## [69] "royal"         "hacking"       "case"          ""             
-## [73] "Coulson"       ""              ""              ""             
-## [77] ""              "innuendo"      ""              ""             
-## [81] ""
-```
-
-```r
-toks_comp[["text7005"]][370:450] # after compounding
-```
-
-```
-##  [1] ""               ""               "incriminate"    ""              
-##  [5] ""               "anyone"         "else"           ""              
-##  [9] "Scotland"       ""               "investigation"  ""              
-## [13] ""               ""               "rejected"       "conspiracy"    
-## [17] "theories"       ""               ""               "old"           
-## [21] "boss"           ""               "Rupert_Murdoch" ""              
-## [25] ""               "deals"          ""               "people"        
-## [29] "like"           ""               "last"           "boss"          
-## [33] ""               "David_Cameron"  ""               ""              
-## [37] ""               ""               "George_Osborne" ""              
-## [41] ""               "keen"           ""               "recruit"       
-## [45] ""               ""               ""               "Murdoch"       
-## [49] "apparatchik"    ""               "despite"        ""              
-## [53] "resignation"    ""               ""               "News"          
-## [57] ""               ""               "World"          ""              
-## [61] ""               "royal"          "hacking"        "case"          
-## [65] ""               "Coulson"        ""               ""              
-## [69] ""               ""               "innuendo"       ""              
-## [73] ""               ""               ""               ""              
-## [77] ""               "win"            ""               ""              
-## [81] "support"
-```
-
-Alternatively, wrap the whitespace-separated character vector by `phrase()` to compound multi-word expressions:
-
-
-```r
-toks_comp <- tokens_compound(toks_news, 
-                             pattern =  phrase(tstat_col_cap$collocation[tstat_col_cap$z > 3]))
-toks_news[["text7005"]][370:450] # before compounding
-```
-
-```
-##  [1] ""              ""              ""              "need"         
-##  [5] ""              ""              "incriminate"   ""             
-##  [9] ""              "anyone"        "else"          ""             
-## [13] "Scotland"      ""              "investigation" ""             
-## [17] ""              ""              "rejected"      "conspiracy"   
-## [21] "theories"      ""              ""              "old"          
-## [25] "boss"          ""              "Rupert"        "Murdoch"      
-## [29] ""              ""              "deals"         ""             
-## [33] "people"        "like"          ""              "last"         
-## [37] "boss"          ""              "David"         "Cameron"      
-## [41] ""              ""              ""              ""             
-## [45] "George"        "Osborne"       ""              ""             
-## [49] "keen"          ""              "recruit"       ""             
-## [53] ""              ""              "Murdoch"       "apparatchik"  
-## [57] ""              "despite"       ""              "resignation"  
-## [61] ""              ""              "News"          ""             
-## [65] ""              "World"         ""              ""             
-## [69] "royal"         "hacking"       "case"          ""             
-## [73] "Coulson"       ""              ""              ""             
-## [77] ""              "innuendo"      ""              ""             
-## [81] ""
-```
-
-```r
-toks_comp[["text7005"]][370:450] # after compounding
-```
-
-```
-##  [1] ""               ""               "incriminate"    ""              
-##  [5] ""               "anyone"         "else"           ""              
-##  [9] "Scotland"       ""               "investigation"  ""              
-## [13] ""               ""               "rejected"       "conspiracy"    
-## [17] "theories"       ""               ""               "old"           
-## [21] "boss"           ""               "Rupert_Murdoch" ""              
-## [25] ""               "deals"          ""               "people"        
-## [29] "like"           ""               "last"           "boss"          
-## [33] ""               "David_Cameron"  ""               ""              
-## [37] ""               ""               "George_Osborne" ""              
-## [41] ""               "keen"           ""               "recruit"       
-## [45] ""               ""               ""               "Murdoch"       
-## [49] "apparatchik"    ""               "despite"        ""              
-## [53] "resignation"    ""               ""               "News"          
-## [57] ""               ""               "World"          ""              
-## [61] ""               "royal"          "hacking"        "case"          
-## [65] ""               "Coulson"        ""               ""              
-## [69] ""               ""               "innuendo"       ""              
-## [73] ""               ""               ""               ""              
-## [77] ""               "win"            ""               ""              
-## [81] "support"
+##                                                             
+##     [text9204, 351]         however researchers publishing |
+##   [text150582, 329] overseas territories including Bermuda |
+##   [text150582, 584]                        included Panama |
+##   [text120395, 971]        John_Longworth director general |
+##     [text3527, 155]                           sacked mayor |
+##  [text145860, 1584]              rental period Association |
+##   [text148174, 391]                 EZY5258 Rome Fiumicino |
+##    [text109224, 17]                            Coast range |
+##   [text109224, 101]                                  coast |
+##   [text109224, 194]                          Alberta coast |
+##                                                       
+##  British_Medical_Journal | found drop heart           
+##  British_Virgin_Islands  |  Cayman_Islands legislation
+##  British_Virgin_Islands  |  published commission      
+##     British_Chambers     |  Commerce said businesses  
+##   London_Boris_Johnson   | Blair told inquiry         
+##     British_Insurers     | ABI says insurers becoming 
+##      London_Gatwick      |  29 March delayed          
+##     British_Columbia     | Hanging nearly             
+##     British_Columbia     | Today however Chief Na'Moks
+##     British_Columbia     |  plan carry
 ```

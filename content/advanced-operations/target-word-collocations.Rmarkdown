@@ -1,8 +1,10 @@
 ---
-title: Target-word collocations
+title: Identify related words of keywords
 weight: 40
 draft: false
 ---
+
+We can identify related words of keywords based on their distance in the documents. In this example, we created a list of words related to the European Union by comparing frequency of words inside and outside of their contexts.
 
 ```{r message=FALSE}
 require(quanteda)
@@ -20,42 +22,25 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
 ```{r}
-ndoc(corp_news)
-range(corp_news$date)
-
 toks_news <- tokens(corp_news, remove_punct = TRUE)
 ```
 
-### Keywords for Brexit
-
-We can also find words associated with target words using the `window` argument of `tokens_select()`. 
+We select two tokens objects for words inside and outside of the 10-word windows of the keywords (`eu`). 
 
 ```{r}
-toks_brexit <- tokens_keep(toks_news, pattern = "brexit", window = 10) # equivalent to tokens_select(selection = "keep")
-toks_nobrexit <- tokens_remove(toks_news, pattern = "brexit", window = 10) # equivalent to tokens_select(selection = "remove")
-print(toks_brexit[["text173244"]])
-
-dfmat_brexit <- dfm(toks_brexit)
-dfmat_nobrexit <- dfm(toks_nobrexit)
-
-tstat_key_brexit <- textstat_keyness(rbind(dfmat_brexit, dfmat_nobrexit), seq_len(ndoc(dfmat_brexit)))
-tstat_key_brexit_subset <- tstat_key_brexit[tstat_key_brexit$n_target > 10, ]
-head(tstat_key_brexit_subset, 50)
+eu <- c("EU", "europ*", "european union")
+toks_inside <- tokens_keep(toks_news, pattern = eu, window = 10)
+toks_inside <- tokens_remove(toks_news, pattern = eu) # remove the keywords
+toks_outside <- tokens_remove(toks_news, pattern = eu, window = 10)
 ```
 
-### Keywords for Trump
-
-Targeted frequency analysis might look complex, but can be done in five lines.
+We compute words' association with the keywords using `textstat_keyness()`.
 
 ```{r}
-trump <- c("donald trump", "trump")
-dfmat_trump <- tokens_keep(toks_news, pattern = phrase(trump), window = 10) %>% 
-    dfm()
+dfmat_inside <- dfm(toks_inside)
+dfmat_outside <- dfm(toks_outside)
 
-dfmat_no_trump <- tokens_remove(toks_news, pattern = phrase(trump), window = 10) %>%
-    dfm()
-tstat_key_trump <- textstat_keyness(rbind(dfmat_trump, dfmat_no_trump), seq_len(ndoc(dfmat_trump)))
-
-tstat_key_trump_subset <- tstat_key_trump[tstat_key_trump$n_target > 10, ]
-head(tstat_key_trump_subset, 50)
+tstat_key_inside <- textstat_keyness(rbind(dfmat_inside, dfmat_outside), 
+                                     target = seq_len(ndoc(dfmat_inside)))
+head(tstat_key_inside_subset, 50)
 ```
