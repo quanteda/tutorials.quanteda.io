@@ -9,6 +9,7 @@ We can compound multi-word expressions through collocation analysis. In this exa
 ```{r message=FALSE}
 require(quanteda)
 require(quanteda.corpora)
+options(width = 110)
 ```
 
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.

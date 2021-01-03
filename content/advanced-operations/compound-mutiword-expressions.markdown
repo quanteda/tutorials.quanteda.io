@@ -10,6 +10,7 @@ We can compound multi-word expressions through collocation analysis. In this exa
 ```r
 require(quanteda)
 require(quanteda.corpora)
+options(width = 110)
 ```
 
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.
@@ -84,26 +85,26 @@ head(kw_comp, 10)
 ```
 
 ```
-##                                                             
-##     [text9204, 351]         however researchers publishing |
-##   [text150582, 329] overseas territories including Bermuda |
-##   [text150582, 584]                        included Panama |
-##   [text120395, 971]        John_Longworth director general |
-##     [text3527, 155]                           sacked mayor |
-##  [text145860, 1584]              rental period Association |
-##   [text148174, 391]                 EZY5258 Rome Fiumicino |
-##    [text109224, 17]                            Coast range |
-##   [text109224, 101]                                  coast |
-##   [text109224, 194]                          Alberta coast |
-##                                                       
-##  British_Medical_Journal | found drop heart           
-##  British_Virgin_Islands  |  Cayman_Islands legislation
-##  British_Virgin_Islands  |  published commission      
-##     British_Chambers     |  Commerce said businesses  
-##   London_Boris_Johnson   | Blair told inquiry         
-##     British_Insurers     | ABI says insurers becoming 
-##      London_Gatwick      |  29 March delayed          
-##     British_Columbia     | Hanging nearly             
-##     British_Columbia     | Today however Chief Na'Moks
-##     British_Columbia     |  plan carry
+##                                                                                       
+##     [text9204, 351]         however researchers publishing | British_Medical_Journal |
+##   [text150582, 329] overseas territories including Bermuda | British_Virgin_Islands  |
+##   [text150582, 584]                        included Panama | British_Virgin_Islands  |
+##   [text120395, 971]        John_Longworth director general |    British_Chambers     |
+##     [text3527, 155]                           sacked mayor |  London_Boris_Johnson   |
+##  [text145860, 1584]              rental period Association |    British_Insurers     |
+##   [text148174, 391]                 EZY5258 Rome Fiumicino |     London_Gatwick      |
+##    [text109224, 17]                            Coast range |    British_Columbia     |
+##   [text109224, 101]                                  coast |    British_Columbia     |
+##   [text109224, 194]                          Alberta coast |    British_Columbia     |
+##                             
+##  found drop heart           
+##   Cayman_Islands legislation
+##   published commission      
+##   Commerce said businesses  
+##  Blair told inquiry         
+##  ABI says insurers becoming 
+##   29 March delayed          
+##  Hanging nearly             
+##  Today however Chief Na'Moks
+##   plan carry
 ```
