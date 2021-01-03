@@ -4,7 +4,7 @@ weight: 30
 draft: false
 ---
 
-Targetted dictionary analysis allow you to detect occurraces of words in specific contexts. In this example, we apply a sentiment dictionary to segments of news articles where the (British) government is mentioned.
+Targeted dictionary analysis allows you to detect occurrences of words in specific contexts. In this example, we apply a sentiment dictionary to segments of news articles where the (British) government is mentioned.
 
 
 ```r
