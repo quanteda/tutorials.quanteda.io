@@ -1,5 +1,5 @@
 ---
-title: Similarity between Twitter users
+title: Compute similarity between authors
 weight: 10
 draft: false
 ---

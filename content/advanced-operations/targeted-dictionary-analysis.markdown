@@ -1,5 +1,5 @@
 ---
-title: Targeted dictionary analysis
+title: Apply dictionary to specific contexts
 weight: 30
 draft: false
 ---
