@@ -64,7 +64,7 @@ dfmat_gov_lsd <- dfm(toks_gov_lsd) %>%
 matplot(dfmat_gov_lsd$date, dfmat_gov_lsd, type = "l", lty = 1, col = 1:2,
         ylab = "Frequency", xlab = "")
 grid()
-legend("topleft", col = 1:2, legend = c("Negative", "Positive"), lty = 1, bg = "white")
+legend("topleft", col = 1:2, legend = colnames(dfmat_gov_lsd), lty = 1, bg = "white")
 ```
 
 <img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.png" width="960" />
