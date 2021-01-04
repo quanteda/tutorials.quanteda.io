@@ -64,7 +64,7 @@ dfmat_gov_lsd <- dfm(toks_gov_lsd) %>%
 matplot(dfmat_gov_lsd$date, dfmat_gov_lsd, type = "l", lty = 1, col = 1:2,
         ylab = "Frequency", xlab = "")
 grid()
-legend("topleft", col = 1:2, legend = c("Negative", "Positive"), lty = 1, bg = "white")
+legend("topleft", col = 1:2, legend = colnames(dfmat_gov_lsd), lty = 1, bg = "white")
 ```
 
 <img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.png" width="960" />
@@ -73,7 +73,7 @@ We compute daily sentiment scores by taking the difference between the frequency
 
 
 ```r
-plot(dfmat_gov_lsd$date, dfmat_gov_lsd[,2] - dfmat_gov_lsd[,1], 
+plot(dfmat_gov_lsd$date, dfmat_gov_lsd[,"positive"] - dfmat_gov_lsd[,"negative"], 
      type = "l", ylab = "Sentiment", xlab = "")
 grid()
 abline(h = 0, lty = 2)
@@ -85,7 +85,8 @@ We can apply kernel smoothing to show the trend more clearly.
 
 
 ```r
-dat_smooth <- ksmooth(x = dfmat_gov_lsd$date, y = dfmat_gov_lsd[,2] - dfmat_gov_lsd[,1],
+dat_smooth <- ksmooth(x = dfmat_gov_lsd$date, 
+                      y = dfmat_gov_lsd[,"positive"] - dfmat_gov_lsd[,"negative"],
                       kernel = "normal", bandwidth = 30)
 plot(dat_smooth$x, dat_smooth$y, type = "l", ylab = "Sentiment", xlab = "")
 grid()
