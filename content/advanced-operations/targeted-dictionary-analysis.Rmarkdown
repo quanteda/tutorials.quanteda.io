@@ -4,7 +4,7 @@ weight: 30
 draft: false
 ---
 
-We can detect occurrences of words in specific contexts by selectively applying dictionary. In this example, we apply a sentiment dictionary to segments of news articles where the (British) government is mentioned.
+We can detect occurrences of words in specific contexts by selectively applying dictionary. In this example, we apply a sentiment dictionary to segments of news articles that mentions the (British) government.
 
 ```{r message=FALSE}
 require(quanteda)
@@ -22,16 +22,17 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-Tokenize texts and select tokens only around the keywords related to the government using `tokens_keep()`.
+Tokenize texts and select tokens surrounding keywords related to the government using `tokens_keep()`.
 
 ```{r}
-# tokenize
+# tokenize corpus
 toks_news <- tokens(corp_news, remove_punct = TRUE)
 
 # get relevant keywords and phrases
 gov <- c("government", "cabinet", "prime minister")
 
 # only keep tokens specified above and their context of ±10 tokens
+# note: use phrase() to correctly score multi-word expressions
 toks_gov <- tokens_keep(toks_news, pattern = phrase(gov), window = 10)
 ```
 
@@ -40,7 +41,10 @@ Apply the the Lexicoder Sentiment Dictionary to the selected contexts using `tok
 ```{r}
 lengths(data_dictionary_LSD2015)
 
-toks_gov_lsd <- tokens_lookup(toks_gov, dictionary = data_dictionary_LSD2015[1:2])
+# select only the "negative" and "positive" categories
+data_dictionary_LSD2015_pos_neg <- data_dictionary_LSD2015[1:2]
+
+toks_gov_lsd <- tokens_lookup(toks_gov, dictionary = data_dictionary_LSD2015_pos_neg)
 
 # create a document document-feature matrix and group it by day
 dfmat_gov_lsd <- dfm(toks_gov_lsd) %>% 
