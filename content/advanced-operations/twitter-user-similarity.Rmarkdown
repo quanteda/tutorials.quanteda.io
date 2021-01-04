@@ -1,8 +1,10 @@
 ---
-title: Similarity between Twitter users
+title: Compute similarity between authors
 weight: 10
 draft: false
 ---
+
+We can compute the similarities between authors by grouping their documents and comparing them with all other authors. In this example, we group Twitter posts by handle names and compute similarities between the users.
 
 ```{r message=FALSE}
 require(quanteda)
@@ -32,7 +34,7 @@ ndoc(dfmat_tweets)
 topfeatures(dfmat_tweets)
 ```
 
-Group documents by user names.
+Group documents by Twitter handle names (`screen_name`).
 
 ```{r}
 dfmat_users <- dfm_group(dfmat_tweets, groups = "screen_name")
@@ -50,7 +52,7 @@ dfmat_users <- dfmat_users[ntoken(dfmat_users) > 50,]
 
 Calculate user-user similarity using `textstat_dist()`.
 
-```{r}
+```{r fig.height=7, fig.width=10}
 tstat_dist <- as.dist(textstat_dist(dfmat_users))
 user_clust <- hclust(tstat_dist)
 plot(user_clust)

@@ -1,8 +1,10 @@
 ---
-title: Similarity between Twitter users
+title: Compute similarity between authors
 weight: 10
 draft: false
 ---
+
+We can compute the similarities between authors by grouping their documents and comparing them with all other authors. In this example, we group Twitter posts by handle names and compute similarities between the users.
 
 
 ```r
@@ -50,7 +52,7 @@ topfeatures(dfmat_tweets)
 ##           639           615           571           570           570
 ```
 
-Group documents by user names.
+Group documents by Twitter handle names (`screen_name`).
 
 
 ```r
@@ -81,5 +83,5 @@ user_clust <- hclust(tstat_dist)
 plot(user_clust)
 ```
 
-<img src="/advanced-operations/twitter-user-similarity_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="/advanced-operations/twitter-user-similarity_files/figure-html/unnamed-chunk-7-1.png" width="960" />
 

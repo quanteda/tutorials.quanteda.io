@@ -1,13 +1,15 @@
 ---
-title: Targeted dictionary analysis
+title: Apply dictionary to specific contexts
 weight: 30
 draft: false
 ---
 
+We can detect occurrences of words in specific contexts by selectively applying dictionary. In this example, we apply a sentiment dictionary to segments of news articles that mentions the (British) government.
+
 
 ```r
 require(quanteda)
-require(lubridate)
+require(quanteda.corpora)
 ```
 
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.
@@ -19,19 +21,22 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-We use the **lubridate** package to retrieve the publication month, year, and week from each news article.
+Tokenize texts and select tokens surrounding keywords related to the government using `tokens_keep()`.
 
 
 ```r
-corp_news$year <- year(corp_news$date)
-corp_news$month <- month(corp_news$date)
-corp_news$week <- week(corp_news$date)
-
-corp_news <- corpus_subset(corp_news, "year" >= 2016)
+# tokenize corpus
 toks_news <- tokens(corp_news, remove_punct = TRUE)
+
+# get relevant keywords and phrases
+gov <- c("government", "cabinet", "prime minister")
+
+# only keep tokens specified above and their context of ±10 tokens
+# note: use phrase() to correctly score multi-word expressions
+toks_gov <- tokens_keep(toks_news, pattern = phrase(gov), window = 10)
 ```
 
-You can use `tokens_lookup()` or `dfm_looup()` to count dictionary values. **quanteda** contains Lexicoder Sentiment Dictionary created by Young and Soroka, so you can perfrom sentiment analysis of English texts right away.
+Apply the the Lexicoder Sentiment Dictionary to the selected contexts using `tokens_lookup()`. 
 
 
 ```r
@@ -44,106 +49,48 @@ lengths(data_dictionary_LSD2015)
 ```
 
 ```r
-toks_news_lsd <- tokens_lookup(toks_news, dictionary =  data_dictionary_LSD2015[1:2])
-head(toks_news_lsd, 2)
-```
+# select only the "negative" and "positive" categories
+data_dictionary_LSD2015_pos_neg <- data_dictionary_LSD2015[1:2]
 
-```
-## Tokens consisting of 2 documents and 12 docvars.
-## text136751 :
-## [1] "positive" "positive"
-## 
-## text118588 :
-##  [1] "positive" "positive" "negative" "negative" "negative" "positive"
-##  [7] "negative" "positive" "positive" "negative" "positive" "positive"
-## [ ... and 24 more ]
-```
+toks_gov_lsd <- tokens_lookup(toks_gov, dictionary = data_dictionary_LSD2015_pos_neg)
 
-```r
-dfmat_news_lsd <- dfm(toks_news_lsd)
-head(dfmat_news_lsd, 2)
+# create a document document-feature matrix and group it by day
+dfmat_gov_lsd <- dfm(toks_gov_lsd) %>% 
+  dfm_group("date")
 ```
-
-```
-## Document-feature matrix of: 2 documents, 2 features (25.0% sparse) and 12 docvars.
-##             features
-## docs         negative positive
-##   text136751        0        2
-##   text118588       11       25
-```
-
-## Targeted analysis
-
-You can use `tokens_select()` with `window` argument to perform more targeted sentiment analysis.
-
-### European Union
 
 
 ```r
-# get relevant keywords and phrases
-eu <- c("EU", "europ*", "european union")
-
-# only keep tokens specified above and their context of ±10 tokens
-toks_eu <- tokens_keep(toks_news, pattern = phrase(eu), window = 10)
-
-toks_eu <- tokens_lookup(toks_eu, dictionary = data_dictionary_LSD2015[1:2])
-
-# create a document document-feature matrix and group it by weeks in 2016
-dfmat_eu_lsd <- dfm(toks_eu) %>% 
-    dfm_group(group = "week", fill = TRUE) 
-
-matplot(dfmat_eu_lsd, type = "l", xaxt = "n", lty = 1, ylab = "Frequency")
+matplot(dfmat_gov_lsd$date, dfmat_gov_lsd, type = "l", lty = 1, col = 1:2,
+        ylab = "Frequency", xlab = "")
 grid()
-axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
 legend("topleft", col = 1:2, legend = c("Negative", "Positive"), lty = 1, bg = "white")
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.png" width="960" />
+
+We compute daily sentiment scores by taking the difference between the frequency of positive and negative words.
 
 
 ```r
-n_eu <- ntoken(dfm(toks_eu, group = toks_eu$week))
-plot((dfmat_eu_lsd[,2] - dfmat_eu_lsd[,1]) / n_eu, 
-     type = "l", ylab = "Sentiment", xlab = "", xaxt = "n")
-axis(1, seq_len(ndoc(dfmat_eu_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_eu_lsd)) - 1))
+plot(dfmat_gov_lsd$date, dfmat_gov_lsd[,2] - dfmat_gov_lsd[,1], 
+     type = "l", ylab = "Sentiment", xlab = "")
 grid()
 abline(h = 0, lty = 2)
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-7-1.png" width="960" />
 
-### Immigration
-
-We repeat the sentiment analysis using words relating to immigration and their context of 10 words.
+We can apply kernel smoothing to show the trend more clearly.
 
 
 ```r
-immig <- c("immig*", "migra*")
-toks_immig <- tokens_keep(toks_news, pattern = phrase(immig), window = 10)
-
-toks_immig <- tokens_lookup(toks_immig, dictionary = data_dictionary_LSD2015[1:2])
-
-# create a document document-feature matrix and group it by weeks in 2016
-dfmat_immig_lsd <- dfm(toks_immig) %>% 
-    dfm_group(group = "week", fill = TRUE) 
-
-matplot(dfmat_immig_lsd, type = "l", xaxt = "n", lty = 1, ylab = "Frequency")
-grid()
-axis(1, seq_len(ndoc(dfmat_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_immig_lsd)) - 1))
-legend("topleft", col = 1:2, legend = c("Negative", "Positive"), lty = 1, bg = "white")
-```
-
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" />
-
-
-```r
-n_immig <- ntoken(dfm(toks_immig, group = toks_immig$week))
-plot((dfmat_immig_lsd[,2] - dfmat_immig_lsd[,1]) / n_immig, 
-     type = "l", ylab = "Sentiment", xlab = "", xaxt = "n")
-axis(1, seq_len(ndoc(dfmat_immig_lsd)), ymd("2016-01-01") + weeks(seq_len(ndoc(dfmat_immig_lsd)) - 1))
+dat_smooth <- ksmooth(x = dfmat_gov_lsd$date, y = dfmat_gov_lsd[,2] - dfmat_gov_lsd[,1],
+                      kernel = "normal", bandwidth = 30)
+plot(dat_smooth$x, dat_smooth$y, type = "l", ylab = "Sentiment", xlab = "")
 grid()
 abline(h = 0, lty = 2)
 ```
 
-<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-8-1.png" width="960" />
 
