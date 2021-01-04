@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-We can compute similarity between the authors by grouping their documents. In this example, we group Twitter posts by  handle names to compute similarity between the users.
+We can compute the similarities between authors by grouping their documents and comparing them with all other authors. In this example, we group Twitter posts by handle names and compute similarities between the users.
 
 
 ```r

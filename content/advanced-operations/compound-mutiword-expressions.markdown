@@ -24,7 +24,7 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-We remove punctuation and symbols marks in `tokens()` and stopwords in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. 
+We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. 
 
 
 ```r
