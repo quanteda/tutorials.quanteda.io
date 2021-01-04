@@ -26,7 +26,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```{r}
 ```
 
-We remove punctuation and symbols marks in `tokens()` and stopwords in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. 
+We remove punctuation and symbol marks in `tokens()` and stopwords in `tokens_remove()`. We set `padding = TRUE` to keep the original positions of tokens by leaving empty strings where the removed tokens previously existed.
 
 ```{r}
 toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, pading = TRUE) %>% 
@@ -51,6 +51,8 @@ We will only compound strongly associated multi-word expressions here by subsett
 ```{r}
 toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3], 
                              case_insensitive = FALSE)
+
+# next, we check whether the compounding worked as expected using the keywords-in-context (kwic) function
 kw_comp <- kwic(toks_comp, pattern = c("London_*", "British_*"))
 head(kw_comp, 10)
 ```
