@@ -31,7 +31,7 @@ We select two tokens objects for words inside and outside of the 10-word windows
 ```r
 eu <- c("EU", "europ*", "european union")
 toks_inside <- tokens_keep(toks_news, pattern = eu, window = 10)
-toks_inside <- tokens_remove(toks_news, pattern = eu) # remove the patterns
+toks_inside <- tokens_remove(toks_inside, pattern = eu) # remove the patterns
 toks_outside <- tokens_remove(toks_news, pattern = eu, window = 10)
 ```
 
