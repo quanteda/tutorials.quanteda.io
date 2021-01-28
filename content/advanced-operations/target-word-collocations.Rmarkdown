@@ -42,5 +42,5 @@ dfmat_outside <- dfm(toks_outside)
 
 tstat_key_inside <- textstat_keyness(rbind(dfmat_inside, dfmat_outside), 
                                      target = seq_len(ndoc(dfmat_inside)))
-head(tstat_key_inside_subset, 50)
+head(tstat_key_inside, 50)
 ```
