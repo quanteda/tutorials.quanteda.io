@@ -18,8 +18,6 @@ You can create a corpus from various available sources:
 
 3. A VCorpus or SimpleCorpus class object created by the **tm** package 
 
-4. A keywords-in-context object constructed by `kwic()`
-
 
 ## Character vector
 
@@ -77,11 +75,14 @@ summary(corp_immig)
 
 ## Data frame
 
-Using `read.csv()`, load an example file from `path_data` as a data frame called `dat_inaug`.
+Using `read.csv()`, load an example file from `path_data` as a data frame called `dat_inaug`. Note that your file does not to be formatted as `.csv`. You can build a **quanteda** corpus from any file format that R can import as a data frame (see, for instance, the [**rio**](https://cran.r-project.org/web/packages/rio/index.html) package for importing various files as data frames into R).
 
 
 ```r
+# set path
 path_data <- system.file("extdata/", package = "readtext")
+
+# import csv file
 dat_inaug <- read.csv(paste0(path_data, "/csv/inaugCorpus.csv"))
 names(dat_inaug)
 ```
