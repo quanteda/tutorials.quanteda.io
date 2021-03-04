@@ -77,42 +77,42 @@ summary(corp_immig)
 
 ## Data frame
 
-Using **readtext**, load an example file from `path_data` as a data frame called `dat_inaug`.
+Using `read.csv()`, load an example file from `path_data` as a data frame called `dat_inaug`.
 
 
 ```r
 path_data <- system.file("extdata/", package = "readtext")
-dat_inaug <- readtext(paste0(path_data, "/csv/inaugCorpus.csv"), text_field = "texts")
+dat_inaug <- read.csv(paste0(path_data, "/csv/inaugCorpus.csv"))
 names(dat_inaug)
 ```
 
 ```
-## [1] "doc_id"    "text"      "Year"      "President" "FirstName"
+## [1] "texts"     "Year"      "President" "FirstName"
 ```
 
-Construct a corpus from `dat_inaug`.
+Construct a corpus from the "texts" column in `dat_inaug`.
 
 
 ```r
-corp_inaug <- corpus(dat_inaug)
+corp_inaug <- corpus(dat_inaug, text_field = "texts")
 print(corp_inaug)
 ```
 
 ```
 ## Corpus consisting of 5 documents and 3 docvars.
-## inaugCorpus.csv.1 :
+## text1 :
 ## "Fellow-Citizens of the Senate and of the House of Representa..."
 ## 
-## inaugCorpus.csv.2 :
+## text2 :
 ## "Fellow citizens, I am again called upon by the voice of my c..."
 ## 
-## inaugCorpus.csv.3 :
+## text3 :
 ## "When it was first perceived, in early times, that no middle ..."
 ## 
-## inaugCorpus.csv.4 :
+## text4 :
 ## "Friends and Fellow Citizens: Called upon to undertake the du..."
 ## 
-## inaugCorpus.csv.5 :
+## text5 :
 ## "Proceeding, fellow citizens, to that qualification which the..."
 ```
 
@@ -123,12 +123,12 @@ summary(corp_inaug, 5)
 ```
 ## Corpus consisting of 5 documents, showing 5 documents:
 ## 
-##               Text Types Tokens Sentences Year  President FirstName
-##  inaugCorpus.csv.1   625   1539        23 1789 Washington    George
-##  inaugCorpus.csv.2    96    147         4 1793 Washington    George
-##  inaugCorpus.csv.3   826   2577        37 1797      Adams      John
-##  inaugCorpus.csv.4   717   1923        41 1801  Jefferson    Thomas
-##  inaugCorpus.csv.5   804   2380        45 1805  Jefferson    Thomas
+##   Text Types Tokens Sentences Year  President FirstName
+##  text1   625   1537        23 1789 Washington    George
+##  text2    96    147         4 1793 Washington    George
+##  text3   826   2577        37 1797      Adams      John
+##  text4   717   1923        41 1801  Jefferson    Thomas
+##  text5   804   2380        45 1805  Jefferson    Thomas
 ```
 
 You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc to a meaningful identifier. 

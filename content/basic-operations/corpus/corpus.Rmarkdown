@@ -34,18 +34,18 @@ summary(corp_immig)
 
 ## Data frame
 
-Using **readtext**, load an example file from `path_data` as a data frame called `dat_inaug`.
+Using `read.csv()`, load an example file from `path_data` as a data frame called `dat_inaug`.
 
 ```{r}
 path_data <- system.file("extdata/", package = "readtext")
-dat_inaug <- readtext(paste0(path_data, "/csv/inaugCorpus.csv"), text_field = "texts")
+dat_inaug <- read.csv(paste0(path_data, "/csv/inaugCorpus.csv"))
 names(dat_inaug)
 ```
 
-Construct a corpus from `dat_inaug`.
+Construct a corpus from the "texts" column in `dat_inaug`.
 
 ```{r}
-corp_inaug <- corpus(dat_inaug)
+corp_inaug <- corpus(dat_inaug, text_field = "texts")
 print(corp_inaug)
 summary(corp_inaug, 5)
 ```
