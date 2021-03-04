@@ -17,8 +17,6 @@ You can create a corpus from various available sources:
 
 3. A VCorpus or SimpleCorpus class object created by the **tm** package 
 
-4. A keywords-in-context object constructed by `kwic()`
-
 
 ## Character vector
 
