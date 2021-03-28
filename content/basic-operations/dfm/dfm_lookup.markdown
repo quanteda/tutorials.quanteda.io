@@ -58,14 +58,8 @@ print(dfmat_irish_lg)
 ## [ reached max_ndoc ... 8 more documents ]
 ```
 
-You can also pass a dictionary to `dfm()` to simplify your code, but you cannot specify `levels` with this method.
-
-
-```r
-dfmat_irish_lg <- dfm(data_corpus_irishbudget2010, dictionary = dict_lg, remove_punct = TRUE)
-```
 
 {{% notice note %}}
-`dfm_lookup()` cannot find multi-word expressions since a document-feature matrix does not store information about positions of words. Yet, `dfm()` can handle multi-word expressions because dictionary lookup is performed internally on tokens using `tokens_lookup()`. Afterwards, you can create a document-feature matrix from this object.
+`dfm_lookup()` cannot detect multi-word expressions since a document-feature matrix does not store information about positions of words. We recommend to use`tokens_lookup()` to detect or `tokens_copound()` to compound multi-word expressions before creating a DFM.
 {{% /notice %}}
 
