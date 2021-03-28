@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+require(quanteda.textstats)
 options(width = 110)
 ```
 
@@ -24,7 +25,7 @@ head(kw_multiword, 10)
 ```
 
 ```
-##                                                                                                              
+## Keyword-in-context with 10 matches.                                                                                                             
 ##       [BNP, 1724:1725]        the honour and benefit of | British citizenship | has gone to people who       
 ##       [BNP, 1958:1959] all illegal immigrants and bogus |   asylum seekers    | , including their dependents.
 ##       [BNP, 2159:2160]            region concerned. An' |    asylum seeker    | ' who has crossed dozens     
@@ -47,7 +48,7 @@ head(kw_comp, 10)
 ```
 
 ```
-##                                                                                                           
+## Keyword-in-context with 10 matches.                                                                                                          
 ##         [BNP, 1724]        the honour and benefit of | British_citizenship | has gone to people who       
 ##         [BNP, 1957] all illegal immigrants and bogus |   asylum_seekers    | , including their dependents.
 ##         [BNP, 2157]            region concerned. An' |    asylum_seeker    | ' who has crossed dozens     

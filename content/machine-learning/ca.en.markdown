@@ -10,6 +10,7 @@ Correspondence analysis is a technique to scale documents on multiple dimensions
 ```r
 require(quanteda)
 require(quanteda.textmodels)
+require(quanteda.textplots)
 ```
 
 `textmodel_ca()` provides similar functionality to the **ca** package, but **quanteda**'s version is more efficient for textual data.
@@ -18,9 +19,9 @@ You can plot positions of documents on a one-dimensional scale using `textplot_s
 
 
 ```r
-dfmat_irish <- dfm(data_corpus_irishbudget2010, 
-                   remove_punct = TRUE, 
-                   remove = stopwords("en"))
+toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
+dfmat_irish <- dfm(toks_irish) %>% 
+               dfm_remove(pattern = stopwords("en"))
 
 tmod_ca <- textmodel_ca(dfmat_irish)
 textplot_scale1d(tmod_ca)

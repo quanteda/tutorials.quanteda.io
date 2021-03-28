@@ -43,7 +43,8 @@ toks_sent <- corp_sent %>%
 
 # create a document feature matrix from the tokens object
 dfmat_sent <- toks_sent %>% 
-    dfm(remove = "") %>% 
+    dfm() %>% 
+    dfm_remove(pattern = "") %>% 
     dfm_trim(min_termfreq = 5)
 ```
 
@@ -91,7 +92,7 @@ tmod_lss <- textmodel_lss(dfmat_sent, seeds = seed,
 ```
 
 ```
-## Reading cache file: lss_cache/svds_d3662ce2f8b0820f.RDS
+## Reading cache file: lss_cache/svds_eac1aacb727e5128.RDS
 ```
 
 
@@ -100,12 +101,14 @@ head(coef(tmod_lss), 20) # most positive words
 ```
 
 ```
-##        far   positive     status        job        use      share    quarter 
-## 0.12629148 0.10050133 0.09527710 0.07910809 0.07489797 0.07164349 0.07082497 
-##      every      force     behind      third    rolling      hopes   maintain 
-## 0.06734511 0.06681834 0.06583539 0.06531428 0.06505486 0.06442772 0.06070326 
-##   strategy    welcome       halt  currently    example     slowed 
-## 0.06055693 0.06036880 0.05873444 0.05825310 0.05790878 0.05690293
+##      status    positive     quarter       third    strategy     rolling 
+##  0.09776482  0.09765251  0.07211174  0.06657593  0.06424124  0.06345038 
+##      slowed     welcome      fourth    maintain         key      polled 
+##  0.06302725  0.05989433  0.05975046  0.05920437  0.05887532  0.05797763 
+##        halt     overall       hopes     current     reasons sustainable 
+##  0.05778025  0.05737707  0.05606018  0.05556903  0.05457354  0.05179729 
+##        term      strong 
+##  0.05061333  0.04788726
 ```
 
 ```r
@@ -113,14 +116,14 @@ tail(coef(tmod_lss), 20) # most negative words
 ```
 
 ```
-## uncertainty       worse         cut       taxes      blamed     reserve 
-## -0.08457099 -0.08689701 -0.09193834 -0.09234093 -0.09276866 -0.09339824 
-##     raising      easing         low     cutting       raise      warned 
-## -0.09962980 -0.10091116 -0.10322200 -0.10499354 -0.10629547 -0.11080288 
-##    interest      bubble    negative       rates        poor      things 
-## -0.12025183 -0.12144500 -0.13226094 -0.13293624 -0.13458223 -0.13849767 
-##         bad       wrong 
-## -0.14773609 -0.20868570
+##        fears        worse policymakers  uncertainty          low      raising 
+##  -0.08155263  -0.08342634  -0.08379120  -0.08644833  -0.08895333  -0.09099723 
+##        taxes      reserve          cut        raise       easing       blamed 
+##  -0.09112566  -0.09180054  -0.09293358  -0.09296114  -0.09337542  -0.09574268 
+##      cutting     interest       warned       bubble        rates     negative 
+##  -0.09668367  -0.10814302  -0.11510122  -0.11667443  -0.11899036  -0.12778956 
+##         poor          bad 
+##  -0.13595186  -0.14532555
 ```
 
 By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many of the words (but not all of them) have negative meanings in the corpus.
@@ -128,6 +131,11 @@ By highlighting negative words in a manually compiled sentiment dictionary (`dat
 
 ```r
 textplot_terms(tmod_lss, data_dictionary_LSD2015["negative"])
+```
+
+```
+## Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps
 ```
 
 <img src="/machine-learning/lss.en_files/figure-html/unnamed-chunk-10-1.png" width="768" />
@@ -151,12 +159,12 @@ head(dat_smooth)
 
 ```
 ##         date time        fit    se.fit
-## 1 2012-01-02    0 -0.1969236 0.1260521
-## 2 2012-01-03    1 -0.1972945 0.1240897
-## 3 2012-01-04    2 -0.1976635 0.1221659
-## 4 2012-01-05    3 -0.1980304 0.1202802
-## 5 2012-01-06    4 -0.1983952 0.1184324
-## 6 2012-01-07    5 -0.1987576 0.1166221
+## 1 2012-01-02    0 -0.2304268 0.1260540
+## 2 2012-01-03    1 -0.2284891 0.1241404
+## 3 2012-01-04    2 -0.2265691 0.1222635
+## 4 2012-01-05    3 -0.2246667 0.1204228
+## 5 2012-01-06    4 -0.2227817 0.1186181
+## 6 2012-01-07    5 -0.2209140 0.1168490
 ```
 
 In the plot below, the circles are polarity scores of documents and the curve is their local means with 95% confidence intervals.

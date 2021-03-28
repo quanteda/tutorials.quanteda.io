@@ -9,6 +9,7 @@ We can compute the similarities between authors by grouping their documents and 
 
 ```r
 require(quanteda)
+require(quanteda.textstats)
 require(readtext)
 ```
 
@@ -31,7 +32,8 @@ Construct a document-feature matrix, and remove tags, links, and English stopwor
 
 ```r
 dfmat_tweets <- corp_tweets %>% 
-    dfm(remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE) %>% 
+    tokens(remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE) %>% 
+    dfm() %>% 
     dfm_remove(pattern = c("*.tt", "*.uk", "*.com", "rt", "#*", "@*")) %>% 
     dfm_remove(pattern = stopwords("en"))
 ndoc(dfmat_tweets)
@@ -56,7 +58,7 @@ Group documents by Twitter handle names (`screen_name`).
 
 
 ```r
-dfmat_users <- dfm_group(dfmat_tweets, groups = "screen_name")
+dfmat_users <- dfm_group(dfmat_tweets, groups = screen_name)
 ndoc(dfmat_users)
 ```
 

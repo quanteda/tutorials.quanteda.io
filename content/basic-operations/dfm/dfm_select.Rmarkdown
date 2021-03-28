@@ -10,7 +10,8 @@ options(width = 110)
 ```
 
 ```{r}
-dfmat_inaug <- dfm(data_corpus_inaugural, remove_punct = TRUE)
+toks_inaug <- tokens(data_corpus_inaugural, remove_punct = TRUE)
+dfmat_inaug <- dfm(toks_inaug)
 print(dfmat_inaug)
 ```
 

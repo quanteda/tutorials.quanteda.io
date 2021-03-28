@@ -8,6 +8,8 @@ draft: false
 
 ```r
 require(quanteda)
+require(quanteda.textstats)
+require(quanteda.textplots)
 require(quanteda.corpora)
 require(ggplot2)
 ```
@@ -23,13 +25,15 @@ corp_tweets <- download(url = "https://www.dropbox.com/s/846skn1i5elbnd2/data_co
 
 
 
-We analyse the most frequent hashtags using `select = "#*"` when creating the `dfm`.
+We analyse the most frequent hashtags using `tokens_select(pattern = "#*")` before creating the `dfm`.
 
 
 ```r
-toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) 
-dfmat_tweets <- dfm(toks_tweets, select = "#*")
-tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = "lang")
+toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) %>% 
+               tokens_select(pattern = "#*")
+dfmat_tweets <- dfm(toks_tweets)
+tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = dfmat_tweets$lang)
+#tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = lang) # NSE shoud work
 head(tstat_freq, 20)
 ```
 
@@ -89,8 +93,13 @@ Finally, it is possible to compare different groups within one Wordcloud. We fir
 # create document-level variable indicating whether tweet was in English or other language
 corp_tweets$dummy_english <- factor(ifelse(corp_tweets$lang == "English", "English", "Not English"))
 
+# tokenize texts
+toks_tweets <- tokens(corp_tweets)
+
 # create a grouped dfm and compare groups
-dfmat_corp_language <- dfm(corp_tweets, select = "#*", groups = "dummy_english")
+dfmat_corp_language <- dfm(toks_tweets) %>% 
+                       dfm_select(pattern = "#*") %>% 
+                       dfm_group(groups = dummy_english)
 
 # create wor cloud
 set.seed(132)
@@ -98,5 +107,4 @@ textplot_wordcloud(dfmat_corp_language, comparison = TRUE, max_words = 200)
 ```
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-7-1.png" width="672" />
-
 

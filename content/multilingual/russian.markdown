@@ -81,7 +81,7 @@ print(dfmat_ru)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 648 features (98.2% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 648 features (98.19% sparse) and 4 docvars.
 ##        features
 ## docs    преамбула принимая внимание признание достоинства присущего всем членам человеческой семьи
 ##   rus.1         1        0        0         0           0         0    0      0            0     0

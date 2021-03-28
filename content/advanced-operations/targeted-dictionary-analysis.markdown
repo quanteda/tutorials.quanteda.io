@@ -56,7 +56,7 @@ toks_gov_lsd <- tokens_lookup(toks_gov, dictionary = data_dictionary_LSD2015_pos
 
 # create a document document-feature matrix and group it by day
 dfmat_gov_lsd <- dfm(toks_gov_lsd) %>% 
-  dfm_group("date")
+  dfm_group(groups = date)
 ```
 
 

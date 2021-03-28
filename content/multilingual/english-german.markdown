@@ -70,7 +70,7 @@ print(dfmat_eng)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 431 features (97.8% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 431 features (97.82% sparse) and 4 docvars.
 ##        features
 ## docs    preamble whereas recognition inherent dignity equal inalienable rights members human
 ##   eng.1        1       0           0        0       0     0           0      0       0     0
@@ -139,7 +139,7 @@ print(dfmat_ger)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 496 features (98.2% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 496 features (98.18% sparse) and 4 docvars.
 ##             features
 ## docs         präambel anerkennung angeborenen gleichen unveräußerlichen rechte mitglieder gemeinschaft
 ##   deu_1996.1        1           0           0        0                0      0          0            0

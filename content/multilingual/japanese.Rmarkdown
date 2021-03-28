@@ -8,6 +8,7 @@ draft: false
 
 ```{r, message=FALSE}
 require(quanteda)
+require(quanteda.textstats)
 require(quanteda.corpora)
 options(width = 110)
 ```

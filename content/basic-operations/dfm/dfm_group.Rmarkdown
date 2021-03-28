@@ -10,7 +10,8 @@ options(width = 110)
 ```
 
 ```{r}
-dfmat_inaug <- dfm(data_corpus_inaugural)
+toks_inaug <- tokens(data_corpus_inaugural)
+dfmat_inaug <- dfm(toks_inaug)
 print(dfmat_inaug)
 head(colSums(dfmat_inaug), 10)
 ```
@@ -18,20 +19,17 @@ head(colSums(dfmat_inaug), 10)
 `dfm_group()` merges documents based on a vector given to the `groups` argument. In grouping documents, it takes the sums of feature frequencies. 
 
 ```{r}
-dfmat_party <- dfm_group(dfmat_inaug, groups = "Party")
+dfmat_party <- dfm_group(dfmat_inaug, groups = Party)
 print(dfmat_party)
 head(colSums(dfmat_party), 10)
 ```
+
+{{% notice warn %}}
+From the package version 3.0, `dfm_group()` supports non-standard evaluation. This means that the name of the grouping variable should not be quoted by `"`.
+{{% /notice %}}
 
 `dfm_group()` identifies document-level variables that are the same within groups and keeps these variables.
 
 ```{r}
 docvars(dfmat_party)
-```
-
-You can also use the `groups` argument in `dfm()` to simplify your code. 
-
-```{r}
-dfmat_party <- dfm(data_corpus_inaugural, groups = "Party")
-ndoc(dfmat_party)
 ```

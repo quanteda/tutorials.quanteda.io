@@ -59,13 +59,17 @@ head(id_train, 10)
 # create docvar with ID
 corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
+# tokenize texts
+toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) %>% 
+               tokens_remove(pattern = stopwords("en")) %>% 
+               tokens_wordstem()
+dfmt_movie <- dfm(toks_movies)
+
 # get training set
-dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), remove_number = TRUE, stem = TRUE)
+dfmat_training <- dfm_subset(dfmt_movie, id_numeric %in% id_train)
 
 # get test set (documents not in id_train)
-dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), remove_number = TRUE, stem = TRUE)
+dfmat_test <- dfm_subset(dfmt_movie, !id_numeric %in% id_train)
 ```
 
 Next we choose `lambda` using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix `x` and a response vector `y`. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with positive reviews coded as 1 and negative reviews as 0. 
@@ -97,12 +101,12 @@ head(sort(beta, decreasing = TRUE), 20)
 ```
 
 ```
-##   standoff  chopsocki   flammabl neccessari    ratchet     finest   murtaugh 
-##  1.2795117  1.0423291  0.9192710  0.8266107  0.8040950  0.7942861  0.7855814 
-##    refresh     immers    maniaci  breathtak     haywir   gingrich      efect 
-##  0.7849592  0.7754278  0.7734870  0.7686552  0.7524778  0.7420820  0.6921080 
-##   sullivan      brisk      meryl     darker     bizaar     gallon 
-##  0.6698100  0.6380964  0.6344098  0.6319629  0.6137428  0.5812438
+##   standoff  chopsocki   flammabl     haywir     immers    refresh     finest 
+##  1.4077619  1.1775246  0.9876723  0.9581105  0.8660209  0.8568740  0.8485594 
+##  breathtak    ratchet    maniaci     darker      brisk  anti-soci   sullivan 
+##  0.8161514  0.7507255  0.7483335  0.7455641  0.7424271  0.7315274  0.7243117 
+##   gingrich cornerston neccessari      meryl   murtaugh      anger 
+##  0.7138439  0.6841871  0.6801055  0.6067040  0.5970494  0.5949954
 ```
 
 `predict.glmnet` can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`.
@@ -122,12 +126,12 @@ head(pred)
 
 ```
 ##                           1
-## cv000_29416.txt 0.431803402
-## cv013_10494.txt 0.097596612
-## cv032_23718.txt 0.441825243
-## cv033_25680.txt 0.449263831
-## cv036_18385.txt 0.243845522
-## cv038_9781.txt  0.005570001
+## cv000_29416.txt 0.419029976
+## cv013_10494.txt 0.087610116
+## cv032_23718.txt 0.485332051
+## cv033_25680.txt 0.406662641
+## cv036_18385.txt 0.226312726
+## cv038_9781.txt  0.003946696
 ```
 
 Let's inspect how well the classification worked.
@@ -143,8 +147,8 @@ tab_class
 ```
 ##             predicted_class
 ## actual_class   0   1
-##            0 198  60
-##            1  34 208
+##            0 194  64
+##            1  32 210
 ```
 
 From the cross-table we see that the model slightly underpredicts negative reviews, i.e. produces slightly more false negatives than false positives, but most reviews are correctly predicted. 
@@ -161,29 +165,29 @@ confusionMatrix(tab_class, mode = "everything")
 ## 
 ##             predicted_class
 ## actual_class   0   1
-##            0 198  60
-##            1  34 208
+##            0 194  64
+##            1  32 210
 ##                                           
-##                Accuracy : 0.812           
-##                  95% CI : (0.7749, 0.8453)
-##     No Information Rate : 0.536           
+##                Accuracy : 0.808           
+##                  95% CI : (0.7707, 0.8416)
+##     No Information Rate : 0.548           
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.6249          
+##                   Kappa : 0.6172          
 ##                                           
-##  Mcnemar's Test P-Value : 0.009922        
+##  Mcnemar's Test P-Value : 0.001557        
 ##                                           
-##             Sensitivity : 0.8534          
-##             Specificity : 0.7761          
-##          Pos Pred Value : 0.7674          
-##          Neg Pred Value : 0.8595          
-##               Precision : 0.7674          
-##                  Recall : 0.8534          
-##                      F1 : 0.8082          
-##              Prevalence : 0.4640          
-##          Detection Rate : 0.3960          
+##             Sensitivity : 0.8584          
+##             Specificity : 0.7664          
+##          Pos Pred Value : 0.7519          
+##          Neg Pred Value : 0.8678          
+##               Precision : 0.7519          
+##                  Recall : 0.8584          
+##                      F1 : 0.8017          
+##              Prevalence : 0.4520          
+##          Detection Rate : 0.3880          
 ##    Detection Prevalence : 0.5160          
-##       Balanced Accuracy : 0.8148          
+##       Balanced Accuracy : 0.8124          
 ##                                           
 ##        'Positive' Class : 0               
 ## 

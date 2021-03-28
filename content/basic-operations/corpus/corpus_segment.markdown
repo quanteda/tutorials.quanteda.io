@@ -25,6 +25,12 @@ cbind(texts(corp_sect), docvars(corp_sect))
 ```
 
 ```
+## Warning: 'texts.corpus' is deprecated.
+## Use 'as.character' instead.
+## See help("Deprecated")
+```
+
+```
 ##                                               texts(corp_sect)  pattern
 ## text1.1                              This is the introduction.  ##INTRO
 ## text1.2 This is the first document.  Second sentence in Doc 1.   ##DOC1
@@ -46,6 +52,12 @@ cbind(texts(corp_speakers), docvars(corp_speakers))
 ```
 
 ```
+## Warning: 'texts.corpus' is deprecated.
+## Use 'as.character' instead.
+## See help("Deprecated")
+```
+
+```
 ##         texts(corp_speakers)     pattern
 ## text1.1                Text.  Mr. Smith:
 ## text1.2           More text. Mrs. Jones:
@@ -61,6 +73,12 @@ corp <- corpus(c(d1 = "This, is a sentence?  You: come here.",
 corp_sent <- corpus_segment(corp, pattern = "\\p{P}", valuetype = "regex", 
                             extract_pattern = FALSE, pattern_position = "after")
 texts(corp_sent)
+```
+
+```
+## Warning: 'texts.corpus' is deprecated.
+## Use 'as.character' instead.
+## See help("Deprecated")
 ```
 
 ```

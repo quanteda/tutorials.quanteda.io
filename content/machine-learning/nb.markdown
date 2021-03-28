@@ -52,13 +52,17 @@ head(id_train, 10)
 # create docvar with ID
 corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
+# tokenize texts
+toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) %>% 
+               tokens_remove(pattern = stopwords("en")) %>% 
+               tokens_wordstem()
+dfmt_movie <- dfm(toks_movies)
+
 # get training set
-dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), stem = TRUE)
+dfmat_training <- dfm_subset(dfmt_movie, id_numeric %in% id_train)
 
 # get test set (documents not in id_train)
-dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), stem = TRUE)
+dfmat_test <- dfm_subset(dfmt_movie, !id_numeric %in% id_train)
 ```
 
 Next we train the naive Bayes classifier using `textmodel_nb()`.
@@ -80,18 +84,21 @@ summary(tmod_nb)
 ## 0.5 0.5 
 ## 
 ## Estimated Feature Scores:
-##         happi   bastard     quick     movi    review      damn       y2k
-## neg 0.0001875 3.749e-05 0.0004038 0.008032 0.0004932 0.0001471 1.154e-05
-## pos 0.0002984 7.005e-05 0.0003736 0.006118 0.0004567 0.0001090 5.189e-06
-##           bug       .       got      head     start     star      jami
-## neg 0.0001557 0.06932 0.0005999 0.0005682 0.0008624 0.001272 5.192e-05
-## pos 0.0001479 0.06543 0.0003892 0.0005008 0.0006720 0.001222 4.151e-05
-##           lee     curti    anoth   baldwin   brother       (   william     time
-## neg 0.0002827 3.749e-05 0.001226 1.125e-04 0.0004961 0.01218 0.0004355 0.002982
-## pos 0.0002569 5.968e-05 0.001072 8.303e-05 0.0003918 0.01181 0.0004774 0.002953
-##           )    stori    regard      crew   tugboat     come    across    desert
-## neg 0.01242 0.002120 3.173e-05 0.0002625 5.768e-06 0.001803 0.0002192 6.634e-05
-## pos 0.01184 0.002727 8.303e-05 0.0001894 2.595e-06 0.001702 0.0002128 9.600e-05
+##         plot      two      teen     coupl       go    church     parti
+## neg 0.002579 0.002318 0.0002870 0.0007157 0.002663 8.719e-05 0.0002652
+## pos 0.001507 0.002338 0.0001656 0.0005456 0.002348 8.768e-05 0.0002728
+##         drink     drive      get     accid      one       guy       die
+## neg 1.199e-04 0.0003052 0.004486 9.445e-05 0.007389 0.0014458 0.0005486
+## pos 9.417e-05 0.0002630 0.003783 1.851e-04 0.007355 0.0009937 0.0005488
+##     girlfriend   continu      see     life  nightmar      deal    watch
+## neg  0.0003124 0.0003161 0.002557 0.001435 0.0001199 0.0004323 0.001642
+## pos  0.0002338 0.0003215 0.003020 0.002497 0.0001202 0.0005196 0.001539
+##         movi     sorta     find   critiqu mind-fuck   generat     touch
+## neg 0.010117 1.090e-05 0.001453 9.445e-05 3.633e-06 0.0002652 0.0002289
+## pos 0.007657 1.624e-05 0.001630 8.443e-05 3.247e-06 0.0002923 0.0004449
+##          cool      idea
+## neg 0.0003052 0.0008210
+## pos 0.0002273 0.0005845
 ```
 
 Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`
@@ -114,8 +121,8 @@ tab_class
 ```
 ##             predicted_class
 ## actual_class neg pos
-##          neg 211  47
-##          pos  36 206
+##          neg 213  45
+##          pos  37 205
 ```
 
 From the cross-table we see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or underestimate one class.
@@ -132,29 +139,29 @@ confusionMatrix(tab_class, mode = "everything")
 ## 
 ##             predicted_class
 ## actual_class neg pos
-##          neg 211  47
-##          pos  36 206
+##          neg 213  45
+##          pos  37 205
 ##                                           
-##                Accuracy : 0.834           
-##                  95% CI : (0.7984, 0.8656)
-##     No Information Rate : 0.506           
+##                Accuracy : 0.836           
+##                  95% CI : (0.8006, 0.8674)
+##     No Information Rate : 0.5             
 ##     P-Value [Acc > NIR] : <2e-16          
 ##                                           
-##                   Kappa : 0.6681          
+##                   Kappa : 0.672           
 ##                                           
-##  Mcnemar's Test P-Value : 0.2724          
+##  Mcnemar's Test P-Value : 0.4395          
 ##                                           
-##             Sensitivity : 0.8543          
-##             Specificity : 0.8142          
-##          Pos Pred Value : 0.8178          
-##          Neg Pred Value : 0.8512          
-##               Precision : 0.8178          
-##                  Recall : 0.8543          
-##                      F1 : 0.8356          
-##              Prevalence : 0.4940          
-##          Detection Rate : 0.4220          
+##             Sensitivity : 0.8520          
+##             Specificity : 0.8200          
+##          Pos Pred Value : 0.8256          
+##          Neg Pred Value : 0.8471          
+##               Precision : 0.8256          
+##                  Recall : 0.8520          
+##                      F1 : 0.8386          
+##              Prevalence : 0.5000          
+##          Detection Rate : 0.4260          
 ##    Detection Prevalence : 0.5160          
-##       Balanced Accuracy : 0.8342          
+##       Balanced Accuracy : 0.8360          
 ##                                           
 ##        'Positive' Class : neg             
 ## 
