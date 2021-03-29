@@ -26,14 +26,14 @@ corp_tweets <- download(url = "https://www.dropbox.com/s/846skn1i5elbnd2/data_co
 corp_tweets <- readRDS("../data/data_corpus_sampletweets.rds")
 ```
 
-We analyse the most frequent hashtags using `tokens_select(pattern = "#*")` before creating the `dfm`.
+We analyse the most frequent hashtags by applying `tokens_select(pattern = "#*")` before creating a DFM.
 
 ```{r}
 toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) %>% 
                tokens_select(pattern = "#*")
 dfmat_tweets <- dfm(toks_tweets)
-tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = dfmat_tweets$lang)
-#tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = lang) # NSE shoud work
+
+tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = lang)
 head(tstat_freq, 20)
 ```
 
