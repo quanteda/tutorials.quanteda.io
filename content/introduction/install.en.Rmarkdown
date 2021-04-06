@@ -16,6 +16,15 @@ First, you need to have **quanteda** installed. You can do this from inside RStu
 install.packages("quanteda")
 ```
 
+In **quanteda** version 2.0, `textmodel_*` functions are separated in **quanteda.textmodels**. In **quanteda** version 3.0, `textstat_*` functions are moved to **quanteda.textstats** and `textplot_*` functions are moved to **quanteda.textplots**. We will use several of these functions in the chapters below and strongly recommend to install these packages.
+
+```{r, eval=FALSE}
+install.packages("quanteda.textmodels")
+install.packages("quanteda.textstats")
+install.packages("quanteda.textplots")
+```
+
+
 If you are feeling adventurous, you can install the latest build of **quanteda** from its [GitHub code page](https://github.com/quanteda/quanteda).
 
 Note that on **Windows platforms**, it is also recommended that you install the [RTools suite](https://cran.r-project.org/bin/windows/Rtools/), and for **OS X** that you install [XCode](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12) from the App Store.
@@ -41,11 +50,6 @@ install.packages("devtools") # get devtools to install quanteda.corpora
 devtools::install_github("quanteda/quanteda.corpora")
 ```
 
-In **quanteda** version 2.0, `textmodel_*` functions are separated in **quanteda.textmodels**. We will use several of these functions in the sections on scaling and classification.
-
-```{r, eval=FALSE}
-install.packages("quanteda.textmodels")
-```
 
 {{% notice note %}}
 If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install the latest versions. We recommend to update all the packages using `update.packages()` to avoid errors caused by dependencies.
@@ -71,8 +75,10 @@ To sum up, you need to load the following packages to run all examples:
 
 ```{r, eval=FALSE}
 require(quanteda)
-require(readtext)
 require(quanteda.textmodels)
+require(quanteda.textstats)
+require(quanteda.textplots)
+require(readtext)
 require(devtools)
 require(quanteda.corpora)
 require(newsmap)
