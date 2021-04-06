@@ -23,6 +23,6 @@ Examples in this tutorial are written for **quanteda** version 3.0.0. Please che
 {{% /notice %}}
 
 {{% notice cite %}}
-- Watanabe, Kohei and Stefan Müller. 2020 "Quanteda Tutorials". https://tutorials.quanteda.io.
-- Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, and Akitaka Matsuo. 2018 "quanteda: An R package for the quantitative analysis of textual data". _Journal of Open Source Software_ 3(30), 774. https://doi.org/10.21105/joss.00774.  
+- Watanabe, Kohei and Stefan Müller. 2021. "Quanteda Tutorials". https://tutorials.quanteda.io.
+- Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, and Akitaka Matsuo. 2018.  "quanteda: An R package for the quantitative analysis of textual data". _Journal of Open Source Software_ 3(30), 774. https://doi.org/10.21105/joss.00774.  
 {{% /notice %}}

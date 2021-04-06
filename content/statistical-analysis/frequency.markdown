@@ -25,12 +25,12 @@ corp_tweets <- download(url = "https://www.dropbox.com/s/846skn1i5elbnd2/data_co
 
 
 
-We analyse the most frequent hashtags by applying `tokens_select(pattern = "#*")` before creating a DFM.
+We analyse the most frequent hashtags by applying `tokens_keep(pattern = "#*")` before creating a DFM.
 
 
 ```r
 toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) %>% 
-               tokens_select(pattern = "#*")
+               tokens_keep(pattern = "#*")
 dfmat_tweets <- dfm(toks_tweets)
 
 tstat_freq <- textstat_frequency(dfmat_tweets, n = 5, groups = lang)
@@ -98,11 +98,11 @@ toks_tweets <- tokens(corp_tweets)
 
 # create a grouped dfm and compare groups
 dfmat_corp_language <- dfm(toks_tweets) %>% 
-                       dfm_select(pattern = "#*") %>% 
+                       dfm_keep(pattern = "#*") %>% 
                        dfm_group(groups = dummy_english)
 
-# create wor cloud
-set.seed(132)
+# create wordcloud
+set.seed(132) # set seed for reproducibility
 textplot_wordcloud(dfmat_corp_language, comparison = TRUE, max_words = 200)
 ```
 

@@ -74,7 +74,7 @@ head(colSums(dfmat_party), 10)
 ```
 
 {{% notice note %}}
-From the package version 3.0, `dfm_group()` supports non-standard evaluation. This means that the name of the grouping variable should not be quoted by `"`.
+From **quanteda** package version 3.0 onwards, `dfm_group()` supports non-standard evaluation. This means that the name of the grouping variable should not be quoted by `"`.
 {{% /notice %}}
 
 `dfm_group()` identifies document-level variables that are the same within groups and keeps these variables.
