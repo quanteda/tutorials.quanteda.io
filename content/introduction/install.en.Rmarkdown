@@ -16,7 +16,7 @@ First, you need to have **quanteda** installed. You can do this from inside RStu
 install.packages("quanteda")
 ```
 
-In **quanteda** version 2.0, `textmodel_*` functions are separated in **quanteda.textmodels**. In **quanteda** version 3.0, `textstat_*` functions are moved to **quanteda.textstats** and `textplot_*` functions are moved to **quanteda.textplots**. We will use several of these functions in the chapters below and strongly recommend to install these packages.
+Since the release of **quanteda** version 3.0, `textstat_*`, `textmodel_*` and `textplot_*` functions are available in separate packages. We will use several of these functions in the chapters below and strongly recommend to install these packages.
 
 ```{r, eval=FALSE}
 install.packages("quanteda.textmodels")
