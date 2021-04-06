@@ -9,6 +9,7 @@ We can compound multi-word expressions through collocation analysis. In this exa
 
 ```r
 require(quanteda)
+require(quanteda.textstats)
 require(quanteda.corpora)
 options(width = 110)
 ```
@@ -52,26 +53,26 @@ head(tstat_col_cap, 20)
 
 ```
 ##           collocation count count_nested length    lambda         z
-## 1       David Cameron   861            0      2  8.159231 147.27723
-## 2        Donald Trump   774            0      2  8.326849 122.69415
-## 3      George Osborne   364            0      2  8.660678 107.61954
-## 4     Hillary Clinton   527            0      2  9.109435 102.41481
-## 5            New York  1016            0      2 10.447748 100.26545
-## 6       Islamic State   330            0      2  9.802081  98.14441
-## 7         White House   479            0      2  9.921866  96.17492
-## 8      European Union   351            0      2  8.261457  94.76073
-## 9       Jeremy Corbyn   244            0      2  8.729427  90.79315
-## 10      Boris Johnson   245            0      2  9.664059  84.76699
-## 11     Bernie Sanders   394            0      2  9.901300  84.61681
-## 12 Guardian Australia   237            0      2  6.329358  83.70145
-## 13   Northern Ireland   205            0      2  9.883086  83.25672
-## 14        Home Office   216            0      2  9.690404  78.66971
-## 15        Ed Miliband   174            0      2  9.867961  78.44763
-## 16           Ted Cruz   417            0      2 10.756267  77.87773
-## 17       Barack Obama   344            0      2  9.775203  77.72634
-## 18       South Africa   172            0      2  7.568552  77.61107
-## 19     South Carolina   271            0      2  9.404655  76.80054
-## 20       Black Friday   190            0      2  8.458892  76.79847
+## 1       David Cameron   861            0      2  8.159232 147.27725
+## 2        Donald Trump   774            0      2  8.326850 122.69417
+## 3      George Osborne   364            0      2  8.660679 107.61955
+## 4     Hillary Clinton   527            0      2  9.109436 102.41482
+## 5            New York  1016            0      2 10.447749 100.26546
+## 6       Islamic State   330            0      2  9.802083  98.14442
+## 7         White House   479            0      2  9.921867  96.17493
+## 8      European Union   351            0      2  8.261458  94.76074
+## 9       Jeremy Corbyn   244            0      2  8.729428  90.79316
+## 10      Boris Johnson   245            0      2  9.664060  84.76700
+## 11     Bernie Sanders   394            0      2  9.901301  84.61682
+## 12 Guardian Australia   237            0      2  6.329359  83.70146
+## 13   Northern Ireland   205            0      2  9.883087  83.25673
+## 14        Home Office   216            0      2  9.690405  78.66972
+## 15        Ed Miliband   174            0      2  9.867962  78.44764
+## 16           Ted Cruz   417            0      2 10.756268  77.87774
+## 17       Barack Obama   344            0      2  9.775204  77.72635
+## 18       South Africa   172            0      2  7.568553  77.61108
+## 19     South Carolina   271            0      2  9.404656  76.80054
+## 20       Black Friday   190            0      2  8.458893  76.79848
 ```
 
 We will only compound strongly associated multi-word expressions here by subsetting `tstat_col_cap` with the z-score (`z < 3`).
@@ -85,7 +86,7 @@ head(kw_comp, 10)
 ```
 
 ```
-##                                                                                       
+## Keyword-in-context with 10 matches.                                                                                      
 ##     [text9204, 351]         however researchers publishing | British_Medical_Journal |
 ##   [text150582, 329] overseas territories including Bermuda | British_Virgin_Islands  |
 ##   [text150582, 584]                        included Panama | British_Virgin_Islands  |
@@ -98,13 +99,13 @@ head(kw_comp, 10)
 ##   [text109224, 194]                          Alberta coast |    British_Columbia     |
 ##                             
 ##  found drop heart           
-##   Cayman_Islands legislation
-##   published commission      
-##   Commerce said businesses  
+##  Cayman_Islands legislation 
+##  published commission       
+##  Commerce said businesses   
 ##  Blair told inquiry         
 ##  ABI says insurers becoming 
-##   29 March delayed          
+##  29 March delayed           
 ##  Hanging nearly             
 ##  Today however Chief Na'Moks
-##   plan carry
+##  plan carry
 ```

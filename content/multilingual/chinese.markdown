@@ -54,7 +54,7 @@ print(dfmat)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 424 features (97.7% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 424 features (97.72% sparse) and 4 docvars.
 ##             features
 ## docs         序言 鉴于 人类 家庭 成员 固有 尊严 及其 平等 不移
 ##   cmn_hans.1    1    0    0    0    0    0    0    0    0    0

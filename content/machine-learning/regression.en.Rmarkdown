@@ -39,13 +39,17 @@ head(id_train, 10)
 # create docvar with ID
 corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
+# tokenize texts
+toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) %>% 
+               tokens_remove(pattern = stopwords("en")) %>% 
+               tokens_wordstem()
+dfmt_movie <- dfm(toks_movies)
+
 # get training set
-dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), remove_number = TRUE, stem = TRUE)
+dfmat_training <- dfm_subset(dfmt_movie, id_numeric %in% id_train)
 
 # get test set (documents not in id_train)
-dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), remove_number = TRUE, stem = TRUE)
+dfmat_test <- dfm_subset(dfmt_movie, !id_numeric %in% id_train)
 ```
 
 Next we choose `lambda` using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix `x` and a response vector `y`. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with positive reviews coded as 1 and negative reviews as 0. 

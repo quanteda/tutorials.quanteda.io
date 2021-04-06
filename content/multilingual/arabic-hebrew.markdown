@@ -63,7 +63,7 @@ print(dfmat_arb)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 611 features (98.3% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 611 features (98.31% sparse) and 4 docvars.
 ##        features
 ## docs    الديباجة الاعتراف بالكرامة المتأصلة أعضاء الأسرة البشرية وبحقوقهم المتساوية الثابتة
 ##   arb.1        1        0        0        0     0      0       0        0         0       0
@@ -130,7 +130,7 @@ print(dfmat_heb)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 690 features (98.4% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 690 features (98.40% sparse) and 4 docvars.
 ##        features
 ## docs    הכרזה באי עולם בדבר זכויות האדם הואיל והכרה בכבוד הטבעי
 ##   heb.1     1   1    1    1      1    1     0     0     0     0

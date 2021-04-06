@@ -28,7 +28,7 @@ print(dfmat_irish)
 ```
 
 ```
-## Document-feature matrix of: 14 documents, 5,129 features (81.3% sparse) and 6 docvars.
+## Document-feature matrix of: 14 documents, 5,129 features (81.27% sparse) and 6 docvars.
 ##                       features
 ## docs                   when  i presented the supplementary budget  to this house last
 ##   Lenihan, Brian (FF)     5 73         1 539             7     23 305   99    10    6
@@ -46,7 +46,7 @@ print(dfmat_irish_lg)
 ```
 
 ```
-## Document-feature matrix of: 14 documents, 9 features (19.8% sparse) and 6 docvars.
+## Document-feature matrix of: 14 documents, 9 features (19.84% sparse) and 6 docvars.
 ##                       features
 ## docs                   CULTURE ECONOMY ENVIRONMENT GROUPS INSTITUTIONS LAW_AND_ORDER RURAL URBAN VALUES
 ##   Lenihan, Brian (FF)        9     583          21      0           93            11     9     0     19
@@ -58,14 +58,8 @@ print(dfmat_irish_lg)
 ## [ reached max_ndoc ... 8 more documents ]
 ```
 
-You can also pass a dictionary to `dfm()` to simplify your code, but you cannot specify `levels` with this method.
-
-
-```r
-dfmat_irish_lg <- dfm(data_corpus_irishbudget2010, dictionary = dict_lg, remove_punct = TRUE)
-```
 
 {{% notice note %}}
-`dfm_lookup()` cannot find multi-word expressions since a document-feature matrix does not store information about positions of words. Yet, `dfm()` can handle multi-word expressions because dictionary lookup is performed internally on tokens using `tokens_lookup()`. Afterwards, you can create a document-feature matrix from this object.
+`dfm_lookup()` cannot detect multi-word expressions since a document-feature matrix does not store information about positions of words. We recommend to use`tokens_lookup()` to detect or `tokens_copound()` to compound multi-word expressions before creating a DFM.
 {{% /notice %}}
 

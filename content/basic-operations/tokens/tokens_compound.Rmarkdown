@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+require(quanteda.textstats)
 options(width = 110)
 ```
 

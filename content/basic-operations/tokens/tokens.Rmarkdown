@@ -16,13 +16,6 @@ corp_immig <- corpus(data_char_ukimmig2010)
 toks_immig <- tokens(corp_immig)
 ```
 
-A corpus is passed to `tokens()` in the code above, but it works with a character string too.
-
-```{r}
-toks <- tokens(data_char_ukimmig2010)
-print(toks)
-```
-
 {{% notice tip %}}
 `tokens()` can tokenize texts in Asian languages such as Japanese or Chinese without additional tools thanks to the **stringi** package. See an example of in [documentation website](https://quanteda.io/articles/pkgdown/examples/chinese.html).
 {{% /notice %}}

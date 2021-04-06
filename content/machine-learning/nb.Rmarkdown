@@ -32,13 +32,17 @@ head(id_train, 10)
 # create docvar with ID
 corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
+# tokenize texts
+toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) %>% 
+               tokens_remove(pattern = stopwords("en")) %>% 
+               tokens_wordstem()
+dfmt_movie <- dfm(toks_movies)
+
 # get training set
-dfmat_training <- corpus_subset(corp_movies, id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), stem = TRUE)
+dfmat_training <- dfm_subset(dfmt_movie, id_numeric %in% id_train)
 
 # get test set (documents not in id_train)
-dfmat_test <- corpus_subset(corp_movies, !id_numeric %in% id_train) %>%
-    dfm(remove = stopwords("en"), stem = TRUE)
+dfmat_test <- dfm_subset(dfmt_movie, !id_numeric %in% id_train)
 ```
 
 Next we train the naive Bayes classifier using `textmodel_nb()`.

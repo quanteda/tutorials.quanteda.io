@@ -42,7 +42,8 @@ toks_sent <- corp_sent %>%
 
 # create a document feature matrix from the tokens object
 dfmat_sent <- toks_sent %>% 
-    dfm(remove = "") %>% 
+    dfm() %>% 
+    dfm_remove(pattern = "") %>% 
     dfm_trim(min_termfreq = 5)
 ```
 

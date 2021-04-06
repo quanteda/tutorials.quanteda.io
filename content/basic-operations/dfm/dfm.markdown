@@ -7,6 +7,7 @@ draft: false
 
 ```r
 require(quanteda)
+require(quanteda.textstats)
 options(width = 110)
 ```
 
@@ -20,7 +21,7 @@ print(dfmat_inaug)
 ```
 
 ```
-## Document-feature matrix of: 58 documents, 9,346 features (91.8% sparse) and 4 docvars.
+## Document-feature matrix of: 59 documents, 9,423 features (91.89% sparse) and 4 docvars.
 ##                  features
 ## docs              fellow-citizens  of the senate and house representatives among vicissitudes incident
 ##   1789-Washington               1  71 116      1  48     2               2     1            1        1
@@ -29,16 +30,7 @@ print(dfmat_inaug)
 ##   1801-Jefferson                2 104 130      0  81     0               0     1            0        0
 ##   1805-Jefferson                0 101 143      0  93     0               0     7            0        0
 ##   1809-Madison                  1  69 104      0  43     0               0     0            0        0
-## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,336 more features ]
-```
-
-If a corpus object is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
-
-
-```r
-dfmat_inaug <- data_corpus_inaugural %>% 
-    tokens(remove_punct = TRUE) %>% 
-    dfm()
+## [ reached max_ndoc ... 53 more documents, reached max_nfeat ... 9,413 more features ]
 ```
 
 You can get the number of documents and features `ndoc()` and `nfeat()`.
@@ -49,7 +41,7 @@ ndoc(dfmat_inaug)
 ```
 
 ```
-## [1] 58
+## [1] 59
 ```
 
 ```r
@@ -57,7 +49,7 @@ nfeat(dfmat_inaug)
 ```
 
 ```
-## [1] 9346
+## [1] 9423
 ```
 
 You can also obtain the names of documents and features by `docnames()` and `featnames()`.
@@ -105,7 +97,7 @@ head(colSums(dfmat_inaug), 10)
 
 ```
 ## fellow-citizens              of             the          senate             and           house 
-##              39            7103           10082              15            5310              11 
+##              39            7180           10183              15            5406              11 
 ## representatives           among    vicissitudes        incident 
 ##              19             108               5               8
 ```
@@ -118,8 +110,8 @@ topfeatures(dfmat_inaug, 10)
 ```
 
 ```
-##   the    of   and    to    in     a   our  that    we    be 
-## 10082  7103  5310  4526  2785  2246  2181  1789  1739  1481
+##   the    of   and    to    in     a   our    we  that    be 
+## 10183  7180  5406  4591  2827  2292  2224  1827  1813  1502
 ```
 
 If you want to convert the frequency count to a proportion within documents, use `dfm_weight(scheme  = "prop")`.
@@ -131,7 +123,7 @@ print(dfmat_inaug_prop)
 ```
 
 ```
-## Document-feature matrix of: 58 documents, 9,346 features (91.8% sparse) and 4 docvars.
+## Document-feature matrix of: 59 documents, 9,423 features (91.89% sparse) and 4 docvars.
 ##                  features
 ## docs              fellow-citizens         of        the       senate        and       house representatives
 ##   1789-Washington    0.0006993007 0.04965035 0.08111888 0.0006993007 0.03356643 0.001398601    0.0013986014
@@ -148,7 +140,7 @@ print(dfmat_inaug_prop)
 ##   1801-Jefferson  0.0005793743 0            0           
 ##   1805-Jefferson  0.0032317636 0            0           
 ##   1809-Madison    0            0            0           
-## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,336 more features ]
+## [ reached max_ndoc ... 53 more documents, reached max_nfeat ... 9,413 more features ]
 ```
 
 {{% notice tip %}}
@@ -165,24 +157,24 @@ print(dfmat_inaug_tfidf)
 ```
 
 ```
-## Document-feature matrix of: 58 documents, 9,346 features (91.8% sparse) and 4 docvars.
+## Document-feature matrix of: 59 documents, 9,423 features (91.89% sparse) and 4 docvars.
 ##                  features
 ## docs              fellow-citizens of the    senate and    house representatives     among vicissitudes
-##   1789-Washington       0.4846744  0   0 0.8091855   0 1.720676          1.2346 0.1299595     1.064458
-##   1793-Washington       0          0   0 0           0 0                 0      0             0       
-##   1797-Adams            1.4540232  0   0 0.8091855   0 0                 1.2346 0.5198382     0       
-##   1801-Jefferson        0.9693488  0   0 0           0 0                 0      0.1299595     0       
-##   1805-Jefferson        0          0   0 0           0 0                 0      0.9097168     0       
-##   1809-Madison          0.4846744  0   0 0           0 0                 0      0             0       
+##   1789-Washington       0.4920984  0   0 0.8166095   0 1.735524        1.249448 0.1373836     1.071882
+##   1793-Washington       0          0   0 0           0 0               0        0             0       
+##   1797-Adams            1.4762952  0   0 0.8166095   0 0               1.249448 0.5495342     0       
+##   1801-Jefferson        0.9841968  0   0 0           0 0               0        0.1373836     0       
+##   1805-Jefferson        0          0   0 0           0 0               0        0.9616849     0       
+##   1809-Madison          0.4920984  0   0 0           0 0               0        0             0       
 ##                  features
 ## docs               incident
-##   1789-Washington 0.9852767
+##   1789-Washington 0.9927008
 ##   1793-Washington 0        
 ##   1797-Adams      0        
 ##   1801-Jefferson  0        
 ##   1805-Jefferson  0        
 ##   1809-Madison    0        
-## [ reached max_ndoc ... 52 more documents, reached max_nfeat ... 9,336 more features ]
+## [ reached max_ndoc ... 53 more documents, reached max_nfeat ... 9,413 more features ]
 ```
 
 {{% notice warning %}}

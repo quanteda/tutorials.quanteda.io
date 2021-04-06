@@ -19,7 +19,7 @@ corp_tagged <- corpus(c("##INTRO This is the introduction.
                         "##INTRO Document ##NUMBER Two starts before ##NUMBER Three."))
 corp_sect <- corpus_segment(corp_tagged, pattern = "##*")
 
-cbind(texts(corp_sect), docvars(corp_sect))
+cbind(docvars(corp_sect), text = as.character(corp_sect))
 ```
 
 ### Speaker identifiers
@@ -29,7 +29,7 @@ corp_speeches <- corpus("Mr. Smith: Text.
                         Mrs. Jones: More text.
                         Mr. Smith: I'm speaking, again.")
 corp_speakers <- corpus_segment(corp_speeches, pattern = "\\b[A-Z].+\\s[A-Z][a-z]+:", valuetype = "regex")
-cbind(texts(corp_speakers), docvars(corp_speakers))
+cbind(docvars(corp_speakers), text = as.character(corp_speakers))
 ```
 
 You should use `corpus_reshape()` to split documents into sentences, but you can do similar operations using `corpus_segment()` by setting `pattern_position = "after"`.
@@ -39,6 +39,6 @@ corp <- corpus(c(d1 = "This, is a sentence?  You: come here.",
                  d2 = "Yes, yes okay."))
 corp_sent <- corpus_segment(corp, pattern = "\\p{P}", valuetype = "regex", 
                             extract_pattern = FALSE, pattern_position = "after")
-texts(corp_sent)
+print(corp_sent)
 ```
 

@@ -9,6 +9,7 @@ draft: false
 
 ```r
 require(quanteda)
+require(quanteda.textstats)
 require(quanteda.corpora)
 options(width = 110)
 ```
@@ -141,7 +142,7 @@ print(dfmat)
 ```
 
 ```
-## Document-feature matrix of: 82 documents, 392 features (97.4% sparse) and 4 docvars.
+## Document-feature matrix of: 82 documents, 392 features (97.41% sparse) and 4 docvars.
 ##        features
 ## docs    前文 人類 社会 構成 固有 尊厳 平等 譲る こと 権利
 ##   jpn.1    1    0    0    0    0    0    0    0    0    0

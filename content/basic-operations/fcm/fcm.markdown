@@ -9,6 +9,7 @@ A feature co-occurrence matrix (FCM) records the number of co-occurrences of tok
 
 ```r
 require(quanteda)
+require(quanteda.textplots)
 require(quanteda.corpora)
 ```
 
@@ -23,8 +24,9 @@ When a corpus is large, you have to select features of a DFM before constructing
 
 
 ```r
-dfmat_news <- dfm(corp_news, remove = stopwords("en"), remove_punct = TRUE)
-dfmat_news <- dfm_remove(dfmat_news, pattern = c("*-time", "updated-*", "gmt", "bst", "|"))
+toks_news <- tokens(corp_news, remove_punct = TRUE)
+dfmat_news <- dfm(toks_news)
+dfmat_news <- dfm_remove(dfmat_news, pattern = c(stopwords("en"), "*-time", "updated-*", "gmt", "bst"))
 dfmat_news <- dfm_trim(dfmat_news, min_termfreq = 100)
 
 topfeatures(dfmat_news)
@@ -42,7 +44,7 @@ nfeat(dfmat_news)
 ```
 
 ```
-## [1] 4210
+## [1] 4211
 ```
 
 You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequntly co-occuring words.
@@ -54,7 +56,7 @@ dim(fcmat_news)
 ```
 
 ```
-## [1] 4210 4210
+## [1] 4211 4211
 ```
 
 ```r
@@ -63,7 +65,7 @@ topfeatures(fcmat_news)
 
 ```
 ##   trump    said clinton    cruz sanders     one     new    also    2015  donald 
-## 2864015 2181723 2003017 1873907 1806663 1721386 1507496 1408247 1388364 1181398
+## 2864282 2181723 2003177 1874066 1806836 1721386 1507496 1408247 1388757 1181541
 ```
 
 You can select features of a FCM using `fcm_select()`.

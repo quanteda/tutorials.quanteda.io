@@ -6,6 +6,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+require(quanteda.textstats)
 options(width = 110)
 ```
 
@@ -15,14 +16,6 @@ options(width = 110)
 toks_inaug <- tokens(data_corpus_inaugural, remove_punct = TRUE)
 dfmat_inaug <- dfm(toks_inaug)
 print(dfmat_inaug)
-```
-
-If a corpus object is given to `dfm()`, it tokenizes texts internally with the same level of control through the `remove_*` arguments of `tokens()`. Therefore, the code above and below are equivalent.
-
-```{r eval=FALSE}
-dfmat_inaug <- data_corpus_inaugural %>% 
-    tokens(remove_punct = TRUE) %>% 
-    dfm()
 ```
 
 You can get the number of documents and features `ndoc()` and `nfeat()`.

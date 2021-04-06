@@ -7,6 +7,7 @@ draft: false
 
 ```{r message=FALSE}
 require(quanteda)
+require(quanteda.textstats)
 require(quanteda.corpora)
 ```
 
@@ -30,7 +31,7 @@ tstat_col_caps <- tokens_select(toks_news, pattern = "^[A-Z]",
                                 valuetype = "regex", 
                                 case_insensitive = FALSE, 
                                 padding = TRUE) %>% 
-           textstat_collocations(min_count = 100)
+                  textstat_collocations(min_count = 100)
 head(tstat_col_caps, 20)
 ```
 
@@ -41,7 +42,7 @@ tstat_col2 <- tokens_select(toks_news, pattern = "^[A-Z]",
                                 valuetype = "regex", 
                                 case_insensitive = FALSE, 
                                 padding = TRUE) %>% 
-            textstat_collocations(min_count = 100, size = 3)
+              textstat_collocations(min_count = 100, size = 3)
 head(tstat_col2, 20)
 ```
 

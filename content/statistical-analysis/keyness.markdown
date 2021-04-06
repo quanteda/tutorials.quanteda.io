@@ -10,6 +10,8 @@ Keyness is a signed two-by-two association scores originally implemented in [Wor
 
 ```r
 require(quanteda)
+require(quanteda.textstats)
+require(quanteda.textplots)
 require(quanteda.corpora)
 require(lubridate)
 ```

@@ -146,7 +146,7 @@ kwic(toks, dict_newsmap["AFRICA"])
 ```
 
 ```
-##                                                                             
+## Keyword-in-context with 2 matches.                                                                            
 ##  [BNP, 3116] , with Rome and Ancient | Egypt  | being well known examples of
 ##  [BNP, 3149]   purpose. The Balkans, | Rwanda | , Indonesia, Ulster,
 ```
@@ -203,7 +203,7 @@ dfm(dict_toks)
 ```
 
 ```
-## Document-feature matrix of: 9 documents, 2 features (38.9% sparse).
+## Document-feature matrix of: 9 documents, 2 features (38.89% sparse) and 0 docvars.
 ##               features
 ## docs           refugee worker
 ##   BNP               12      2
