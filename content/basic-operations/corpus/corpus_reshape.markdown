@@ -126,7 +126,7 @@ ndoc(corp_doc)
 ## [1] 9
 ```
 
-If you apply `corpus_subset()` to `corp_sent`, you can only keep long senteces (more than 10 words).
+If you apply `corpus_subset()` to `corp_sent`, you can only keep long sentences (more than 10 words).
 
 
 ```r
