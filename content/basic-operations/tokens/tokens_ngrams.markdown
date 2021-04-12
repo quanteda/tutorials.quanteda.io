@@ -1,5 +1,5 @@
 ---
-title: Genarate n-grams
+title: Generate n-grams
 weight: 60
 draft: false
 ---
