@@ -16,7 +16,7 @@ This website is created for workshops held by the **quanteda** team and for user
 
 You can not only see the R commands but execute them yourself if you [download the source code of this website](https://github.com/quanteda/tutorials.quanteda.io/archive/master.zip) from the [Github repository](https://github.com/quanteda/tutorials.quanteda.io). You should unzip the files on your machine and click `quanteda.tutorials.Rproj` to open RStudio. Executable R commands are in the `.Rmarkdown` files under the `content` folder.
 
-Contributions in the form of feedback, comments, code, and bug reports are most welcome. If you want to change the content of the pages, please edit `.Rmarkdown` (instead of `.markdown`) files in the `content` folder and issue a pull request on [Github](https://github.com/quanteda/tutorials.quanteda.io).
+Contributions in the form of feedback, comments, code, and bug reports are most welcome. If you want to change the content of the pages, please edit the `.Rmarkdown` (instead of `.markdown`) files in the `content` folder and issue a pull request on [Github](https://github.com/quanteda/tutorials.quanteda.io).
 
 If you have questions on how to use **quanteda**, please post them to [the quanteda channel on StackOverflow](https://stackoverflow.com/questions/tagged/quanteda). If you find a bug, please report it to the [quanteda issues](https://github.com/quanteda/quanteda/issues). *We prefer these platforms to emails in communicating with our users* because the records will help other users who face similar problems.
 
