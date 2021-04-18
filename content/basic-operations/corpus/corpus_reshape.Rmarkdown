@@ -32,7 +32,7 @@ print(corp_doc)
 ndoc(corp_doc)
 ```
 
-If you apply `corpus_subset()` to `corp_sent`, you can only keep long senteces (more than 10 words).
+If you apply `corpus_subset()` to `corp_sent`, you can only keep long sentences (more than 10 words).
 
 ```{r}
 corp_sent_long <- corpus_subset(corp_sent, ntoken(corp_sent) >= 10)
