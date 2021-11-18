@@ -72,7 +72,7 @@ From the cross-table we see that the number of false positives and false negativ
 We can use the function `confusionMatrix()` from the **caret** package to assess the performance of the classification.
 
 ```{r}
-confusionMatrix(tab_class, mode = "everything")
+confusionMatrix(tab_class, mode = "everything", positive = "pos")
 ```
 
 {{% notice note %}}
