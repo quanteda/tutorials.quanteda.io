@@ -43,7 +43,7 @@ We will use the **readtext** package to read in different types of text data in 
 install.packages("readtext")
 ```
 
-We will also use extra datasets in tutorials that are available in **quanteda.corpora**. This package is not on CRAN, but can be installed with the `install_github()` function from the **devools** package
+We will also use extra datasets in tutorials that are available in **quanteda.corpora**. This package is not on CRAN, but can be installed with the `install_github()` function from the **devtools** package
 
 ```{r, eval=FALSE}
 install.packages("devtools") # get devtools to install quanteda.corpora
