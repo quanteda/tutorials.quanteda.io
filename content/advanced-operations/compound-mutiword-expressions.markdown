@@ -29,7 +29,7 @@ We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_r
 
 
 ```r
-toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, pading = TRUE) %>% 
+toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, padding = TRUE) %>% 
     tokens_remove(stopwords("en"), padding = TRUE)
 ```
 
