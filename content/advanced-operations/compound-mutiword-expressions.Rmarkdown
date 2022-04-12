@@ -30,7 +30,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. 
 
 ```{r}
-toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, pading = TRUE) %>% 
+toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, padding = TRUE) %>% 
     tokens_remove(stopwords("en"), padding = TRUE)
 ```
 
