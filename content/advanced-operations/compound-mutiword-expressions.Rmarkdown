@@ -30,7 +30,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. 
 
 ```{r}
-toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, pading = TRUE) %>% 
+toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, padding = TRUE) %>% 
     tokens_remove(stopwords("en"), padding = TRUE)
 ```
 
@@ -47,7 +47,7 @@ tstat_col_cap <- textstat_collocations(toks_news_cap, min_count = 10, tolower = 
 head(tstat_col_cap, 20)
 ```
 
-We will only compound strongly associated multi-word expressions here by subsetting `tstat_col_cap` with the z-score (`z < 3`).
+We will only compound strongly associated multi-word expressions here by subsetting `tstat_col_cap` with the z-score (`z > 3`).
 
 ```{r}
 toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3], 

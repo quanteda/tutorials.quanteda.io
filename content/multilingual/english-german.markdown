@@ -31,7 +31,7 @@ print(toks_eng[2], max_ndoc = 1, max_ntoken = -1)
 
 ```
 ## Tokens consisting of 1 document and 4 docvars.
-## eng :
+## eng.2 :
 ##   [1] "Whereas"       "recognition"   "inherent"      "dignity"       "equal"         "inalienable"  
 ##   [7] "rights"        "members"       "human"         "family"        "foundation"    "freedom"      
 ##  [13] "justice"       "peace"         "world"         "Whereas"       "disregard"     "contempt"     
@@ -100,7 +100,7 @@ print(toks_ger[2], max_ndoc = 1, max_ntoken = -1)
 
 ```
 ## Tokens consisting of 1 document and 4 docvars.
-## deu_1996 :
+## deu_1996.2 :
 ##   [1] "Anerkennung"        "angeborenen"        "gleichen"           "unveräußerlichen"   "Rechte"            
 ##   [6] "Mitglieder"         "Gemeinschaft"       "Menschen"           "Grundlage"          "Freiheit"          
 ##  [11] "Gerechtigkeit"      "Frieden"            "Welt"               "bildet"             "Nichtanerkennung"  

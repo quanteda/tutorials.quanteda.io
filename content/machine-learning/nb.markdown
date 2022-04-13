@@ -88,7 +88,7 @@ summary(tmod_nb)
 ## neg 0.002579 0.002318 0.0002870 0.0007157 0.002663 8.719e-05 0.0002652
 ## pos 0.001507 0.002338 0.0001656 0.0005456 0.002348 8.768e-05 0.0002728
 ##         drink     drive      get     accid      one       guy       die
-## neg 1.199e-04 0.0003052 0.004486 9.445e-05 0.007389 0.0014458 0.0005486
+## neg 1.199e-04 0.0003052 0.004486 9.445e-05 0.007389 0.0014458 0.0005485
 ## pos 9.417e-05 0.0002630 0.003783 1.851e-04 0.007355 0.0009937 0.0005488
 ##     girlfriend   continu      see     life  nightmar      deal    watch
 ## neg  0.0003124 0.0003161 0.002557 0.001435 0.0001199 0.0004323 0.001642
@@ -131,7 +131,7 @@ We can use the function `confusionMatrix()` from the **caret** package to assess
 
 
 ```r
-confusionMatrix(tab_class, mode = "everything")
+confusionMatrix(tab_class, mode = "everything", positive = "pos")
 ```
 
 ```
@@ -151,19 +151,19 @@ confusionMatrix(tab_class, mode = "everything")
 ##                                           
 ##  Mcnemar's Test P-Value : 0.4395          
 ##                                           
-##             Sensitivity : 0.8520          
-##             Specificity : 0.8200          
-##          Pos Pred Value : 0.8256          
-##          Neg Pred Value : 0.8471          
-##               Precision : 0.8256          
-##                  Recall : 0.8520          
-##                      F1 : 0.8386          
+##             Sensitivity : 0.8200          
+##             Specificity : 0.8520          
+##          Pos Pred Value : 0.8471          
+##          Neg Pred Value : 0.8256          
+##               Precision : 0.8471          
+##                  Recall : 0.8200          
+##                      F1 : 0.8333          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.4260          
-##    Detection Prevalence : 0.5160          
+##          Detection Rate : 0.4100          
+##    Detection Prevalence : 0.4840          
 ##       Balanced Accuracy : 0.8360          
 ##                                           
-##        'Positive' Class : neg             
+##        'Positive' Class : pos             
 ## 
 ```
 
@@ -172,5 +172,5 @@ Precision, recall and the F1 score are frequently used to assess the classificat
 {{% /notice %}}
 
 {{% notice ref %}}
-- Jurafsky, Daniel, and James H. Martin. 2018. [_Speech and Language Processing. An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition_](https://web.stanford.edu/~jurafsky/slp3/4.pdf). Draft of 3rd edition, September 23, 2018 (Chapter 4). 
+- Jurafsky, Daniel, and James H. Martin. 2021 [_Speech and Language Processing. An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition_](https://web.stanford.edu/~jurafsky/slp3/4.pdf). Draft of 3rd edition, December 29, 2021 (Chapter 4). 
 {{% /notice%}}

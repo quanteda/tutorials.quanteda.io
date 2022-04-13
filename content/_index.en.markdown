@@ -21,10 +21,10 @@ Contributions in the form of feedback, comments, code, and bug reports are most 
 If you have questions on how to use **quanteda**, please post them to [the quanteda channel on StackOverflow](https://stackoverflow.com/questions/tagged/quanteda). If you find a bug, please report it to the [quanteda issues](https://github.com/quanteda/quanteda/issues). *We prefer these platforms to emails in communicating with our users* because the records will help other users who face similar problems.
 
 {{% notice note %}}
-Examples in this tutorial are written for **quanteda** version 3.0.0. Please check if you have the same version installed by a command `packageVersion("quanteda")`. 
+Examples in this tutorial are written for **quanteda** version 3.2.1. Please check if you have the same version installed by a command `packageVersion("quanteda")`. 
 {{% /notice %}}
 
 {{% notice cite %}}
-- Watanabe, Kohei and Stefan Müller. 2021. "Quanteda Tutorials". https://tutorials.quanteda.io.
+- Watanabe, Kohei and Stefan Müller. 2022. "Quanteda Tutorials". https://tutorials.quanteda.io.
 - Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, and Akitaka Matsuo. 2018.  "quanteda: An R package for the quantitative analysis of textual data". _Journal of Open Source Software_ 3(30), 774. https://doi.org/10.21105/joss.00774.  
 {{% /notice %}}

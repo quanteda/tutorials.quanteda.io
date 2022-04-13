@@ -63,28 +63,28 @@ terms(tmod_lda, 10)
 ```
 
 ```
-##       topic1       topic2      topic3   topic4    topic5       topic6      
-##  [1,] "australia"  "oil"       "love"   "clinton" "climate"    "housing"   
-##  [2,] "australian" "markets"   "park"   "sanders" "water"      "customers" 
-##  [3,] "labor"      "prices"    "series" "cruz"    "education"  "income"    
-##  [4,] "turnbull"   "banks"     "game"   "hillary" "violence"   "sales"     
-##  [5,] "senate"     "shares"    "music"  "obama"   "drug"       "homes"     
-##  [6,] "apple"      "rates"     "wife"   "trump's" "medical"    "businesses"
-##  [7,] "google"     "investors" "knew"   "bernie"  "hospital"   "food"      
-##  [8,] "malcolm"    "trading"   "room"   "ted"     "food"       "funding"   
-##  [9,] "coalition"  "quarter"   "video"  "rubio"   "population" "costs"     
-## [10,] "budget"     "sales"     "couple" "senator" "girls"      "sold"      
-##       topic7        topic8     topic9       topic10   
-##  [1,] "refugees"    "officers" "corbyn"     "syria"   
-##  [2,] "brussels"    "prison"   "johnson"    "isis"    
-##  [3,] "talks"       "victims"  "leadership" "military"
-##  [4,] "french"      "criminal" "shadow"     "islamic" 
-##  [5,] "summit"      "sexual"   "jeremy"     "un"      
-##  [6,] "migrants"    "officer"  "tory"       "syrian"  
-##  [7,] "refugee"     "crime"    "cabinet"    "forces"  
-##  [8,] "benefits"    "arrested" "boris"      "muslim"  
-##  [9,] "immigration" "alleged"  "doctors"    "peace"   
-## [10,] "asylum"      "abuse"    "khan"       "russian"
+##       topic1      topic2     topic3    topic4    topic5      topic6    
+##  [1,] "oil"       "officers" "climate" "clinton" "doctors"   "syria"   
+##  [2,] "markets"   "prison"   "water"   "sanders" "violence"  "isis"    
+##  [3,] "sales"     "victims"  "energy"  "cruz"    "nhs"       "military"
+##  [4,] "prices"    "criminal" "food"    "hillary" "education" "un"      
+##  [5,] "banks"     "dead"     "gas"     "obama"   "medical"   "islamic" 
+##  [6,] "investors" "charges"  "project" "trump's" "hospital"  "syrian"  
+##  [7,] "rates"     "incident" "china"   "bernie"  "drug"      "muslim"  
+##  [8,] "sector"    "officer"  "air"     "ted"     "schools"   "forces"  
+##  [9,] "shares"    "arrested" "chinese" "rubio"   "child"     "russian" 
+## [10,] "trading"   "black"    "land"    "senator" "study"     "peace"   
+##       topic7     topic8       topic9       topic10       
+##  [1,] "game"     "corbyn"     "australia"  "refugees"    
+##  [2,] "apple"    "johnson"    "australian" "brussels"    
+##  [3,] "facebook" "leadership" "labor"      "talks"       
+##  [4,] "google"   "shadow"     "turnbull"   "french"      
+##  [5,] "users"    "boris"      "senate"     "summit"      
+##  [6,] "games"    "jeremy"     "budget"     "migrants"    
+##  [7,] "music"    "tory"       "coalition"  "greece"      
+##  [8,] "play"     "khan"       "funding"    "benefits"    
+##  [9,] "iphone"   "scotland"   "malcolm"    "refugee"     
+## [10,] "video"    "commons"    "laws"       "negotiations"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -95,8 +95,12 @@ head(topics(tmod_lda), 20)
 ```
 
 ```
-##  [1] topic5 topic9 topic1 topic8 topic8 topic2 topic3 topic9 topic9 topic3
-## [11] topic9 topic8 topic9 topic2 topic3 topic2 topic5 topic4 topic3 topic9
+## text136751 text136585 text139163 text169133 text153451 text163885 text157885 
+##     topic7     topic8     topic7     topic2     topic2     topic3     topic7 
+## text173244 text137394 text169408 text184646 text127410 text134923 text169695 
+##     topic3     topic9     topic7     topic8     topic2     topic8     topic1 
+## text147917 text157535 text177078 text174393 text181782 text143323 
+##     topic7     topic3     topic3     topic4     topic5     topic8 
 ## 10 Levels: topic1 topic2 topic3 topic4 topic5 topic6 topic7 topic8 ... topic10
 ```
 
@@ -111,7 +115,7 @@ table(dfmat_news$topic)
 ```
 ## 
 ##  topic1  topic2  topic3  topic4  topic5  topic6  topic7  topic8  topic9 topic10 
-##     153     175     242     197     207     250      69     244     227     188
+##     262     253     203     203     209     180     204     207     161      70
 ```
 
 ### Seeded LDA
@@ -160,21 +164,21 @@ terms(tmod_slda, 20)
 ##  [3,] "stock"       "politician"  "prison"      "diplomatic" "army"      
 ##  [4,] "banking"     "voter"       "hospitals"   "diplomats"  "soldiers"  
 ##  [5,] "shop"        "lawmakers"   "prisons"     "diplomat"   "terrorists"
-##  [6,] "shopping"    "refugees"    "prisoners"   "embassy"    "navy"      
-##  [7,] "bank's"      "syria"       "hospitality" "labor"      "marine"    
-##  [8,] "marketing"   "isis"        "prisoner"    "corbyn"     "soldier"   
-##  [9,] "shops"       "un"          "officers"    "johnson"    "clinton"   
-## [10,] "bankers"     "syrian"      "violence"    "turnbull"   "sanders"   
-## [11,] "stocks"      "turkey"      "cases"       "budget"     "cruz"      
-## [12,] "shoppers"    "islamic"     "sexual"      "australian" "obama"     
-## [13,] "bond"        "aid"         "child"       "cabinet"    "hillary"   
-## [14,] "bonds"       "forces"      "abuse"       "benefits"   "trump's"   
-## [15,] "bankruptcy"  "refugee"     "drug"        "leadership" "bernie"    
-## [16,] "bankrupt"    "peace"       "facebook"    "shadow"     "gun"       
-## [17,] "banker"      "asylum"      "officer"     "australia"  "senator"   
-## [18,] "stockport"   "border"      "medical"     "talks"      "ted"       
-## [19,] "marketplace" "french"      "parents"     "coalition"  "rubio"     
-## [20,] "oil"         "russian"     "died"        "brussels"   "primary"
+##  [6,] "shopping"    "clinton"     "prisoners"   "embassy"    "navy"      
+##  [7,] "bank's"      "sanders"     "hospitality" "labor"      "marine"    
+##  [8,] "marketing"   "cruz"        "prisoner"    "corbyn"     "soldier"   
+##  [9,] "shops"       "obama"       "violence"    "johnson"    "refugees"  
+## [10,] "bankers"     "hillary"     "officers"    "turnbull"   "syria"     
+## [11,] "stocks"      "trump's"     "cases"       "budget"     "isis"      
+## [12,] "shoppers"    "bernie"      "parents"     "cabinet"    "un"        
+## [13,] "bond"        "senator"     "sexual"      "australian" "syrian"    
+## [14,] "bonds"       "ted"         "abuse"       "benefits"   "turkey"    
+## [15,] "bankruptcy"  "rubio"       "drug"        "talks"      "islamic"   
+## [16,] "bankrupt"    "gun"         "facebook"    "brussels"   "aid"       
+## [17,] "banker"      "primary"     "victims"     "shadow"     "forces"    
+## [18,] "stockport"   "race"        "child"       "coalition"  "border"    
+## [19,] "marketplace" "candidates"  "officer"     "leadership" "french"    
+## [20,] "oil"         "kasich"      "mental"      "australia"  "refugee"
 ```
 
 `topics()` on returns dictionary keys as the most likely topics of documents.
@@ -185,9 +189,12 @@ head(topics(tmod_slda), 20)
 ```
 
 ```
-##  [1] economy   diplomacy economy   society   society   economy   military 
-##  [8] politics  diplomacy society   diplomacy society   diplomacy economy  
-## [15] society   economy   economy   military  society   diplomacy
+## text136751 text136585 text139163 text169133 text153451 text163885 text157885 
+##    economy  diplomacy    economy    society    society    economy   politics 
+## text173244 text137394 text169408 text184646 text127410 text134923 text169695 
+##   military  diplomacy    society  diplomacy    society  diplomacy    economy 
+## text147917 text157535 text177078 text174393 text181782 text143323 
+##   politics    economy    economy    society    society  diplomacy 
 ## Levels: economy politics society diplomacy military
 ```
 
@@ -202,13 +209,13 @@ table(dfmat_news$topic2)
 ```
 ## 
 ##   economy  politics   society diplomacy  military 
-##       508       279       598       356       211
+##       497       218       564       353       320
 ```
 
 {{% notice ref %}}
 
-- Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "Latent Dirichlet Allocation." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
-- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. 2011. "[Multi-aspect sentiment analysis with topic models](https://www.cs.cornell.edu/home/cardie/papers/masa-sentire-2011.pdf)". _Proceeding of the 2011 IEEE 11th International Conference on Data Mining Workshops_, 81–88.
+- Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "[Latent Dirichlet Allocation](https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf)." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
+- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. 2011. "[Multi-aspect Sentiment Analysis with Topic Models](https://www.cs.cornell.edu/home/cardie/papers/masa-sentire-2011.pdf)". _Proceeding of the 2011 IEEE 11th International Conference on Data Mining Workshops_, 81–88.
 
 {{% /notice %}}
 

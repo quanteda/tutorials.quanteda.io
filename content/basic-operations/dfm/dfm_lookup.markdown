@@ -51,9 +51,9 @@ print(dfmat_irish_lg)
 ## docs                   CULTURE ECONOMY ENVIRONMENT GROUPS INSTITUTIONS LAW_AND_ORDER RURAL URBAN VALUES
 ##   Lenihan, Brian (FF)        9     583          21      0           93            11     9     0     19
 ##   Bruton, Richard (FG)      35     201           5      0           95            14     0     0     14
-##   Burton, Joan (LAB)        33     401           6      3           84             6     2     3      6
+##   Burton, Joan (LAB)        33     400           6      3           84             6     2     3      6
 ##   Morgan, Arthur (SF)       56     427          10      0           63            22     2     1     18
-##   Cowen, Brian (FF)         16     417          24      0           63             4     8     1     13
+##   Cowen, Brian (FF)         16     416          24      0           63             4     8     1     13
 ##   Kenny, Enda (FG)          26     211           8      1           53            18     0     2      8
 ## [ reached max_ndoc ... 8 more documents ]
 ```
