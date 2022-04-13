@@ -92,7 +92,7 @@ tmod_lss <- textmodel_lss(dfmat_sent, seeds = seed,
 ```
 
 ```
-## Writing cache file: lss_cache/svds_b0e6cc8b40ebfc68.RDS
+## Reading cache file: lss_cache/svds_b0e6cc8b40ebfc68.RDS
 ```
 
 
@@ -182,5 +182,5 @@ abline(h = 0, lty = c(1, 2))
 <img src="/machine-learning/lss.en_files/figure-html/unnamed-chunk-13-1.png" width="960" />
 
 {{% notice ref %}}
-- Watanabe, K. 2020. "[Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976)". _Communication Methods and Measures_. 
+- Watanabe, K. 2021. "[Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976)". _Communication Methods and Measures_ 15(2): 81-102. 
 {{% /notice %}}

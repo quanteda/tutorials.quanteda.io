@@ -127,6 +127,6 @@ textplot_scale1d(pred_ws)
 
 
 {{% notice ref %}}
-- Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "Extracting Policy Positions From Political Texts Using Words as Data." _American Political Science Review_ 97(2): 311-331.  
-- Lowe, Will. 2008. "Understanding Wordscores." _Political Analysis_ 16(4): 356-371.
+- Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "[Extracting Policy Positions From Political Texts Using Words as Data](https://doi.org/10.1017/S0003055403000698)." _American Political Science Review_ 97(2): 311-331.  
+- Lowe, Will. 2008. "[Understanding Wordscores](https://doi.org/10.1093/pan/mpn004)." _Political Analysis_ 16(4): 356-371.
 {{% /notice%}}
