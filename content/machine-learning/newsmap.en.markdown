@@ -142,9 +142,10 @@ head(pred_nm, 20)
 
 ```
 ##  text1  text2  text3  text4  text5  text6  text7  text8  text9 text10 text11 
-##   "KP"   "SY"   "IQ"   "RU"   "TH"   "CN"   "UA"   "SY"   "GB"   "US"   "SY" 
+##     KP     SY     IQ     RU     TH     CN     UA     SY     GB     US     SY 
 ## text12 text13 text14 text15 text16 text17 text18 text19 text20 
-##   "US"   "UA"   "SY"   "LK"   "ES"   "AU"   "CR"   "ID"   "BH"
+##     US     UA     SY     LK     ES     AU     CR     ID     BH 
+## 204 Levels: BI DJ ER ET KE MG MU MW MZ RE RW SO TZ UG ZM ZW AO CD CF CG ... WS
 ```
 
 Factor levels are set to obtain zero counts for countries that did not appear in the corpus.

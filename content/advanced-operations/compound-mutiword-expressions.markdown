@@ -33,10 +33,6 @@ toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, paddi
     tokens_remove(stopwords("en"), padding = TRUE)
 ```
 
-```
-## Warning: pading argument is not used.
-```
-
 One of the most common type of multi-word expressions is proper names, which we can select simply based on capitalization in English texts.
 
 
@@ -53,26 +49,26 @@ head(tstat_col_cap, 20)
 
 ```
 ##           collocation count count_nested length    lambda         z
-## 1       David Cameron   861            0      2  8.159232 147.27725
-## 2        Donald Trump   774            0      2  8.326850 122.69417
-## 3      George Osborne   364            0      2  8.660679 107.61955
-## 4     Hillary Clinton   527            0      2  9.109436 102.41482
-## 5            New York  1016            0      2 10.447749 100.26546
-## 6       Islamic State   330            0      2  9.802083  98.14442
-## 7         White House   479            0      2  9.921867  96.17493
-## 8      European Union   351            0      2  8.261458  94.76074
-## 9       Jeremy Corbyn   244            0      2  8.729428  90.79316
-## 10      Boris Johnson   245            0      2  9.664060  84.76700
-## 11     Bernie Sanders   394            0      2  9.901301  84.61682
-## 12 Guardian Australia   237            0      2  6.329359  83.70146
-## 13   Northern Ireland   205            0      2  9.883087  83.25673
-## 14        Home Office   216            0      2  9.690405  78.66972
-## 15        Ed Miliband   174            0      2  9.867962  78.44764
-## 16           Ted Cruz   417            0      2 10.756268  77.87774
-## 17       Barack Obama   344            0      2  9.775204  77.72635
-## 18       South Africa   172            0      2  7.568553  77.61108
-## 19     South Carolina   271            0      2  9.404656  76.80054
-## 20       Black Friday   190            0      2  8.458893  76.79848
+## 1       David Cameron   860            0      2  8.288932 149.63137
+## 2        Donald Trump   774            0      2  8.459635 124.65110
+## 3      George Osborne   362            0      2  8.780452 109.09755
+## 4     Hillary Clinton   525            0      2  9.226408 104.05605
+## 5            New York  1016            0      2 10.580500 101.53958
+## 6       Islamic State   330            0      2  9.934794  99.47335
+## 7         White House   479            0      2 10.054592  97.46159
+## 8      European Union   348            0      2  8.371449  96.20098
+## 9       Jeremy Corbyn   244            0      2  8.862147  92.17368
+## 10      Boris Johnson   245            0      2  9.796771  85.93115
+## 11     Bernie Sanders   394            0      2 10.034026  85.75118
+## 12 Guardian Australia   237            0      2  6.460533  85.44272
+## 13   Northern Ireland   205            0      2 10.015792  84.37474
+## 14        Home Office   216            0      2  9.823115  79.74718
+## 15        Ed Miliband   173            0      2  9.984852  79.42691
+## 16       Barack Obama   343            0      2  9.892183  78.99228
+## 17       South Africa   172            0      2  7.701286  78.97229
+## 18           Ted Cruz   417            0      2 10.888985  78.83869
+## 19       Black Friday   190            0      2  8.591620  78.00359
+## 20     South Carolina   271            0      2  9.537382  77.88448
 ```
 
 We will only compound strongly associated multi-word expressions here by subsetting `tstat_col_cap` with the z-score (`z > 3`).
@@ -86,26 +82,15 @@ head(kw_comp, 10)
 ```
 
 ```
-## Keyword-in-context with 10 matches.                                                                                      
-##     [text9204, 351]         however researchers publishing | British_Medical_Journal |
-##   [text150582, 329] overseas territories including Bermuda | British_Virgin_Islands  |
-##   [text150582, 584]                        included Panama | British_Virgin_Islands  |
-##   [text120395, 971]        John_Longworth director general |    British_Chambers     |
-##     [text3527, 155]                           sacked mayor |  London_Boris_Johnson   |
-##  [text145860, 1584]              rental period Association |    British_Insurers     |
-##   [text148174, 391]                 EZY5258 Rome Fiumicino |     London_Gatwick      |
-##    [text109224, 17]                            Coast range |    British_Columbia     |
-##   [text109224, 101]                                  coast |    British_Columbia     |
-##   [text109224, 194]                          Alberta coast |    British_Columbia     |
-##                             
-##  found drop heart           
-##  Cayman_Islands legislation 
-##  published commission       
-##  Commerce said businesses   
-##  Blair told inquiry         
-##  ABI says insurers becoming 
-##  29 March delayed           
-##  Hanging nearly             
-##  Today however Chief Na'Moks
-##  plan carry
+## Keyword-in-context with 10 matches.                                                                                               
+##     [text9204, 398] researchers publishing | British_Medical_Journal | found drop heart        
+##   [text150582, 373]      including Bermuda | British_Virgin_Islands  | Cayman_Islands          
+##   [text150582, 663]        included Panama | British_Virgin_Islands  | published               
+##  [text120395, 1117]       director general |    British_Chambers     | Commerce said businesses
+##    [text64192, 300]   Guardian 90 York_Way |        London_N1        | 9GU Please include      
+##  [text145860, 1814]            Association |    British_Insurers     | ABI says insurers       
+##   [text148174, 435] EZY5258 Rome Fiumicino |     London_Gatwick      | 29 March delayed        
+##    [text109224, 17]            Coast range |    British_Columbia     | Hanging                 
+##   [text109224, 115]                  coast |    British_Columbia     | Today however           
+##   [text109224, 220]          Alberta coast |    British_Columbia     | plan
 ```

@@ -92,7 +92,7 @@ tmod_lss <- textmodel_lss(dfmat_sent, seeds = seed,
 ```
 
 ```
-## Reading cache file: lss_cache/svds_eac1aacb727e5128.RDS
+## Writing cache file: lss_cache/svds_b0e6cc8b40ebfc68.RDS
 ```
 
 
@@ -101,14 +101,14 @@ head(coef(tmod_lss), 20) # most positive words
 ```
 
 ```
-##      status    positive     quarter       third    strategy     rolling 
-##  0.09776482  0.09765251  0.07211174  0.06657593  0.06424124  0.06345038 
-##      slowed     welcome      fourth    maintain         key      polled 
-##  0.06302725  0.05989433  0.05975046  0.05920437  0.05887532  0.05797763 
-##        halt     overall       hopes     current     reasons sustainable 
-##  0.05778025  0.05737707  0.05606018  0.05556903  0.05457354  0.05179729 
-##        term      strong 
-##  0.05061333  0.04788726
+##        good      status    positive opportunity     success      energy 
+##  0.12822551  0.09776482  0.09765251  0.09381356  0.07952077  0.07830681 
+##     quarter       third       model    strategy     rolling      slowed 
+##  0.07211174  0.06657593  0.06474845  0.06424124  0.06345038  0.06302725 
+##     welcome      fourth    maintain         key      points    regional 
+##  0.05989433  0.05975046  0.05920437  0.05887532  0.05830341  0.05798655 
+##      polled        halt 
+##  0.05797763  0.05778025
 ```
 
 ```r
@@ -116,10 +116,10 @@ tail(coef(tmod_lss), 20) # most negative words
 ```
 
 ```
-##        fears        worse policymakers  uncertainty          low      raising 
-##  -0.08155263  -0.08342634  -0.08379120  -0.08644833  -0.08895333  -0.09099723 
-##        taxes      reserve          cut        raise       easing       blamed 
-##  -0.09112566  -0.09180054  -0.09293358  -0.09296114  -0.09337542  -0.09574268 
+##        worse policymakers  uncertainty          low      raising        taxes 
+##  -0.08342634  -0.08379120  -0.08644833  -0.08895333  -0.09099723  -0.09112566 
+##      reserve          cut        raise       easing       blamed       caused 
+##  -0.09180054  -0.09293358  -0.09296114  -0.09337542  -0.09574268  -0.09663011 
 ##      cutting     interest       warned       bubble        rates     negative 
 ##  -0.09668367  -0.10814302  -0.11510122  -0.11667443  -0.11899036  -0.12778956 
 ##         poor          bad 
@@ -134,7 +134,7 @@ textplot_terms(tmod_lss, data_dictionary_LSD2015["negative"])
 ```
 
 ```
-## Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider
+## Warning: ggrepel: 9 unlabeled data points (too many overlaps). Consider
 ## increasing max.overlaps
 ```
 
@@ -159,12 +159,12 @@ head(dat_smooth)
 
 ```
 ##         date time        fit    se.fit
-## 1 2012-01-02    0 -0.2304268 0.1260540
-## 2 2012-01-03    1 -0.2284891 0.1241404
-## 3 2012-01-04    2 -0.2265691 0.1222635
-## 4 2012-01-05    3 -0.2246667 0.1204228
-## 5 2012-01-06    4 -0.2227817 0.1186181
-## 6 2012-01-07    5 -0.2209140 0.1168490
+## 1 2012-01-02    0 -0.2941611 0.1258069
+## 2 2012-01-03    1 -0.2933006 0.1238591
+## 3 2012-01-04    2 -0.2924451 0.1219494
+## 4 2012-01-05    3 -0.2915943 0.1200775
+## 5 2012-01-06    4 -0.2907481 0.1182429
+## 6 2012-01-07    5 -0.2899064 0.1164455
 ```
 
 In the plot below, the circles are polarity scores of documents and the curve is their local means with 95% confidence intervals.
