@@ -89,5 +89,5 @@ head(toks_neg_bigram_select[[1]], 30)
 ```
 
 {{% notice tip %}}
-`tokens_ngrans()` is an efficient function, but it returns a large object if multiple values are given to `n` or `skip`. Since n-grams inflates the size of objects without adding much information, we recommend to generate n-grams more selectively using `tokens_compound()`.
+`tokens_ngrams()` is an efficient function, but it returns a large object if multiple values are given to `n` or `skip`. Since n-grams inflates the size of objects without adding much information, we recommend to generate n-grams more selectively using `tokens_compound()`.
 {{% /notice %}}
