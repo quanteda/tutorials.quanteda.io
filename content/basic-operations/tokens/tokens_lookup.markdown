@@ -72,7 +72,7 @@ dict_newsmap[["AFRICA"]][["NORTH"]]
 ## [ reached max_nkey ... 2 more keys ]
 ```
 
-The `levels` argument determines the keys to be recored in a resulting tokens object.
+The `levels` argument determines the keys to be recorded in a resulting tokens object.
 
 
 ```r
@@ -216,5 +216,5 @@ dfm(dict_toks)
 ```
 
 {{% notice tip %}}
-`tokens_lookup()` ignores multiple matches of dictionary values for the same key with the same token to avoide double counting. For example, if `US = c("United States of America", "United States")` is in your dictionary, you get "US" only once for a sequence of tokens `"United" "States" "of" "America"`.
+`tokens_lookup()` ignores multiple matches of dictionary values for the same key with the same token to avoid double counting. For example, if `US = c("United States of America", "United States")` is in your dictionary, you get "US" only once for a sequence of tokens `"United" "States" "of" "America"`.
 {{% /notice %}}
