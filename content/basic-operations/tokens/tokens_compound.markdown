@@ -16,7 +16,7 @@ options(width = 110)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-There are several multi-word expressions that are important in social scientific reserach.
+Various multi-word expressions are important in social scientific research.
 
 
 ```r
