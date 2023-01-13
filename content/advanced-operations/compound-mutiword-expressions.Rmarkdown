@@ -50,7 +50,7 @@ head(tstat_col_cap, 20)
 We will only compound strongly associated multi-word expressions here by subsetting `tstat_col_cap` with the z-score (`z > 3`).
 
 ```{r}
-toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3], 
+toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3,], 
                              case_insensitive = FALSE)
 kw_comp <- kwic(toks_comp, pattern = c("London_*", "British_*"))
 head(kw_comp, 10)
