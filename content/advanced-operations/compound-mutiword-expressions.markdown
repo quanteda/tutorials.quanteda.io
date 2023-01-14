@@ -75,7 +75,7 @@ We will only compound strongly associated multi-word expressions here by subsett
 
 
 ```r
-toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3], 
+toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3,], 
                              case_insensitive = FALSE)
 kw_comp <- kwic(toks_comp, pattern = c("London_*", "British_*"))
 head(kw_comp, 10)

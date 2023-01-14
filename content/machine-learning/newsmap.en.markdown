@@ -91,6 +91,10 @@ coef(tmod_nm, n = 15)[c("US", "GB", "FR", "BR", "JP")]
 ```
 
 ```
+## as(<matrix>, "dgTMatrix") is deprecated since Matrix 1.5-0; do as(as(as(., "dMatrix"), "generalMatrix"), "TsparseMatrix") instead
+```
+
+```
 ## $US
 ## WASHINGTON         US   American Washington       YORK     States  Americans 
 ##   7.154239   7.036785   6.829831   6.605774   6.369994   6.054570   5.359837 
