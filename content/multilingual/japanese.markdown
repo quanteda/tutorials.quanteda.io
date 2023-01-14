@@ -106,7 +106,7 @@ After compounding of statistically significantly associated collocations (`tstat
 
 ```r
 # compound collocations
-toks_comp <- tokens_compound(toks, tstat_col[tstat_col$z > 3], concatenator = "") %>% 
+toks_comp <- tokens_compound(toks, tstat_col[tstat_col$z > 3,], concatenator = "") %>% 
   tokens_keep(min_nchar = 2)
 print(toks_comp[2], max_ndoc = 1, max_ntok = -1)
 ```

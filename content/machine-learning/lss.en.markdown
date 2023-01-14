@@ -92,7 +92,7 @@ tmod_lss <- textmodel_lss(dfmat_sent, seeds = seed,
 ```
 
 ```
-## Reading cache file: lss_cache/svds_b0e6cc8b40ebfc68.RDS
+## Reading cache file: lss_cache/svds_8618fc7aeb7151e2.RDS
 ```
 
 
@@ -134,7 +134,7 @@ textplot_terms(tmod_lss, data_dictionary_LSD2015["negative"])
 ```
 
 ```
-## Warning: ggrepel: 9 unlabeled data points (too many overlaps). Consider
+## Warning: ggrepel: 7 unlabeled data points (too many overlaps). Consider
 ## increasing max.overlaps
 ```
 
