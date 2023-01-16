@@ -6,17 +6,17 @@ draft: false
 
 ## RStudio
 
-**quanteda** runs solely on [base R](https://cran.r-project.org/), but [RStudio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your objects. You will need to have [base R](https://cran.r-project.org/) installed, and we also recommend to install the latest version of [RStudio](https://www.rstudio.com/products/rstudio/download/).
+**quanteda** runs solely on [base R](https://cran.r-project.org/), but [RStudio](https://www.rstudio.com/products/rstudio/download/) makes it easy to write your code and inspect your objects. You will need to have [base R](https://cran.r-project.org/) installed, and we also recommend installing the latest version of [RStudio](https://www.rstudio.com/products/rstudio/download/).
 
 ## Quanteda
 
-First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or executing a command.
+First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or executing the following command.
 
 ```{r, eval=FALSE}
 install.packages("quanteda")
 ```
 
-Since the release of **quanteda** version 3.0, `textstat_*`, `textmodel_*` and `textplot_*` functions are available in separate packages. We will use several of these functions in the chapters below and strongly recommend to install these packages.
+Since the release of **quanteda** version 3.0, `textstat_*`, `textmodel_*` and `textplot_*` functions are available in separate packages. We will use several of these functions in the chapters below and strongly recommend installing these packages.
 
 ```{r, eval=FALSE}
 install.packages("quanteda.textmodels")
@@ -43,7 +43,7 @@ We will use the **readtext** package to read in different types of text data in 
 install.packages("readtext")
 ```
 
-We will also use extra datasets in tutorials that are available in **quanteda.corpora**. This package is not on CRAN, but can be installed with the `install_github()` function from the **devtools** package
+We will also use extra datasets in tutorials that are available in **quanteda.corpora**. This package is not on CRAN, but can be installed with the `install_github()` function from the **devtools** package, as shown below.
 
 ```{r, eval=FALSE}
 install.packages("devtools") # get devtools to install quanteda.corpora
@@ -52,7 +52,7 @@ devtools::install_github("quanteda/quanteda.corpora")
 
 
 {{% notice note %}}
-If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install the latest versions. We recommend to update all the packages using `update.packages()` to avoid errors caused by dependencies.
+If you already have **quanteda** and other packages installed, run Tools > Check for Package Updates to install the latest versions. We recommend updating all the packages using `update.packages()` to avoid errors caused by dependencies.
 {{% /notice %}}
 
 
@@ -64,7 +64,7 @@ The tutorials do not cover syntactical analysis, but you should install **spacyr
 install.packages("spacyr")
 ```
 
-Finally, we show how to use **newsmap** to [classify documents](https://tutorials.quanteda.io/machine-learning/newsmap/) based on "seed words" in dictionaries and the **seededlda** package to run topic models. You can download the packages from [CRAN](https://cran.r-project.org/package=newsmap).
+Finally, in the tutorials we will show how to use **newsmap** to [classify documents](https://tutorials.quanteda.io/machine-learning/newsmap/) based on "seed words" in dictionaries and the **seededlda** package to run topic models. You can download the packages from [CRAN](https://cran.r-project.org/package=newsmap).
 
 ```{r, eval=FALSE}
 install.packages("newsmap")

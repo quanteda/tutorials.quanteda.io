@@ -9,7 +9,7 @@ require(quanteda)
 require(readtext)
 ```
 
-A second option is to load multiple text files at once that are stored in the same folder or subfolders. Again, `path_data` is the location of sample files on your computer.
+A second option to import data is to load multiple text files at once that are stored in the same folder or subfolders. Again, `path_data` is the location of sample files on your computer.
 
 ```{r}
 path_data <- system.file("extdata/", package = "readtext")

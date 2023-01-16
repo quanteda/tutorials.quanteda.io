@@ -34,7 +34,7 @@ kw_immig3 <- kwic(toks, pattern = c("immig*", "migra*"), window = 7)
 head(kw_immig3, 10)
 ```
 
-If you want to find multi-word expressions, separate words by whitespace and wrap the character vector by `phrase()`.
+If you want to find multi-word expressions, separate words by white space and wrap the character vector by `phrase()`.
 
 ```{r}
 kw_asylum <- kwic(toks, pattern = phrase("asylum seeker*"))

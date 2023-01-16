@@ -8,7 +8,7 @@ draft: false
 require(quanteda)
 ```
 
-**quanteda**'s objects keep information associated with documents. They are called "document-level variables", or "docvars" and accessed using `docvars()`.
+**quanteda**'s objects keep information associated with documents. They are called "document-level variables", or "docvars", and are accessed using `docvars()`.
 
 ```{r}
 corp <- data_corpus_inaugural
@@ -38,7 +38,7 @@ docvars(corp, field = "Century") <- floor(docvars(corp, field = "Year") / 100) +
 head(docvars(corp))
 ```
 
-Alernatively, you can create the document-level variable using the `$` operator
+Alternatively, you can create the document-level variable using the `$` operator
 
 ```{r}
 corp$Century <- floor(corp$Year / 100) + 1

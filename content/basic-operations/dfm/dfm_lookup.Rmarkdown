@@ -28,6 +28,6 @@ print(dfmat_irish_lg)
 
 
 {{% notice note %}}
-`dfm_lookup()` cannot detect multi-word expressions since a document-feature matrix does not store information about positions of words. We recommend to use`tokens_lookup()` to detect or `tokens_copound()` to compound multi-word expressions before creating a DFM.
+`dfm_lookup()` cannot detect multi-word expressions since a document-feature matrix does not store information about positions of words. We recommend using `tokens_lookup()` to detect or `tokens_copound()` to compound multi-word expressions before creating a DFM.
 {{% /notice %}}
 
