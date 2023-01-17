@@ -8,7 +8,7 @@ draft: false
 require(quanteda)
 ```
 
-`corpus_reshape()` allows to change the unit of texts between documents, paragraphs and sentences. Since it records document identifiers, texts can be restored to the original unit even if the corpus is modified by other functions.
+`corpus_reshape()` allows you to change the unit of texts between documents, paragraphs and sentences. Since it records document identifiers, texts can be restored to the original unit even if the corpus is modified by other functions.
 
 ```{r}
 corp <- corpus(data_char_ukimmig2010)

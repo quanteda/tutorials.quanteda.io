@@ -20,7 +20,7 @@ toks_immig <- tokens(corp_immig)
 `tokens()` can tokenize texts in Asian languages such as Japanese or Chinese without additional tools thanks to the **stringi** package. See an example of in [documentation website](https://quanteda.io/articles/pkgdown/examples/chinese.html).
 {{% /notice %}}
 
-By default, `tokens()` only removes separators (typically whitespaces), but you can remove punctuation and numbers.
+By default, `tokens()` only removes separators (typically white spaces), but you can also remove punctuation and numbers.
 
 ```{r}
 toks_nopunct <- tokens(data_char_ukimmig2010, remove_punct = TRUE)

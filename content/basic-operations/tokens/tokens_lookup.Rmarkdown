@@ -13,7 +13,7 @@ options(width = 110)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-`tokens_lookup()` is the most flexible dictionary lookup function in **quanteda**. We use [geographical dictionary](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/newsmap.yml) from the [**newsmap**](https://cran.r-project.org/web/packages/newsmap/index.html) package as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats.
+`tokens_lookup()` is the most flexible dictionary look up function in **quanteda**. We use [geographical dictionary](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/newsmap.yml) from the [**newsmap**](https://cran.r-project.org/web/packages/newsmap/index.html) package as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats.
 
 ```{r}
 dict_newsmap <- dictionary(file = "../../dictionary/newsmap.yml")
