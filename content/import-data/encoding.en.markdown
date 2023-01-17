@@ -4,7 +4,7 @@ weight: 40
 draft: false
 ---
 
-Even if files are not saved in UTF-8, you can can extract information on character encoding from the file names and import the texts correctly.
+Even if files are not saved in UTF-8, you can extract information on character encoding from the file names and import the texts correctly.
 
 
 ```r

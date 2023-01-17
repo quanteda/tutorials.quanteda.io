@@ -6,18 +6,18 @@ draft: false
 
 **quanteda** has three basic types of objects:
 
-1.  [Corpus](basic-operations/corpus) (the links after Corpus, Tokens, and DFM don't work; 404 error on website; unsure of how to fix)
+1.  [Corpus](/basic-operations/corpus) (the links after Corpus, Tokens, and DFM don't work; 404 error on website; unsure of how to fix)
     
     * Saves character strings and variables in a data frame
     * Combines texts with document-level variables
 
-2.  [Tokens](basic-operations/tokens)
+2.  [Tokens](/basic-operations/tokens)
     
     * Stores tokens in a list of vectors
     * More efficient than character strings, but preserves positions of words 
     * Positional (string-of-words) analysis is performed using `textstat_collocations()`, `tokens_ngrams()` and `tokens_select()` or `fcm()` with `window` option
 
-3.  [Document-feature matrix (DFM)](basic-operations/dfm)
+3.  [Document-feature matrix (DFM)](/basic-operations/dfm)
 
     * Represents frequencies of features in documents in a matrix
     * The most efficient structure, but it does not have information on positions of words 
