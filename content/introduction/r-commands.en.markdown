@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-You do not need to have advanced knowledge of the R programming language to perform text analysis with **quanteda** because the package has a wide range of functions. However, you still have to understand a number of basic R commands.
+You do not need to have advanced knowledge of the R programming language to perform text analysis with **quanteda** because the package has a wide range of functions. However, you still need to understand a number of basic R commands.
 
 ## Basic R objects and commands
 
@@ -96,7 +96,7 @@ print(vec_logi_apple)
 ## [1]  TRUE FALSE FALSE FALSE
 ```
 
-You can also concatenate elements of character vectors using `paste()`. Since the two vectors in the example have the same length, elements at the same positions of the vectors are concatenated. 
+You can also concatenate elements of character vectors using `paste()`. Since the two vectors in the example have the same length, elements in the same position of the vectors are concatenated. 
 
 
 ```r
@@ -123,7 +123,7 @@ print(vec_num)
 
 ### Data frames
 
-A data frame combines multiple vectors to construct a dataset. You can combine vectors into a data frame only if they have the same lengths. However, they can be different types. `nrow()` and `ncol()` show the number of rows (observations) and variables in a data frame.
+A data frame combines multiple vectors to construct a dataset. You can only combine vectors into a data frame if they have the same lengths. However, they can be different types. `nrow()` and `ncol()` show the number of rows (observations) and variables in a data frame.
 
 
 ```r

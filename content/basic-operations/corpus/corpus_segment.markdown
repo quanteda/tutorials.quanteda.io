@@ -9,7 +9,7 @@ draft: false
 require(quanteda)
 ```
 
-Using `corpus_segment()`, you can extract segments of texts and tags from documents. This is particular useful when you analyze sections of documents or transcripts separately.
+Using `corpus_segment()`, you can extract segments of texts and tags from documents. This is particularly useful when you analyze sections of documents or transcripts separately.
 
 ### Document sections
 

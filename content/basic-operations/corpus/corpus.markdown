@@ -132,7 +132,7 @@ summary(corp_inaug, 5)
 ##  text5   804   2380        45 1805  Jefferson    Thomas
 ```
 
-You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc to a meaningful identifier. 
+You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc., to a meaningful identifier. 
 
 
 ```r
@@ -163,7 +163,7 @@ print(corp_inaug)
 
 ## Vcorpus
 
-**quanteda** also allows to import a **tm** `VCorpus` object.
+**quanteda** also allows you to import a **tm** `VCorpus` object.
 
 
 ```r

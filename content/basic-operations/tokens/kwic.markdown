@@ -92,7 +92,7 @@ head(kw_immig3, 10)
 ##  birth rate is estimated to be around
 ```
 
-If you want to find multi-word expressions, separate words by whitespace and wrap the character vector by `phrase()`.
+If you want to find multi-word expressions, separate words by white space and wrap the character vector by `phrase()`.
 
 
 ```r
