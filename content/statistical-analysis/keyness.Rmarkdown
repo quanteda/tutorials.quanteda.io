@@ -5,7 +5,7 @@ chapter: false
 draft: false
 ---
 
-Keyness is a signed two-by-two association scores originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to identify frequent words in documents in a target and reference group.
+Keyness is a signed two-by-two association score originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to identify frequent words in documents in a target and reference group.
 
 ```{r message=FALSE}
 require(quanteda)

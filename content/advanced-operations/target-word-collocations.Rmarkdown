@@ -26,7 +26,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 toks_news <- tokens(corp_news, remove_punct = TRUE)
 ```
 
-We select two tokens objects for words inside and outside of the 10-word windows of the keywords (`eu`). 
+We will select two tokens objects for words inside and outside of the 10-word windows of the keywords (`eu`). 
 
 ```{r}
 eu <- c("EU", "europ*", "european union")
@@ -35,7 +35,7 @@ toks_inside <- tokens_remove(toks_inside, pattern = eu) # remove the keywords
 toks_outside <- tokens_remove(toks_news, pattern = eu, window = 10)
 ```
 
-We compute words' association with the keywords using `textstat_keyness()`.
+We will compute words' association with the keywords using `textstat_keyness()`.
 
 ```{r}
 dfmat_inside <- dfm(toks_inside)
