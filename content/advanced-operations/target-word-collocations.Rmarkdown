@@ -35,7 +35,7 @@ toks_inside <- tokens_remove(toks_inside, pattern = eu) # remove the keywords
 toks_outside <- tokens_remove(toks_news, pattern = eu, window = 10)
 ```
 
-We will compute words' association with the keywords using `textstat_keyness()`.
+We can compute words' association with the keywords using `textstat_keyness()`.
 
 ```{r}
 dfmat_inside <- dfm(toks_inside)
