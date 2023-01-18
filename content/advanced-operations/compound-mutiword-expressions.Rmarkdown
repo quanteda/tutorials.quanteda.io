@@ -4,7 +4,7 @@ weight: 20
 draft: false
 ---
 
-We can compound multi-word expressions through collocation analysis. In this example, we identify sequences of capitalized words and compound them as proper names, which are important linguistic features of newspaper articles.
+We can compound multi-word expressions through collocation analysis. In this example, we will identify sequences of capitalized words and compound them as proper names, which are important linguistic features of newspaper articles.
 
 ```{r message=FALSE}
 require(quanteda)

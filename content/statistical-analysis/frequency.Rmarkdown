@@ -26,7 +26,7 @@ corp_tweets <- download(url = "https://www.dropbox.com/s/846skn1i5elbnd2/data_co
 corp_tweets <- readRDS("../data/data_corpus_sampletweets.rds")
 ```
 
-We analyse the most frequent hashtags by applying `tokens_keep(pattern = "#*")` before creating a DFM.
+We can analyse the most frequent hashtags by applying `tokens_keep(pattern = "#*")` before creating a DFM.
 
 ```{r}
 toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) %>% 
@@ -49,14 +49,14 @@ dfmat_tweets %>%
   theme_minimal()
 ```
 
-Alternatively, you can create a word cloud of the  100 most common hashtags.
+Alternatively, you can create a word cloud of the 100 most common hashtags.
 
 ```{r, height = 8, width = 8}
 set.seed(132)
 textplot_wordcloud(dfmat_tweets, max_words = 100)
 ```
 
-Finally, it is possible to compare different groups within one Wordcloud. We first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we compare the most frequent hashtags of English and non-English tweets.
+Finally, it is possible to compare different groups within one Wordcloud. We must first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we can compare the most frequent hashtags of English and non-English tweets.
 
 ```{r message=FALSE, warning=FALSE, height=8, width=8}
 # create document-level variable indicating whether tweet was in English or other language
