@@ -9,7 +9,7 @@ draft: false
 require(quanteda)
 ```
 
-**quanteda**'s objects keep information associated with documents. They are called "document-level variables", or "docvars" and accessed using `docvars()`.
+**quanteda**'s objects keep information associated with documents. They are called "document-level variables", or "docvars", and are accessed using `docvars()`.
 
 
 ```r
@@ -77,7 +77,7 @@ head(docvars(corp))
 ## 6 1809    Madison     James Democratic-Republican      19
 ```
 
-Alernatively, you can create the document-level variable using the `$` operator
+Alternatively, you can create the document-level variable using the `$` operator
 
 
 ```r

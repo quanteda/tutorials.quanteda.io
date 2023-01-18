@@ -20,7 +20,7 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-When a corpus is large, you have to select features of a DFM before constructing a FCM. In the example below, we first remove all stopwords and punctuation characters. Afterwards, we remove certain patterns that usually desciribe the publication time and date of articles. The third row keeps only terms that occur at least 100 times in the document-feature matrix. 
+When a corpus is large, you have to select features of a DFM before constructing a FCM. In the example below, we first remove all stopwords and punctuation characters. Afterwards, we remove certain patterns that usually describe the publication time and date of articles. The third row keeps only terms that occur at least 100 times in the document-feature matrix. 
 
 
 ```r
@@ -47,7 +47,7 @@ nfeat(dfmat_news)
 ## [1] 4211
 ```
 
-You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequntly co-occuring words.
+You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequently co-occurring words.
 
 
 ```r

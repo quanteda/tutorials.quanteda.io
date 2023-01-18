@@ -148,7 +148,7 @@ print(dfmat_inaug_prop)
 {{% /notice %}}
 
 
-You can also weight frequency count by uniqueness of the features across documents using `dfm_tfidf()`.
+You can also weight the frequency count by uniqueness of the features across documents using `dfm_tfidf()`.
 
 
 ```r
