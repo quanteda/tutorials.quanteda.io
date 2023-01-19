@@ -4,7 +4,7 @@ weight: 70
 draft: false
 ---
 
-Latent Semantic Scaling (LSS) is a flexible and cost-efficient semisupervised document scaling technique. The technique relies on word embeddings and users only need to provide a small set of "seed words" to locate documents on a specific dimension.
+Latent Semantic Scaling (LSS) is a flexible and cost-efficient semi-supervised document scaling technique. The technique relies on word embeddings and users only need to provide a small set of "seed words" to locate documents on a specific dimension.
 
 Install the **LSX** package from CRAN.
 
@@ -29,7 +29,7 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We segment news articles into sentences in the corpus to accurately estimate semantic proximity between words. We also use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`) to remove words commonly used in news reports.
+We will segment news articles into sentences in the corpus to accurately estimate semantic proximity between words. We will also use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`) to remove words commonly used in news reports.
 
 ```{r, cache=TRUE}
 # tokenize text corpus and remove various features
@@ -51,14 +51,14 @@ dfmat_sent <- toks_sent %>%
 topfeatures(dfmat_sent, 20)
 ```
 
-We use generic sentiment seed words to perform sentiment analysis.
+We will use generic sentiment seed words to perform sentiment analysis.
 
 ```{r}
 seed <- as.seedwords(data_dictionary_sentiment)
 print(seed)
 ```
 
-With the seed words, LSS computes polarity of words frequent in the context of economy. We identify context words by `char_context(pattern = "econom*")` before fitting the model.
+With the seed words, LSS computes polarity of words frequent in the context of economy. We can identify context words by `char_context(pattern = "econom*")` before fitting the model.
 
 ```{r}
 # identify context words 
@@ -80,7 +80,7 @@ By highlighting negative words in a manually compiled sentiment dictionary (`dat
 textplot_terms(tmod_lss, data_dictionary_LSD2015["negative"])
 ```
 
-We reconstruct original articles from their sentences using `dfm_group()` before predicting polarity of documents.
+We must reconstruct original articles from their sentences using `dfm_group()` before predicting polarity of documents.
 
 ```{r}
 dfmat_doc <- dfm_group(dfmat_sent)

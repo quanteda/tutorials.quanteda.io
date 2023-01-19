@@ -14,7 +14,7 @@ options(width = 110)
 
 ## English 
 
-After tokenization, we remove so called "stopwords" using `stopwords("en", source = "marimo")`. If you want tokens to comprise only of the English alphabet, you can select them by `"^[a-zA-Z]+$"`. You find more details on stopwords on the [website](http://stopwords.quanteda.io) of the **stopwords** package.  Please be very careful when pre-processing or removing tokens since these choices [might influence subsequent results](https://doi.org/10.1017/pan.2017.44).
+After tokenization, we remove so called "stopwords" using `stopwords("en", source = "marimo")`. If you want tokens to comprise only of the English alphabet, you can select them by `"^[a-zA-Z]+$"`. You can find more details on stopwords on the [website](http://stopwords.quanteda.io) of the **stopwords** package.  Please be very careful when pre-processing or removing tokens since these choices [might influence subsequent results](https://doi.org/10.1017/pan.2017.44).
 
 ```{r}
 # reshape corpus to the level of paragraphs

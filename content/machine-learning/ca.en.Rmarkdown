@@ -25,7 +25,7 @@ tmod_ca <- textmodel_ca(dfmat_irish)
 textplot_scale1d(tmod_ca)
 ```
 
-If you want to plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
+If you want to plot documents on multi-dimensional scale, you can use `coef()` to obtain coordinates of lower dimensions.  
 
 ```{r fig.height=7, fig.width=7}
 dat_ca <- data.frame(dim1 = coef(tmod_ca, doc_dim = 1)$coef_document, 
