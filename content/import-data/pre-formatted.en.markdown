@@ -10,7 +10,7 @@ require(quanteda)
 require(readtext)
 ```
 
-First, we show how to import pre-formatted files that come in a "spreadsheet format". `path_data` is the location of sample files on your computer that come with the **readtext** package.
+First, we will show you how to import pre-formatted files that come in a "spreadsheet format". `path_data` is the location of sample files on your computer that come with the **readtext** package.
 
 
 ```r
