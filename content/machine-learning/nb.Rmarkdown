@@ -67,7 +67,7 @@ tab_class <- table(actual_class, predicted_class)
 tab_class
 ```
 
-From the cross-table we can see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or under- estimate one class.
+From the cross-table we can see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or under-estimate one class.
 
 We can use the function `confusionMatrix()` from the **caret** package to assess the performance of the classification.
 
