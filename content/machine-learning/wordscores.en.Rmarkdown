@@ -45,7 +45,7 @@ tmod_ws <- textmodel_wordscores(dfmat_ger, y = corp_ger$ref_score, smooth = 1)
 summary(tmod_ws)
 ```
 
-Next, we can predict the Wordscores for the unknown virgin texts.
+Next, we will predict the Wordscores for the unknown virgin texts.
 
 ```{r}
 pred_ws <- predict(tmod_ws, se.fit = TRUE, newdata = dfmat_ger)
