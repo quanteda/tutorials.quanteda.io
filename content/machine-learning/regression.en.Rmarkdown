@@ -7,10 +7,10 @@ draft: false
 {{% author %}}By Frederik Hjorth{{% /author %}} 
 
 
-Regularized regression is a classification technique where the category of interest is regressed on text features using a penalized form of regression where parameter estimates are biased towards zero. Here we will be using a specific type of regularized regression, the Least Absolute Shrinkage and Selection Operator (or simply LASSO), but its main alternative, ridge regression, is conceptually very similar. 
+Regularized regression is a classification technique where the category of interest is regressed on text features using a penalized form of regression where parameter estimates are biased towards zero. Here we will be using a specific type of regularized regression, the Least Absolute Shrinkage and Selection Operator (or simply LASSO). However, the main alternative to LASSO, ridge regression, is conceptually very similar. 
 
-In the LASSO estimator, the degree of penalization is determined by the regularization parameter `lambda`. We use the cross-validation function available in the **glmnet** package to select the optimal value for `lambda`. 
-We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents. Although regularized regression is not part of the **quanteda.textmodels** package, the functions for regularized regression from the **glmnet** package can be easily worked in to a quanteda workflow.
+In the LASSO estimator, the degree of penalization is determined by the regularization parameter `lambda`. We can use the cross-validation function available in the **glmnet** package to select the optimal value for `lambda`. 
+We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents. Although regularized regression is not part of the **quanteda.textmodels** package, the functions for regularized regression from the **glmnet** package can be easily worked into a quanteda workflow.
 
 ```{r, message=FALSE}
 require(quanteda)
@@ -26,7 +26,7 @@ corp_movies <- data_corpus_moviereviews
 summary(corp_movies, 5)
 ```
 
-The variable "Sentiment" indicates whether a movie review was classified as positive or negative. In this example we use 1500 reviews as the training set and build a regularized regression classifier based on this subset. In a second step, we predict the sentiment for the remaining reviews (our test set).
+The variable "Sentiment" indicates whether a movie review was classified as positive or negative. In this example, we will use 1500 reviews as the training set and build a regularized regression classifier based on this subset. In the second step, we will predict the sentiment for the remaining reviews (our test set).
 
 Since the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents.
 
@@ -52,7 +52,7 @@ dfmat_training <- dfm_subset(dfmt_movie, id_numeric %in% id_train)
 dfmat_test <- dfm_subset(dfmt_movie, !id_numeric %in% id_train)
 ```
 
-Next we choose `lambda` using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix `x` and a response vector `y`. For the input matrix, we use the training set converted to a sparse matrix. For the response vector, we use a dichotomous indicator of review sentiment in the training set with positive reviews coded as 1 and negative reviews as 0. 
+Next we choose `lambda` using `cv.glmnet` from the **glmnet** package. `cv.glmnet` requires an input matrix `x` and a response vector `y`. For the input matrix, we will use the training set converted to a sparse matrix. For the response vector, we will use a dichotomous indicator of review sentiment in the training set with positive reviews coded as 1 and negative reviews as 0. 
 
 We use `cv.glmnet()` to select the value of `lambda` that yields the smallest classification error. If you set `alpha = 1`, it selects the LASSO estimator. If you set `nfold = 5`, it partitions the data into five subsets.
 
@@ -64,7 +64,7 @@ lasso <- cv.glmnet(x = dfmat_training,
                    family = "binomial")
 ```
 
-As an initial evaluation of the model, we print the most predictive features. We begin by obtaining the best value of `lambda`:
+As an initial evaluation of the model, we can print the most predictive features. We begin by obtaining the best value of `lambda`:
 
 ```{r}
 index_best <- which(lasso$lambda == lasso$lambda.min)
@@ -83,7 +83,7 @@ head(sort(beta, decreasing = TRUE), 20)
 dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))
 ```
 
-Next we obtain predicted probabilities for each review in the test set.
+Next, we can obtain predicted probabilities for each review in the test set.
 
 ```{r}
 pred <- predict(lasso, dfmat_matched, type = "response", s = lasso$lambda.min)
@@ -99,7 +99,7 @@ tab_class <- table(actual_class, predicted_class)
 tab_class
 ```
 
-From the cross-table we see that the model slightly underpredicts negative reviews, i.e. produces slightly more false negatives than false positives, but most reviews are correctly predicted. 
+From the cross-table we can see that the model slightly under-predicts negative reviews, i.e. produces slightly more false negatives than false positives, but most reviews are correctly predicted. 
 
 We can use the function `confusionMatrix()` from the **caret** package to quantify the performance of the classification.
 
