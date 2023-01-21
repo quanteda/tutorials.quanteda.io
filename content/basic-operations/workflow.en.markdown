@@ -6,7 +6,7 @@ draft: false
 
 **quanteda** has three basic types of objects:
 
-1.  [Corpus](/basic-operations/corpus) (the links after Corpus, Tokens, and DFM don't work; 404 error on website; unsure of how to fix)
+1.  [Corpus](/basic-operations/corpus)
     
     * Saves character strings and variables in a data frame
     * Combines texts with document-level variables

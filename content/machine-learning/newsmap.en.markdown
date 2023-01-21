@@ -4,7 +4,7 @@ weight: 60
 draft: false
 ---
 
-Newsmap is a semisupervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learns from "seed words" in dictionaries. 
+Newsmap is a semi-supervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learns from "seed words" in dictionaries. 
 
 Install the **newsmap** package from CRAN.
 
@@ -50,7 +50,7 @@ range(corp_news$date)
 ## [1] "2014-01-01" "2014-12-31"
 ```
 
-In geographical classification, proper nouns are the most useful features of documents, but not all capitalized words are proper nouns, so we define custom stopwords.
+Proper nouns are the most useful features of documents for geographical classification. However, not all capitalized words are proper nouns, so we define custom stopwords.
 
 
 ```r
@@ -83,7 +83,7 @@ dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z0-9]+",
 tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)
 ```
 
-The seed dictionary contains only names of countries and capital cities, but the model additional extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+The seed dictionary contains only names of countries and capital cities, but the model additionally extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 
 ```r
@@ -133,7 +133,7 @@ coef(tmod_nm, n = 15)[c("US", "GB", "FR", "BR", "JP")]
 ```
 
 {{% notice tip %}}
-Names of people, organizations and places are often multi-word expressions. To distiguish between "New York" and "York", for example, it is useful to compound tokens using `tokens_compound()` as explained in [Advanced Operations](../advanced-operations/compound-mutiword-expressions/).
+Names of people, organizations and places are often multi-word expressions. To distinguish between "New York" and "York", for example, it is useful to compound tokens using `tokens_compound()` as explained in [Advanced Operations](../advanced-operations/compound-mutiword-expressions/).
 {{% /notice %}}
 
 You can predict the most strongly associated countries using `predict()` and count the frequency using `table()`. 

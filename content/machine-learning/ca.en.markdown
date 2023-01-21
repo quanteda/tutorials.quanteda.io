@@ -29,7 +29,7 @@ textplot_scale1d(tmod_ca)
 
 <img src="/machine-learning/ca.en_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
-If you want to plot documents on multi-dimensional scale, you use `coef()` to obtain coordinates of lower dimensions.  
+If you want to plot documents on multi-dimensional scale, you can use `coef()` to obtain coordinates of lower dimensions.  
 
 
 ```r

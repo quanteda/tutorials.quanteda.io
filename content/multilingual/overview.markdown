@@ -15,7 +15,7 @@ require(quanteda.corpora)
 options(width = 110)
 ```
 
-The corpus `data_corpus_udhr` contains the Universal Declaration of Human Rights in over 400 languages. We can process European languages (English and German), but also the Middle Eastern (Arabic and Hebrew) and East Asian (Chinese and Japanese) languages appropriately. First, we subset languages relevant for the following tutorial pages.
+The corpus `data_corpus_udhr` contains the Universal Declaration of Human Rights in over 400 languages. We can process European languages (English and German), but also Middle Eastern (Arabic and Hebrew) and East Asian (Chinese and Japanese) languages appropriately. First, we will subset languages relevant for the following tutorial pages.
 
 
 ```r
@@ -44,7 +44,7 @@ print(corp)
 ## "〈前文〉 人類社会のすべての構成員の固有の尊厳と平等で譲ることのできない権利とを承認することは、世界における自由、正義及..."
 ```
 
-Words are segmented by the whitespace or punctuation marks in the first four languages (English, German, Arabic, Hebrew), but they are not in the last two languages. For this reason, morphological analysis tools such as Jieba or Mecab have been used to tokenizing Chinese and Japanese texts, but `tokens()` does not require such tools. The ability to tokenize texts in different languages makes it possible to perform multilingual quantitative text analysis.
+Words are segmented by the white space or punctuation marks in the first four languages (English, German, Arabic, Hebrew), but they are not in the last two languages. For this reason, morphological analysis tools such as Jieba or Mecab have been used for tokenizing Chinese and Japanese texts, but `tokens()` does not require such tools. The ability to tokenize texts in different languages makes it possible to perform multilingual quantitative text analysis.
 
 
 ```r
@@ -88,5 +88,5 @@ print(toks)
 This chapter explains how to preprocess these languages before constructing a DFM. Once a DFM is constructed, we can perform the statistical analysis and machine learning techniques, largely ignoring syntactical and lexical differences between languages.
 
 {{% notice note %}}
-`tokens()` tokenizes Chinese and Japanese texts using a dictionary in the ICU library. The library also [detects boundaries](http://userguide.icu-project.org/boundaryanalysis) between words and other elements such symbols and numbers. This is why the function separates words punctuation marks from words even without the whitespace between them.
+`tokens()` tokenizes Chinese and Japanese texts using a dictionary in the ICU library. The library also [detects boundaries](http://userguide.icu-project.org/boundaryanalysis) between words and other elements such symbols and numbers. This is why the function separates punctuation marks from words even without the white space between them.
 {{% /notice %}}

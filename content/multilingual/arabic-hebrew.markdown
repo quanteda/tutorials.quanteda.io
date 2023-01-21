@@ -143,5 +143,5 @@ print(dfmat_heb)
 ```
 
 {{% notice note %}}
-Analysis of right-to-left language is easiest on Linux because it supports Unicode better than Windows and in  Mac.
+Analysis of right-to-left language is easiest on Linux because it supports Unicode better than Windows and in Mac.
 {{% /notice %}}
