@@ -49,7 +49,7 @@ Brian Roepke ([\@broepke](https://github.com/broepke)),
 Rochelle Terman ([\@rochelleterman](https://github.com/rochelleterman)), 
 Daniela Ushizima  ([\@dani-lbnl](https://github.com/dani-lbnl)), 
 Yuan Zhou ([\@yuanzhouIR](https://github.com/yuanzhouIR)), 
-[\@datapumpernickel](https://github.com/datapumpernickel)), 
+[\@datapumpernickel](https://github.com/datapumpernickel), 
 [\@fgeeri](https://github.com/fgeeri), 
 [\@cdedatos](https://github.com/cdedatos).
 
