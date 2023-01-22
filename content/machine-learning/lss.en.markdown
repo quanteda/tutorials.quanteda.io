@@ -183,4 +183,5 @@ abline(h = 0, lty = c(1, 2))
 
 {{% notice ref %}}
 - Watanabe, K. 2021. "[Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976)". _Communication Methods and Measures_ 15(2): 81-102. 
+- Watanabe. K. 2023. "[Introduction to LSX: The package for Latent Semantic Scaling](http://koheiw.github.io/LSX/articles/pkgdown/introduction.html)".
 {{% /notice %}}

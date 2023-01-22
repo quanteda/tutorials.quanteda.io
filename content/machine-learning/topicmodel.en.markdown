@@ -63,28 +63,28 @@ terms(tmod_lda, 10)
 ```
 
 ```
-##       topic1       topic2          topic3     topic4     topic5   
-##  [1,] "sales"      "climate"       "black"    "syria"    "clinton"
-##  [2,] "apple"      "water"         "father"   "isis"     "sanders"
-##  [3,] "game"       "energy"        "son"      "military" "cruz"   
-##  [4,] "customers"  "project"       "shooting" "islamic"  "hillary"
-##  [5,] "google"     "gas"           "wife"     "syrian"   "obama"  
-##  [6,] "users"      "food"          "dead"     "un"       "trump's"
-##  [7,] "food"       "development"   "mother"   "forces"   "bernie" 
-##  [8,] "technology" "air"           "died"     "muslim"   "ted"    
-##  [9,] "games"      "environmental" "shot"     "russian"  "rubio"  
-## [10,] "play"       "population"    "tried"    "peace"    "senator"
-##       topic6         topic7      topic8     topic9       topic10     
-##  [1,] "refugees"     "oil"       "doctors"  "corbyn"     "australia" 
-##  [2,] "brussels"     "markets"   "violence" "johnson"    "australian"
-##  [3,] "talks"        "prices"    "prison"   "leadership" "labor"     
-##  [4,] "summit"       "rates"     "cases"    "shadow"     "turnbull"  
-##  [5,] "benefits"     "investors" "officers" "jeremy"     "senate"    
-##  [6,] "migrants"     "banks"     "sexual"   "tory"       "funding"   
-##  [7,] "french"       "shares"    "abuse"    "boris"      "budget"    
-##  [8,] "refugee"      "sector"    "medical"  "cabinet"    "education" 
-##  [9,] "turkey"       "trading"   "hospital" "khan"       "coalition" 
-## [10,] "negotiations" "quarter"   "drug"     "commons"    "schools"
+##       topic1      topic2       topic3    topic4     topic5    topic6    
+##  [1,] "oil"       "corbyn"     "son"     "officers" "clinton" "refugees"
+##  [2,] "markets"   "johnson"    "parents" "violence" "sanders" "brussels"
+##  [3,] "prices"    "leadership" "felt"    "prison"   "cruz"    "talks"   
+##  [4,] "investors" "boris"      "park"    "victims"  "hillary" "french"  
+##  [5,] "shares"    "shadow"     "room"    "sexual"   "obama"   "summit"  
+##  [6,] "rates"     "jeremy"     "love"    "abuse"    "trump's" "refugee" 
+##  [7,] "banks"     "tory"       "mother"  "criminal" "bernie"  "migrants"
+##  [8,] "trading"   "doctors"    "story"   "officer"  "ted"     "turkey"  
+##  [9,] "quarter"   "junior"     "father"  "crime"    "rubio"   "benefits"
+## [10,] "sector"    "khan"       "knew"    "incident" "senator" "asylum"  
+##       topic7       topic8     topic9       topic10      
+##  [1,] "sales"      "syria"    "australia"  "climate"    
+##  [2,] "apple"      "isis"     "australian" "water"      
+##  [3,] "customers"  "military" "labor"      "energy"     
+##  [4,] "google"     "islamic"  "turnbull"   "food"       
+##  [5,] "users"      "un"       "budget"     "development"
+##  [6,] "technology" "syrian"   "funding"    "gas"        
+##  [7,] "games"      "forces"   "housing"    "drug"       
+##  [8,] "game"       "muslim"   "senate"     "medical"    
+##  [9,] "iphone"     "peace"    "education"  "hospital"   
+## [10,] "app"        "china"    "coalition"  "patients"
 ```
 
 You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
@@ -96,11 +96,11 @@ head(topics(tmod_lda), 20)
 
 ```
 ## text136751 text136585 text139163 text169133 text153451 text163885 text157885 
-##     topic2     topic9     topic1     topic3     topic8     topic2     topic3 
+##    topic10     topic2     topic7     topic3     topic4    topic10     topic3 
 ## text173244 text137394 text169408 text184646 text127410 text134923 text169695 
-##     topic2     topic9     topic3     topic9     topic2     topic9     topic7 
+##     topic2     topic9     topic3     topic2     topic4     topic2     topic1 
 ## text147917 text157535 text177078 text174393 text181782 text143323 
-##     topic3     topic2     topic2     topic3     topic3     topic9 
+##     topic3     topic7    topic10     topic3     topic3     topic2 
 ## 10 Levels: topic1 topic2 topic3 topic4 topic5 topic6 topic7 topic8 ... topic10
 ```
 
@@ -115,7 +115,7 @@ table(dfmat_news$topic)
 ```
 ## 
 ##  topic1  topic2  topic3  topic4  topic5  topic6  topic7  topic8  topic9 topic10 
-##     210     178     258     197     191      69     256     242     220     131
+##     200     218     233     236     192      83     204     185     191     210
 ```
 
 ### Seeded LDA
@@ -158,27 +158,27 @@ terms(tmod_slda, 20)
 ```
 
 ```
-##       economy      politics      society     diplomacy     military      
-##  [1,] "markets"    "clinton"     "prison"    "water"       "military"    
-##  [2,] "banks"      "sanders"     "hospital"  "food"        "labor"       
-##  [3,] "oil"        "cruz"        "syria"     "climate"     "corbyn"      
-##  [4,] "sales"      "obama"       "schools"   "development" "johnson"     
-##  [5,] "prices"     "hillary"     "officers"  "project"     "turnbull"    
-##  [6,] "stock"      "trump's"     "refugees"  "population"  "brussels"    
-##  [7,] "energy"     "bernie"      "isis"      "game"        "cabinet"     
-##  [8,] "banking"    "senator"     "syrian"    "drug"        "talks"       
-##  [9,] "sector"     "ted"         "victims"   "users"       "australian"  
-## [10,] "rates"      "rubio"       "un"        "apple"       "budget"      
-## [11,] "investors"  "gun"         "forces"    "education"   "coalition"   
-## [12,] "shares"     "politicians" "violence"  "drugs"       "benefits"    
-## [13,] "housing"    "primary"     "islamic"   "communities" "leadership"  
-## [14,] "trading"    "race"        "hospitals" "study"       "australia"   
-## [15,] "costs"      "elections"   "crime"     "funding"     "shadow"      
-## [16,] "china"      "kasich"      "military"  "air"         "boris"       
-## [17,] "businesses" "candidates"  "aid"       "girls"       "terrorist"   
-## [18,] "income"     "photograph"  "criminal"  "games"       "negotiations"
-## [19,] "quarter"    "delegates"   "abuse"     "patients"    "summit"      
-## [20,] "lower"      "supporters"  "sexual"    "students"    "parties"
+##       economy       politics      society     diplomacy   military    
+##  [1,] "markets"     "clinton"     "hospital"  "refugees"  "military"  
+##  [2,] "banks"       "sanders"     "prison"    "syria"     "labor"     
+##  [3,] "oil"         "cruz"        "schools"   "brussels"  "australian"
+##  [4,] "energy"      "obama"       "violence"  "isis"      "corbyn"    
+##  [5,] "climate"     "hillary"     "officers"  "talks"     "australia" 
+##  [6,] "sales"       "trump's"     "hospitals" "un"        "turnbull"  
+##  [7,] "prices"      "bernie"      "victims"   "syrian"    "johnson"   
+##  [8,] "stock"       "ted"         "cases"     "french"    "budget"    
+##  [9,] "food"        "rubio"       "sexual"    "turkey"    "leadership"
+## [10,] "rates"       "senator"     "drug"      "islamic"   "cabinet"   
+## [11,] "sector"      "gun"         "officer"   "border"    "shadow"    
+## [12,] "banking"     "politicians" "abuse"     "aid"       "funding"   
+## [13,] "businesses"  "primary"     "crime"     "summit"    "coalition" 
+## [14,] "investors"   "race"        "facebook"  "refugee"   "senate"    
+## [15,] "housing"     "elections"   "medical"   "migrants"  "terrorist" 
+## [16,] "shares"      "kasich"      "child"     "agreement" "boris"     
+## [17,] "costs"       "candidates"  "mental"    "forces"    "doctors"   
+## [18,] "average"     "delegates"   "died"      "military"  "tory"      
+## [19,] "development" "photograph"  "parents"   "russian"   "parties"   
+## [20,] "trading"     "supporters"  "mother"    "asylum"    "jeremy"
 ```
 
 `topics()` returns dictionary keys as the most likely topics of documents.
@@ -190,11 +190,11 @@ head(topics(tmod_slda), 20)
 
 ```
 ## text136751 text136585 text139163 text169133 text153451 text163885 text157885 
-##  diplomacy   military    economy    society    society    economy   politics 
+##    economy   military    economy    society    society    economy   politics 
 ## text173244 text137394 text169408 text184646 text127410 text134923 text169695 
-##   military   military  diplomacy   military    society   military    economy 
+##   military   military    society   military    society   military    economy 
 ## text147917 text157535 text177078 text174393 text181782 text143323 
-##  diplomacy    economy  diplomacy   politics  diplomacy   military 
+##    society    economy    economy   politics    society   military 
 ## Levels: economy politics society diplomacy military
 ```
 
@@ -209,7 +209,7 @@ table(dfmat_news$topic2)
 ```
 ## 
 ##   economy  politics   society diplomacy  military 
-##       345       231       482       512       382
+##       479       219       633       233       388
 ```
 
 {{% notice ref %}}

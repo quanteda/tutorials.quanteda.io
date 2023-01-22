@@ -14,17 +14,46 @@ This website consist of over 30 sections. If you click on the name of a chapter 
 
 This website is created for workshops held by the **quanteda** team and for users who look for a comprehensible step-by-step introduction to text analysis using R. We have also created several additional useful [resources](https://quanteda.io), such as vignettes, replications, a cheatsheet and a comparison to functions in **quanteda** and other packages for quantitative text analysis.
 
-You can not only see the R commands but execute them yourself if you [download the source code of this website](https://github.com/quanteda/tutorials.quanteda.io/archive/master.zip) from the [Github repository](https://github.com/quanteda/tutorials.quanteda.io). You should unzip the files on your machine and click `quanteda.tutorials.Rproj` to open RStudio. Executable R commands are in the `.Rmarkdown` files under the `content` folder.
-
-Contributions in the form of feedback, comments, code, and bug reports are most welcome. If you want to change the content of the pages, please edit the `.Rmarkdown` (instead of `.markdown`) files in the `content` folder and issue a pull request on [Github](https://github.com/quanteda/tutorials.quanteda.io).
-
-If you have questions on how to use **quanteda**, please post them to [the quanteda channel on StackOverflow](https://stackoverflow.com/questions/tagged/quanteda). If you find a bug, please report it to the [quanteda issues](https://github.com/quanteda/quanteda/issues). *We prefer these platforms to emails in communicating with our users* because the records will help other users who face similar problems.
-
 {{% notice note %}}
 Examples in this tutorial are written for **quanteda** version 3.2.5. Please check if you have the same version installed by a command `packageVersion("quanteda")`. 
 {{% /notice %}}
 
 {{% notice cite %}}
-- Watanabe, Kohei and Stefan Müller. 2022. "Quanteda Tutorials". https://tutorials.quanteda.io.
+- Watanabe, Kohei and Stefan Müller. 2023. "Quanteda Tutorials". https://tutorials.quanteda.io.
 - Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, and Akitaka Matsuo. 2018.  "quanteda: An R package for the quantitative analysis of textual data". _Journal of Open Source Software_ 3(30), 774. https://doi.org/10.21105/joss.00774.  
 {{% /notice %}}
+
+You can not only see the R commands but execute them yourself if you [download the source code of this website](https://github.com/quanteda/tutorials.quanteda.io/archive/master.zip) from the [Github repository](https://github.com/quanteda/tutorials.quanteda.io). You should unzip the files on your machine and click `quanteda.tutorials.Rproj` to open RStudio. Executable R commands are in the `.Rmarkdown` files under the `content` folder.
+
+## Contributions and Questions
+
+Contributions in the form of feedback, comments, code, and bug reports are most welcome. If you want to change the content of the pages, please edit the `.Rmarkdown` (instead of `.markdown`) files in the `content` folder and issue a pull request on [Github](https://github.com/quanteda/tutorials.quanteda.io).
+
+If you have questions on how to use **quanteda**, please post them to [the quanteda channel on StackOverflow](https://stackoverflow.com/questions/tagged/quanteda). If you find a bug, please report it to the [quanteda issues](https://github.com/quanteda/quanteda/issues). *We prefer these platforms to emails in communicating with our users* because the records will help other users who face similar problems.
+
+## Acknowledgements
+
+The [**quanteda**](https://quanteda.io) package infrastructure and Quanteda Tutorials are collaborative efforts. Many people have contributed fixes and improvements via pull request: 
+Rohan Alexander ([\@RohanAlexander](https://github.com/RohanAlexander)), 
+Rich Allen ([\@enzedonline](https://github.com/enzedonline)), 
+Andreas Beger ([\@andybega](https://github.com/andybega)), 
+Sarah King ([\@sarahashleyking](https://github.com/sarahashleyking)), 
+Oul Han ([\@klarahan](https://github.com/klarahan)), 
+Frederik Hjorth ([\@fghjorth](https://github.com/fghjorth)), 
+Sarah Jewett ([\@SarahJewett](https://github.com/SarahJewett)), 
+Amit Kohli  ([\@DataStrategist](https://github.com/DataStrategist-lbnl)), 
+Lanabi la Lova ([\@Lanabi](https://github.com/Lanabi)), 
+Mohamed Nasr ([\@mohamednasr1](https://github.com/mohamednasr1)), 
+Alexander Poon  ([\@alexander-poon](https://github.com/alexander-poon)), 
+Brian Roepke ([\@broepke](https://github.com/broepke)), 
+Rochelle Terman ([\@rochelleterman](https://github.com/rochelleterman)), 
+Daniela Ushizima  ([\@dani-lbnl](https://github.com/dani-lbnl)), 
+Yuan Zhou ([\@yuanzhouIR](https://github.com/yuanzhouIR)), 
+[\@datapumpernickel](https://github.com/datapumpernickel)), 
+[\@fgeeri](https://github.com/fgeeri), 
+[\@cdedatos](https://github.com/cdedatos).
+
+
+
+
+ 
