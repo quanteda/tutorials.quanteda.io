@@ -4,7 +4,7 @@ weight: 70
 draft: false
 ---
 
-Latent Semantic Scaling (LSS) is a flexible and cost-efficient semisupervised document scaling technique. The technique relies on word embeddings and users only need to provide a small set of "seed words" to locate documents on a specific dimension.
+Latent Semantic Scaling (LSS) is a flexible and cost-efficient semi-supervised document scaling technique. The technique relies on word embeddings and users only need to provide a small set of "seed words" to locate documents on a specific dimension.
 
 Install the **LSX** package from CRAN.
 
@@ -29,7 +29,7 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-We segment news articles into sentences in the corpus to accurately estimate semantic proximity between words. We also use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`) to remove words commonly used in news reports.
+We must segment news articles into sentences in the corpus to accurately estimate semantic proximity between words. We can also use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`) to remove words commonly used in news reports.
 
 
 ```r
@@ -62,7 +62,7 @@ topfeatures(dfmat_sent, 20)
 ##       4582       3890       3852       3844       3752       3680
 ```
 
-We use generic sentiment seed words to perform sentiment analysis.
+We will use generic sentiment seed words to perform sentiment analysis.
 
 
 ```r
@@ -79,7 +79,7 @@ print(seed)
 ##          -1          -1
 ```
 
-With the seed words, LSS computes polarity of words frequent in the context of economy. We identify context words by `char_context(pattern = "econom*")` before fitting the model.
+With the seed words, LSS computes polarity of words frequent in the context of economy. We can identify context words by `char_context(pattern = "econom*")` before fitting the model.
 
 
 ```r
@@ -92,7 +92,7 @@ tmod_lss <- textmodel_lss(dfmat_sent, seeds = seed,
 ```
 
 ```
-## Reading cache file: lss_cache/svds_8618fc7aeb7151e2.RDS
+## Reading cache file: lss_cache/svds_402bda98dac8a560.RDS
 ```
 
 
@@ -134,13 +134,13 @@ textplot_terms(tmod_lss, data_dictionary_LSD2015["negative"])
 ```
 
 ```
-## Warning: ggrepel: 7 unlabeled data points (too many overlaps). Consider
+## Warning: ggrepel: 8 unlabeled data points (too many overlaps). Consider
 ## increasing max.overlaps
 ```
 
 <img src="/machine-learning/lss.en_files/figure-html/unnamed-chunk-10-1.png" width="768" />
 
-We reconstruct original articles from their sentences using `dfm_group()` before predicting polarity of documents.
+We must reconstruct original articles from their sentences using `dfm_group()` before predicting polarity of documents.
 
 
 ```r
@@ -183,4 +183,5 @@ abline(h = 0, lty = c(1, 2))
 
 {{% notice ref %}}
 - Watanabe, K. 2021. "[Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976)". _Communication Methods and Measures_ 15(2): 81-102. 
+- Watanabe. K. 2023. "[Introduction to LSX: The package for Latent Semantic Scaling](http://koheiw.github.io/LSX/articles/pkgdown/introduction.html)".
 {{% /notice %}}

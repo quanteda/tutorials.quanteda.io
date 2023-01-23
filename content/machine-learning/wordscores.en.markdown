@@ -16,7 +16,7 @@ require(quanteda.corpora)
 
 Training a Wordscores model requires reference scores for texts whose policy positions on well-defined a priori dimensions are "known". Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
 
-We use manifestos of the 2013 and 2017 German federal elections. For the 2013 elections we assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and predict the party positions for the 2017 manifestos.
+In this example, we will use manifestos of the 2013 and 2017 German federal elections. For the 2013 elections we will assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties in order to predict the party positions for the 2017 manifestos.
 
 
 ```r
@@ -109,7 +109,7 @@ summary(tmod_ws)
 ##                 4.355                 4.241                 2.271
 ```
 
-Next, we predict the Wordscores for the unknown virgin texts.
+Next, we will predict the Wordscores for the unknown virgin texts.
 
 
 ```r

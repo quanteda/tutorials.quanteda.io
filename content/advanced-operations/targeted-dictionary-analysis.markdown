@@ -4,7 +4,7 @@ weight: 30
 draft: false
 ---
 
-We can detect occurrences of words in specific contexts by selectively applying dictionary. In this example, we apply a sentiment dictionary to segments of news articles that mentions the (British) government.
+We can detect occurrences of words in specific contexts by selectively applying dictionary. In this example, we will apply a sentiment dictionary to segments of news articles that mentions the (British) government.
 
 
 ```r
@@ -69,7 +69,7 @@ legend("topleft", col = 1:2, legend = colnames(dfmat_gov_lsd), lty = 1, bg = "wh
 
 <img src="/advanced-operations/targeted-dictionary-analysis_files/figure-html/unnamed-chunk-6-1.png" width="960" />
 
-We compute daily sentiment scores by taking the difference between the frequency of positive and negative words.
+We can compute daily sentiment scores by taking the difference between the frequency of positive and negative words.
 
 
 ```r

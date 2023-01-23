@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-Naive Bayes is a supervised model usually used to classify documents into two or more categories. We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents.
+Naive Bayes is a supervised model usually used to classify documents into two or more categories. We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabeled documents.
 
 
 ```r
@@ -32,7 +32,7 @@ summary(corp_movies, 5)
 ##  cv004_12641.txt   380    841         2       neg cv004 12641
 ```
 
-The variable "Sentiment" indicates whether a movie review was classified as positive or negative. In this example we use 1500 reviews as the training set and build a Naive Bayes classifier based on this subset. In a second step, we predict the sentiment for the remaining reviews (our test set).
+The variable "Sentiment" indicates whether a movie review was classified as positive or negative. In this example, we will use 1500 reviews as the training set and build a Naive Bayes classifier based on this subset. In the second step, we will predict the sentiment for the remaining reviews (our test set).
 
 Since the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents.
 
@@ -65,7 +65,7 @@ dfmat_training <- dfm_subset(dfmt_movie, id_numeric %in% id_train)
 dfmat_test <- dfm_subset(dfmt_movie, !id_numeric %in% id_train)
 ```
 
-Next we train the naive Bayes classifier using `textmodel_nb()`.
+Next, we will train the naive Bayes classifier using `textmodel_nb()`.
 
 
 ```r
@@ -125,7 +125,7 @@ tab_class
 ##          pos  37 205
 ```
 
-From the cross-table we see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or underestimate one class.
+From the cross-table we can see that the number of false positives and false negatives is similar. The classifier made mistakes in both directions, but does not seem to over- or under-estimate one class.
 
 We can use the function `confusionMatrix()` from the **caret** package to assess the performance of the classification.
 
@@ -168,7 +168,7 @@ confusionMatrix(tab_class, mode = "everything", positive = "pos")
 ```
 
 {{% notice note %}}
-Precision, recall and the F1 score are frequently used to assess the classification performance. Precision is measured as `TP / (TP + FP)`, where `TP` are the number of true positives and  `FP`  the false positives. Recall divides the true positives by the sum of true positives and false negatives `TP / (TP + FN)`. Finally, the F1 score is a harmonic mean of precision and recall `2 * (Precision * Recall) / (Precision + Recall)`.
+Precision, recall and the F1 score are frequently used to assess the classification performance. Precision is measured as `TP / (TP + FP)`, where `TP` are the number of true positives and  `FP` are the false positives. Recall divides the true positives by the sum of true positives and false negatives `TP / (TP + FN)`. Finally, the F1 score is a harmonic mean of precision and recall `2 * (Precision * Recall) / (Precision + Recall)`.
 {{% /notice %}}
 
 {{% notice ref %}}

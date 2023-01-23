@@ -78,5 +78,5 @@ head(tstat_col2, 20)
 ```
 
 {{% notice tip %}}
-If you find `textstat_collocations()` is talking too much time, increase the `min_count` threashold to speed up the estimation. You also do not need to set `sizes` larger than 2 to compound multi-word expressions, because overlapped collocations are chained if `join = TRUE` in `tokens_compound()`.
+If you find `textstat_collocations()` is taking too much time, increase the `min_count` threshold to speed up the estimation. You also do not need to set `sizes` larger than 2 to compound multi-word expressions, because overlapped collocations are chained if `join = TRUE` in `tokens_compound()`.
 {{% /notice %}}
