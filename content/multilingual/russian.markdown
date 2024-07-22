@@ -4,7 +4,7 @@ weight: 15
 draft: false
 ---
 
-{{% author %}}By Lana Bilalova{{% /author %}} 
+{{% author %}}By Lanabi La Lova{{% /author %}} 
 
 
 ```r
