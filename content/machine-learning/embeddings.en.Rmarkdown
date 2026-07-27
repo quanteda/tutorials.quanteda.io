@@ -60,7 +60,7 @@ head(similarity(wov, "london")) # top 6 most similar words
 head(similarity(wov, analogy(~ berlin - germany + france)))
 ```
 
-Since word2vec is a language model, we can also compute the probability of a word conditional on context words. 
+Since word2vec is a language model, we can also compute the probability of the target word conditional on context words. 
 
 ```{r}
 head(probability(wov, "eu", mode = "numeric")) 
@@ -87,6 +87,19 @@ We can retrieve the most similar documents (sentences) from the corpus.
 ```{r}
 print(corp_sent[s], max_nchar = -1)
 ```
+Using doc2vec as a language model, we can also compute the probability of the target word to occur in each document. 
+
+```{r}
+p <- probability(dov, "drug", layer = "documents")
+head(p)
+```
+
+We can retrieve the documents (sentences) in which the target word is likely to occur.
+
+```{r}
+print(corp_sent[p], max_nchar = -1)
+```
+
 
 {{% notice ref %}}
 - Mikolov T. et al. 2013. "[Distributed Representations of Words and Phrases and their Compositionality](https://arxiv.org/abs/1310.4546)". arxiv.

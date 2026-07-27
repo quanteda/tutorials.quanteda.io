@@ -135,7 +135,7 @@ head(similarity(wov, analogy(~ berlin - germany + france)))
 ## [6,] "vienna"
 ```
 
-Since word2vec is a language model, we can also compute the probability of a word conditional on context words. 
+Since word2vec is a language model, we can also compute the probability of the target word conditional on context words. 
 
 
 ``` r
@@ -256,6 +256,78 @@ print(corp_sent[s], max_nchar = -1)
 ## 
 ## [ reached max_ndoc ... 202,005 more documents ]
 ```
+Using doc2vec as a language model, we can also compute the probability of the target word to occur in each document. 
+
+
+``` r
+p <- probability(dov, "drug", layer = "documents")
+head(p)
+```
+
+```
+##      drug           
+## [1,] "text159762.12"
+## [2,] "text123823.18"
+## [3,] "text71157.10" 
+## [4,] "text118768.37"
+## [5,] "text43066.6"  
+## [6,] "text167750.3"
+```
+
+We can retrieve the documents (sentences) in which the target word is likely to occur.
+
+
+``` r
+print(corp_sent[p], max_nchar = -1)
+```
+
+```
+## Corpus consisting of 202,011 documents and 9 docvars.
+## text159762.12 :
+## "Related: Drug overdose epidemic has driven increase in organ donors, data shows
+## In several states across the US, the class of drugs known as Spice is causing
+## a rash of poisonings that doctors say are fuelled by residents' desire to get
+## high without failing drug tests, as the continually changing class of drugs has
+## eluded authorities."
+## 
+## text123823.18 :
+## "Two years ago this month, academic researchers at the University of Missouri,
+## released the results of research they had conducted into the known chemicals
+## used in fracking, which found higher levels of hormone-disrupting activity in
+## water located near fracking wells than in areas without drilling."
+## 
+## text71157.10 :
+## "But perhaps the broader impacts of the quarrying industry on children are less
+## obvious: the poor health of women in rural quarrying communities affecting their
+## ability to take care of children, the ordeal of families migrating to engage
+## in mine work to escape poverty, the erosion of family and social structures,
+## the difficulty of living as displaced, homeless or in poor living conditions,
+## the lack of access to education, the absence of child protection systems, the
+## prevalence of child malnutrition, hunger and food insecurity, the increase in
+## morbidity, the lack of access to health care, the exposure to HIV/Aids, the
+## contamination of water, soil and air, and the exposure to exploitation and
+## abuse."
+## 
+## text118768.37 :
+## "Administration lawyers have also told the CDC it can perform research on the
+## causes of gun violence in a way that "is not prohibited by any appropriations
+## language", but although the agency collects data its researchers have shied
+## from analyzing it.Mental health funding State-level funding for mental health
+## provision did rise sharply after Sandy Hook, with 36 states and the District of
+## Columbia increasing funding for mental health services."
+## 
+## text43066.6 :
+## "The law also obliges internet providers to store all data on web users'
+## activities for two years and make it available to the authorities upon request."
+## 
+## text167750.3 :
+## "Experts are concerned some of the sexual contacts are risky because of higher
+## rates of sexually transmitted infections in some countries, the presence of
+## alcohol or drugs and lack of condom use."
+## 
+## [ reached max_ndoc ... 202,005 more documents ]
+```
+
 
 {{% notice ref %}}
 - Mikolov T. et al. 2013. "[Distributed Representations of Words and Phrases and their Compositionality](https://arxiv.org/abs/1310.4546)". arxiv.
