@@ -22,7 +22,7 @@ After tokenization, we remove so called "stopwords" using `stopwords("ru", sourc
 corp_ru <- corpus_reshape(data_corpus_udhr["rus"], to = "paragraphs")
 
 # tokenize corpus and apply pre-processing
-toks_ru <- tokens(corp_ru, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+toks_ru <- tokens(corp_ru, remove_punct = TRUE, remove_numbers = TRUE) |> 
   tokens_remove(pattern = stopwords("ru", source = "snowball")) 
 print(toks_ru[2], max_ndoc = 1, max_ntoken = -1)
 ```

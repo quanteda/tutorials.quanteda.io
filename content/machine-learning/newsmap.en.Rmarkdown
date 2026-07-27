@@ -48,7 +48,7 @@ agency <- c("AP", "AFP", "Reuters")
 ```
 
 ```{r}
-toks_news <- tokens(corp_news, remove_punct = TRUE) %>% 
+toks_news <- tokens(corp_news, remove_punct = TRUE) |> 
              tokens_remove(pattern = c(stopwords("en"), month, day, agency), 
                            valuetype = "fixed", padding = TRUE)
 ```
@@ -62,7 +62,7 @@ dfmat_label <- dfm(toks_label, tolower = FALSE)
 
 dfmat_feat <- dfm(toks_news, tolower = FALSE)
 dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z0-9]+", 
-                                valuetype = "regex", case_insensitive = FALSE) %>% 
+                                valuetype = "regex", case_insensitive = FALSE) |> 
                      dfm_trim(min_termfreq = 10)
 
 tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)

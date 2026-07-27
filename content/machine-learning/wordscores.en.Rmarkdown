@@ -37,7 +37,7 @@ Now we can apply the Wordscores algorithm to a document-feature matrix.
 toks_ger <- tokens(corp_ger, remove_punct = TRUE)
 
 # create a document-feature matrix
-dfmat_ger <- dfm(toks_ger) %>% 
+dfmat_ger <- dfm(toks_ger) |> 
              dfm_remove(pattern = stopwords("de"))
 
 # apply Wordscores algorithm to document-feature matrix

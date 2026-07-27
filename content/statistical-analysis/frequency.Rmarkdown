@@ -29,7 +29,7 @@ corp_tweets <- readRDS("../data/data_corpus_sampletweets.rds")
 We can analyse the most frequent hashtags by applying `tokens_keep(pattern = "#*")` before creating a DFM.
 
 ```{r}
-toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) %>% 
+toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) |> 
                tokens_keep(pattern = "#*")
 dfmat_tweets <- dfm(toks_tweets)
 
@@ -40,8 +40,8 @@ head(tstat_freq, 20)
 You can also plot the Twitter hashtag frequencies easily using `ggplot()`.
 
 ```{r}
-dfmat_tweets %>% 
-  textstat_frequency(n = 15) %>% 
+dfmat_tweets |> 
+  textstat_frequency(n = 15) |> 
   ggplot(aes(x = reorder(feature, frequency), y = frequency)) +
   geom_point() +
   coord_flip() +
@@ -66,8 +66,8 @@ corp_tweets$dummy_english <- factor(ifelse(corp_tweets$lang == "English", "Engli
 toks_tweets <- tokens(corp_tweets)
 
 # create a grouped dfm and compare groups
-dfmat_corp_language <- dfm(toks_tweets) %>% 
-                       dfm_keep(pattern = "#*") %>% 
+dfmat_corp_language <- dfm(toks_tweets) |> 
+                       dfm_keep(pattern = "#*") |> 
                        dfm_group(groups = dummy_english)
 
 # create wordcloud

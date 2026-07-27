@@ -18,7 +18,7 @@ You can plot positions of documents on a one-dimensional scale using `textplot_s
 
 ```{r}
 toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
-dfmat_irish <- dfm(toks_irish) %>% 
+dfmat_irish <- dfm(toks_irish) |> 
                dfm_remove(pattern = stopwords("en"))
 
 tmod_ca <- textmodel_ca(dfmat_irish)
