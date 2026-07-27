@@ -9,8 +9,8 @@ draft: false
 The examples in the previous tutorials use a corpus of English texts, but we can easily analyze texts in other languages. Thanks to the creation of the **stringi** package and the recent development in [International Component for Unicode (ICU)](http://site.icu-project.org/home), we can process all the major languages in Unicode.
 
 ```{r, message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.corpora)
 options(width = 110)
 ```
 

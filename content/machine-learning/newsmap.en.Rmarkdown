@@ -13,11 +13,11 @@ install.packages("newsmap")
 ```
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
-require(newsmap)
-require(maps)
-require(ggplot2)
+library(quanteda)
+library(quanteda.corpora)
+library(newsmap)
+library(maps)
+library(ggplot2)
 ```
 
 Download a corpus with news articles using **quanteda.corpora**'s `download()` function.

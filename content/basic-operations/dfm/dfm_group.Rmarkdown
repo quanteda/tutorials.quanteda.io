@@ -5,7 +5,7 @@ draft: false
 ---
 
 ```{r, message=FALSE}
-require(quanteda)
+library(quanteda)
 options(width = 110)
 ```
 

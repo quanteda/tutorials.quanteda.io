@@ -6,11 +6,11 @@ draft: false
 ---
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textstats)
-require(quanteda.textplots)
-require(quanteda.corpora)
-require(ggplot2)
+library(quanteda)
+library(quanteda.textstats)
+library(quanteda.textplots)
+library(quanteda.corpora)
+library(ggplot2)
 ```
 
 Unlike `topfeatures()`, `textstat_frequency()` shows both term and document frequencies. You can also use the function to find the most frequent features within groups.

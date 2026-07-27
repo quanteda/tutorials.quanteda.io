@@ -15,9 +15,9 @@ install.packages("LSX")
 
 
 ``` r
-require(quanteda)
-require(quanteda.corpora)
-require(LSX)
+library(quanteda)
+library(quanteda.corpora)
+library(LSX)
 ```
 
 Download a corpus with news articles using **quanteda.corpora**'s `download()` function.

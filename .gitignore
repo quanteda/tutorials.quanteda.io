@@ -6,7 +6,7 @@ public/
 content/*/*.html
 content/*/*.svg
 content/*/*.png
-content/*/*.md~
-content/*/*.lock~
+**.md~
+**.lock~
 **_cache/
 .httr-oauth

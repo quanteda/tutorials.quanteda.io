@@ -5,20 +5,20 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
+``` r
+library(quanteda)
 options(width = 110)
 ```
 
 
-```r
+``` r
 toks <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
 ```
 
 You can generate n-grams in any lengths from a tokens using `tokens_ngrams()`. N-grams are a sequence of tokens from already tokenized text objects.
 
 
-```r
+``` r
 toks_ngram <- tokens_ngrams(toks, n = 2:4)
 head(toks_ngram[[1]], 30)
 ```
@@ -34,7 +34,7 @@ head(toks_ngram[[1]], 30)
 ## [29] "years_This"          "This_will"
 ```
 
-```r
+``` r
 tail(toks_ngram[[1]], 30)
 ```
 
@@ -54,7 +54,7 @@ tail(toks_ngram[[1]], 30)
 `tokens_ngrams()` also supports skip to generate skip-grams.
 
 
-```r
+``` r
 toks_skip <- tokens_ngrams(toks, n = 2, skip = 1:2)
 head(toks_skip[[1]], 30)
 ```
@@ -77,7 +77,7 @@ head(toks_skip[[1]], 30)
 While `tokens_ngrams()` generates n-grams or skip-grams in all possible combinations of tokens, `tokens_compound()` generates n-grams more selectively. For example, you can make negation bi-grams using `phrase()` and a wild card (`*`).
 
 
-```r
+``` r
 toks_neg_bigram <- tokens_compound(toks, pattern = phrase("not *"))
 toks_neg_bigram_select <- tokens_select(toks_neg_bigram, pattern = phrase("not_*"))
 head(toks_neg_bigram_select[[1]], 30)

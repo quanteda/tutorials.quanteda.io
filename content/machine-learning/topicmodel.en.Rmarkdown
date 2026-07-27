@@ -7,10 +7,10 @@ draft: false
 Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discriminatory groups of documents automatically. 
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
-require(seededlda)
-require(lubridate)
+library(quanteda)
+library(quanteda.corpora)
+library(seededlda)
+library(lubridate)
 ```
 
 ```{r eval=FALSE}

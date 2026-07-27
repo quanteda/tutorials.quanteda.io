@@ -8,8 +8,8 @@ We can detect occurrences of words in specific contexts by selectively applying 
 
 
 ``` r
-require(quanteda)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.corpora)
 ```
 
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.

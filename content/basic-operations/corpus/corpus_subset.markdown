@@ -5,23 +5,23 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
+``` r
+library(quanteda)
 ```
 
 `corpus_subset()` allows you to select documents in a corpus based on document-level variables.
 
 
-```r
+``` r
 corp <- data_corpus_inaugural
 ndoc(corp)
 ```
 
 ```
-## [1] 59
+## [1] 60
 ```
 
-```r
+``` r
 head(docvars(corp))
 ```
 
@@ -35,16 +35,16 @@ head(docvars(corp))
 ## 6 1809    Madison     James Democratic-Republican
 ```
 
-```r
+``` r
 corp_recent <- corpus_subset(corp, Year >= 1990)
 ndoc(corp_recent)
 ```
 
 ```
-## [1] 8
+## [1] 9
 ```
 
-```r
+``` r
 corp_dem <- corpus_subset(corp, President %in% c("Obama", "Clinton", "Carter"))
 ndoc(corp_dem)
 ```

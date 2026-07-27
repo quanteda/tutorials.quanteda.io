@@ -5,20 +5,20 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
+``` r
+library(quanteda)
 options(width = 110)
 ```
 
 
-```r
+``` r
 toks <- tokens(data_char_ukimmig2010)
 ```
 
 You can remove tokens that you are not interested in using `tokens_select()`. Usually we remove function words (grammatical words) that have little or no substantive meaning in pre-processing. `stopwords()` returns a pre-defined list of function words.
 
 
-```r
+``` r
 toks_nostop <- tokens_select(toks, pattern = stopwords("en"), selection = "remove")
 print(toks_nostop)
 ```
@@ -43,13 +43,13 @@ print(toks_nostop)
 ## Greens :
 ##  [1] "Immigration" "."           "Migration"   "fact"        "life"        "."           "People"     
 ##  [8] "always"      "moved"       "one"         "country"     "another"    
-## [ ... and 376 more ]
+## [ ... and 377 more ]
 ## 
 ## Labour :
 ##  [1] "Crime"            "immigration"      "challenge"        "Britain"          "control"         
 ##  [6] "immigration"      "new"              "Australian-style" "points-based"     "system"          
 ## [11] "-"                "unlike"          
-## [ ... and 388 more ]
+## [ ... and 391 more ]
 ## 
 ## LibDem :
 ##  [1] "firm"        "fair"        "immigration" "system"      "Britain"     "always"      "open"       
@@ -62,7 +62,7 @@ print(toks_nostop)
 `tokens_remove()` is an alias to `tokens_select(selection = "remove")`. Therefore, the code above and below are equivalent.
 
 
-```r
+``` r
 toks_nostop2 <- tokens_remove(toks, pattern = stopwords("en"))
 print(toks_nostop2)
 ```
@@ -87,13 +87,13 @@ print(toks_nostop2)
 ## Greens :
 ##  [1] "Immigration" "."           "Migration"   "fact"        "life"        "."           "People"     
 ##  [8] "always"      "moved"       "one"         "country"     "another"    
-## [ ... and 376 more ]
+## [ ... and 377 more ]
 ## 
 ## Labour :
 ##  [1] "Crime"            "immigration"      "challenge"        "Britain"          "control"         
 ##  [6] "immigration"      "new"              "Australian-style" "points-based"     "system"          
 ## [11] "-"                "unlike"          
-## [ ... and 388 more ]
+## [ ... and 391 more ]
 ## 
 ## LibDem :
 ##  [1] "firm"        "fair"        "immigration" "system"      "Britain"     "always"      "open"       
@@ -106,7 +106,7 @@ print(toks_nostop2)
 Removal of tokens changes the lengths of documents, but they remain the same if you set `padding = TRUE`. This option is useful especially when you perform positional analysis.
 
 
-```r
+``` r
 toks_nostop_pad <- tokens_remove(toks, pattern = stopwords("en"), padding = TRUE)
 print(toks_nostop_pad)
 ```
@@ -131,12 +131,12 @@ print(toks_nostop_pad)
 ## Greens :
 ##  [1] "Immigration" "."           "Migration"   ""            ""            "fact"        ""           
 ##  [8] "life"        "."           "People"      ""            "always"     
-## [ ... and 665 more ]
+## [ ... and 667 more ]
 ## 
 ## Labour :
 ##  [1] "Crime"       ""            "immigration" ""            "challenge"   ""            "Britain"    
 ##  [8] ""            ""            "control"     "immigration" ""           
-## [ ... and 668 more ]
+## [ ... and 671 more ]
 ## 
 ## LibDem :
 ##  [1] "firm"        ""            "fair"        "immigration" "system"      "Britain"     ""           
@@ -149,7 +149,7 @@ print(toks_nostop_pad)
 If you are only interested in certain words, you can keep these and remove others.
 
 
-```r
+``` r
 toks_immig <- tokens_select(toks, pattern = c("immig*", "migra*"), padding = TRUE)
 print(toks_immig)
 ```
@@ -174,12 +174,12 @@ print(toks_immig)
 ## Greens :
 ##  [1] "Immigration" ""            "Migration"   ""            ""            ""            ""           
 ##  [8] ""            ""            ""            ""            ""           
-## [ ... and 665 more ]
+## [ ... and 667 more ]
 ## 
 ## Labour :
 ##  [1] ""            ""            "immigration" ""            ""            ""            ""           
 ##  [8] ""            ""            ""            "immigration" ""           
-## [ ... and 668 more ]
+## [ ... and 671 more ]
 ## 
 ## LibDem :
 ##  [1] ""            ""            ""            "immigration" ""            ""            ""           
@@ -192,7 +192,7 @@ print(toks_immig)
 If you want to analyze words that appear around keywords, use the `window` argument.
 
 
-```r
+``` r
 toks_immig_window <- tokens_select(toks, pattern = c("immig*", "migra*"), padding = TRUE, window = 5)
 print(toks_immig_window)
 ```
@@ -217,12 +217,12 @@ print(toks_immig_window)
 ## Greens :
 ##  [1] "Immigration" "."           "Migration"   "is"          "a"           "fact"        "of"         
 ##  [8] "life"        ""            ""            ""            ""           
-## [ ... and 665 more ]
+## [ ... and 667 more ]
 ## 
 ## Labour :
 ##  [1] "Crime"       "and"         "immigration" "The"         "challenge"   "for"         "Britain"    
 ##  [8] "We"          "will"        "control"     "immigration" "with"       
-## [ ... and 668 more ]
+## [ ... and 671 more ]
 ## 
 ## LibDem :
 ##  [1] "firm"        "but"         "fair"        "immigration" "system"      "Britain"     "has"        

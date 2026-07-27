@@ -5,29 +5,29 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
-require(readtext)
+``` r
+library(quanteda)
+library(readtext)
 ```
 
 First, we will show you how to import pre-formatted files that come in a "spreadsheet format". `path_data` is the location of sample files on your computer that come with the **readtext** package.
 
 
-```r
+``` r
 path_data <- system.file("extdata/", package = "readtext")
 ```
 
 If your text data is stored in a pre-formatted file where one column contains the text and additional columns might store document-level variables (e.g. year, author, or language), you can use `read.csv()` to import.
 
 
-```r
+``` r
 dat_inaug <- read.csv(paste0(path_data, "/csv/inaugCorpus.csv"))
 ```
 
 Alternatively, you can use the **readtext** package to import character (comma- or tab-separated) values. **readtext** reads files containing text, along with any associated document-level variables.
 
 
-```r
+``` r
 dat_dail <- readtext(paste0(path_data, "/tsv/dailsample.tsv"), text_field = "speech")
 ```
 

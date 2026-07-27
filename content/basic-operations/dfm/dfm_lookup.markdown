@@ -5,30 +5,30 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
-require(quanteda.textmodels)
+``` r
+library(quanteda)
+library(quanteda.textmodels)
 options(width = 110)
 ```
 
 [laver-garry.cat](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/laver-garry.cat) is a Wordstat dictionary that contain political left-right ideology keywords (Laver and Garry 2000). 
 
 
-```r
+``` r
 dict_lg <- dictionary(file = "../../dictionary/laver-garry.cat", encoding = "UTF-8")
 ```
 
 `dfm_lookup()` translates dictionary values to keys in a DFM.
 
 
-```r
+``` r
 toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
 dfmat_irish <- dfm(toks_irish)
 print(dfmat_irish)
 ```
 
 ```
-## Document-feature matrix of: 14 documents, 5,129 features (81.27% sparse) and 6 docvars.
+## Document-feature matrix of: 14 documents, 5,128 features (81.27% sparse) and 6 docvars.
 ##                       features
 ## docs                   when  i presented the supplementary budget  to this house last
 ##   Lenihan, Brian (FF)     5 73         1 539             7     23 305   99    10    6
@@ -37,10 +37,10 @@ print(dfmat_irish)
 ##   Morgan, Arthur (SF)    21 26         0 501             1     26 204   85     5    4
 ##   Cowen, Brian (FF)       4 17         0 394             0     21 209   43     4    6
 ##   Kenny, Enda (FG)       12 25         1 304             1     23 119   47     0    4
-## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 5,119 more features ]
+## [ reached max_ndoc ... 8 more documents, reached max_nfeat ... 5,118 more features ]
 ```
 
-```r
+``` r
 dfmat_irish_lg <- dfm_lookup(dfmat_irish, dictionary = dict_lg, levels = 1)
 print(dfmat_irish_lg)
 ```

@@ -8,9 +8,9 @@ We can compute the similarities between authors by grouping their documents and 
 
 
 ``` r
-require(quanteda)
-require(quanteda.textstats)
-require(readtext)
+library(quanteda)
+library(quanteda.textstats)
+library(readtext)
 ```
 
 Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in data directory of this tutorial package.

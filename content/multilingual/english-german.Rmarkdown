@@ -7,8 +7,8 @@ draft: false
 {{% author %}}By Kohei Watanabe and Stefan Müller{{% /author %}} 
 
 ```{r, message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.corpora)
 options(width = 110)
 ```
 

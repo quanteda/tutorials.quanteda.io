@@ -9,23 +9,23 @@ Newsmap is a semi-supervised model for geographical document classification. Whi
 Install the **newsmap** package from CRAN.
 
 
-```r
+``` r
 install.packages("newsmap")
 ```
 
 
-```r
-require(quanteda)
-require(quanteda.corpora)
-require(newsmap)
-require(maps)
-require(ggplot2)
+``` r
+library(quanteda)
+library(quanteda.corpora)
+library(newsmap)
+library(maps)
+library(ggplot2)
 ```
 
 Download a corpus with news articles using **quanteda.corpora**'s `download()` function.
 
 
-```r
+``` r
 corp_news <- download(url = "https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpus_yahoonews.rds?dl=1")
 ```
 
@@ -34,7 +34,7 @@ corp_news <- download(url = "https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corp
 `corp_news` contains 10,000 news summaries downloaded from Yahoo News in 2014.
 
 
-```r
+``` r
 ndoc(corp_news)
 ```
 
@@ -42,7 +42,7 @@ ndoc(corp_news)
 ## [1] 10000
 ```
 
-```r
+``` r
 range(corp_news$date)
 ```
 
@@ -53,7 +53,7 @@ range(corp_news$date)
 Proper nouns are the most useful features of documents for geographical classification. However, not all capitalized words are proper nouns, so we define custom stopwords.
 
 
-```r
+``` r
 month <- c("January", "February", "March", "April", "May", "June",
            "July", "August", "September", "October", "November", "December")
 day <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
@@ -61,8 +61,8 @@ agency <- c("AP", "AFP", "Reuters")
 ```
 
 
-```r
-toks_news <- tokens(corp_news, remove_punct = TRUE) %>% 
+``` r
+toks_news <- tokens(corp_news, remove_punct = TRUE) |> 
              tokens_remove(pattern = c(stopwords("en"), month, day, agency), 
                            valuetype = "fixed", padding = TRUE)
 ```
@@ -70,14 +70,14 @@ toks_news <- tokens(corp_news, remove_punct = TRUE) %>%
 **newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
 
 
-```r
+``` r
 toks_label <- tokens_lookup(toks_news, dictionary = data_dictionary_newsmap_en, 
                             levels = 3) # level 3 is countries
 dfmat_label <- dfm(toks_label, tolower = FALSE)
 
 dfmat_feat <- dfm(toks_news, tolower = FALSE)
 dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z0-9]+", 
-                                valuetype = "regex", case_insensitive = FALSE) %>% 
+                                valuetype = "regex", case_insensitive = FALSE) |> 
                      dfm_trim(min_termfreq = 10)
 
 tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)
@@ -86,50 +86,46 @@ tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)
 The seed dictionary contains only names of countries and capital cities, but the model additionally extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 
-```r
+``` r
 coef(tmod_nm, n = 15)[c("US", "GB", "FR", "BR", "JP")]
-```
-
-```
-## as(<matrix>, "dgTMatrix") is deprecated since Matrix 1.5-0; do as(as(as(., "dMatrix"), "generalMatrix"), "TsparseMatrix") instead
 ```
 
 ```
 ## $US
 ## WASHINGTON         US   American Washington       YORK     States  Americans 
-##   7.154239   7.036785   6.829831   6.605774   6.369994   6.054570   5.359837 
+##   7.153809   7.036355   6.829401   6.605344   6.369564   6.054140   5.359407 
 ##       York Brunnstrom      Kirby   Platinum      Anglo    Stewart   Keystone 
-##   4.993287   3.781652   3.701609   3.614598   3.568078   3.162613   3.088505 
+##   4.992858   3.781222   3.701179   3.614168   3.567648   3.162183   3.088075 
 ##    Admiral 
-##   3.008462 
+##   3.008032 
 ## 
 ## $GB
 ##   British    LONDON    London   Britain Britain's        UK      UKIP   Kingdom 
-##  7.877081  7.846983  7.562997  7.264183  6.670409  5.487239  4.905318  4.774289 
+##  7.877447  7.847349  7.563364  7.264550  6.670776  5.487606  4.905684  4.774656 
 ##     Tesco     Hamza Cameron's   Osborne   Salmond     Clegg   Cameron 
-##  4.445785  4.358774  3.857999  3.752638  3.695480  3.665627  3.595009 
+##  4.446152  4.359141  3.858365  3.753005  3.695846  3.665993  3.595376 
 ## 
 ## $FR
 ##        French        France         PARIS         Paris      Hollande 
-##      8.183063      8.088991      7.541210      7.303251      6.532546 
+##      8.183414      8.089341      7.541560      7.303602      6.532896 
 ##    Hollande's        Fabius         Valls      Francois Saint-Germain 
-##      5.401143      5.295783      5.295783      5.277091      4.970361 
+##      5.401494      5.296133      5.296133      5.277441      4.970711 
 ##        Froome            Le      France's       Renault           Pen 
-##      4.803306      3.755338      3.734547      3.704694      3.504023 
+##      4.803657      3.755688      3.734898      3.705045      3.504374 
 ## 
 ## $BR
 ##    Brazil       SAO     PAULO       RIO   JANEIRO Brazilian       Rio        DE 
-##  8.174995  7.261448  7.247654  7.048526  7.048526  6.996340  6.922232  6.355378 
+##  8.175085  7.261538  7.247745  7.048616  7.048616  6.996430  6.922322  6.355469 
 ##   Janeiro       Sao     Paulo      BELO HORIZONTE  BRASILIA     Dilma 
-##  6.303193  5.966720  5.966720  5.915427  5.915427  5.804201  5.306363 
+##  6.303283  5.966811  5.966811  5.915517  5.915517  5.804292  5.306453 
 ## 
 ## $JP
 ##        Japan     Japanese        TOKYO          Abe        Tokyo       Shinzo 
-##     8.166952     7.896661     7.764115     7.063062     6.962979     6.791129 
+##     8.191612     7.895346     7.762799     7.061747     6.961663     6.789813 
 ##        Abe's      Tokyo's    Fukushima      Japan's       Nikkei       Toyota 
-##     5.810299     5.317823     5.171219     4.390779     3.836218     3.479543 
+##     5.808984     5.316507     5.169904     4.389464     3.834903     3.478228 
 ##    Pyongyang Asia-Pacific        Honda 
-##     3.182292     3.156316     3.143071
+##     3.180976     3.155001     3.141756
 ```
 
 {{% notice tip %}}
@@ -139,7 +135,7 @@ Names of people, organizations and places are often multi-word expressions. To d
 You can predict the most strongly associated countries using `predict()` and count the frequency using `table()`. 
 
 
-```r
+``` r
 pred_nm <- predict(tmod_nm)
 head(pred_nm, 20)
 ```
@@ -155,7 +151,7 @@ head(pred_nm, 20)
 Factor levels are set to obtain zero counts for countries that did not appear in the corpus.
 
 
-```r
+``` r
 count <- sort(table(factor(pred_nm, levels = colnames(dfmat_label))), decreasing = TRUE)
 head(count, 20)
 ```
@@ -163,13 +159,13 @@ head(count, 20)
 ```
 ## 
 ##  GB  US  RU  UA  AU  CN  CA  FR  IQ  BR  SY  DE  ZA  NZ  JP  IL  IN  ES  EG  PS 
-## 621 578 516 440 367 362 319 311 295 278 262 250 236 228 198 197 187 182 157 155
+## 622 578 516 440 367 363 319 311 295 278 262 250 237 228 197 197 187 182 157 155
 ```
 
 You can visualise the distribution of global news attention using `geom_map()`.
 
 
-```r
+``` r
 dat_country <- as.data.frame(count, stringsAsFactors = FALSE)
 colnames(dat_country) <- c("id", "frequency")
 
@@ -184,7 +180,7 @@ ggplot(dat_country, aes(map_id = id)) +
       coord_fixed()
 ```
 
-<img src="/machine-learning/newsmap.en_files/figure-html/unnamed-chunk-12-1.png" width="960" />
+<img src="/machine-learning/newsmap.en_files/figure-html/unnamed-chunk-12-1.png" alt="" width="960" />
 
 {{% notice ref %}}
 - Watanabe, Kohei. 2018. "[Newsmap: A Semi-supervised Approach to Geographical News Classification](https://www.tandfonline.com/doi/abs/10.1080/21670811.2017.1293487)". _Digital Journalism_ 6(3): 294-309.

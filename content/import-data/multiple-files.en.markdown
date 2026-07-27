@@ -5,15 +5,15 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
-require(readtext)
+``` r
+library(quanteda)
+library(readtext)
 ```
 
 A second option to import data is to load multiple text files at once that are stored in the same folder or subfolders. Again, `path_data` is the location of sample files on your computer.
 
 
-```r
+``` r
 path_data <- system.file("extdata/", package = "readtext")
 ```
 
@@ -22,7 +22,7 @@ Unlike the pre-formatted files, individual text files usually do not contain doc
 The directory `/txt/UDHR` contains text files (".txt") of the Universal Declaration of Human Rights in 13 languages. 
 
 
-```r
+``` r
 dat_udhr <- readtext(paste0(path_data, "/txt/UDHR/*"))
 ```
 
@@ -33,7 +33,7 @@ If you are using Windows, you need might need to specify the encoding of the fil
 You can generate document-level variables based on the file names using the `docvarnames` and `docvarsfrom` argument. `dvsep = "_"` specifies the value separator in the filenames.`encoding = "ISO-8859-1"` determines character encodings of the texts.
 
 
-```r
+``` r
 dat_eu <- readtext(paste0(path_data, "/txt/EU_manifestos/*.txt"),
                     docvarsfrom = "filenames", 
                     docvarnames = c("unit", "context", "year", "language", "party"),
@@ -58,14 +58,14 @@ str(dat_eu)
 You can also read JSON files (.json) downloaded from the Twititer stream API. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in data directory of this tutorial package.
 
 
-```r
+``` r
 dat_twitter <- readtext("../data/twitter.json", source = "twitter")
 ```
 
 The file comes with several metadata for each tweet, such as the number of retweets and likes, the username, time and time zone. 
 
 
-```r
+``` r
 head(names(dat_twitter))
 ```
 
@@ -79,7 +79,7 @@ head(names(dat_twitter))
 `readtext()` can also convert and read PDF (".pdf") files. 
 
 
-```r
+``` r
 dat_udhr <- readtext(paste0(path_data, "/pdf/UDHR/*.pdf"), 
                       docvarsfrom = "filenames", 
                       docvarnames = c("document", "language"),
@@ -91,6 +91,6 @@ dat_udhr <- readtext(paste0(path_data, "/pdf/UDHR/*.pdf"),
 Finally, `readtext()` can import Microsoft Word (".doc" and ".docx") files.
 
 
-```r
+``` r
 dat_word <- readtext(paste0(path_data, "/word/*.docx"))
 ```

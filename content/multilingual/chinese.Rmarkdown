@@ -7,8 +7,8 @@ draft: false
 {{% author %}}By Yuan Zhou{{% /author %}} 
 
 ```{r, message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.corpora)
 options(width = 110)
 ```
 

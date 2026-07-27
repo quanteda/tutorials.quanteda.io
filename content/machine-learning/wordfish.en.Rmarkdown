@@ -7,9 +7,9 @@ draft: false
 Wordfish is a Poisson scaling model of one-dimensional document positions (Slapin and Proksch 2008). Wordfish also allows for scaling documents, but in comparison to Wordscores, reference scores/texts are not required. Wordfish is an unsupervised one-dimensional text scaling method, meaning that it estimates the positions of documents solely based on the observed word frequencies. 
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textmodels)
-require(quanteda.textplots)
+library(quanteda)
+library(quanteda.textmodels)
+library(quanteda.textplots)
 ```
 
 In this example, we will show how to apply Wordfish to the Irish budget speeches from 2010. First, we will create a document-feature matrix. Afterwards, we will run Wordfish.

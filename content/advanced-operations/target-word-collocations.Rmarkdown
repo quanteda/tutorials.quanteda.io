@@ -7,8 +7,8 @@ draft: false
 We can identify related words of keywords based on their distance in the documents. In this example, we created a list of words related to the European Union by comparing frequency of words inside and outside of their contexts.
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textstats)
+library(quanteda)
+library(quanteda.textstats)
 ```
 
 This corpus contains 6,000 Guardian news articles from 2012 to 2016.

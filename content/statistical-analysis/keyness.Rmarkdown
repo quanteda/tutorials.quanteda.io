@@ -8,11 +8,11 @@ draft: false
 Keyness is a signed two-by-two association score originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to identify frequent words in documents in a target and reference group.
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textstats)
-require(quanteda.textplots)
-require(quanteda.corpora)
-require(lubridate)
+library(quanteda)
+library(quanteda.textstats)
+library(quanteda.textplots)
+library(quanteda.corpora)
+library(lubridate)
 ```
 
 

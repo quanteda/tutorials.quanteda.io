@@ -5,26 +5,27 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
+``` r
+library(quanteda)
 options(width = 110)
 ```
 
 
-```r
+``` r
 toks <- tokens(data_char_ukimmig2010)
 ```
 
 You can see how keywords are used in the actual contexts in a concordance view produced by `kwic()`. 
 
 
-```r
+``` r
 kw_immig <- kwic(toks, pattern =  "immig*")
 head(kw_immig, 10)
 ```
 
 ```
-## Keyword-in-context with 10 matches.                                                                                                           
+## Keyword-in-context with 10 matches.
+##                                                                                                            
 ##    [BNP, 1]                                       | IMMIGRATION | : AN UNPARALLELED CRISIS WHICH           
 ##   [BNP, 16]                   SOLVE. - At current | immigration | and birth rates, indigenous              
 ##   [BNP, 78]                 a halt to all further | immigration | , the deportation of all                 
@@ -40,13 +41,14 @@ head(kw_immig, 10)
 `kwic()` also takes multiple keywords in a character vector.
 
 
-```r
+``` r
 kw_immig2 <- kwic(toks, pattern = c("immig*", "migra*"))
 head(kw_immig2, 10)
 ```
 
 ```
-## Keyword-in-context with 10 matches.                                                                                                           
+## Keyword-in-context with 10 matches.
+##                                                                                                            
 ##    [BNP, 1]                                       | IMMIGRATION | : AN UNPARALLELED CRISIS WHICH           
 ##   [BNP, 16]                   SOLVE. - At current | immigration | and birth rates, indigenous              
 ##   [BNP, 78]                 a halt to all further | immigration | , the deportation of all                 
@@ -62,13 +64,14 @@ head(kw_immig2, 10)
 With the `window` argument, you can specify the number of words to be displayed around the keyword.
 
 
-```r
+``` r
 kw_immig3 <- kwic(toks, pattern = c("immig*", "migra*"), window = 7)
 head(kw_immig3, 10)
 ```
 
 ```
-## Keyword-in-context with 10 matches.                                                                              
+## Keyword-in-context with 10 matches.
+##                                                                               
 ##    [BNP, 1]                                                    | IMMIGRATION |
 ##   [BNP, 16]                        BNP CAN SOLVE. - At current | immigration |
 ##   [BNP, 78]                 will include a halt to all further | immigration |
@@ -95,13 +98,14 @@ head(kw_immig3, 10)
 If you want to find multi-word expressions, separate words by white space and wrap the character vector by `phrase()`.
 
 
-```r
+``` r
 kw_asylum <- kwic(toks, pattern = phrase("asylum seeker*"))
 head(kw_asylum)
 ```
 
 ```
-## Keyword-in-context with 6 matches.                                                                                                   
+## Keyword-in-context with 6 matches.
+##                                                                                                    
 ##  [BNP, 1958:1959] all illegal immigrants and bogus | asylum seekers | , including their dependents.
 ##  [BNP, 2159:2160]            region concerned. An' | asylum seeker  | ' who has crossed dozens     
 ##  [BNP, 2192:2193]          country. Because every' | asylum seeker  | ' in Britain has crossed     
@@ -113,7 +117,7 @@ head(kw_asylum)
 Texts do not always appear nicely in your R console, so you can use `View()` to see the keywords-in-context in an interactive HTML table.
 
 
-```r
+``` r
 View(kw_asylum)
 ```
 

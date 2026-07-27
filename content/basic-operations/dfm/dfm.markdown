@@ -5,23 +5,23 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
-require(quanteda.textstats)
+``` r
+library(quanteda)
+library(quanteda.textstats)
 options(width = 110)
 ```
 
 `dfm()` constructs a document-feature matrix (DFM) from a tokens object.
 
 
-```r
+``` r
 toks_inaug <- tokens(data_corpus_inaugural, remove_punct = TRUE)
 dfmat_inaug <- dfm(toks_inaug)
 print(dfmat_inaug)
 ```
 
 ```
-## Document-feature matrix of: 59 documents, 9,423 features (91.89% sparse) and 4 docvars.
+## Document-feature matrix of: 60 documents, 9,573 features (91.99% sparse) and 4 docvars.
 ##                  features
 ## docs              fellow-citizens  of the senate and house representatives among vicissitudes incident
 ##   1789-Washington               1  71 116      1  48     2               2     1            1        1
@@ -30,32 +30,32 @@ print(dfmat_inaug)
 ##   1801-Jefferson                2 104 130      0  81     0               0     1            0        0
 ##   1805-Jefferson                0 101 143      0  93     0               0     7            0        0
 ##   1809-Madison                  1  69 104      0  43     0               0     0            0        0
-## [ reached max_ndoc ... 53 more documents, reached max_nfeat ... 9,413 more features ]
+## [ reached max_ndoc ... 54 more documents, reached max_nfeat ... 9,563 more features ]
 ```
 
 You can get the number of documents and features `ndoc()` and `nfeat()`.
 
 
-```r
+``` r
 ndoc(dfmat_inaug)
 ```
 
 ```
-## [1] 59
+## [1] 60
 ```
 
-```r
+``` r
 nfeat(dfmat_inaug)
 ```
 
 ```
-## [1] 9423
+## [1] 9573
 ```
 
 You can also obtain the names of documents and features by `docnames()` and `featnames()`.
 
 
-```r
+``` r
 head(docnames(dfmat_inaug), 20)
 ```
 
@@ -66,7 +66,7 @@ head(docnames(dfmat_inaug), 20)
 ## [16] "1849-Taylor"     "1853-Pierce"     "1857-Buchanan"   "1861-Lincoln"    "1865-Lincoln"
 ```
 
-```r
+``` r
 head(featnames(dfmat_inaug), 20)
 ```
 
@@ -80,7 +80,7 @@ head(featnames(dfmat_inaug), 20)
 Just like normal matrices, you can use`rowSums()` and `colSums()` to calculate marginals. 
 
 
-```r
+``` r
 head(rowSums(dfmat_inaug), 10)
 ```
 
@@ -91,13 +91,13 @@ head(rowSums(dfmat_inaug), 10)
 ##            1210            3370            4472            2915
 ```
 
-```r
+``` r
 head(colSums(dfmat_inaug), 10)
 ```
 
 ```
 ## fellow-citizens              of             the          senate             and           house 
-##              39            7180           10183              15            5406              11 
+##              39            7271           10309              15            5550              11 
 ## representatives           among    vicissitudes        incident 
 ##              19             108               5               8
 ```
@@ -105,25 +105,25 @@ head(colSums(dfmat_inaug), 10)
 The most frequent features can be found using `topfeatures()`.
 
 
-```r
+``` r
 topfeatures(dfmat_inaug, 10)
 ```
 
 ```
 ##   the    of   and    to    in     a   our    we  that    be 
-## 10183  7180  5406  4591  2827  2292  2224  1827  1813  1502
+## 10309  7271  5550  4678  2856  2342  2295  1912  1852  1542
 ```
 
 If you want to convert the frequency count to a proportion within documents, use `dfm_weight(scheme  = "prop")`.
 
 
-```r
+``` r
 dfmat_inaug_prop <- dfm_weight(dfmat_inaug, scheme  = "prop")
 print(dfmat_inaug_prop)
 ```
 
 ```
-## Document-feature matrix of: 59 documents, 9,423 features (91.89% sparse) and 4 docvars.
+## Document-feature matrix of: 60 documents, 9,573 features (91.99% sparse) and 4 docvars.
 ##                  features
 ## docs              fellow-citizens         of        the       senate        and       house representatives
 ##   1789-Washington    0.0006993007 0.04965035 0.08111888 0.0006993007 0.03356643 0.001398601    0.0013986014
@@ -140,7 +140,7 @@ print(dfmat_inaug_prop)
 ##   1801-Jefferson  0.0005793743 0            0           
 ##   1805-Jefferson  0.0032317636 0            0           
 ##   1809-Madison    0            0            0           
-## [ reached max_ndoc ... 53 more documents, reached max_nfeat ... 9,413 more features ]
+## [ reached max_ndoc ... 54 more documents, reached max_nfeat ... 9,563 more features ]
 ```
 
 {{% notice tip %}}
@@ -151,30 +151,30 @@ print(dfmat_inaug_prop)
 You can also weight the frequency count by uniqueness of the features across documents using `dfm_tfidf()`.
 
 
-```r
+``` r
 dfmat_inaug_tfidf <- dfm_tfidf(dfmat_inaug)
 print(dfmat_inaug_tfidf)
 ```
 
 ```
-## Document-feature matrix of: 59 documents, 9,423 features (91.89% sparse) and 4 docvars.
+## Document-feature matrix of: 60 documents, 9,573 features (91.99% sparse) and 4 docvars.
 ##                  features
 ## docs              fellow-citizens of the    senate and    house representatives     among vicissitudes
-##   1789-Washington       0.4920984  0   0 0.8166095   0 1.735524        1.249448 0.1373836     1.071882
+##   1789-Washington       0.4993976  0   0 0.8239087   0 1.750123        1.264046 0.1446828     1.079181
 ##   1793-Washington       0          0   0 0           0 0               0        0             0       
-##   1797-Adams            1.4762952  0   0 0.8166095   0 0               1.249448 0.5495342     0       
-##   1801-Jefferson        0.9841968  0   0 0           0 0               0        0.1373836     0       
-##   1805-Jefferson        0          0   0 0           0 0               0        0.9616849     0       
-##   1809-Madison          0.4920984  0   0 0           0 0               0        0             0       
+##   1797-Adams            1.4981929  0   0 0.8239087   0 0               1.264046 0.5787312     0       
+##   1801-Jefferson        0.9987953  0   0 0           0 0               0        0.1446828     0       
+##   1805-Jefferson        0          0   0 0           0 0               0        1.0127796     0       
+##   1809-Madison          0.4993976  0   0 0           0 0               0        0             0       
 ##                  features
-## docs               incident
-##   1789-Washington 0.9927008
-##   1793-Washington 0        
-##   1797-Adams      0        
-##   1801-Jefferson  0        
-##   1805-Jefferson  0        
-##   1809-Madison    0        
-## [ reached max_ndoc ... 53 more documents, reached max_nfeat ... 9,413 more features ]
+## docs              incident
+##   1789-Washington        1
+##   1793-Washington        0
+##   1797-Adams             0
+##   1801-Jefferson         0
+##   1805-Jefferson         0
+##   1809-Madison           0
+## [ reached max_ndoc ... 54 more documents, reached max_nfeat ... 9,563 more features ]
 ```
 
 {{% notice warning %}}

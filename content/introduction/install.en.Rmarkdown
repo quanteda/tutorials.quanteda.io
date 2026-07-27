@@ -74,15 +74,15 @@ install.packages("seededlda")
 To sum up, you need to load the following packages to run all examples: 
 
 ```{r, eval=FALSE}
-require(quanteda)
-require(quanteda.textmodels)
-require(quanteda.textstats)
-require(quanteda.textplots)
-require(readtext)
-require(devtools)
-require(quanteda.corpora)
-require(newsmap)
-require(seededlda)
+library(quanteda)
+library(quanteda.textmodels)
+library(quanteda.textstats)
+library(quanteda.textplots)
+library(readtext)
+library(devtools)
+library(quanteda.corpora)
+library(newsmap)
+library(seededlda)
 ```
 
 {{% notice note %}}

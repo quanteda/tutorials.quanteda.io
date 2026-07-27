@@ -8,9 +8,9 @@ We can compound multi-word expressions through collocation analysis. In this exa
 
 
 ``` r
-require(quanteda)
-require(quanteda.textstats)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.textstats)
+library(quanteda.corpora)
 options(width = 110)
 ```
 
