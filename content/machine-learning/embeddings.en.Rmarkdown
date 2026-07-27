@@ -1,12 +1,12 @@
 ---
-title: Word and document embeddings
-weight: 70
+title: Embeddings
+weight: 80
 draft: false
 ---
 
-Latent Semantic Scaling (LSS) is a flexible and cost-efficient semi-supervised document scaling technique. The technique relies on word embeddings and users only need to provide a small set of "seed words" to locate documents on a specific dimension.
+Embedding is a technique to represent words or documents by dense and low dimensional vectors that capture word their similarities. These vectors can be used to compute their similarity or to train supervised machine learning algorithms. We can tarin word2vec and doc2vec models using **wordvector** package. 
 
-Install the **LSX** package from CRAN.
+Install the **wordvector** package from CRAN.
 
 ```{r eval=FALSE}
 install.packages("wordvector")
@@ -29,7 +29,7 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We must segment news articles into sentences in the corpus to accurately estimate semantic proximity between words. We can also use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`) to remove words commonly used in news reports.
+Since word2vec and doc2vec are trained on tokens objects using context windows, we do not need to segment news articles into sentences, but reshaping prevents the windows from spanning across sentences. 
 
 ```{r, cache=TRUE}
 # tokenize text corpus and remove various features
@@ -38,20 +38,54 @@ toks_sent <- corp_sent |>
     tokens(remove_punct = TRUE, remove_symbols = TRUE, 
            remove_numbers = TRUE, remove_url = TRUE) |> 
     tokens_remove(stopwords("en", source = "marimo")) |>
-    tokens_remove(c("*-time", "*-timeUpdated", "GMT", "BST", "*.com"))  
-```
+    tokens_remove("guardian*")
 
+ndoc(toks_sent)
+length(types(toks_sent))
+```
+## Word embedding
+
+We can train word2vec using the `cbow` (continuous bag-of-words) or `sg` (skip-gram) the algorithm. When `dim` is larger, the models capture more subtle information but require greater computational resources. After training, we can extract document vector using `as.matrix()`.
 
 ```{r, cache=TRUE}
-wov <- textmodel_word2vec(toks_sent)
+wov <- textmodel_word2vec(toks_sent, dim = 50, type = "cbow", min_count = 5, verbose = TRUE)
+dim(as.matrix(wov))
+```
 
-head(similarity(wov, "london"))
+`similarity()` is a user-friendly function for finding similar words. If `analogy()` wrapper is used, cosine similarity is computed based on the weighted vectors.
+
+```{r}
+head(similarity(wov, "london", mode = "numeric"))
+head(similarity(wov, "london")) # top 6 most similar words
 head(similarity(wov, analogy(~ berlin - germany + france)))
 ```
 
+Since word2vec is a language model, we can also compute the probability of a word conditional on context words. 
+
+```{r}
+head(probability(wov, "eu", mode = "numeric")) 
+head(probability(wov, "eu")) # top 6 most likely contexts
+```
+
+## Document embedding
+
+We can train doc2vec with the `dm` (distributed memory) or `dbow` (distributed bag-of-words) model a similar manner as word vectors.
 
 ```{r, cache=TRUE}
-dov <- textmodel_doc2vec(toks_sent)
+dov <- textmodel_doc2vec(toks_sent, dim = 50, type = "dm", min_count = 5, verbose = TRUE)
+dim(as.matrix(dov))
+```
+
+We have to specify layer = "documents" to find similar documents because the model contains both word and document vectors.
+
+```{r}
+s <- similarity(dov, "text99432.1", layer = "documents")
+head(s)
+```
+We can retrieve the most similar documents (sentences) from the corpus.
+
+```{r}
+print(corp_sent[s], max_nchar = -1)
 ```
 
 {{% notice ref %}}
