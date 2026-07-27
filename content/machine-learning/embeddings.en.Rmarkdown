@@ -1,5 +1,5 @@
 ---
-title: Embeddings
+title: Word/document embedding
 weight: 80
 draft: false
 ---
@@ -72,11 +72,11 @@ head(probability(wov, "eu")) # top 6 most likely contexts
 We can train doc2vec with the `dm` (distributed memory) or `dbow` (distributed bag-of-words) model a similar manner as word vectors.
 
 ```{r, cache=TRUE}
-dov <- textmodel_doc2vec(toks_sent, dim = 50, type = "dm", min_count = 5, verbose = TRUE)
+dov <- textmodel_doc2vec(toks_sent, dim = 50, type = "dbow", min_count = 5, verbose = TRUE)
 dim(as.matrix(dov))
 ```
 
-We have to specify layer = "documents" to find similar documents because the model contains both word and document vectors.
+We have to specify layer = "documents" to find similar documents because the `dm` model contains both word and document vectors.
 
 ```{r}
 s <- similarity(dov, "text99432.1", layer = "documents")
