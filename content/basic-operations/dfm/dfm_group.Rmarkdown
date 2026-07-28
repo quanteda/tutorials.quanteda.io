@@ -4,6 +4,8 @@ weight: 40
 draft: false
 ---
 
+`dfm_group()` merges several documents into one by adding up their feature counts, so that you can compare groups of documents, such as speeches from the same party, instead of comparing every document individually. We return to `data_corpus_inaugural`, the corpus of US presidential inaugural speeches used earlier in this chapter, and build a document-feature matrix from it in the usual way.
+
 ```{r, message=FALSE}
 library(quanteda)
 options(width = 110)
@@ -16,7 +18,7 @@ print(dfmat_inaug)
 head(colSums(dfmat_inaug), 10)
 ```
 
-`dfm_group()` merges documents based on a vector given to the `groups` argument. In grouping documents, it takes the sums of feature frequencies. 
+Right now, every row of `dfmat_inaug` is a single speech, but you might instead want to compare, say, Democratic speeches against Republican ones as a whole, rather than president by president. `dfm_group()` merges documents together based on a variable passed to the `groups` argument, adding up the feature frequencies of every document that shares the same value.
 
 ```{r}
 dfmat_party <- dfm_group(dfmat_inaug, groups = Party)
@@ -24,11 +26,13 @@ print(dfmat_party)
 head(colSums(dfmat_party), 10)
 ```
 
+Notice that `dfmat_party` has far fewer rows than `dfmat_inaug`, one per party rather than one per speech, while `colSums()` stays exactly the same. Grouping redistributes counts across fewer rows; it never creates or destroys word occurrences.
+
 {{% notice note %}}
-From **quanteda** package version 3.0 onwards, `dfm_group()` supports non-standard evaluation. This means that the name of the grouping variable should not be quoted by `"`.
+From **quanteda** package version 3.0 onwards, `dfm_group()` supports non-standard evaluation, so the name of the grouping variable should not be quoted by `"`.
 {{% /notice %}}
 
-`dfm_group()` identifies document-level variables that are the same within groups and keeps these variables.
+`dfm_group()` also identifies document-level variables that are the same within a group, such as `Party` itself, and keeps them. Variables that vary within a group, such as `Year`, get dropped, since they would no longer have a single, unambiguous value.
 
 ```{r}
 docvars(dfmat_party)
