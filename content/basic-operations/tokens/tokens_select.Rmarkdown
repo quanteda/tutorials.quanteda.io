@@ -2,10 +2,16 @@
 title: Select tokens
 weight: 30
 draft: false
+bibliography: ../../references.bib
 ---
+
+Not every token in a text is useful for analysis. Function words, or stopwords, such as "the" or "and" appear constantly in any English text and rarely tell you anything about its content. `tokens_select()` lets you remove tokens like these, or, the other way round, keep only the tokens you are interested in, whether that's a set of words, numbers, or punctuation. `stopwords()` returns a pre-defined list of function words for a given language.
 
 ```{r message=FALSE}
 library(quanteda)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 
@@ -13,35 +19,35 @@ options(width = 110)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-You can remove tokens that you are not interested in using `tokens_select()`. Usually we remove function words (grammatical words) that have little or no substantive meaning in pre-processing. `stopwords()` returns a pre-defined list of function words.
+Setting `selection = "remove"` drops every token that matches the pattern, here the built-in English stopword list, from each document.
 
 ```{r}
 toks_nostop <- tokens_select(toks, pattern = stopwords("en"), selection = "remove")
 print(toks_nostop)
 ```
 
-`tokens_remove()` is an alias to `tokens_select(selection = "remove")`. Therefore, the code above and below are equivalent.
+Because removing stopwords is such a common step, **quanteda** provides `tokens_remove()` as a shortcut, an alias for `tokens_select(selection = "remove")`, so the code above and below produce identical results.
 
 ```{r}
 toks_nostop2 <- tokens_remove(toks, pattern = stopwords("en"))
 print(toks_nostop2)
 ```
 
-Removal of tokens changes the lengths of documents, but they remain the same if you set `padding = TRUE`. This option is useful especially when you perform positional analysis.
+Removing tokens shortens each document, since the matched words disappear, which is a problem if you later want to measure the distance between two words in the original text: removed words would artificially pull the remaining words closer together. Setting `padding = TRUE` avoids this by leaving an empty placeholder behind instead of shrinking the document, which keeps the position of the remaining tokens unchanged.
 
 ```{r}
 toks_nostop_pad <- tokens_remove(toks, pattern = stopwords("en"), padding = TRUE)
 print(toks_nostop_pad)
 ```
 
-If you are only interested in certain words, you can keep these and remove others.
+So far we have removed words we are not interested in. You can flip this around and keep only the words you are interested in, so that everything else is discarded, useful when your analysis focuses on a small set of terms.
 
 ```{r}
 toks_immig <- tokens_select(toks, pattern = c("immig*", "migra*"), padding = TRUE)
 print(toks_immig)
 ```
 
-If you want to analyze words that appear around keywords, use the `window` argument.
+If you want to analyse the words that appear around your keywords, rather than the keywords themselves, add the `window` argument, keeping a band of surrounding tokens on either side of every match, the same idea behind the `window` argument you saw in `kwic()`.
 
 ```{r}
 toks_immig_window <- tokens_select(toks, pattern = c("immig*", "migra*"), padding = TRUE, window = 5)
@@ -51,4 +57,14 @@ print(toks_immig_window)
 {{% notice tip %}}
 We keep using *glob* patterns in this tutorials, but almost all the functions in **quanteda** support *regular expression* patterns. See `?pattern` for details and this [cheatsheet](https://www.cheatography.com/davechild/cheat-sheets/regular-expressions/pdf_bw/) for a concise introduction to frequently used regular expressions.
 {{% /notice %}}
+
+## Does it matter which preprocessing choices you make?
+
+Choices like removing stopwords, choosing a `window`, and, in previous chapters, removing punctuation and lowercasing, can feel like routine housekeeping. @denny2018 show that it is not: different, individually reasonable combinations of preprocessing decisions can noticeably change downstream results, and some corpora are far more sensitive to these choices than others.
+
+{{% notice info %}}
+@denny2018's key insight is that preprocessing is not a single "correct" pipeline but a set of largely independent binary choices, remove punctuation, remove numbers, lowercase, stem, remove stopwords, trim infrequent terms, and each one is individually defensible. When they compared documents processed under every combination of these choices, some decisions barely moved the results. Others, not always the ones you would expect, consistently pushed a corpus's results away from what most other combinations agreed on. Because there is no way to know in advance which choices will matter for a given corpus and research question, treat your own preprocessing pipeline as a set of assumptions worth checking rather than as settled housekeeping. Beyond checking, let your research question decide what to remove, not the default settings. A text about government budgets loses information if you strip out currency symbols and numbers. In research on the temporal focus of speeches [@mueller2022], removing "will" as a stopword would delete the main marker of future-oriented language, even though most stopword lists remove it by default.
+{{% /notice %}}
+
+## References
 
