@@ -2,9 +2,10 @@
 title: Wordscores
 weight: 20
 draft: false
+bibliography: ../references.bib
 ---
 
-Wordscores is a scaling model for estimating the positions (mostly of political actors) for dimensions that are specified a priori. Wordscores was introduced in Laver, Benoit and Garry (2003) and is widely used among political scientists.
+The previous two chapters classified documents into discrete categories. Wordscores tackles a different kind of task: placing documents on a continuous scale, such as a left-right ideological spectrum, rather than sorting them into separate boxes. Wordscores is a scaling model for estimating the positions, most often of political actors, on dimensions that are specified in advance, or *a priori*. Wordscores was introduced in @laver2003 and is widely used among political scientists.
 
 ```{r message=FALSE}
 library(quanteda)
@@ -13,9 +14,9 @@ library(quanteda.textplots)
 library(quanteda.corpora)
 ```
 
-Training a Wordscores model requires reference scores for texts whose policy positions on well-defined a priori dimensions are "known". Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
+Training a Wordscores model requires reference scores: texts whose policy positions on well-defined, predetermined dimensions are already "known" from some independent source, such as an expert survey. Wordscores learns the association between words and positions from these reference texts, then estimates the positions for the remaining "virgin" texts, whose scores are what we want to find out.
 
-In this example, we will use manifestos of the 2013 and 2017 German federal elections. For the 2013 elections we will assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties in order to predict the party positions for the 2017 manifestos.
+In this example, we will use manifestos from the 2013 and 2017 German federal elections. For the 2013 manifestos, which act as our reference texts, we assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and use these known positions to predict the party positions for the 2017 manifestos, our virgin texts.
 
 ```{r eval=FALSE}
 corp_ger <- download(url = "https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1")
@@ -30,14 +31,14 @@ corp_ger <- readRDS("../data/data_corpus_germanifestos.rds")
 summary(corp_ger)
 ```
 
-Now we can apply the Wordscores algorithm to a document-feature matrix.
+`ref_score` is filled in for five of the six 2013 manifestos (all but the AfD, for which no expert evaluation was available) and missing (`NA`) for all 2017 manifestos; this missingness pattern is what tells `textmodel_wordscores()` which documents are reference texts and which are virgin texts. We first remove German stopwords (`stopwords("de)`), then apply the Wordscores algorithm to the resulting document-feature matrix.
 
 ```{r}
 # tokenize texts
 toks_ger <- tokens(corp_ger, remove_punct = TRUE)
 
 # create a document-feature matrix
-dfmat_ger <- dfm(toks_ger) |> 
+dfmat_ger <- dfm(toks_ger) |>
              dfm_remove(pattern = stopwords("de"))
 
 # apply Wordscores algorithm to document-feature matrix
@@ -45,20 +46,18 @@ tmod_ws <- textmodel_wordscores(dfmat_ger, y = corp_ger$ref_score, smooth = 1)
 summary(tmod_ws)
 ```
 
-Next, we will predict the Wordscores for the unknown virgin texts.
+The `y` argument is the vector of reference scores you just inspected, including the `NA` values for the 2017 manifestos, and `smooth = 1` adds a small constant to every word count to avoid problems with words that happen not to appear in a particular reference text. Next, we predict the Wordscores for the unknown virgin texts, using `se.fit = TRUE` to also obtain a standard error for each estimate, which reflects how confident the model is in that particular score.
 
 ```{r}
 pred_ws <- predict(tmod_ws, se.fit = TRUE, newdata = dfmat_ger)
 ```
 
-Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_scale1d()` function.
+Finally, we can plot the fitted scaling model using **quanteda**'s `textplot_scale1d()` function, which shows each party's estimated position along with its confidence interval.
 
 ```{r}
 textplot_scale1d(pred_ws)
 ```
 
+The confidence intervals matter here: @lowe2008 shows that Wordscores estimates can be sensitive to seemingly minor choices, such as the smoothing constant or how positions are rescaled, so a position without its uncertainty is only half the picture.
 
-{{% notice ref %}}
-- Laver, Michael, Kenneth R Benoit, and John Garry. 2003. "[Extracting Policy Positions From Political Texts Using Words as Data](https://doi.org/10.1017/S0003055403000698)." _American Political Science Review_ 97(2): 311-331.  
-- Lowe, Will. 2008. "[Understanding Wordscores](https://doi.org/10.1093/pan/mpn004)." _Political Analysis_ 16(4): 356-371.
-{{% /notice%}}
+## References

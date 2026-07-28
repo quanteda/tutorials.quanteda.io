@@ -2,9 +2,10 @@
 title: Newsmap
 weight: 60
 draft: false
+bibliography: ../references.bib
 ---
 
-Newsmap is a semi-supervised model for geographical document classification. While (full) supervised models are trained on manually classified data, this semi-supervised model learns from "seed words" in dictionaries. 
+Newsmap [@watanabe2018] introduces an alternative to the fully supervised classifiers (Naive Bayes, regularised regression) and fully unsupervised topic models covered earlier in this chapter: a semi-supervised model for geographical document classification. Rather than needing a large set of documents that a human has manually labelled by country, as full supervision would, it learns from a small dictionary of "seed words", such as country and city names, and expands on that starting point automatically. You can classify documents by country even when no one has hand-labelled a training set for you.
 
 Install the **newsmap** package from CRAN.
 
@@ -20,7 +21,7 @@ library(maps)
 library(ggplot2)
 ```
 
-Download a corpus with news articles using **quanteda.corpora**'s `download()` function.
+Download a corpus with news articles using **quanteda.corpora**'s `download()` function, in the same way you downloaded the Guardian corpus for earlier chapters, though here again by direct URL rather than by a registered short name.
 
 ```{r eval=FALSE}
 corp_news <- download(url = "https://www.dropbox.com/s/r8zhsu8zvjzhnml/data_corpus_yahoonews.rds?dl=1")
@@ -38,7 +39,7 @@ ndoc(corp_news)
 range(corp_news$date)
 ```
 
-Proper nouns are the most useful features of documents for geographical classification. However, not all capitalized words are proper nouns, so we define custom stopwords.
+Proper nouns, such as country and city names, are the most useful features of documents for geographical classification. However, not every capitalised word is a proper noun; month names, day names and news agency abbreviations are capitalised too, and would otherwise be mistaken for place names. We therefore define custom stopword lists for these categories to exclude them.
 
 ```{r}
 month <- c("January", "February", "March", "April", "May", "June",
@@ -48,15 +49,17 @@ agency <- c("AP", "AFP", "Reuters")
 ```
 
 ```{r}
-toks_news <- tokens(corp_news, remove_punct = TRUE) |> 
-             tokens_remove(pattern = c(stopwords("en"), month, day, agency), 
+toks_news <- tokens(corp_news, remove_punct = TRUE) |>
+             tokens_remove(pattern = c(stopwords("en"), month, day, agency),
                            valuetype = "fixed", padding = TRUE)
 ```
 
-**newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian languages. `data_dictionary_newsmap_en` is the seed dictionary for English texts.
+**newsmap** contains [seed geographical dictionaries](https://github.com/koheiw/newsmap/tree/master/dict) in English, German, Spanish, Japanese and Russian. `data_dictionary_newsmap_en` is the seed dictionary for English texts; like the geographical dictionary you used with `tokens_lookup()` in the [Basic Operations chapter](/basic-operations/tokens/tokens_lookup), it is organised hierarchically from continents down to individual countries.
+
+We now build two separate DFMs from the same tokens: one that labels documents by country, using the seed dictionary at the country level (`levels = 3`), and one of ordinary capitalised word features. The model will learn, from this labelled subset, which capitalised words tend to co-occur with each country label, so that it can later predict a country even for documents that never explicitly mention a country's name.
 
 ```{r}
-toks_label <- tokens_lookup(toks_news, dictionary = data_dictionary_newsmap_en, 
+toks_label <- tokens_lookup(toks_news, dictionary = data_dictionary_newsmap_en,
                             levels = 3) # level 3 is countries
 dfmat_label <- dfm(toks_label, tolower = FALSE)
 
@@ -68,33 +71,33 @@ dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z0-9]+",
 tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)
 ```
 
-The seed dictionary contains only names of countries and capital cities, but the model additionally extracts features associated to the countries. These country codes are defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+The seed dictionary contains only names of countries and capital cities, but the fitted model also learns other features associated with each country, such as the names of politicians or currencies. `coef()` shows the features most strongly associated with a given country, identified by its two-letter code as defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
 ```{r}
 coef(tmod_nm, n = 15)[c("US", "GB", "FR", "BR", "JP")]
 ```
 
 {{% notice tip %}}
-Names of people, organizations and places are often multi-word expressions. To distinguish between "New York" and "York", for example, it is useful to compound tokens using `tokens_compound()` as explained in [Advanced Operations](../advanced-operations/compound-mutiword-expressions/).
+Names of people, organizations and places are often multi-word expressions. To distinguish between "New York" and "York", for example, it is useful to compound tokens using `tokens_compound()` as explained in [Advanced Operations](/advanced-operations/compound-mutiword-expressions).
 {{% /notice %}}
 
-You can predict the most strongly associated countries using `predict()` and count the frequency using `table()`. 
+With the model fitted and inspected, you can predict the most strongly associated country for every document using `predict()`, and then count how often each country was predicted using `table()`.
 
 ```{r}
 pred_nm <- predict(tmod_nm)
 head(pred_nm, 20)
 ```
 
-Factor levels are set to obtain zero counts for countries that did not appear in the corpus.
+By default, `table()` only reports countries predicted at least once, silently dropping any country with a count of zero. Setting factor levels explicitly, using the same country codes that appear in `dfmat_label`, ensures that countries which did not appear in the corpus show up in the result with a count of zero, rather than being omitted entirely.
 
 ```{r}
 count <- sort(table(factor(pred_nm, levels = colnames(dfmat_label))), decreasing = TRUE)
 head(count, 20)
 ```
 
-You can visualise the distribution of global news attention using `geom_map()`.
+You can visualise the distribution of global news attention geographically using **ggplot2**'s `geom_map()`, which colours each country on a world map according to how often it was predicted. The result is a visual summary of which parts of the world this news corpus covers most.
 
-```{r fig.height=5, fig.width=10}
+```{r fig.height=4, fig.width=7}
 dat_country <- as.data.frame(count, stringsAsFactors = FALSE)
 colnames(dat_country) <- c("id", "frequency")
 
@@ -109,6 +112,4 @@ ggplot(dat_country, aes(map_id = id)) +
       coord_fixed()
 ```
 
-{{% notice ref %}}
-- Watanabe, Kohei. 2018. "[Newsmap: A Semi-supervised Approach to Geographical News Classification](https://www.tandfonline.com/doi/abs/10.1080/21670811.2017.1293487)". _Digital Journalism_ 6(3): 294-309.
-{{% /notice %}}
+## References
