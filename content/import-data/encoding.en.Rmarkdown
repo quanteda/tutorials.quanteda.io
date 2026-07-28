@@ -4,28 +4,28 @@ weight: 40
 draft: false
 ---
 
-Even if files are not saved in UTF-8, you can extract information on character encoding from the file names and import the texts correctly.
+Text files are stored on disk as raw bytes, and "character encoding" translates those bytes back into readable characters. Most modern files use UTF-8, which R handles automatically. Older files, especially ones exported from older software or from non-English systems, are sometimes saved in a different encoding. If R assumes the wrong encoding, accented letters and non-Latin scripts turn into garbled symbols instead of the correct text. Here is one way to recover from that. Even if files are not saved in UTF-8, you can sometimes extract the correct encoding from the file names themselves and import the texts correctly.
 
 ```{r, message=FALSE}
 library(quanteda)
 library(readtext)
 ```
 
-`temp_dir` contains the example files in various character encodings.
+`path_temp` will hold a folder of example files, each deliberately saved in a different character encoding, so that we can practise detecting and fixing it.
 
 ```{r}
 path_temp <- tempdir()
 unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"), exdir = path_temp)
 ```
 
-`list.files()` returns names of all the text files (".txt") in the directory
+`list.files()` returns the names of all the text files (`.txt`) in the directory that match the given pattern.
 
 ```{r}
 filename <- list.files(path_temp, "^(Indian|UDHR_).*\\.txt$")
 head(filename)
 ```
 
-You can extract character encoding information from the file names using R's basic commands. 
+In this example dataset, each file name encodes its own character encoding as the third underscore-separated part. We can extract it using ordinary R string functions, without needing to open and inspect each file by hand.
 
 ```{r}
 filename <- gsub(".txt$", "", filename)
@@ -33,19 +33,21 @@ encoding <- sapply(strsplit(filename, "_"), "[", 3)
 head(encoding)
 ```
 
-There is a character encoding not supported by R.
+Before using these encodings, check that R recognises all of them. `iconvlist()` returns every character encoding your machine's R installation supports, so comparing it against the encodings we extracted tells us whether any are unsupported.
 
 ```{r}
 setdiff(encoding, iconvlist())
 ```
 
-You then pass `encoding` to `readtext()` to convert various character encodings into UTF-8.
+One of our example files, labelled `"UTF-8-BOM"`, is therefore not a genuine encoding that R can convert from directly. It's UTF-8 text with an extra marker (a "byte order mark") at the start of the file. `readtext()` handles this as a special case even though it does not appear in `iconvlist()`. For every other encoding, you can pass the `encoding` vector straight to `readtext()`, which converts each file from its original encoding into UTF-8 as it reads it in.
 
 ```{r}
 path_data <- system.file("extdata/", package = "readtext")
-dat_txt <- readtext(paste0(path_data, "/data_files_encodedtexts.zip"), 
+dat_txt <- readtext(paste0(path_data, "/data_files_encodedtexts.zip"),
                      encoding = encoding,
-                     docvarsfrom = "filenames", 
+                     docvarsfrom = "filenames",
                      docvarnames = c("document", "language", "input_encoding"))
 print(dat_txt, n = 50)
 ```
+
+Every file, regardless of its original encoding, has now been read into `dat_txt` as correctly displayed UTF-8 text, ready to be passed to `corpus()` exactly like any of the other data sources in this chapter.
