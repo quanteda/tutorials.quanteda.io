@@ -6,6 +6,8 @@ draft: false
 
 {{% author %}}By Dai Yamao and Elad Segev{{% /author %}} 
 
+Arabic and Hebrew are both written right-to-left, which makes them more awkward to work with in R, since the console and most text editors are built around left-to-right display. Even so, analysing Arabic and Hebrew texts works fine, since the underlying processing does not depend on how the text happens to display on your screen. Here we preprocess both, extending the same tokenise-remove-stopwords-keep-script pattern used on the previous pages to two more scripts.
+
 
 ``` r
 library(quanteda)
@@ -15,9 +17,7 @@ options(width = 110)
 
 ## Arabic
 
-It is challenging to deal with the right-to-left languages in R because of the design of its console, but it is still possible to analyze Arabic texts.
-
-We use the Arabic stopwords list in [Marimo](https://github.com/koheiw/marimo) `stopwords("ar", source = "marimo")`. You can also remove all the non-Arabic words with `"^[\\p{script=Arab}]+$"`.
+We use the Arabic stopwords list in [Marimo](https://github.com/koheiw/marimo), `stopwords("ar", source = "marimo")`. Arabic script also has its own Unicode script class, so, following the same pattern as previous pages, you can remove all non-Arabic words with `"^[\\p{script=Arab}]+$"`.
 
 
 ``` r
@@ -77,7 +77,7 @@ print(dfmat_arb)
 
 ## Hebrew
 
-We resort to the Hebrew stopwords list (`stopwords("he", source = "marimo")`) and the length of words (`min_nchar = 2`) to remove function words. You can also remove all the non-Hebrew words with `"^[\\p{script=Hebr}]+$"`.
+Hebrew pre-processing follows the same logic, with its own script class and stopword list. We use the Hebrew stopwords list (`stopwords("he", source = "marimo")`) together with a minimum word length (`min_nchar = 2`) to remove short function words that the stopword list alone might miss. You can also remove all non-Hebrew words with `"^[\\p{script=Hebr}]+$"`.
 
 
 ``` r
@@ -85,9 +85,11 @@ We resort to the Hebrew stopwords list (`stopwords("he", source = "marimo")`) an
 corp_heb <- corpus_reshape(data_corpus_udhr["heb"], to = "paragraphs")
 
 # tokenize corpus and apply pre-processing
-toks_heb <- tokens(corp_heb, remove_punct = TRUE, remove_numbers = TRUE) |> 
-  tokens_select(pattern = "^[\\p{script=Hebr}]+$", valuetype = "regex") |> 
+toks_heb <- tokens(corp_heb, remove_punct = TRUE, remove_numbers = TRUE) |>
+  tokens_select(pattern = "^[\\p{script=Hebr}]+$", valuetype = "regex") |>
   tokens_remove(pattern = stopwords("he", source = "marimo"), min_nchar = 2)
+
+# inspect output
 print(toks_heb[2], max_ndoc = 1, max_ntoken = -1)
 ```
 
@@ -142,6 +144,3 @@ print(dfmat_heb)
 ## [ reached max_ndoc ... 76 more documents, reached max_nfeat ... 680 more features ]
 ```
 
-{{% notice note %}}
-Analysis of right-to-left language is easiest on Linux because it supports Unicode better than Windows and in Mac.
-{{% /notice %}}

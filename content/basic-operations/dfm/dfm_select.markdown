@@ -4,6 +4,8 @@ weight: 20
 draft: false
 ---
 
+You already used `tokens_select()` to remove stopwords from a tokens object. `dfm_select()` does the same job on a document-feature matrix instead, by pattern-matching against feature (column) names rather than tokens.
+
 
 ``` r
 library(quanteda)
@@ -30,8 +32,6 @@ print(dfmat_inaug)
 ## [ reached max_ndoc ... 54 more documents, reached max_nfeat ... 9,563 more features ]
 ```
 
-You can select features from a DFM using `dfm_select()`.
-
 
 ``` r
 dfmat_inaug_nostop <- dfm_select(dfmat_inaug, pattern = stopwords("en"), selection = "remove")
@@ -51,7 +51,7 @@ print(dfmat_inaug_nostop)
 ## [ reached max_ndoc ... 54 more documents, reached max_nfeat ... 9,425 more features ]
 ```
 
-`dfm_remove()` is an alias to `dfm_select(selection = "remove")`. Therefore, the code above and below are equivalent.
+As with tokens, `dfm_remove()` is a shortcut alias for `dfm_select(selection = "remove")`. The code above and below are equivalent, and you can see the feature count drop identically in both.
 
 
 ``` r
@@ -72,7 +72,7 @@ print(dfmat_inaug_nostop)
 ## [ reached max_ndoc ... 54 more documents, reached max_nfeat ... 9,425 more features ]
 ```
 
-You can also select features based on the length of features. In the example below, we only keep features consisting of at least five characters.
+You can also select features based on their length rather than matching them against a specific list of words. In the example below, we only keep features that consist of at least five characters, which is a quick way of filtering out short function words without needing a stopword list at all.
 
 
 ``` r
@@ -102,7 +102,7 @@ topfeatures(dfmat_inaug_long, 10)
 ##       1009        773        592        575        354        343        339        329        328        324
 ```
 
-While `dfm_select()` selects features based on patterns, `dfm_trim()` does this based on feature frequencies. If `min_termfreq = 10`, features that occur less than 10 times in the corpus are removed.
+While `dfm_select()` and its relatives choose features based on patterns or length, `dfm_trim()` chooses them based on how often they occur. Use it to cut extremely rare features, which add noise and computational cost without adding much information. If `min_termfreq = 10`, features that occur fewer than ten times across the whole corpus are removed.
 
 
 ``` r
@@ -123,7 +123,7 @@ print(dfmat_inaug_freq)
 ## [ reached max_ndoc ... 54 more documents, reached max_nfeat ... 1,541 more features ]
 ```
 
-If `max_docfreq = 0.1`, features that occur in more than 10% of the documents are removed.
+You can trim from the other direction too. If `max_docfreq = 0.1`, features that occur in more than 10% of documents are removed. That's useful for stripping out words so common across your corpus that they no longer help distinguish one document from another.
 
 
 ``` r
@@ -151,3 +151,7 @@ print(dfmat_inaug_docfreq)
 ##   1809-Madison             0
 ## [ reached max_ndoc ... 54 more documents, reached max_nfeat ... 7,790 more features ]
 ```
+
+{{% notice tip %}}
+Every filtering choice here, which stopword list, which length or frequency cutoff, is a preprocessing decision, and these can change downstream results more than you might expect. See the note on this in the [Tokens chapter](/basic-operations/tokens/)'s [Select tokens](/basic-operations/tokens/tokens_select) page for more on why this is worth checking rather than assuming.
+{{% /notice %}}

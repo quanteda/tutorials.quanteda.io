@@ -4,7 +4,7 @@ weight: 40
 draft: false
 ---
 
-Even if files are not saved in UTF-8, you can extract information on character encoding from the file names and import the texts correctly.
+Text files are stored on disk as raw bytes, and "character encoding" translates those bytes back into readable characters. Most modern files use UTF-8, which R handles automatically. Older files, especially ones exported from older software or from non-English systems, are sometimes saved in a different encoding. If R assumes the wrong encoding, accented letters and non-Latin scripts turn into garbled symbols instead of the correct text. Here is one way to recover from that. Even if files are not saved in UTF-8, you can sometimes extract the correct encoding from the file names themselves and import the texts correctly.
 
 
 ``` r
@@ -12,7 +12,7 @@ library(quanteda)
 library(readtext)
 ```
 
-`temp_dir` contains the example files in various character encodings.
+`path_temp` will hold a folder of example files, each deliberately saved in a different character encoding, so that we can practise detecting and fixing it.
 
 
 ``` r
@@ -20,7 +20,7 @@ path_temp <- tempdir()
 unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"), exdir = path_temp)
 ```
 
-`list.files()` returns names of all the text files (".txt") in the directory
+`list.files()` returns the names of all the text files (`.txt`) in the directory that match the given pattern.
 
 
 ``` r
@@ -34,7 +34,7 @@ head(filename)
 ## [5] "UDHR_Arabic_WINDOWS-1256.txt"       "UDHR_Chinese_GB2312.txt"
 ```
 
-You can extract character encoding information from the file names using R's basic commands. 
+In this example dataset, each file name encodes its own character encoding as the third underscore-separated part. We can extract it using ordinary R string functions, without needing to open and inspect each file by hand.
 
 
 ``` r
@@ -48,7 +48,7 @@ head(encoding)
 ## [6] "GB2312"
 ```
 
-There is a character encoding not supported by R.
+Before using these encodings, check that R recognises all of them. `iconvlist()` returns every character encoding your machine's R installation supports, so comparing it against the encodings we extracted tells us whether any are unsupported.
 
 
 ``` r
@@ -56,18 +56,17 @@ setdiff(encoding, iconvlist())
 ```
 
 ```
-##  [1] "UTF-8-BOM"    "ISO-8859-6"   "WINDOWS-1256" "GB2312"       "WINDOWS-1252"
-##  [6] "ISO-8859-7"   "ISO-2022-KR"  "ISO-8859-5"   "KOI8-R"       "WINDOWS-1251"
+## [1] "UTF-8-BOM"
 ```
 
-You then pass `encoding` to `readtext()` to convert various character encodings into UTF-8.
+One of our example files, labelled `"UTF-8-BOM"`, is therefore not a genuine encoding that R can convert from directly. It's UTF-8 text with an extra marker (a "byte order mark") at the start of the file. `readtext()` handles this as a special case even though it does not appear in `iconvlist()`. For every other encoding, you can pass the `encoding` vector straight to `readtext()`, which converts each file from its original encoding into UTF-8 as it reads it in.
 
 
 ``` r
 path_data <- system.file("extdata/", package = "readtext")
-dat_txt <- readtext(paste0(path_data, "/data_files_encodedtexts.zip"), 
+dat_txt <- readtext(paste0(path_data, "/data_files_encodedtexts.zip"),
                      encoding = encoding,
-                     docvarsfrom = "filenames", 
+                     docvarsfrom = "filenames",
                      docvarnames = c("document", "language", "input_encoding"))
 print(dat_txt, n = 50)
 ```
@@ -107,7 +106,7 @@ print(dat_txt, n = 50)
 ## [30] "27 UDHR_Japanese_ISO-2022-JP.txt      \"\\\"『世界人権… UDHR     Japanese ISO-2022-JP   "
 ## [31] "28 UDHR_Japanese_UTF-8.txt            \"\\\"『世界人権… UDHR     Japanese UTF-8         "
 ## [32] "29 UDHR_Japanese_WINDOWS-936.txt      \"\\\"『世界人権… UDHR     Japanese WINDOWS-936   "
-## [33] "30 UDHR_Korean_ISO-2022-KR.txt        \"\\\"\\\"...\" UDHR     Korean   ISO-2022-KR   "  
+## [33] "30 UDHR_Korean_ISO-2022-KR.txt        \"\\\"세 계 인… UDHR     Korean   ISO-2022-KR   "  
 ## [34] "31 UDHR_Korean_UTF-8.txt              \"\\\"세 계 인… UDHR     Korean   UTF-8         "  
 ## [35] "32 UDHR_Russian_ISO-8859-5.txt        \"\\\"Всеоб… UDHR     Russian  ISO-8859-5    "     
 ## [36] "33 UDHR_Russian_KOI8-R.txt            \"\\\"Всеоб… UDHR     Russian  KOI8-R        "     
@@ -123,3 +122,5 @@ print(dat_txt, n = 50)
 ## attr(,"class")
 ## [1] "trunc_mat"
 ```
+
+Every file, regardless of its original encoding, has now been read into `dat_txt` as correctly displayed UTF-8 text, ready to be passed to `corpus()` exactly like any of the other data sources in this chapter.

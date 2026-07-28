@@ -4,6 +4,8 @@ weight: 20
 draft: false
 ---
 
+Before counting words or fitting a model, it often helps to read how a word is actually used in context. We call this close reading a "keyword-in-context", or KWIC, analysis, one of the most useful sanity checks in text analysis: it confirms that a word means what you assume it means in your texts.
+
 
 ``` r
 library(quanteda)
@@ -15,7 +17,7 @@ options(width = 110)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-You can see how keywords are used in the actual contexts in a concordance view produced by `kwic()`. 
+`kwic()` searches a tokens object for a pattern and returns every occurrence, together with the words immediately before and after it, in a table you can scan by eye.
 
 
 ``` r
@@ -24,8 +26,7 @@ head(kw_immig, 10)
 ```
 
 ```
-## Keyword-in-context with 10 matches.
-##                                                                                                            
+## Keyword-in-context with 10 matches.                                                                                                           
 ##    [BNP, 1]                                       | IMMIGRATION | : AN UNPARALLELED CRISIS WHICH           
 ##   [BNP, 16]                   SOLVE. - At current | immigration | and birth rates, indigenous              
 ##   [BNP, 78]                 a halt to all further | immigration | , the deportation of all                 
@@ -38,7 +39,9 @@ head(kw_immig, 10)
 ##  [BNP, 661]                     are added in, the |  immigrant  | birth rate is estimated to
 ```
 
-`kwic()` also takes multiple keywords in a character vector.
+The asterisk in `"immig*"` is a wildcard, so this single pattern matches "immigration", "immigrant" and any other word beginning with "immig". Each row shows the matched keyword in the `keyword` column, flanked by its surrounding words in the `pre` and `post` columns, along with which document it came from.
+
+`kwic()` also takes multiple keywords in a character vector, so you can search for related terms in a single call.
 
 
 ``` r
@@ -47,8 +50,7 @@ head(kw_immig2, 10)
 ```
 
 ```
-## Keyword-in-context with 10 matches.
-##                                                                                                            
+## Keyword-in-context with 10 matches.                                                                                                           
 ##    [BNP, 1]                                       | IMMIGRATION | : AN UNPARALLELED CRISIS WHICH           
 ##   [BNP, 16]                   SOLVE. - At current | immigration | and birth rates, indigenous              
 ##   [BNP, 78]                 a halt to all further | immigration | , the deportation of all                 
@@ -61,7 +63,7 @@ head(kw_immig2, 10)
 ##  [BNP, 661]                     are added in, the |  immigrant  | birth rate is estimated to
 ```
 
-With the `window` argument, you can specify the number of words to be displayed around the keyword.
+With the `window` argument, you can specify how many words of context to display on either side of the keyword. The default is five; here we widen it to seven, which is useful when five words is not enough to judge how a term is being used.
 
 
 ``` r
@@ -70,8 +72,7 @@ head(kw_immig3, 10)
 ```
 
 ```
-## Keyword-in-context with 10 matches.
-##                                                                               
+## Keyword-in-context with 10 matches.                                                                              
 ##    [BNP, 1]                                                    | IMMIGRATION |
 ##   [BNP, 16]                        BNP CAN SOLVE. - At current | immigration |
 ##   [BNP, 78]                 will include a halt to all further | immigration |
@@ -95,7 +96,19 @@ head(kw_immig3, 10)
 ##  birth rate is estimated to be around
 ```
 
-If you want to find multi-word expressions, separate words by white space and wrap the character vector by `phrase()`.
+If you want to search for a multi-word expression rather than a single word, separate the words with a space and wrap the character vector in `phrase()`. Without `phrase()`, `kwic()` treats "asylum seeker*" as one long, unmatchable pattern rather than two consecutive words, and reports no matches, with no warning that anything went wrong.
+
+
+``` r
+# without phrase(), "asylum seeker*" is one unmatchable pattern
+kwic(toks, pattern = "asylum seeker*")
+```
+
+```
+## Keyword-in-context with 0 matches.
+```
+
+Wrapping the same pattern in `phrase()` tells `kwic()` to treat it as two consecutive words instead of one, so it can find the genuine matches.
 
 
 ``` r
@@ -104,8 +117,7 @@ head(kw_asylum)
 ```
 
 ```
-## Keyword-in-context with 6 matches.
-##                                                                                                    
+## Keyword-in-context with 6 matches.                                                                                                   
 ##  [BNP, 1958:1959] all illegal immigrants and bogus | asylum seekers | , including their dependents.
 ##  [BNP, 2159:2160]            region concerned. An' | asylum seeker  | ' who has crossed dozens     
 ##  [BNP, 2192:2193]          country. Because every' | asylum seeker  | ' in Britain has crossed     
@@ -114,7 +126,11 @@ head(kw_asylum)
 ##  [BNP, 2296:2297]  benefits system for these bogus | asylum seekers | is removed, the flood
 ```
 
-Texts do not always appear nicely in your R console, so you can use `View()` to see the keywords-in-context in an interactive HTML table.
+{{% notice warning %}}
+Forgetting `phrase()` around a multi-word pattern does not raise an error, in `kwic()` or in any of the other pattern-matching functions you will meet in this tutorial. Instead it quietly matches nothing, or matches something other than what you intended. Whenever a pattern you are searching for contains a space, wrap it in `phrase()`.
+{{% /notice %}}
+
+Texts do not always appear nicely in your R console, especially once a table has many rows or wide columns. Use `View()` to open the keywords-in-context in an interactive, scrollable table in your IDE.
 
 
 ``` r

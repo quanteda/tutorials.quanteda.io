@@ -5,6 +5,8 @@ chapter: false
 draft: false
 ---
 
+Here we open a new part of the tutorial, on statistical analysis. You have already used `topfeatures()` to find the most common words in a DFM. `textstat_frequency()` builds on this idea. Unlike `topfeatures()`, it shows both term and document frequency side by side and returns a proper data frame you can filter and sort. You can also use it to find the most frequent features within groups, not just overall.
+
 
 ``` r
 library(quanteda)
@@ -14,9 +16,7 @@ library(quanteda.corpora)
 library(ggplot2)
 ```
 
-Unlike `topfeatures()`, `textstat_frequency()` shows both term and document frequencies. You can also use the function to find the most frequent features within groups.
-
-Using the `download()` function from **quanteda.corpora**, you can retrieve a text corpus of tweets.
+We will work with a corpus of tweets in this chapter. Some of the corpora used across this tutorial, including this one, are too large to bundle with **quanteda** itself and are instead hosted online. `download()`, from **quanteda.corpora**, fetches them by URL the first time you need them. Here it is passed a direct link rather than a short name like `"data_corpus_guardian"`, because this dataset is not registered under a name in the package.
 
 
 ``` r
@@ -25,11 +25,13 @@ corp_tweets <- download(url = "https://www.dropbox.com/s/846skn1i5elbnd2/data_co
 
 
 
-We can analyse the most frequent hashtags by applying `tokens_keep(pattern = "#*")` before creating a DFM.
+We can analyse the most frequent hashtags in this corpus by applying `tokens_keep(pattern = "#*")`, which keeps only tokens starting with a hash symbol, before creating a DFM.
+
+Setting `groups = lang` asks for the top hashtags separately within each language recorded in the corpus, rather than one overall ranking, so we can see whether different language communities are talking about different things.
 
 
 ``` r
-toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) |> 
+toks_tweets <- tokens(corp_tweets, remove_punct = TRUE) |>
                tokens_keep(pattern = "#*")
 dfmat_tweets <- dfm(toks_tweets)
 
@@ -61,7 +63,7 @@ head(tstat_freq, 20)
 ## 20               #eu         9    3       7     Dutch
 ```
 
-You can also plot the Twitter hashtag frequencies easily using `ggplot()`.
+Because `textstat_frequency()` returns an ordinary data frame, it plugs directly into **ggplot2**. You can plot the Twitter hashtag frequencies by piping the result straight into `ggplot()`.
 
 
 ``` r
@@ -76,7 +78,7 @@ dfmat_tweets |>
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-5-1.png" alt="" width="672" />
 
-Alternatively, you can create a word cloud of the 100 most common hashtags.
+Alternatively, you can create a word cloud of the 100 most common hashtags: a quick way to get a first impression of a corpus, though less precise than a bar chart for comparing exact frequencies. Larger words appear more often in the corpus. We set a random seed with `set.seed()` before plotting, since the word cloud's layout is random, and fixing the seed makes the picture reproducible.
 
 
 ``` r
@@ -86,7 +88,7 @@ textplot_wordcloud(dfmat_tweets, max_words = 100)
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" />
 
-Finally, it is possible to compare different groups within one Wordcloud. We must first create a dummy variable that indicates whether a tweet was posted in English or a different language. Afterwards, we can compare the most frequent hashtags of English and non-English tweets.
+You can also compare groups within a single word cloud. First, create a dummy variable indicating whether a tweet was posted in English or another language, using `ifelse()` as in the Basic Operations chapter. Then compare the most frequent hashtags of English and non-English tweets directly.
 
 
 ``` r
@@ -97,8 +99,8 @@ corp_tweets$dummy_english <- factor(ifelse(corp_tweets$lang == "English", "Engli
 toks_tweets <- tokens(corp_tweets)
 
 # create a grouped dfm and compare groups
-dfmat_corp_language <- dfm(toks_tweets) |> 
-                       dfm_keep(pattern = "#*") |> 
+dfmat_corp_language <- dfm(toks_tweets) |>
+                       dfm_keep(pattern = "#*") |>
                        dfm_group(groups = dummy_english)
 
 # create wordcloud
@@ -107,4 +109,6 @@ textplot_wordcloud(dfmat_corp_language, comparison = TRUE, max_words = 200)
 ```
 
 <img src="/statistical-analysis/frequency_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" />
+
+Setting `comparison = TRUE` splits the word cloud into two halves, one per group, with each hashtag coloured and sized according to its frequency within that group, making it easy to spot hashtags that are distinctive to one language versus hashtags that are common to both.
 

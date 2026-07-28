@@ -4,7 +4,7 @@ weight: 20
 draft: false
 ---
 
-We can compound multi-word expressions through collocation analysis. In this example, we will identify sequences of capitalized words and compound them as proper names, which are important linguistic features of newspaper articles.
+[Earlier in this tutorial](/basic-operations/tokens/tokens_compound), you compounded multi-word expressions that you already knew about, such as "asylum seeker", by naming them directly. In real text, though, you rarely know every meaningful phrase in advance. Here we discover multi-word expressions automatically, through collocation analysis, before compounding them. In this example, we will identify sequences of capitalised words and compound them as proper names, a common type of multi-word expression in newspaper articles.
 
 
 ``` r
@@ -14,7 +14,7 @@ library(quanteda.corpora)
 options(width = 110)
 ```
 
-This corpus contains 6,000 Guardian news articles from 2012 to 2016.
+The corpus contains 6,000 Guardian news articles from 2012 to 2016. As in the [fcm chapter](/basic-operations/fcm/fcm), it is normally retrieved with `download()`, but here we load an already-downloaded copy for this website.
 
 
 ``` r
@@ -23,9 +23,7 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-
-
-We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. 
+We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_remove()`, but this time with `padding = TRUE`, which you met in the [Basic Operations chapter](/basic-operations/tokens/tokens_select). Padding matters here because collocation analysis needs to know which words were originally next to each other; without it, two words that were never actually adjacent could end up looking adjacent once the words between them are deleted.
 
 
 ``` r
@@ -33,14 +31,14 @@ toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, paddi
     tokens_remove(stopwords("en"), padding = TRUE)
 ```
 
-One of the most common type of multi-word expressions is proper names, which we can select simply based on capitalization in English texts.
+One of the most common types of multi-word expression is proper names, which we can select based on capitalisation in English texts. `tokens_select()` here keeps only tokens starting with a capital letter, and `textstat_collocations()` then measures, for every pair of adjacent capitalised words, how much more often they occur together than you would expect if they occurred independently.
 
 
 ``` r
-toks_news_cap <- tokens_select(toks_news, 
+toks_news_cap <- tokens_select(toks_news,
                                pattern = "^[A-Z]",
                                valuetype = "regex",
-                               case_insensitive = FALSE, 
+                               case_insensitive = FALSE,
                                padding = TRUE)
 
 tstat_col_cap <- textstat_collocations(toks_news_cap, min_count = 10, tolower = FALSE)
@@ -71,19 +69,18 @@ head(tstat_col_cap, 20)
 ## 20     South Carolina   271            0      2  9.537634  77.88654
 ```
 
-We will only compound strongly associated multi-word expressions here by subsetting `tstat_col_cap` with the z-score (`z > 3`).
+The `z` column is a statistical score: the higher it is, the more confident we can be that the two words form a genuine collocation rather than appearing together by chance. We will only compound strongly associated multi-word expressions here by subsetting `tstat_col_cap` to keep just those with `z > 3`, a common threshold for a strong association.
 
 
 ``` r
-toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3,], 
+toks_comp <- tokens_compound(toks_news, pattern = tstat_col_cap[tstat_col_cap$z > 3,],
                              case_insensitive = FALSE)
 kw_comp <- kwic(toks_comp, pattern = c("London_*", "British_*"))
 head(kw_comp, 10)
 ```
 
 ```
-## Keyword-in-context with 10 matches.
-##                                                                                                  
+## Keyword-in-context with 10 matches.                                                                                                 
 ##     [text9204, 398]  researchers publishing | British_Medical_Journal | found drop heart         
 ##   [text150582, 373]       including Bermuda | British_Virgin_Islands  |  Cayman_Islands          
 ##   [text150582, 663]         included Panama | British_Virgin_Islands  |  published               
@@ -95,3 +92,7 @@ head(kw_comp, 10)
 ##   [text109224, 115]                   coast |    British_Columbia     |  Today however           
 ##   [text109224, 220]           Alberta coast |    British_Columbia     |  plan
 ```
+
+Notice that `pattern` here is the `tstat_col_cap` collocations table itself, not a character vector wrapped in `phrase()`, as it was when you [compounded known phrases by hand earlier in this tutorial](/basic-operations/tokens/tokens_compound). `textstat_collocations()` already records each candidate as a multi-word sequence, so `tokens_compound()` recognises it as one directly; `phrase()` is only needed when you type a multi-word pattern yourself as plain text.
+
+The keyword-in-context output confirms that phrases such as "London Gatwick" and "British Columbia" have been compounded into single tokens, joined by an underscore, just as before. The difference is that this time, `textstat_collocations()` found the phrases for us, based purely on how often capitalised words occurred next to each other in the corpus.

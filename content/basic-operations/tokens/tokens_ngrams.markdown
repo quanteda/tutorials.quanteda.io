@@ -4,18 +4,19 @@ weight: 60
 draft: false
 ---
 
+An n-gram is a sequence of *n* consecutive tokens taken from a text, so a 2-gram (or "bigram") combines every pair of neighbouring words, and a 3-gram combines every three in a row. You can generate n-grams of any length from a tokens object using `tokens_ngrams()`, which builds every possible sequence of the requested length, sliding one token at a time through each document. Unlike `tokens_compound()`, which you met in the [previous chapter](/basic-operations/tokens/tokens_compound), `tokens_ngrams()` does not require you to know in advance which phrases matter, generating every combination and leaving you to work out afterwards which ones are meaningful.
+
 
 ``` r
 library(quanteda)
-options(width = 110)
 ```
+
+
 
 
 ``` r
 toks <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
 ```
-
-You can generate n-grams in any lengths from a tokens using `tokens_ngrams()`. N-grams are a sequence of tokens from already tokenized text objects.
 
 
 ``` r
@@ -51,7 +52,9 @@ tail(toks_ngram[[1]], 30)
 ## [28] "a_majority_in_their"         "majority_in_their_ancestral" "in_their_ancestral_homeland"
 ```
 
-`tokens_ngrams()` also supports skip to generate skip-grams.
+Setting `n = 2:4` generates bigrams, trigrams and four-grams all at once, which is why the output mixes sequences of different lengths, each joined with an underscore. The output is far larger than the words you started with, since almost every pair, triple and quadruple of neighbouring words now gets its own entry.
+
+`tokens_ngrams()` also supports a `skip` argument to generate skip-grams, sequences that allow a gap between the words rather than requiring them to be strictly adjacent, useful for capturing relationships between words that are related but do not always sit next to each other.
 
 
 ``` r
@@ -74,7 +77,7 @@ head(toks_skip[[1]], 30)
 
 ## Selective ngrams
 
-While `tokens_ngrams()` generates n-grams or skip-grams in all possible combinations of tokens, `tokens_compound()` generates n-grams more selectively. For example, you can make negation bi-grams using `phrase()` and a wild card (`*`).
+Generating every possible n-gram, as above, produces a very large number of combinations, most of which are meaningless. While `tokens_ngrams()` generates n-grams or skip-grams from all possible combinations of tokens, `tokens_compound()` lets you generate n-grams more selectively, by specifying a pattern that the sequence must match. For example, you can make negation bigrams, such as "not good" or "not true", using `phrase()` together with a wildcard (`*`) that matches whatever word follows "not".
 
 
 ``` r
@@ -87,6 +90,8 @@ head(toks_neg_bigram_select[[1]], 30)
 ## [1] "not_born"     "not_white"    "not_include"  "not_from"     "not_share"    "not_the"      "not_become"  
 ## [8] "not_merely"   "not_products"
 ```
+
+The result is a much shorter, more targeted list than `tokens_ngrams()` produced, since only sequences beginning with "not" are compounded and then kept. Selective compounding like this is usually more useful in practice than generating every possible n-gram, because it lets you focus on the sequences you already have reason to think matter.
 
 {{% notice tip %}}
 `tokens_ngrams()` is an efficient function, but it returns a large object if multiple values are given to `n` or `skip`. Since n-grams inflates the size of objects without adding much information, we recommend generating n-grams more selectively using `tokens_compound()`.

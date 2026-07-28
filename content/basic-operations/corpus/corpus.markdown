@@ -4,28 +4,25 @@ weight: 10
 draft: false
 ---
 
+A corpus is a collection of texts, stored together with information about each text, such as its author, date or source, and is almost always the first object you create in **quanteda**. Everything else in this tutorial, tokens and the document-feature matrix, is built from it. Creating a corpus does not change your texts in any way; it only wraps them in a container that keeps the texts and their accompanying information together.
+
 
 ``` r
 library(quanteda)
 library(readtext)
 ```
 
-You can create a corpus from various available sources:
-
-1. A character vector consisting of one document per element
-
-2. A data frame consisting of a character vector for documents, and additional vectors for document-level variables
-
-3. A VCorpus or SimpleCorpus class object created by the **tm** package 
-
+The function that creates a corpus is `corpus()`, which accepts text from several starting points: a character vector with one document per element, a data frame that combines document texts with columns for document-level variables, or a `VCorpus` or `SimpleCorpus` object created by the **tm** package.
 
 ## Character vector
 
-`data_char_ukimmig2010` is a named character vector and consists of sections of British election manifestos on immigration and asylum.
+The simplest way to build a corpus is from a character vector, in which each element holds the full text of one document. `data_char_ukimmig2010`, bundled with **quanteda**, is a named character vector of this kind, containing sections of British election manifestos on immigration and asylum, one per political party.
+
+The `docvars` argument attaches document-level variables, additional information about each document that is not part of the text itself, such as which party wrote it. Here we record the name of each vector element (the party) as a document-level variable called `party`.
 
 
 ``` r
-corp_immig <- corpus(data_char_ukimmig2010, 
+corp_immig <- corpus(data_char_ukimmig2010,
                      docvars = data.frame(party = names(data_char_ukimmig2010)))
 print(corp_immig)
 ```
@@ -36,13 +33,13 @@ print(corp_immig)
 ## "IMMIGRATION: AN UNPARALLELED CRISIS WHICH ONLY THE BNP CAN S..."
 ## 
 ## Coalition :
-## "IMMIGRATION. The Government believes that immigration has e..."
+## "IMMIGRATION.  The Government believes that immigration has e..."
 ## 
 ## Conservative :
 ## "Attract the brightest and best to our country. Immigration h..."
 ## 
 ## Greens :
-## "Immigration. Migration is a fact of life. People have alway..."
+## "Immigration. Migration is a fact of life.  People have alway..."
 ## 
 ## Labour :
 ## "Crime and immigration The challenge for Britain We will cont..."
@@ -61,21 +58,24 @@ summary(corp_immig)
 ## Corpus consisting of 9 documents, showing 9 documents:
 ## 
 ##          Text Types Tokens Sentences        party
-##           BNP  1125   3280       136          BNP
-##     Coalition   142    260        12    Coalition
-##  Conservative   251    499        21 Conservative
-##        Greens   322    679        30       Greens
-##        Labour   298    683        33       Labour
-##        LibDem   251    483        26       LibDem
+##           BNP  1125   3280        88          BNP
+##     Coalition   142    260         4    Coalition
+##  Conservative   251    499        15 Conservative
+##        Greens   322    679        21       Greens
+##        Labour   298    683        29       Labour
+##        LibDem   251    483        14       LibDem
 ##            PC    77    114         5           PC
 ##           SNP    88    134         4          SNP
-##          UKIP   346    723        37         UKIP
+##          UKIP   346    723        26         UKIP
 ```
 
+`print()` confirms how many documents the corpus contains and how large it is. `summary()` gives you one row per document: the number of types (unique words), tokens (total word occurrences) and sentences, alongside the `party` variable you just attached.
 
 ## Data frame
 
-Using `read.csv()`, load an example file from `path_data` as a data frame called `dat_inaug`. Note that your file does not to be formatted as `.csv`. You can build a **quanteda** corpus from any file format that R can import as a data frame (see, for instance, the [**rio**](https://cran.r-project.org/web/packages/rio/index.html) package for importing various files as data frames into R).
+If your texts already live inside a data frame, for example because you exported them from a spreadsheet, you can build a corpus from that instead. A data frame is often more convenient than a character vector, since it can hold document-level variables and the texts side by side in one object.
+
+Using `read.csv()`, we load an example file from `path_data` as a data frame called `dat_inaug`. Note that your file does not need to be formatted as `.csv`: you can build a **quanteda** corpus from any file format that R can import as a data frame (see, for instance, the [**rio**](https://cran.r-project.org/web/packages/rio/index.html) package for importing other file formats as data frames into R).
 
 
 ``` r
@@ -91,7 +91,7 @@ names(dat_inaug)
 ## [1] "texts"     "Year"      "President" "FirstName"
 ```
 
-Construct a corpus from the "texts" column in `dat_inaug`.
+`names(dat_inaug)` lists the columns in the data frame: the speech text is stored in the `texts` column, and the rest, such as `Year` and `President`, will become document-level variables once we build the corpus. We tell `corpus()` which column holds the text with the `text_field` argument.
 
 
 ``` r
@@ -125,19 +125,19 @@ summary(corp_inaug, 5)
 ## Corpus consisting of 5 documents, showing 5 documents:
 ## 
 ##   Text Types Tokens Sentences Year  President FirstName
-##  text1   625   1538        24 1789 Washington    George
-##  text2    96    147         5 1793 Washington    George
+##  text1   625   1538        23 1789 Washington    George
+##  text2    96    147         4 1793 Washington    George
 ##  text3   826   2578        37 1797      Adams      John
-##  text4   717   1927        43 1801  Jefferson    Thomas
+##  text4   717   1927        41 1801  Jefferson    Thomas
 ##  text5   804   2381        45 1805  Jefferson    Thomas
 ```
 
-You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc., to a meaningful identifier. 
+By default, **quanteda** names each document `text1`, `text2` and so on. These generic labels are hard to work with once you have more than a handful of documents, so you can replace them with something meaningful using `docnames()`.
 
 
 ``` r
-docid <- paste(dat_inaug$Year, 
-               dat_inaug$FirstName, 
+docid <- paste(dat_inaug$Year,
+               dat_inaug$FirstName,
                dat_inaug$President, sep = " ")
 docnames(corp_inaug) <- docid
 print(corp_inaug)
@@ -163,7 +163,7 @@ print(corp_inaug)
 
 ## Vcorpus
 
-**quanteda** also allows you to import a **tm** `VCorpus` object.
+If you are coming to **quanteda** from the older **tm** package, you do not need to start from scratch. **quanteda** can convert a **tm** `VCorpus` object directly into its own corpus format. Your existing texts stay intact.
 
 
 ``` r
