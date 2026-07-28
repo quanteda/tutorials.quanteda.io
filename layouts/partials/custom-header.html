@@ -1,0 +1,123 @@
+<link href="{{"css/chroma.css" | relURL}}{{ if not .Site.Params.disableAssetsBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
+<style type="text/css">
+  /* Inline code, e.g. `tokens()` in prose. Overrides the theme's default
+     pale-yellow background. */
+  :not(pre) > code {
+    background-color: #eaf4fd;
+    color: #383a42;
+    border: none;
+    border-radius: 4px;
+    padding: 0.15em 0.4em;
+  }
+
+  /* R code chunks (Chroma-highlighted). Light tint of the theme's own
+     blue accent colour (#1C90F3, see theme-blue.css), with dark (not
+     black, not white) text, rounded corners and a subtle shadow so it
+     reads as a distinct card on the page. */
+  pre.chroma {
+    background-color: #eaf4fd;
+    border: 1px solid #cfe6f8;
+    border-radius: 6px;
+    padding: 1em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    overflow-x: auto;
+  }
+  .chroma {
+    background-color: #eaf4fd;
+    color: #383a42;
+  }
+
+  /* Plain R console output (no Chroma class). Deliberately lighter than
+     the code chunks above and without a border, shadow or rounded box,
+     so output reads as a quieter, secondary element rather than being
+     mistaken for code you would type yourself. Horizontal scroll keeps
+     wide output (this site prints at width = 110 throughout) from
+     breaking the page layout. */
+  pre:not(.chroma) {
+    background-color: #f5fafe;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 1em;
+    overflow-x: auto;
+  }
+  pre:not(.chroma) code {
+    font-size: 14px;
+  }
+  pre code {
+    background: transparent;
+    color: #383a42;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  /* In-text citations, e.g. "Denny and Spirling (2018)". By default only
+     the year itself is a link; style and script (in the footer) make the
+     whole citation behave like one, jumping to its entry below. */
+  span.citation {
+    color: #00bdf3;
+    cursor: pointer;
+  }
+  span.citation a {
+    color: inherit;
+    text-decoration: none;
+  }
+  span.citation:hover {
+    color: #0082a7;
+    text-decoration: underline;
+  }
+
+  /* Auto-generated "## References" bibliography (pandoc/citeproc). */
+  div#refs {
+    margin-top: 1em;
+    font-size: 0.92em;
+  }
+  div#refs .csl-entry {
+    margin-bottom: 0.85em;
+    padding-left: 2em;
+    text-indent: -2em;
+  }
+
+  /* Sidebar navigation: the theme collapses every chapter except the one
+     containing the current page (#sidebar ul.topics ul { display: none })
+     and only expands it via a "parent"/"active" class. The override below
+     keeps chapters (level 1) and subchapters (level 2, e.g. Corpus, Tokens)
+     always visible, but leaves individual pages within a subchapter
+     (level 3, e.g. "Construct a corpus") collapsed until you click into
+     that subchapter, so the sidebar stays at two levels deep. */
+  #sidebar ul.topics > li > ul {
+    display: block;
+  }
+
+  /* Landing page byline and tagline, directly under the "Quanteda
+     tutorials" H1. */
+  div.author {
+    text-align: center;
+    font-size: 1.3rem;
+    margin: 1.7rem 0 0.5rem;
+  }
+  p.subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #6a737d;
+    margin: 0 0 1.7rem;
+  }
+
+  /* The theme's notice box only colours <p> children, so a notice
+     containing a bullet list (e.g. the citation box) shows the list
+     on a plain white background outside the coloured box. Extend the
+     same background to <ul> so the whole notice reads as one box. */
+  div.notices.note ul,
+  div.notices.info ul,
+  div.notices.warning ul,
+  div.notices.tip ul {
+    margin: 0;
+    padding: 0.5em 15px 15px 2.5em;
+    color: #666;
+  }
+  div.notices.note ul { background: #E7F2FA; }
+  div.notices.info ul { background: #FFF2DB; }
+  div.notices.warning ul { background: #FAE2E2; }
+  div.notices.tip ul { background: #E6F9E6; }
+</style>

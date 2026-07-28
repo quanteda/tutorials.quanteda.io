@@ -1,5 +1,5 @@
 baseURL = "/"
-languageCode = "en-US"
+locale = "en-US"
 defaultContentLanguage = "en"
 
 title = "Tutorials for quanteda"
@@ -8,7 +8,8 @@ themesdir = "./themes"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
-PygmentsCodeFences = false
+PygmentsCodeFences = true
+pygmentsUseClasses = true
 min_version = 0.6
 
 [markup]
@@ -21,7 +22,7 @@ min_version = 0.6
   description = "Introduction to quantitative text analysis using quanteda"
   author = "Kohei Watanabe and Stefan Müller"
   showVisitedLinks = true
-  themeVariant = "mine"
+  themeVariant = "blue"
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
@@ -30,7 +31,7 @@ home = [ "HTML", "RSS", "JSON"]
 [Languages.en]
 # title = "Tutorials for quanteda"
 weight = 1
-languageName = "English"
+label = "English"
 
 [[Languages.en.menu.shortcuts]]
 name = "<i class='fab fa-github'></i> Github repo"

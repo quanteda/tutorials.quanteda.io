@@ -7,8 +7,6 @@ disableToc: true
 
 Thanks to them <i class="fa fa-heart"></i> for make Open Source Software a better place !
 
-{{% ghcontributors "https://api.github.com/repos/matcornic/hugo-theme-learn/contributors?per_page=100" %}}
-
 And a special thanks to [@vjeantet](https://github.com/vjeantet) for his work on [docdock](https://github.com/vjeantet/hugo-theme-docdock), a fork of hugo-theme-learn. v2.0.0 of this theme is inspired by his work.
 
 ## Packages and libraries
