@@ -82,19 +82,10 @@ movie_dataset <- dataset(
     self$toks <- data
     self$dvars <- docvars(data)
   },
-  .getitem = function(i) {
-    list(
-      x = as.matrix(self$toks, length = text_length, extract = i) + 1L,
-      y = self$dvars$sentiment[i]
-    )
-  },
   .getbatch = function(i) {
     list(
       x = as.matrix(self$toks, length = text_length, extract = i, drop = FALSE) + 1L,
       y = self$dvars$sentiment[i]
-      # alternatively
-      #x = as.tensor(self$toks, length = text_length, extract = i),
-      #y = torch_tensor(self$dvars$sentiment[i])
     )
   },
   .length = function() {
@@ -107,7 +98,7 @@ train_ds <- movie_dataset(tokens_subset(xtoks_imdb, split == "train"), text_leng
 test_ds <- movie_dataset(tokens_subset(xtoks_imdb, split == "test"), text_length)
 ```
 
-If you call the dataset with the document index, it returns the token IDs in `x` and the sentiment label in `y`. Documents are padded by `1` to make all of them to be 200 long.
+If you call the datasets with the document index, it returns the token IDs in `x` and the sentiment label in `y`. Documents are padded by `1` to make all of them to be 200 long.
 
 
 ``` r
