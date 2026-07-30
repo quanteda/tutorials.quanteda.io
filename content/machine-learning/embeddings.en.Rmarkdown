@@ -1,0 +1,107 @@
+---
+title: Word/document embedding
+weight: 80
+draft: false
+---
+
+Embedding is a technique to represent words or documents by dense and low dimensional vectors that capture word their similarities. These vectors can be used to compute their similarity or to train supervised machine learning algorithms. We can tarin word2vec and doc2vec models using **wordvector** package. 
+
+Install the **wordvector** package from CRAN.
+
+```{r eval=FALSE}
+install.packages("wordvector")
+```
+
+```{r message=FALSE}
+library(quanteda)
+library(quanteda.corpora)
+library(wordvector)
+```
+
+Download a corpus with news articles using **quanteda.corpora**'s `download()` function.
+
+```{r eval=FALSE}
+corp_news <- download("data_corpus_guardian")
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+corp_news <- readRDS("../data/data_corpus_guardian.rds")
+```
+
+Since word2vec and doc2vec are trained on tokens objects using context windows, we do not need to segment news articles into sentences, but reshaping prevents the windows from spanning across sentences. 
+
+```{r, cache=TRUE}
+# tokenize text corpus and remove various features
+corp_sent <- corpus_reshape(corp_news, to =  "sentences")
+toks_sent <- corp_sent |> 
+    tokens(remove_punct = TRUE, remove_symbols = TRUE, 
+           remove_numbers = TRUE, remove_url = TRUE) |> 
+    tokens_remove(stopwords("en", source = "marimo")) |>
+    tokens_remove("guardian*")
+
+ndoc(toks_sent)
+length(types(toks_sent))
+```
+## Word embedding
+
+We can train word2vec using the `cbow` (continuous bag-of-words) or `sg` (skip-gram) the algorithm. When `dim` is larger, the models capture more subtle information but require greater computational resources. After training, we can extract document vector using `as.matrix()`.
+
+```{r, cache=TRUE}
+wov <- textmodel_word2vec(toks_sent, dim = 50, type = "cbow", min_count = 5, verbose = TRUE)
+dim(as.matrix(wov))
+```
+
+`similarity()` is a user-friendly function for finding similar words. If `analogy()` wrapper is used, cosine similarity is computed based on the weighted vectors.
+
+```{r}
+head(similarity(wov, "london", mode = "numeric"))
+head(similarity(wov, "london")) # top 6 most similar words
+head(similarity(wov, analogy(~ berlin - germany + france)))
+```
+
+Since word2vec is a language model, we can also compute the probability of the target word conditional on context words. 
+
+```{r}
+head(probability(wov, "eu", mode = "numeric")) 
+head(probability(wov, "eu")) # top 6 most likely contexts
+```
+
+## Document embedding
+
+We can train doc2vec with the `dm` (distributed memory) or `dbow` (distributed bag-of-words) model a similar manner as word vectors.
+
+```{r, cache=TRUE}
+dov <- textmodel_doc2vec(toks_sent, dim = 50, type = "dbow", min_count = 5, verbose = TRUE)
+dim(as.matrix(dov))
+```
+
+We have to specify layer = "documents" to find similar documents because the `dm` model contains both word and document vectors.
+
+```{r}
+s <- similarity(dov, "text99432.1", layer = "documents")
+head(s)
+```
+We can retrieve the most similar documents (sentences) from the corpus.
+
+```{r}
+print(corp_sent[s], max_nchar = -1)
+```
+Using doc2vec as a language model, we can also compute the probability of the target word to occur in each document. 
+
+```{r}
+p <- probability(dov, "drug", layer = "documents")
+head(p)
+```
+
+We can retrieve the documents (sentences) in which the target word is likely to occur.
+
+```{r}
+print(corp_sent[p], max_nchar = -1)
+```
+
+
+{{% notice ref %}}
+- Mikolov T. et al. 2013. "[Distributed Representations of Words and Phrases and their Compositionality](https://arxiv.org/abs/1310.4546)". arxiv.
+- Le V. Q. 2014. "[Distributed Representations of Sentences and Documents](https://arxiv.org/abs/1405.4053)". arxiv.
+{{% /notice %}}
