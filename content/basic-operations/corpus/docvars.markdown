@@ -5,14 +5,14 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
+``` r
+library(quanteda)
 ```
 
 **quanteda**'s objects keep information associated with documents. They are called "document-level variables", or "docvars", and are accessed using `docvars()`.
 
 
-```r
+``` r
 corp <- data_corpus_inaugural
 head(docvars(corp))
 ```
@@ -32,7 +32,7 @@ head(docvars(corp))
 If you want to extract individual elements of document variables, you can specify `field`.
 
 
-```r
+``` r
 docvars(corp, field = "Year")
 ```
 
@@ -40,13 +40,13 @@ docvars(corp, field = "Year")
 ##  [1] 1789 1793 1797 1801 1805 1809 1813 1817 1821 1825 1829 1833 1837 1841 1845
 ## [16] 1849 1853 1857 1861 1865 1869 1873 1877 1881 1885 1889 1893 1897 1901 1905
 ## [31] 1909 1913 1917 1921 1925 1929 1933 1937 1941 1945 1949 1953 1957 1961 1965
-## [46] 1969 1973 1977 1981 1985 1989 1993 1997 2001 2005 2009 2013 2017 2021
+## [46] 1969 1973 1977 1981 1985 1989 1993 1997 2001 2005 2009 2013 2017 2021 2025
 ```
 
 You can also access to individual document-level variables using the `$` operator. 
 
 
-```r
+``` r
 corp$Year
 ```
 
@@ -54,7 +54,7 @@ corp$Year
 ##  [1] 1789 1793 1797 1801 1805 1809 1813 1817 1821 1825 1829 1833 1837 1841 1845
 ## [16] 1849 1853 1857 1861 1865 1869 1873 1877 1881 1885 1889 1893 1897 1901 1905
 ## [31] 1909 1913 1917 1921 1925 1929 1933 1937 1941 1945 1949 1953 1957 1961 1965
-## [46] 1969 1973 1977 1981 1985 1989 1993 1997 2001 2005 2009 2013 2017 2021
+## [46] 1969 1973 1977 1981 1985 1989 1993 1997 2001 2005 2009 2013 2017 2021 2025
 ```
 
 ## Assigning document-level variables
@@ -62,7 +62,7 @@ corp$Year
 `docvars()` also allows you to create or update document variables.
 
 
-```r
+``` r
 docvars(corp, field = "Century") <- floor(docvars(corp, field = "Year") / 100) + 1
 head(docvars(corp))
 ```
@@ -80,7 +80,7 @@ head(docvars(corp))
 Alternatively, you can create the document-level variable using the `$` operator
 
 
-```r
+``` r
 corp$Century <- floor(corp$Year / 100) + 1
 ```
 

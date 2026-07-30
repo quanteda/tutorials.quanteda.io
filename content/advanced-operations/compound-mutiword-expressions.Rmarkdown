@@ -7,9 +7,9 @@ draft: false
 We can compound multi-word expressions through collocation analysis. In this example, we will identify sequences of capitalized words and compound them as proper names, which are important linguistic features of newspaper articles.
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textstats)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.textstats)
+library(quanteda.corpora)
 options(width = 110)
 ```
 
@@ -30,7 +30,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_remove()` with `padding = TRUE` to keep the original positions of tokens. 
 
 ```{r}
-toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, padding = TRUE) %>% 
+toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, padding = TRUE) |> 
     tokens_remove(stopwords("en"), padding = TRUE)
 ```
 

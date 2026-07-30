@@ -5,8 +5,8 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
+``` r
+library(quanteda)
 ```
 
 Using `corpus_segment()`, you can extract segments of texts and tags from documents. This is particularly useful when you analyze sections of documents or transcripts separately.
@@ -14,7 +14,7 @@ Using `corpus_segment()`, you can extract segments of texts and tags from docume
 ### Document sections
 
 
-```r
+``` r
 corp_tagged <- corpus(c("##INTRO This is the introduction.
                          ##DOC1 This is the first document.  Second sentence in Doc 1.
                          ##DOC3 Third document starts here.  End of third document.",
@@ -37,7 +37,7 @@ cbind(docvars(corp_sect), text = as.character(corp_sect))
 ### Speaker identifiers
 
 
-```r
+``` r
 corp_speeches <- corpus("Mr. Smith: Text.
                         Mrs. Jones: More text.
                         Mr. Smith: I'm speaking, again.")
@@ -55,7 +55,7 @@ cbind(docvars(corp_speakers), text = as.character(corp_speakers))
 You should use `corpus_reshape()` to split documents into sentences, but you can do similar operations using `corpus_segment()` by setting `pattern_position = "after"`.
 
 
-```r
+``` r
 corp <- corpus(c(d1 = "This, is a sentence?  You: come here.", 
                  d2 = "Yes, yes okay."))
 corp_sent <- corpus_segment(corp, pattern = "\\p{P}", valuetype = "regex", 

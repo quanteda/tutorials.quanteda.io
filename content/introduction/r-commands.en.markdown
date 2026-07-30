@@ -15,7 +15,7 @@ R has three types of objects: *vector*, *data frame* and *matrix*. Since many of
 As a language for statistical analysis, R"s most basic objects are vectors. Vectors contain a set of values. In the examples below, `vec_num` is a *numeric vector*, while `vec_char` is a *chracter vector*. We use `c()` to combine elements of a vector and `<-` to assign a vector to a variable. 
 
 
-```r
+``` r
 vec_num <- c(1, 5, 6, 3)
 print(vec_num)
 ```
@@ -24,7 +24,7 @@ print(vec_num)
 ## [1] 1 5 6 3
 ```
 
-```r
+``` r
 vec_char <- c("apple", "banana", "mandarin", "melon")
 print(vec_char)
 ```
@@ -36,7 +36,7 @@ print(vec_char)
 Once a vector is created, you can extract elements of vectors with the `[]` operator and index numbers of desired elements.
 
 
-```r
+``` r
 print(vec_num[1])
 ```
 
@@ -44,7 +44,7 @@ print(vec_num[1])
 ## [1] 1
 ```
 
-```r
+``` r
 print(vec_num[1:2])
 ```
 
@@ -52,7 +52,7 @@ print(vec_num[1:2])
 ## [1] 1 5
 ```
 
-```r
+``` r
 print(vec_char[c(1, 3)])
 ```
 
@@ -63,7 +63,7 @@ print(vec_char[c(1, 3)])
 You can apply arithmetical operations such as addition, subtraction, multiplication or division on numeric vectors. If only a single value is given for multiplication, for example, each element of the vector will be multiplied by the same value.
 
 
-```r
+``` r
 vec_num2 <- vec_num * 2
 print(vec_num2)
 ```
@@ -75,7 +75,7 @@ print(vec_num2)
 You can also compare elements of a vector by relational operators such as `==`, `>=`, `>`, `<=`, `<`. The result of these operations will be a *logical vector* that contains either `TRUE` or `FALSE`.
 
 
-```r
+``` r
 vec_logi_gt5 <- vec_num >= 5
 print(vec_logi_gt5)
 ```
@@ -87,7 +87,7 @@ print(vec_logi_gt5)
 You cannot apply arithmetical operations on character vectors, but can apply the equality operator.
 
 
-```r
+``` r
 vec_logi_apple <- vec_char == "apple"
 print(vec_logi_apple)
 ```
@@ -99,7 +99,7 @@ print(vec_logi_apple)
 You can also concatenate elements of character vectors using `paste()`. Since the two vectors in the example have the same length, elements in the same position of the vectors are concatenated. 
 
 
-```r
+``` r
 vec_char2 <- paste(c("red", "yellow", "orange", "green"), vec_char)
 print(vec_char2)
 ```
@@ -111,7 +111,7 @@ print(vec_char2)
 Finally, you can set names to elements of a numeric vector using `names()`.
 
 
-```r
+``` r
 names(vec_num) <- vec_char
 print(vec_num)
 ```
@@ -126,7 +126,7 @@ print(vec_num)
 A data frame combines multiple vectors to construct a dataset. You can only combine vectors into a data frame if they have the same lengths. However, they can be different types. `nrow()` and `ncol()` show the number of rows (observations) and variables in a data frame.
 
 
-```r
+``` r
 dat_fruit <- data.frame(name = vec_char, count = vec_num)
 print(dat_fruit)
 ```
@@ -139,7 +139,7 @@ print(dat_fruit)
 ## melon       melon     3
 ```
 
-```r
+``` r
 print(nrow(dat_fruit))
 ```
 
@@ -147,7 +147,7 @@ print(nrow(dat_fruit))
 ## [1] 4
 ```
 
-```r
+``` r
 print(ncol(dat_fruit))
 ```
 
@@ -158,7 +158,7 @@ print(ncol(dat_fruit))
 You can use `subset()` to select records in the data frame. 
 
 
-```r
+``` r
 dat_fruit_sub <- subset(dat_fruit, count >= 5)
 print(dat_fruit_sub)
 ```
@@ -169,7 +169,7 @@ print(dat_fruit_sub)
 ## mandarin mandarin     6
 ```
 
-```r
+``` r
 print(nrow(dat_fruit_sub))
 ```
 
@@ -177,7 +177,7 @@ print(nrow(dat_fruit_sub))
 ## [1] 2
 ```
 
-```r
+``` r
 print(ncol(dat_fruit_sub))
 ```
 
@@ -194,7 +194,7 @@ We use `print()` to show values and structures of objects in the examples, but y
 Similar to a data frame, a matrix contains multi-dimensional data. In contrast to a data frame, its values must all be the same type.
 
 
-```r
+``` r
 mat <- matrix(c(1, 3, 6, 8, 3, 5, 2, 7), nrow = 2)
 print(mat)
 ```
@@ -208,7 +208,7 @@ print(mat)
 You can use `colnames()` or `rownames()` to set/retrieve names to rows or columns of a matrix.
 
 
-```r
+``` r
 colnames(mat) <- vec_char
 print(mat)
 ```
@@ -219,7 +219,7 @@ print(mat)
 ## [2,]     3      8        5     7
 ```
 
-```r
+``` r
 rownames(mat) <- c("bag1", "bag2") 
 print(mat)
 ```
@@ -233,7 +233,7 @@ print(mat)
 You can obtain the size of a matrix by `dim()` that returns a two-element numeric vector.
 
 
-```r
+``` r
 print(dim(mat))
 ```
 
@@ -244,7 +244,7 @@ print(dim(mat))
 If a matrix has column and row names, you can extract rows or columns by their names.
 
 
-```r
+``` r
 print(mat["bag1", ])
 ```
 
@@ -253,7 +253,7 @@ print(mat["bag1", ])
 ##        1        6        3        2
 ```
 
-```r
+``` r
 print(mat[, "banana"])
 ```
 
@@ -265,7 +265,7 @@ print(mat[, "banana"])
 Finally, you can obtain marginals of matrix by `colSums()` or `rowSums()`.
 
 
-```r
+``` r
 print(rowSums(mat))
 ```
 
@@ -274,7 +274,7 @@ print(rowSums(mat))
 ##   12   23
 ```
 
-```r
+``` r
 print(colSums(mat))
 ```
 

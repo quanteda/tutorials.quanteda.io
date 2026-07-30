@@ -13,10 +13,10 @@ In the LASSO estimator, the degree of penalization is determined by the regulari
 We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents. Although regularized regression is not part of the **quanteda.textmodels** package, the functions for regularized regression from the **glmnet** package can be easily worked into a quanteda workflow.
 
 ```{r, message=FALSE}
-require(quanteda)
-require(quanteda.textmodels)
-require(glmnet)
-require(caret)
+library(quanteda)
+library(quanteda.textmodels)
+library(glmnet)
+library(caret)
 ```
 
 `data_corpus_moviereviews` from the **quanteda.textmodels** package contains 2000 movie reviews classified either as "positive" or "negative".
@@ -40,8 +40,8 @@ head(id_train, 10)
 corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
 # tokenize texts
-toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) %>% 
-               tokens_remove(pattern = stopwords("en")) %>% 
+toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) |> 
+               tokens_remove(pattern = stopwords("en")) |> 
                tokens_wordstem()
 dfmt_movie <- dfm(toks_movies)
 

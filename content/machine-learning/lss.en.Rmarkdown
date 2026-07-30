@@ -13,9 +13,9 @@ install.packages("LSX")
 ```
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
-require(LSX)
+library(quanteda)
+library(quanteda.corpora)
+library(LSX)
 ```
 
 Download a corpus with news articles using **quanteda.corpora**'s `download()` function.
@@ -34,16 +34,16 @@ We must segment news articles into sentences in the corpus to accurately estimat
 ```{r, cache=TRUE}
 # tokenize text corpus and remove various features
 corp_sent <- corpus_reshape(corp_news, to =  "sentences")
-toks_sent <- corp_sent %>% 
+toks_sent <- corp_sent |> 
     tokens(remove_punct = TRUE, remove_symbols = TRUE, 
-           remove_numbers = TRUE, remove_url = TRUE) %>% 
-    tokens_remove(stopwords("en", source = "marimo")) %>%
+           remove_numbers = TRUE, remove_url = TRUE) |> 
+    tokens_remove(stopwords("en", source = "marimo")) |>
     tokens_remove(c("*-time", "*-timeUpdated", "GMT", "BST", "*.com"))  
 
 # create a document feature matrix from the tokens object
-dfmat_sent <- toks_sent %>% 
-    dfm() %>% 
-    dfm_remove(pattern = "") %>% 
+dfmat_sent <- toks_sent |> 
+    dfm() |> 
+    dfm_remove(pattern = "") |> 
     dfm_trim(min_termfreq = 5)
 ```
 

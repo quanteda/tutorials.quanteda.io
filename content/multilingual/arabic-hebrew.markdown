@@ -7,9 +7,9 @@ draft: false
 {{% author %}}By Dai Yamao and Elad Segev{{% /author %}} 
 
 
-```r
-require(quanteda)
-require(quanteda.corpora)
+``` r
+library(quanteda)
+library(quanteda.corpora)
 options(width = 110)
 ```
 
@@ -20,13 +20,13 @@ It is challenging to deal with the right-to-left languages in R because of the d
 We use the Arabic stopwords list in [Marimo](https://github.com/koheiw/marimo) `stopwords("ar", source = "marimo")`. You can also remove all the non-Arabic words with `"^[\\p{script=Arab}]+$"`.
 
 
-```r
+``` r
 # reshape document to the level of paragraphs
 corp_arb <- corpus_reshape(data_corpus_udhr["arb"], to = "paragraphs")
 
 # tokenize corpus and apply pre-processing
-toks_arb <- tokens(corp_arb, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_keep(pattern = "^[\\p{script=Arab}]+$", valuetype = "regex") %>% 
+toks_arb <- tokens(corp_arb, remove_punct = TRUE, remove_numbers = TRUE) |> 
+  tokens_keep(pattern = "^[\\p{script=Arab}]+$", valuetype = "regex") |> 
   tokens_remove(pattern = stopwords("ar", source = "marimo"))
 print(toks_arb[2], max_ndoc = 1, max_ntoken = -1)
 ```
@@ -57,7 +57,7 @@ print(toks_arb[2], max_ndoc = 1, max_ntoken = -1)
 ```
 
 
-```r
+``` r
 dfmat_arb <- dfm(toks_arb)
 print(dfmat_arb)
 ```
@@ -80,13 +80,13 @@ print(dfmat_arb)
 We resort to the Hebrew stopwords list (`stopwords("he", source = "marimo")`) and the length of words (`min_nchar = 2`) to remove function words. You can also remove all the non-Hebrew words with `"^[\\p{script=Hebr}]+$"`.
 
 
-```r
+``` r
 # reshape document to the level of paragraphs
 corp_heb <- corpus_reshape(data_corpus_udhr["heb"], to = "paragraphs")
 
 # tokenize corpus and apply pre-processing
-toks_heb <- tokens(corp_heb, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_select(pattern = "^[\\p{script=Hebr}]+$", valuetype = "regex") %>% 
+toks_heb <- tokens(corp_heb, remove_punct = TRUE, remove_numbers = TRUE) |> 
+  tokens_select(pattern = "^[\\p{script=Hebr}]+$", valuetype = "regex") |> 
   tokens_remove(pattern = stopwords("he", source = "marimo"), min_nchar = 2)
 print(toks_heb[2], max_ndoc = 1, max_ntoken = -1)
 ```
@@ -123,7 +123,7 @@ print(toks_heb[2], max_ndoc = 1, max_ntoken = -1)
 ```
 
 
-```r
+``` r
 # construct document-feature matrix
 dfmat_heb <- dfm(toks_heb)
 print(dfmat_heb)

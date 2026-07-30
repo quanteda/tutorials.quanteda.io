@@ -7,8 +7,8 @@ draft: false
 Even if files are not saved in UTF-8, you can extract information on character encoding from the file names and import the texts correctly.
 
 ```{r, message=FALSE}
-require(quanteda)
-require(readtext)
+library(quanteda)
+library(readtext)
 ```
 
 `temp_dir` contains the example files in various character encodings.

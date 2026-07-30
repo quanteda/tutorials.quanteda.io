@@ -5,7 +5,7 @@ draft: false
 ---
 
 ```{r message=FALSE}
-require(quanteda)
+library(quanteda)
 ```
 
 `corpus_subset()` allows you to select documents in a corpus based on document-level variables.

@@ -7,8 +7,8 @@ draft: false
 {{% author %}}By Kohei Watanabe and Stefan Müller{{% /author %}} 
 
 ```{r, message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.corpora)
 options(width = 110)
 ```
 
@@ -21,8 +21,8 @@ After tokenization, we remove so called "stopwords" using `stopwords("en", sourc
 corp_eng <- corpus_reshape(data_corpus_udhr["eng"], to = "paragraphs")
 
 # tokenize corpus and apply pre-processing
-toks_eng <- tokens(corp_eng, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_remove(pattern = stopwords("en", source = "marimo")) %>% 
+toks_eng <- tokens(corp_eng, remove_punct = TRUE, remove_numbers = TRUE) |> 
+  tokens_remove(pattern = stopwords("en", source = "marimo")) |> 
   tokens_keep(pattern = "^[a-zA-Z]+$", valuetype = "regex")
 print(toks_eng[2], max_ndoc = 1, max_ntoken = -1)
 ```
@@ -42,8 +42,8 @@ Pre-processing of German texts is very similar to English texts, but we have to 
 corp_ger <- corpus_reshape(data_corpus_udhr["deu_1996"], to = "paragraphs")
 
 # tokenize corpus and apply pre-processing
-toks_ger <- tokens(corp_ger, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_remove(pattern = stopwords("de", source = "marimo")) %>% 
+toks_ger <- tokens(corp_ger, remove_punct = TRUE, remove_numbers = TRUE) |> 
+  tokens_remove(pattern = stopwords("de", source = "marimo")) |> 
   tokens_keep(pattern = "^[\\p{script=Latn}]+$", valuetype = "regex")
 print(toks_ger[2], max_ndoc = 1, max_ntoken = -1)
 ```

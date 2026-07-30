@@ -7,9 +7,9 @@ draft: false
 We can compute the similarities between authors by grouping their documents and comparing them with all other authors. In this example, we group Twitter posts by handle names and compute similarities between the users.
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textstats)
-require(readtext)
+library(quanteda)
+library(quanteda.textstats)
+library(readtext)
 ```
 
 Import Tweets from JSON (.json) file. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in data directory of this tutorial package.
@@ -27,10 +27,10 @@ corp_tweets <- corpus(dat_twitter)
 Construct a document-feature matrix, and remove tags, links, and English stopwords.
 
 ```{r}
-dfmat_tweets <- corp_tweets %>% 
-    tokens(remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE) %>% 
-    dfm() %>% 
-    dfm_remove(pattern = c("*.tt", "*.uk", "*.com", "rt", "#*", "@*")) %>% 
+dfmat_tweets <- corp_tweets |> 
+    tokens(remove_punct = TRUE, remove_url = TRUE, remove_symbols = TRUE) |> 
+    dfm() |> 
+    dfm_remove(pattern = c("*.tt", "*.uk", "*.com", "rt", "#*", "@*")) |> 
     dfm_remove(pattern = stopwords("en"))
 ndoc(dfmat_tweets)
 topfeatures(dfmat_tweets)
@@ -46,8 +46,8 @@ ndoc(dfmat_users)
 Remove rare (less than 10 times) and short (one character) features, and keep only users with more than 50 tokens in total.
 
 ```{r}
-dfmat_users <- dfmat_users %>% 
-    dfm_select(min_nchar = 2) %>% 
+dfmat_users <- dfmat_users |> 
+    dfm_select(min_nchar = 2) |> 
     dfm_trim(min_termfreq = 10) 
 dfmat_users <- dfmat_users[ntoken(dfmat_users) > 50,]
 ```

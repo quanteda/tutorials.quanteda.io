@@ -5,7 +5,7 @@ draft: false
 ---
 
 ```{r, message=FALSE}
-require(quanteda)
+library(quanteda)
 ```
 
 **quanteda**'s objects keep information associated with documents. They are called "document-level variables", or "docvars", and are accessed using `docvars()`.

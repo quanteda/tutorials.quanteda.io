@@ -7,16 +7,16 @@ draft: false
 Naive Bayes is a supervised model usually used to classify documents into two or more categories. We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabeled documents.
 
 
-```r
-require(quanteda)
-require(quanteda.textmodels)
-require(caret)
+``` r
+library(quanteda)
+library(quanteda.textmodels)
+library(caret)
 ```
 
 `data_corpus_moviereviews` from the **quanteda.textmodels** package contains 2000 movie reviews classified either as "positive" or "negative".
 
 
-```r
+``` r
 corp_movies <- data_corpus_moviereviews
 summary(corp_movies, 5)
 ```
@@ -28,7 +28,7 @@ summary(corp_movies, 5)
 ##  cv000_29416.txt   354    841         9       neg cv000 29416
 ##  cv001_19502.txt   156    278         1       neg cv001 19502
 ##  cv002_17424.txt   276    553         3       neg cv002 17424
-##  cv003_12683.txt   313    555         2       neg cv003 12683
+##  cv003_12683.txt   314    558         2       neg cv003 12683
 ##  cv004_12641.txt   380    841         2       neg cv004 12641
 ```
 
@@ -37,7 +37,7 @@ The variable "Sentiment" indicates whether a movie review was classified as posi
 Since the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents.
 
 
-```r
+``` r
 # generate 1500 numbers without replacement
 set.seed(300)
 id_train <- sample(1:2000, 1500, replace = FALSE)
@@ -48,13 +48,13 @@ head(id_train, 10)
 ##  [1]  590  874 1602  985 1692  789  553 1980 1875 1705
 ```
 
-```r
+``` r
 # create docvar with ID
 corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
 # tokenize texts
-toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) %>% 
-               tokens_remove(pattern = stopwords("en")) %>% 
+toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) |> 
+               tokens_remove(pattern = stopwords("en")) |> 
                tokens_wordstem()
 dfmt_movie <- dfm(toks_movies)
 
@@ -68,7 +68,7 @@ dfmat_test <- dfm_subset(dfmt_movie, !id_numeric %in% id_train)
 Next, we will train the naive Bayes classifier using `textmodel_nb()`.
 
 
-```r
+``` r
 tmod_nb <- textmodel_nb(dfmat_training, dfmat_training$sentiment)
 summary(tmod_nb)
 ```
@@ -84,34 +84,31 @@ summary(tmod_nb)
 ## 0.5 0.5 
 ## 
 ## Estimated Feature Scores:
-##         plot      two      teen     coupl       go    church     parti
-## neg 0.002579 0.002318 0.0002870 0.0007157 0.002663 8.719e-05 0.0002652
-## pos 0.001507 0.002338 0.0001656 0.0005456 0.002348 8.768e-05 0.0002728
-##         drink     drive      get     accid      one       guy       die
-## neg 1.199e-04 0.0003052 0.004486 9.445e-05 0.007389 0.0014458 0.0005485
-## pos 9.417e-05 0.0002630 0.003783 1.851e-04 0.007355 0.0009937 0.0005488
-##     girlfriend   continu      see     life  nightmar      deal    watch
-## neg  0.0003124 0.0003161 0.002557 0.001435 0.0001199 0.0004323 0.001642
-## pos  0.0002338 0.0003215 0.003020 0.002497 0.0001202 0.0005196 0.001539
-##         movi     sorta     find   critiqu mind-fuck   generat     touch
-## neg 0.010117 1.090e-05 0.001453 9.445e-05 3.633e-06 0.0002652 0.0002289
-## pos 0.007657 1.624e-05 0.001630 8.443e-05 3.247e-06 0.0002923 0.0004449
-##          cool      idea
-## neg 0.0003052 0.0008210
-## pos 0.0002273 0.0005845
+##         plot     two      teen     coupl       go    church     parti     drink
+## neg 0.002582 0.00232 0.0002873 0.0007163 0.002665 9.090e-05 0.0002654 1.200e-04
+## pos 0.001508 0.00234 0.0001658 0.0005460 0.002350 8.775e-05 0.0002730 9.425e-05
+##         drive      get     accid      one       guy       die girlfriend
+## neg 0.0003054 0.004491 9.454e-05 0.007403 0.0014472 0.0005491  0.0003127
+## pos 0.0002633 0.003786 1.853e-04 0.007365 0.0009945 0.0005493  0.0002340
+##       continu      see     life  nightmar      deal    watch     movi     sorta
+## neg 0.0003163 0.002560 0.001436 0.0001200 0.0004327 0.001644 0.010127 1.091e-05
+## pos 0.0003218 0.003023 0.002499 0.0001203 0.0005200 0.001541 0.007667 1.625e-05
+##         find   critiqu mind-fuck   generat     touch      cool      idea
+## neg 0.001454 9.454e-05 3.636e-06 0.0002654 0.0002291 0.0003054 0.0008218
+## pos 0.001632 8.450e-05 3.250e-06 0.0002925 0.0004453 0.0002275 0.0005850
 ```
 
 Naive Bayes can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`
 
 
-```r
+``` r
 dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))
 ```
 
 Let's inspect how well the classification worked.
 
 
-```r
+``` r
 actual_class <- dfmat_matched$sentiment
 predicted_class <- predict(tmod_nb, newdata = dfmat_matched)
 tab_class <- table(actual_class, predicted_class)
@@ -130,7 +127,7 @@ From the cross-table we can see that the number of false positives and false neg
 We can use the function `confusionMatrix()` from the **caret** package to assess the performance of the classification.
 
 
-```r
+``` r
 confusionMatrix(tab_class, mode = "everything", positive = "pos")
 ```
 

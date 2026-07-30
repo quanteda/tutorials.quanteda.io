@@ -8,17 +8,17 @@ draft: false
 Keyness is a signed two-by-two association score originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to identify frequent words in documents in a target and reference group.
 
 
-```r
-require(quanteda)
-require(quanteda.textstats)
-require(quanteda.textplots)
-require(quanteda.corpora)
-require(lubridate)
+``` r
+library(quanteda)
+library(quanteda.textstats)
+library(quanteda.textplots)
+library(quanteda.corpora)
+library(lubridate)
 ```
 
 
 
-```r
+``` r
 corp_news <- download("data_corpus_guardian")
 ```
 
@@ -27,7 +27,7 @@ corp_news <- download("data_corpus_guardian")
 Using `textstat_keyness()`, you can compare frequencies of words between target and reference documents. In this example, target documents are news articles published in 2016 and reference documents are those published in 2012-2015. We use the **lubridate** package to retrieve the year of the publication of an article.
 
 
-```r
+``` r
 toks_news <- tokens(corp_news, remove_punct = TRUE) 
 dfmat_news <- dfm(toks_news)
  
@@ -36,6 +36,6 @@ tstat_key <- textstat_keyness(dfmat_news,
 textplot_keyness(tstat_key)
 ```
 
-<img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.png" width="960" />
+<img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.png" alt="" width="960" />
 
 

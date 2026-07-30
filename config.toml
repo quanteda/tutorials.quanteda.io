@@ -11,8 +11,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
 PygmentsCodeFences = false
 min_version = 0.6
 
-[markup.goldmark.renderer]
-unsafe = true
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
 [params]
   editURL = "https://github.com/quanteda/tutorials.quanteda.io/tree/master/content/"
@@ -41,5 +43,3 @@ name = "<i class='fas fa-bookmark'></i> Documentation"
 identifier = "hugodoc"
 url = "https://quanteda.io/"
 weight = 20
-
-

@@ -5,8 +5,8 @@ draft: false
 ---
 
 ```{r, message=FALSE}
-require(quanteda)
-require(readtext)
+library(quanteda)
+library(readtext)
 ```
 
 You can create a corpus from various available sources:

@@ -7,9 +7,9 @@ draft: false
 A feature co-occurrence matrix (FCM) records the number of co-occurrences of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textplots)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.textplots)
+library(quanteda.corpora)
 ```
 
 ```{r eval=FALSE}
@@ -38,13 +38,12 @@ You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeature
 ```{r}
 fcmat_news <- fcm(dfmat_news)
 dim(fcmat_news)
-topfeatures(fcmat_news)
 ```
 
 You can select features of a FCM using `fcm_select()`.
 
 ```{r}
-feat <- names(topfeatures(fcmat_news, 50))
+feat <- names(topfeatures(dfmat_news, 50))
 fcmat_news_select <- fcm_select(fcmat_news, pattern = feat, selection = "keep")
 dim(fcmat_news_select)
 ```

@@ -13,14 +13,14 @@ draft: false
 First, you need to have **quanteda** installed. You can do this from inside RStudio, from the Tools > Install Packages, or executing the following command.
 
 
-```r
+``` r
 install.packages("quanteda")
 ```
 
 Since the release of **quanteda** version 3.0, `textstat_*`, `textmodel_*` and `textplot_*` functions are available in separate packages. We will use several of these functions in the chapters below and strongly recommend installing these packages.
 
 
-```r
+``` r
 install.packages("quanteda.textmodels")
 install.packages("quanteda.textstats")
 install.packages("quanteda.textplots")
@@ -42,14 +42,14 @@ Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Mü
 We will use the **readtext** package to read in different types of text data in these tutorials. Again, you can do this using RStudio menu (Tools > Install Packages), or executing the following command.
 
 
-```r
+``` r
 install.packages("readtext")
 ```
 
 We will also use extra datasets in tutorials that are available in **quanteda.corpora**. This package is not on CRAN, but can be installed with the `install_github()` function from the **devtools** package, as shown below.
 
 
-```r
+``` r
 install.packages("devtools") # get devtools to install quanteda.corpora
 devtools::install_github("quanteda/quanteda.corpora")
 ```
@@ -65,14 +65,14 @@ If you already have **quanteda** and other packages installed, run Tools > Check
 The tutorials do not cover syntactical analysis, but you should install **spacyr** for  part-of-speech tagging, entity recognition, and dependency parsing. It provides an interface to the spaCy library and works well with **quanteda**. Note that you need to have Python installed to use the **spacyr** package. See the [package description](https://github.com/quanteda/spacyr/blob/master/README.md) for more information.
 
 
-```r
+``` r
 install.packages("spacyr")
 ```
 
 Finally, in the tutorials we will show how to use **newsmap** to [classify documents](https://tutorials.quanteda.io/machine-learning/newsmap/) based on "seed words" in dictionaries and the **seededlda** package to run topic models. You can download the packages from [CRAN](https://cran.r-project.org/package=newsmap).
 
 
-```r
+``` r
 install.packages("newsmap")
 install.packages("seededlda")
 ```
@@ -80,16 +80,16 @@ install.packages("seededlda")
 To sum up, you need to load the following packages to run all examples: 
 
 
-```r
-require(quanteda)
-require(quanteda.textmodels)
-require(quanteda.textstats)
-require(quanteda.textplots)
-require(readtext)
-require(devtools)
-require(quanteda.corpora)
-require(newsmap)
-require(seededlda)
+``` r
+library(quanteda)
+library(quanteda.textmodels)
+library(quanteda.textstats)
+library(quanteda.textplots)
+library(readtext)
+library(devtools)
+library(quanteda.corpora)
+library(newsmap)
+library(seededlda)
 ```
 
 {{% notice note %}}

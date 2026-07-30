@@ -7,9 +7,9 @@ draft: false
 {{% author %}}By Lanabi La Lova{{% /author %}} 
 
 
-```r
-require(quanteda)
-require(quanteda.corpora)
+``` r
+library(quanteda)
+library(quanteda.corpora)
 options(width = 110)
 ```
 
@@ -19,12 +19,12 @@ After tokenization, we remove so called "stopwords" using `stopwords("ru", sourc
 `stopwords("ru", source = "marimo")`. [Marimo](https://github.com/koheiw/marimo) is larger and better for multilingual analysis than Snowball. Please be very careful when pre-processing or removing tokens since these choices [might influence subsequent results](https://doi.org/10.1017/pan.2017.44). If you want tokens to comprise only of Cyrillic script, you can select them by `"^[а-яА-Я]+$"`.
 
 
-```r
+``` r
 # reshape corpus to the level of paragraphs
 corp_ru <- corpus_reshape(data_corpus_udhr["rus"], to = "paragraphs")
 
 # tokenize corpus and apply pre-processing
-toks_ru <- tokens(corp_ru, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+toks_ru <- tokens(corp_ru, remove_punct = TRUE, remove_numbers = TRUE) |> 
   tokens_remove(pattern = stopwords("ru", source = "snowball")) 
 print(toks_ru[2], max_ndoc = 1, max_ntoken = -1)
 ```
@@ -73,7 +73,7 @@ print(toks_ru[2], max_ndoc = 1, max_ntoken = -1)
 ```
 
 
-```r
+``` r
 # construct a document-feature matrix
 # note that now all the features are converted to lowercase by default
 dfmat_ru <- dfm(toks_ru)

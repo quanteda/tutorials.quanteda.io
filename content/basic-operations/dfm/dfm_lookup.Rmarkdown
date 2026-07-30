@@ -5,8 +5,8 @@ draft: false
 ---
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textmodels)
+library(quanteda)
+library(quanteda.textmodels)
 options(width = 110)
 ```
 

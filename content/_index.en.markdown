@@ -15,7 +15,7 @@ This website consist of over 30 sections. If you click on the name of a chapter 
 This website is created for workshops held by the **quanteda** team and for users who look for a comprehensible step-by-step introduction to text analysis using R. We have also created several additional useful [resources](https://quanteda.io), such as vignettes, replications, a cheatsheet and a comparison to functions in **quanteda** and other packages for quantitative text analysis.
 
 {{% notice note %}}
-Examples in this tutorial are written for **quanteda** version 3.2.5. Please check if you have the same version installed by a command `packageVersion("quanteda")`. 
+Examples in this tutorial are written for **quanteda** version 4.5.0.9000. Please check if you have the same version installed by a command `packageVersion("quanteda")`. 
 {{% /notice %}}
 
 {{% notice cite %}}

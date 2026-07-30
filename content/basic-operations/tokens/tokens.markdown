@@ -5,15 +5,15 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
+``` r
+library(quanteda)
 options(width = 110)
 ```
 
 `tokens()` segments texts in a corpus into tokens (words or sentences) by word boundaries. 
 
 
-```r
+``` r
 corp_immig <- corpus(data_char_ukimmig2010)
 toks_immig <- tokens(corp_immig)
 ```
@@ -25,7 +25,7 @@ toks_immig <- tokens(corp_immig)
 By default, `tokens()` only removes separators (typically white spaces), but you can also remove punctuation and numbers.
 
 
-```r
+``` r
 toks_nopunct <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
 print(toks_nopunct)
 ```

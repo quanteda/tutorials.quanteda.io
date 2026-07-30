@@ -13,17 +13,17 @@ In the LASSO estimator, the degree of penalization is determined by the regulari
 We train the classifier using class labels attached to documents, and predict the most likely class(es) of new unlabelled documents. Although regularized regression is not part of the **quanteda.textmodels** package, the functions for regularized regression from the **glmnet** package can be easily worked into a quanteda workflow.
 
 
-```r
-require(quanteda)
-require(quanteda.textmodels)
-require(glmnet)
-require(caret)
+``` r
+library(quanteda)
+library(quanteda.textmodels)
+library(glmnet)
+library(caret)
 ```
 
 `data_corpus_moviereviews` from the **quanteda.textmodels** package contains 2000 movie reviews classified either as "positive" or "negative".
 
 
-```r
+``` r
 corp_movies <- data_corpus_moviereviews
 summary(corp_movies, 5)
 ```
@@ -35,7 +35,7 @@ summary(corp_movies, 5)
 ##  cv000_29416.txt   354    841         9       neg cv000 29416
 ##  cv001_19502.txt   156    278         1       neg cv001 19502
 ##  cv002_17424.txt   276    553         3       neg cv002 17424
-##  cv003_12683.txt   313    555         2       neg cv003 12683
+##  cv003_12683.txt   314    558         2       neg cv003 12683
 ##  cv004_12641.txt   380    841         2       neg cv004 12641
 ```
 
@@ -44,7 +44,7 @@ The variable "Sentiment" indicates whether a movie review was classified as posi
 Since the first 1000 reviews are negative and the remaining reviews are classified as positive, we need to draw a random sample of the documents.
 
 
-```r
+``` r
 # generate 1500 numbers without replacement
 set.seed(300)
 id_train <- sample(1:2000, 1500, replace = FALSE)
@@ -55,13 +55,13 @@ head(id_train, 10)
 ##  [1]  590  874 1602  985 1692  789  553 1980 1875 1705
 ```
 
-```r
+``` r
 # create docvar with ID
 corp_movies$id_numeric <- 1:ndoc(corp_movies)
 
 # tokenize texts
-toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) %>% 
-               tokens_remove(pattern = stopwords("en")) %>% 
+toks_movies <- tokens(corp_movies, remove_punct = TRUE, remove_number = TRUE) |> 
+               tokens_remove(pattern = stopwords("en")) |> 
                tokens_wordstem()
 dfmt_movie <- dfm(toks_movies)
 
@@ -77,7 +77,7 @@ Next we choose `lambda` using `cv.glmnet` from the **glmnet** package. `cv.glmne
 We use `cv.glmnet()` to select the value of `lambda` that yields the smallest classification error. If you set `alpha = 1`, it selects the LASSO estimator. If you set `nfold = 5`, it partitions the data into five subsets.
 
 
-```r
+``` r
 lasso <- cv.glmnet(x = dfmat_training,
                    y = as.integer(dfmat_training$sentiment == "pos"),
                    alpha = 1,
@@ -88,7 +88,7 @@ lasso <- cv.glmnet(x = dfmat_training,
 As an initial evaluation of the model, we can print the most predictive features. We begin by obtaining the best value of `lambda`:
 
 
-```r
+``` r
 index_best <- which(lasso$lambda == lasso$lambda.min)
 beta <- lasso$glmnet.fit$beta[, index_best]
 ```
@@ -96,48 +96,48 @@ beta <- lasso$glmnet.fit$beta[, index_best]
 We can now look at the most predictive features for the chosen `lambda`:
 
 
-```r
+``` r
 head(sort(beta, decreasing = TRUE), 20)
 ```
 
 ```
 ##   standoff  chopsocki   flammabl     haywir     immers    refresh     finest 
-##  1.4077996  1.1774772  0.9933831  0.9579847  0.8660077  0.8568582  0.8485373 
-##  breathtak    ratchet    maniaci     darker      brisk  anti-soci   sullivan 
-##  0.8161629  0.7507401  0.7482757  0.7455572  0.7424568  0.7315236  0.7243110 
+##  1.4000795  1.1670334  0.9920784  0.9461954  0.8692311  0.8596805  0.8506468 
+##  breathtak    maniaci     darker    ratchet      brisk   sullivan  anti-soci 
+##  0.8129658  0.7657978  0.7499212  0.7482409  0.7337630  0.7225432  0.7222687 
 ##   gingrich cornerston neccessari      meryl   murtaugh      anger 
-##  0.7138940  0.6877455  0.6801743  0.6066800  0.5970543  0.5950011
+##  0.7180652  0.6938710  0.6931244  0.6047515  0.6036707  0.5967189
 ```
 
 `predict.glmnet` can only take features into consideration that occur both in the training set and the test set, but we can make the features identical using `dfm_match()`.
 
 
-```r
+``` r
 dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))
 ```
 
 Next, we can obtain predicted probabilities for each review in the test set.
 
 
-```r
+``` r
 pred <- predict(lasso, dfmat_matched, type = "response", s = lasso$lambda.min)
 head(pred)
 ```
 
 ```
-##                          s1
-## cv000_29416.txt 0.419026170
-## cv013_10494.txt 0.087619356
-## cv032_23718.txt 0.485367184
-## cv033_25680.txt 0.406659883
-## cv036_18385.txt 0.226308927
-## cv038_9781.txt  0.003946577
+##                 s=0.01126341
+## cv000_29416.txt  0.416063217
+## cv013_10494.txt  0.085538845
+## cv032_23718.txt  0.491493395
+## cv033_25680.txt  0.410033837
+## cv036_18385.txt  0.224684777
+## cv038_9781.txt   0.003931504
 ```
 
 Let's inspect how well the classification worked.
 
 
-```r
+``` r
 actual_class <- as.integer(dfmat_matched$sentiment == "pos")
 predicted_class <- as.integer(predict(lasso, dfmat_matched, type = "class"))
 tab_class <- table(actual_class, predicted_class)
@@ -156,7 +156,7 @@ From the cross-table we can see that the model slightly under-predicts negative 
 We can use the function `confusionMatrix()` from the **caret** package to quantify the performance of the classification.
 
 
-```r
+``` r
 confusionMatrix(tab_class, mode = "everything")
 ```
 

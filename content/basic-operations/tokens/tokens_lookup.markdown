@@ -5,20 +5,20 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
+``` r
+library(quanteda)
 options(width = 110)
 ```
 
 
-```r
+``` r
 toks <- tokens(data_char_ukimmig2010)
 ```
 
 `tokens_lookup()` is the most flexible dictionary look up function in **quanteda**. We use [geographical dictionary](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/newsmap.yml) from the [**newsmap**](https://cran.r-project.org/web/packages/newsmap/index.html) package as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats.
 
 
-```r
+``` r
 dict_newsmap <- dictionary(file = "../../dictionary/newsmap.yml")
 ```
 
@@ -27,7 +27,7 @@ Note that you can access the dictionary in various languages (currently English,
 The geographical dictionary comprises of names of countries and cities (and their demonyms) in a hierarchical structure (countries are nested in world regions and sub-regions).
 
 
-```r
+``` r
 length(dict_newsmap)
 ```
 
@@ -35,7 +35,7 @@ length(dict_newsmap)
 ## [1] 5
 ```
 
-```r
+``` r
 names(dict_newsmap)
 ```
 
@@ -43,7 +43,7 @@ names(dict_newsmap)
 ## [1] "AFRICA"  "AMERICA" "ASIA"    "EUROPE"  "OCEANIA"
 ```
 
-```r
+``` r
 names(dict_newsmap[["AFRICA"]])
 ```
 
@@ -51,7 +51,7 @@ names(dict_newsmap[["AFRICA"]])
 ## [1] "EAST"   "MIDDLE" "NORTH"  "SOUTH"  "WEST"
 ```
 
-```r
+``` r
 dict_newsmap[["AFRICA"]][["NORTH"]]
 ```
 
@@ -75,7 +75,7 @@ dict_newsmap[["AFRICA"]][["NORTH"]]
 The `levels` argument determines the keys to be recorded in a resulting tokens object.
 
 
-```r
+``` r
 # use level of continents
 toks_region <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 1)
 print(toks_region)
@@ -108,7 +108,7 @@ print(toks_region)
 ```
 
 
-```r
+``` r
 # use level of countries
 toks_country <- tokens_lookup(toks, dictionary = dict_newsmap, levels = 3)
 print(toks_country)
@@ -141,12 +141,13 @@ print(toks_country)
 You can also use run a keyword-in-context analysis by looking up the mentions of all African countries and the words surrounding the countries.
 
 
-```r
+``` r
 kwic(toks, dict_newsmap["AFRICA"])
 ```
 
 ```
-## Keyword-in-context with 2 matches.                                                                            
+## Keyword-in-context with 2 matches.
+##                                                                             
 ##  [BNP, 3116] , with Rome and Ancient | Egypt  | being well known examples of
 ##  [BNP, 3149]   purpose. The Balkans, | Rwanda | , Indonesia, Ulster,
 ```
@@ -154,7 +155,7 @@ kwic(toks, dict_newsmap["AFRICA"])
 You can define your own dictionary by passing a named list of characters to `dictionary()`.
 
 
-```r
+``` r
 dict <- dictionary(list(refugee = c("refugee*", "asylum*"),
                         worker = c("worker*", "employee*")))
 print(dict)
@@ -168,7 +169,7 @@ print(dict)
 ##   - worker*, employee*
 ```
 
-```r
+``` r
 dict_toks <- tokens_lookup(toks, dictionary = dict)
 print(dict_toks)
 ```
@@ -198,7 +199,7 @@ print(dict_toks)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-```r
+``` r
 dfm(dict_toks)
 ```
 

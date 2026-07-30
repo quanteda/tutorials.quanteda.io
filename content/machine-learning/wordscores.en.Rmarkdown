@@ -7,10 +7,10 @@ draft: false
 Wordscores is a scaling model for estimating the positions (mostly of political actors) for dimensions that are specified a priori. Wordscores was introduced in Laver, Benoit and Garry (2003) and is widely used among political scientists.
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textmodels)
-require(quanteda.textplots)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.textmodels)
+library(quanteda.textplots)
+library(quanteda.corpora)
 ```
 
 Training a Wordscores model requires reference scores for texts whose policy positions on well-defined a priori dimensions are "known". Afterwards, Wordscores estimates the positions for the remaining "virgin" texts.
@@ -37,7 +37,7 @@ Now we can apply the Wordscores algorithm to a document-feature matrix.
 toks_ger <- tokens(corp_ger, remove_punct = TRUE)
 
 # create a document-feature matrix
-dfmat_ger <- dfm(toks_ger) %>% 
+dfmat_ger <- dfm(toks_ger) |> 
              dfm_remove(pattern = stopwords("de"))
 
 # apply Wordscores algorithm to document-feature matrix

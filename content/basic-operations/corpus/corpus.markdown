@@ -5,9 +5,9 @@ draft: false
 ---
 
 
-```r
-require(quanteda)
-require(readtext)
+``` r
+library(quanteda)
+library(readtext)
 ```
 
 You can create a corpus from various available sources:
@@ -24,7 +24,7 @@ You can create a corpus from various available sources:
 `data_char_ukimmig2010` is a named character vector and consists of sections of British election manifestos on immigration and asylum.
 
 
-```r
+``` r
 corp_immig <- corpus(data_char_ukimmig2010, 
                      docvars = data.frame(party = names(data_char_ukimmig2010)))
 print(corp_immig)
@@ -36,13 +36,13 @@ print(corp_immig)
 ## "IMMIGRATION: AN UNPARALLELED CRISIS WHICH ONLY THE BNP CAN S..."
 ## 
 ## Coalition :
-## "IMMIGRATION.  The Government believes that immigration has e..."
+## "IMMIGRATION. The Government believes that immigration has e..."
 ## 
 ## Conservative :
 ## "Attract the brightest and best to our country. Immigration h..."
 ## 
 ## Greens :
-## "Immigration. Migration is a fact of life.  People have alway..."
+## "Immigration. Migration is a fact of life. People have alway..."
 ## 
 ## Labour :
 ## "Crime and immigration The challenge for Britain We will cont..."
@@ -53,7 +53,7 @@ print(corp_immig)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-```r
+``` r
 summary(corp_immig)
 ```
 
@@ -61,15 +61,15 @@ summary(corp_immig)
 ## Corpus consisting of 9 documents, showing 9 documents:
 ## 
 ##          Text Types Tokens Sentences        party
-##           BNP  1125   3280        88          BNP
-##     Coalition   142    260         4    Coalition
-##  Conservative   251    499        15 Conservative
-##        Greens   322    677        21       Greens
-##        Labour   298    680        29       Labour
-##        LibDem   251    483        14       LibDem
+##           BNP  1125   3280       136          BNP
+##     Coalition   142    260        12    Coalition
+##  Conservative   251    499        21 Conservative
+##        Greens   322    679        30       Greens
+##        Labour   298    683        33       Labour
+##        LibDem   251    483        26       LibDem
 ##            PC    77    114         5           PC
 ##           SNP    88    134         4          SNP
-##          UKIP   346    722        26         UKIP
+##          UKIP   346    723        37         UKIP
 ```
 
 
@@ -78,7 +78,7 @@ summary(corp_immig)
 Using `read.csv()`, load an example file from `path_data` as a data frame called `dat_inaug`. Note that your file does not to be formatted as `.csv`. You can build a **quanteda** corpus from any file format that R can import as a data frame (see, for instance, the [**rio**](https://cran.r-project.org/web/packages/rio/index.html) package for importing various files as data frames into R).
 
 
-```r
+``` r
 # set path
 path_data <- system.file("extdata/", package = "readtext")
 
@@ -94,7 +94,7 @@ names(dat_inaug)
 Construct a corpus from the "texts" column in `dat_inaug`.
 
 
-```r
+``` r
 corp_inaug <- corpus(dat_inaug, text_field = "texts")
 print(corp_inaug)
 ```
@@ -117,7 +117,7 @@ print(corp_inaug)
 ## "Proceeding, fellow citizens, to that qualification which the..."
 ```
 
-```r
+``` r
 summary(corp_inaug, 5)
 ```
 
@@ -125,17 +125,17 @@ summary(corp_inaug, 5)
 ## Corpus consisting of 5 documents, showing 5 documents:
 ## 
 ##   Text Types Tokens Sentences Year  President FirstName
-##  text1   625   1537        23 1789 Washington    George
-##  text2    96    147         4 1793 Washington    George
-##  text3   826   2577        37 1797      Adams      John
-##  text4   717   1923        41 1801  Jefferson    Thomas
-##  text5   804   2380        45 1805  Jefferson    Thomas
+##  text1   625   1538        24 1789 Washington    George
+##  text2    96    147         5 1793 Washington    George
+##  text3   826   2578        37 1797      Adams      John
+##  text4   717   1927        43 1801  Jefferson    Thomas
+##  text5   804   2381        45 1805  Jefferson    Thomas
 ```
 
 You can edit the `docnames` for a corpus to change them from `text1`, `text2` etc., to a meaningful identifier. 
 
 
-```r
+``` r
 docid <- paste(dat_inaug$Year, 
                dat_inaug$FirstName, 
                dat_inaug$President, sep = " ")
@@ -166,7 +166,7 @@ print(corp_inaug)
 **quanteda** also allows you to import a **tm** `VCorpus` object.
 
 
-```r
+``` r
 corp_tm <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
 corp_quanteda <- corpus(corp_tm)
 ```

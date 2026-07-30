@@ -7,10 +7,10 @@ draft: false
 Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discriminatory groups of documents automatically. 
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
-require(seededlda)
-require(lubridate)
+library(quanteda)
+library(quanteda.corpora)
+library(seededlda)
+library(lubridate)
 ```
 
 ```{r eval=FALSE}
@@ -34,7 +34,7 @@ Further, after removal of function words and punctuation in `dfm()`, we will onl
 ```{r}
 toks_news <- tokens(corp_news_2016, remove_punct = TRUE, remove_numbers = TRUE, remove_symbol = TRUE)
 toks_news <- tokens_remove(toks_news, pattern = c(stopwords("en"), "*-time", "updated-*", "gmt", "bst"))
-dfmat_news <- dfm(toks_news) %>% 
+dfmat_news <- dfm(toks_news) |> 
               dfm_trim(min_termfreq = 0.8, termfreq_type = "quantile",
                        max_docfreq = 0.1, docfreq_type = "prop")
 ```
