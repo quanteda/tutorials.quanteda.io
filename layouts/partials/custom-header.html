@@ -116,8 +116,38 @@
     padding: 0.5em 15px 15px 2.5em;
     color: #666;
   }
-  div.notices.note ul { background: #E7F2FA; }
+  div.notices.note ul { background: #F5F2FB; }
   div.notices.info ul { background: #FFF2DB; }
   div.notices.warning ul { background: #FAE2E2; }
   div.notices.tip ul { background: #E6F9E6; }
+
+  /* Recolour "note" boxes from the theme's default blue to purple, since
+     blue is already the site's link/accent colour elsewhere on the page.
+     Purple keeps it visually distinct from info (orange), warning (red)
+     and tip (green). */
+  div.notices.note p {
+    border-top: 30px solid #9575CD;
+    background: #F5F2FB;
+  }
+
+  /* The "notice" shortcode accepts an optional second argument (a
+     custom title, e.g. "Citation"), which it writes into this custom
+     property. Fall back to the theme's default label (Note, Info,
+     Warning, Tip) when no override is given. */
+  div.notices.note p:first-child:after,
+  div.notices.note ul:first-child:after {
+    content: var(--notice-title, 'Note');
+  }
+  div.notices.info p:first-child:after,
+  div.notices.info ul:first-child:after {
+    content: var(--notice-title, 'Info');
+  }
+  div.notices.warning p:first-child:after,
+  div.notices.warning ul:first-child:after {
+    content: var(--notice-title, 'Warning');
+  }
+  div.notices.tip p:first-child:after,
+  div.notices.tip ul:first-child:after {
+    content: var(--notice-title, 'Tip');
+  }
 </style>
