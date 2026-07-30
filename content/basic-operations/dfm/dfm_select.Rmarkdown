@@ -8,6 +8,9 @@ You already used `tokens_select()` to remove stopwords from a tokens object. `df
 
 ```{r, message=FALSE}
 library(quanteda)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 

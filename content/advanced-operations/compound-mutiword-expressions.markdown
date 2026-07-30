@@ -11,8 +11,9 @@ draft: false
 library(quanteda)
 library(quanteda.textstats)
 library(quanteda.corpora)
-options(width = 110)
 ```
+
+
 
 The corpus contains 6,000 Guardian news articles from 2012 to 2016. As in the [fcm chapter](/basic-operations/fcm/fcm), it is normally retrieved with `download()`, but here we load an already-downloaded copy for this website.
 

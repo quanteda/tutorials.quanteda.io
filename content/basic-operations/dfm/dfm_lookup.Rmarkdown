@@ -7,6 +7,9 @@ draft: false
 ```{r message=FALSE}
 library(quanteda)
 library(quanteda.textmodels)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 

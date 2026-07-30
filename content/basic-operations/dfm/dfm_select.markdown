@@ -9,8 +9,9 @@ You already used `tokens_select()` to remove stopwords from a tokens object. `df
 
 ``` r
 library(quanteda)
-options(width = 110)
 ```
+
+
 
 
 ``` r

@@ -9,8 +9,9 @@ draft: false
 
 ``` r
 library(quanteda)
-options(width = 110)
 ```
+
+
 
 
 ``` r

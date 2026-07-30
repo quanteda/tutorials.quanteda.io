@@ -8,6 +8,9 @@ draft: false
 
 ```{r, message=FALSE}
 library(quanteda)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 

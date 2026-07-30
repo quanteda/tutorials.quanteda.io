@@ -11,6 +11,9 @@ Arabic and Hebrew are both written right-to-left, which makes them more awkward 
 ```{r, message=FALSE}
 library(quanteda)
 library(quanteda.corpora)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 

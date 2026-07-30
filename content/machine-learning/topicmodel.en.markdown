@@ -71,28 +71,28 @@ A fitted topic model does not label its topics for you; it only associates words
 terms(tmod_lda, 10)
 ```
 
-    ##       topic1     topic2        topic3       topic4      topic5     topic6      
-    ##  [1,] "corbyn"   "climate"     "australia"  "oil"       "doctors"  "china"     
-    ##  [2,] "johnson"  "water"       "australian" "markets"   "violence" "chinese"   
-    ##  [3,] "brussels" "energy"      "labor"      "prices"    "cases"    "de"        
-    ##  [4,] "benefits" "food"        "turnbull"   "rates"     "sexual"   "parties"   
-    ##  [5,] "talks"    "gas"         "budget"     "banks"     "abuse"    "ireland"   
-    ##  [6,] "cabinet"  "development" "senate"     "investors" "nhs"      "elections" 
-    ##  [7,] "boris"    "project"     "funding"    "shares"    "officers" "revolution"
-    ##  [8,] "tory"     "housing"     "education"  "trading"   "drug"     "peace"     
-    ##  [9,] "jeremy"   "homes"       "schools"    "quarter"   "medical"  "israel"    
-    ## [10,] "shadow"   "oil"         "coalition"  "sector"    "prison"   "offshore"  
-    ##       topic7     topic8     topic9    topic10     
-    ##  [1,] "refugees" "black"    "clinton" "sales"     
-    ##  [2,] "syria"    "son"      "sanders" "apple"     
-    ##  [3,] "isis"     "shot"     "cruz"    "game"      
-    ##  [4,] "syrian"   "mother"   "hillary" "google"    
-    ##  [5,] "military" "shooting" "obama"   "customers" 
-    ##  [6,] "islamic"  "dead"     "trump's" "users"     
-    ##  [7,] "turkey"   "church"   "bernie"  "technology"
-    ##  [8,] "un"       "died"     "ted"     "games"     
-    ##  [9,] "aid"      "father"   "rubio"   "iphone"    
-    ## [10,] "muslim"   "parents"  "senator" "app"
+    ##       topic1     topic2       topic3     topic4         topic5    topic6       
+    ##  [1,] "syria"    "corbyn"     "officers" "brussels"     "love"    "climate"    
+    ##  [2,] "refugees" "johnson"    "prison"   "talks"        "church"  "water"      
+    ##  [3,] "isis"     "shadow"     "victims"  "summit"       "game"    "energy"     
+    ##  [4,] "military" "leadership" "sexual"   "benefits"     "park"    "food"       
+    ##  [5,] "syrian"   "boris"      "abuse"    "ireland"      "felt"    "gas"        
+    ##  [6,] "islamic"  "jeremy"     "criminal" "migrants"     "son"     "development"
+    ##  [7,] "un"       "tory"       "officer"  "french"       "parents" "hospital"   
+    ##  [8,] "forces"   "cabinet"    "arrested" "greece"       "mother"  "drug"       
+    ##  [9,] "muslim"   "khan"       "charges"  "emergency"    "story"   "project"    
+    ## [10,] "aid"      "doctors"    "cases"    "negotiations" "gay"     "medical"    
+    ##       topic7      topic8    topic9        topic10     
+    ##  [1,] "oil"       "clinton" "australia"   "sales"     
+    ##  [2,] "markets"   "sanders" "australian"  "housing"   
+    ##  [3,] "prices"    "cruz"    "labor"       "customers" 
+    ##  [4,] "banks"     "hillary" "turnbull"    "apple"     
+    ##  [5,] "rates"     "obama"   "senate"      "google"    
+    ##  [6,] "investors" "trump's" "coalition"   "users"     
+    ##  [7,] "shares"    "bernie"  "violence"    "food"      
+    ##  [8,] "trading"   "ted"     "budget"      "technology"
+    ##  [9,] "quarter"   "rubio"   "legislation" "sold"      
+    ## [10,] "china"     "senator" "schools"     "businesses"
 
 Glancing down each list of ten words, deciding what the topic “is”, and moving on is tempting. Chang et al. (2009) showed that this kind of eyeballing is an unreliable way to judge topic quality: in their experiments, the topics that looked most coherent to a human skimming the top words were not reliably the topics that a model’s own internal fit statistics rated highest, and vice versa. They proposed a more rigorous alternative, the word intrusion test: show human readers a topic’s top words with one extra, unrelated “intruder” word mixed in, and see whether the readers can spot the intruder. If they consistently can, the topic’s words hang together in a way people recognise; if they cannot, the topic is not as coherent as reading its top ten words might suggest. There is a parallel topic intrusion test for whether a document’s assigned topic matches how a human would describe that document. Applying a proper word or topic intrusion test is beyond the scope of this tutorial, but is worth doing before you report topic labels as a finding rather than as a convenient description.
 
@@ -103,11 +103,11 @@ head(topics(tmod_lda), 20)
 ```
 
     ## text136751 text136585 text139163 text169133 text153451 text163885 text157885 
-    ##     topic2     topic6    topic10     topic8     topic5     topic2     topic8 
+    ##     topic9     topic4    topic10     topic3     topic3     topic6     topic5 
     ## text173244 text137394 text169408 text184646 text127410 text134923 text169695 
-    ##     topic2     topic3     topic8     topic1     topic8     topic1     topic4 
+    ##     topic2     topic9     topic5     topic2     topic3     topic2     topic7 
     ## text147917 text157535 text177078 text174393 text181782 text143323 
-    ##    topic10     topic2     topic2     topic9     topic8     topic1 
+    ##     topic5     topic6     topic6     topic8     topic5     topic2 
     ## 10 Levels: topic1 topic2 topic3 topic4 topic5 topic6 topic7 topic8 ... topic10
 
 ``` r
@@ -120,7 +120,7 @@ table(dfmat_news$topic)
 
     ## 
     ##  topic1  topic2  topic3  topic4  topic5  topic6  topic7  topic8  topic9 topic10 
-    ##     203     199     149     218     230      87     195     266     198     207
+    ##     197     261     236      61     243     209     176     191     147     231
 
 ### Seeded LDA
 
@@ -156,27 +156,27 @@ Some of the words returned for each topic are seed words we supplied ourselves, 
 terms(tmod_slda, 20)
 ```
 
-    ##       economy      politics      society      diplomacy    military   
-    ##  [1,] "markets"    "politicians" "schools"    "clinton"    "military" 
-    ##  [2,] "banks"      "water"       "hospital"   "sanders"    "syria"    
-    ##  [3,] "oil"        "food"        "labor"      "cruz"       "refugees" 
-    ##  [4,] "sales"      "elections"   "corbyn"     "obama"      "officers" 
-    ##  [5,] "prices"     "climate"     "turnbull"   "hillary"    "terrorist"
-    ##  [6,] "stock"      "development" "johnson"    "trump's"    "isis"     
-    ##  [7,] "energy"     "violence"    "prison"     "bernie"     "army"     
-    ##  [8,] "banking"    "project"     "australian" "senator"    "syrian"   
-    ##  [9,] "sector"     "population"  "budget"     "ted"        "victims"  
-    ## [10,] "rates"      "apple"       "brussels"   "rubio"      "un"       
-    ## [11,] "investors"  "game"        "cabinet"    "gun"        "forces"   
-    ## [12,] "shares"     "education"   "talks"      "primary"    "islamic"  
-    ## [13,] "costs"      "users"       "benefits"   "race"       "prison"   
-    ## [14,] "trading"    "drugs"       "leadership" "kasich"     "crime"    
-    ## [15,] "housing"    "study"       "shadow"     "photograph" "aid"      
-    ## [16,] "china"      "funding"     "coalition"  "candidates" "sexual"   
-    ## [17,] "businesses" "drug"        "australia"  "delegates"  "criminal" 
-    ## [18,] "income"     "age"         "hospitals"  "americans"  "officer"  
-    ## [19,] "quarter"    "play"        "boris"      "america"    "turkey"   
-    ## [20,] "gas"        "girls"       "doctors"    "rally"      "peace"
+    ##       economy       politics      society     diplomacy    military   
+    ##  [1,] "markets"     "politicians" "hospital"  "clinton"    "military" 
+    ##  [2,] "banks"       "labor"       "prison"    "sanders"    "refugees" 
+    ##  [3,] "oil"         "corbyn"      "schools"   "cruz"       "syria"    
+    ##  [4,] "climate"     "elections"   "officers"  "obama"      "isis"     
+    ##  [5,] "energy"      "turnbull"    "violence"  "hillary"    "terrorist"
+    ##  [6,] "sales"       "johnson"     "hospitals" "trump's"    "army"     
+    ##  [7,] "prices"      "australian"  "cases"     "bernie"     "un"       
+    ##  [8,] "stock"       "budget"      "sexual"    "senator"    "syrian"   
+    ##  [9,] "sector"      "cabinet"     "abuse"     "ted"        "islamic"  
+    ## [10,] "food"        "talks"       "parents"   "rubio"      "turkey"   
+    ## [11,] "rates"       "benefits"    "child"     "gun"        "aid"      
+    ## [12,] "banking"     "brussels"    "facebook"  "primary"    "forces"   
+    ## [13,] "businesses"  "australia"   "drug"      "race"       "refugee"  
+    ## [14,] "investors"   "shadow"      "medical"   "kasich"     "peace"    
+    ## [15,] "costs"       "leadership"  "officer"   "candidates" "russian"  
+    ## [16,] "housing"     "coalition"   "mother"    "photograph" "border"   
+    ## [17,] "shares"      "boris"       "victims"   "americans"  "russia"   
+    ## [18,] "average"     "senate"      "mental"    "delegates"  "saudi"    
+    ## [19,] "development" "chancellor"  "crime"     "america"    "french"   
+    ## [20,] "trading"     "tory"        "drugs"     "supporters" "paris"
 
 Because each topic now has a meaningful name rather than just a number, `topics()` returns the dictionary keys directly as the most likely topic for each document.
 
@@ -185,11 +185,11 @@ head(topics(tmod_slda), 20)
 ```
 
     ## text136751 text136585 text139163 text169133 text153451 text163885 text157885 
-    ##   politics    society    economy   military   military    economy  diplomacy 
+    ##    economy   politics    economy    society    society    economy  diplomacy 
     ## text173244 text137394 text169408 text184646 text127410 text134923 text169695 
-    ##    society    society   politics    society   military    society    economy 
+    ##   military   politics    society   politics    society   politics    economy 
     ## text147917 text157535 text177078 text174393 text181782 text143323 
-    ##   politics    economy   politics  diplomacy   politics    society 
+    ##  diplomacy    economy    economy  diplomacy    society   politics 
     ## Levels: economy politics society diplomacy military
 
 ``` r
@@ -202,7 +202,7 @@ table(dfmat_news$topic2)
 
     ## 
     ##   economy  politics   society diplomacy  military 
-    ##       355       517       374       232       474
+    ##       512       358       586       211       285
 
 ## References
 

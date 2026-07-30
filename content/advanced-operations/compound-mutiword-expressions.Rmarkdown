@@ -10,6 +10,9 @@ draft: false
 library(quanteda)
 library(quanteda.textstats)
 library(quanteda.corpora)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 

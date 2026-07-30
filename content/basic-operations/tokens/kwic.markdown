@@ -9,8 +9,9 @@ Before counting words or fitting a model, it often helps to read how a word is a
 
 ``` r
 library(quanteda)
-options(width = 110)
 ```
+
+
 
 
 ``` r

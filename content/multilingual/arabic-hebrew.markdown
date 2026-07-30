@@ -12,8 +12,9 @@ Arabic and Hebrew are both written right-to-left, which makes them more awkward 
 ``` r
 library(quanteda)
 library(quanteda.corpora)
-options(width = 110)
 ```
+
+
 
 ## Arabic
 

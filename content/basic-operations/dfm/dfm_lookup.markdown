@@ -8,8 +8,9 @@ draft: false
 ``` r
 library(quanteda)
 library(quanteda.textmodels)
-options(width = 110)
 ```
+
+
 
 [laver-garry.cat](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/laver-garry.cat) is a Wordstat dictionary that contain political left-right ideology keywords (Laver and Garry 2000). 
 

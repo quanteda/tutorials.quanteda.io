@@ -8,6 +8,9 @@ Before counting words or fitting a model, it often helps to read how a word is a
 
 ```{r message=FALSE}
 library(quanteda)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 
