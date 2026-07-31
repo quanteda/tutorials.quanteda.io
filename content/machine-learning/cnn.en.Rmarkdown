@@ -1,0 +1,176 @@
+---
+title: Convolutioanl Neural Network
+weight: 90
+draft: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)
+```
+
+Convolutioanl neural network (CNN) is a type of supervised machine larning tecnique that represents cooccrances of tokens in the neibourhood. The model captures similar information as n-grams and skip-grams but does not require manual feature engineering. If CNN is trained on a sizable annotated corpus, it can predict the labels accurately. 
+
+**quanteda** works as an NLP infrastructure for **torch** and **luz**, which implements more general neural network models. We can install these packages from CRAN.
+
+```{r eval=FALSE}
+install.packages("torch")
+install.packages("luz")
+```
+
+```{r, message=FALSE}
+library(quanteda)
+library(quanteda.corpora)
+library(torch)
+library(luz)
+quanteda_options(verbose = TRUE)
+```
+
+## Download example data
+
+Download the corpus of movie review texts with sentiment annotation using **quanteda.corpora**'s `download()` function. See the [package website](https://quanteda.io/articles/pkgdown/examples/neural-networks.html#construct-corpus) for how the corpus was created.
+
+```{r eval=FALSE}
+corp_imdb <- download(url = "https://www.dropbox.com/scl/fi/mb88hqwfly7t3u30fks4q/data_corpus_imdb.RDS?rlkey=hlzie0qdumkwexnp7bz8539ng&st=owqlekqm&dl=1")
+```
+
+```{r include=FALSE}
+# This code is only for website generation
+file <- "../data/data_corpus_imdb.rds"
+if (file.exists(file)) {
+  corp_imdb <- readRDS(file)
+} else {
+  corp_imdb <- download(url = "https://www.dropbox.com/scl/fi/mb88hqwfly7t3u30fks4q/data_corpus_imdb.RDS?rlkey=hlzie0qdumkwexnp7bz8539ng&st=owqlekqm&dl=1")
+  saveRDS(corp_imdb, file)
+}
+```
+
+## Tokenize texts
+
+We tokenize texts using `tokens()`, remove only punctuations, and lower-case them using `tokens_tolower()`. To limit the complexity of the data, we apply `tokens_trim()` with the new `max_n` argument. This limits the size of the vocabulary (unique token types) to the top 20,000 most frequent words in the object.
+
+```{r}
+vocab_size <- 20000 # maximum size of the vocabulary
+
+toks_imdb <- tokens(corp_imdb, remove_punct = TRUE) |>
+  tokens_tolower() |>
+  tokens_trim(max_n = vocab_size)
+```
+
+## Define dataset
+
+We use `dataset()` to feed data from the tokens object to neural network models. We can quickly access the documents in the tokens object using `quanteda::as.matrix()` with the `extract` argument. The function returns the documents in the same length: when the documents are longer than `length`, the vectors are truncated; if they are shorter, the vectors are padded by zero. Since the indices in `torch_tensor` is one-based, we shift token IDs by adding one (the ID for padding is zero in tokens objects).
+
+Importantly, before separating the tokens object into training and test sets using `tokens_subset()`, we have to convert it to a  [tokens_xptr](https://quanteda.io/articles/pkgdown/tokens_xptr.html) object for quick access to the documents. 
+
+{{% notice tip %}}
+The same word should recieve the same token IDs in training and test sets in training neural network models. One way to achieve this is spliting a tokens object using `tokens_subset()`. Another way is applying `tokens_match()` to separate tokens objects with the same vocarburary vector.
+{{% /notice %}}
+
+```{r}
+text_length <- 200 # maximum number length of the texts
+
+movie_dataset <- dataset(
+  name = "movie_dataset",
+  
+  initialize = function(data, text_length) {
+    self$toks <- data
+    self$dvars <- docvars(data)
+  },
+  .getbatch = function(i) {
+    list(
+      x = as.matrix(self$toks, length = text_length, extract = i, drop = FALSE) + 1L,
+      y = self$dvars$sentiment[i]
+    )
+  },
+  .length = function() {
+    ndoc(self$toks)
+  }
+)
+
+xtoks_imdb <- as.tokens_xptr(toks_imdb) # important!
+train_ds <- movie_dataset(tokens_subset(xtoks_imdb, split == "train"), text_length)
+test_ds <- movie_dataset(tokens_subset(xtoks_imdb, split == "test"), text_length)
+```
+
+If you call the datasets with the document index, it returns the token IDs in `x` and the sentiment label in `y`. Documents are padded by `1` to make all of them to be `r text_length` long.
+
+```{r}
+train_ds[1:2]
+```
+
+## Build CNN model
+
+The model starts with a module for word vectors in the embedding layer `nn_embedding`, followed by modules for convolution layers `nn_conv1d()`: the first layer captures the sequence of tokens such as phrases; the second layer further abstracts the occurrences sequences. Finally, the dense feed-forward network `nn_linear()` predicts the sentiment of documents. 
+
+```{r}
+embedding_dim <- 128 # size of the embedding vectors
+
+model <- nn_module(
+    initialize = function(vocab_size, embedding_dim) {
+        self$embedding <- nn_sequential(
+            nn_embedding(num_embeddings = vocab_size + 1L, embedding_dim = embedding_dim),
+            nn_dropout(0.5)
+        )
+        
+        self$convs <- nn_sequential(
+            nn_conv1d(embedding_dim, 128, kernel_size = 7, stride = 3, padding = "valid"),
+            nn_relu(),
+            nn_conv1d(128, 128, kernel_size = 7, stride = 3, padding = "valid"),
+            nn_relu(),
+            nn_adaptive_max_pool2d(c(128, 1)) # reduces the length dimension
+        )
+        
+        self$classifier <- nn_sequential(
+            nn_flatten(),
+            nn_linear(128, 128),
+            nn_relu(),
+            nn_dropout(0.5),
+            nn_linear(128, 1)
+        )
+    },
+    forward = function(x) {
+        emb <- self$embedding(x)
+        out <- emb$transpose(2, 3) |> 
+            self$convs() |> 
+            self$classifier()
+        # we drop the last so we get (B) instead of (B, 1)
+        out$squeeze(2)
+    }
+)
+
+```
+
+## Train the model
+
+We train the hierarchical CNN model on `train_ds`. We only need to define the loss function, learning rate optimizer and evaluation metrics in `setup()`. We set the size of vocaburary and word embedding in `set_hparams()` and specify dataset and the number of iterations in `fit()`. 
+
+```{r, cache = TRUE}
+fitted_model <- model |> 
+    setup(
+        loss = nnf_binary_cross_entropy_with_logits,
+        optimizer = optim_adam,
+        metrics = luz_metric_binary_accuracy_with_logits()
+    ) |> 
+    set_hparams(vocab_size = vocab_size, embedding_dim = embedding_dim) |> 
+    fit(train_ds, epochs = 3)
+```
+
+## Test the model
+
+Evaluate the fitted model `test_ds`. The same evaluation metrics will be used. 
+
+```{r, cache = TRUE}
+fitted_model |> 
+    evaluate(test_ds) |> 
+    print()
+```
+
+{{% notice tip %}}
+We trained word vectors as part of the model using `nn_embedding()` in the example, but we can also use pre-trained word vectors through `nnf_embedding()`. It retrieves word vectors extracted from `wordvector::textmodel_word2vec` with `wordvector::as.matrix(padding = TRUE)`.
+{{% /notice %}}
+
+{{% notice ref %}}
+- Goldberg, Y. (2017). [Neural network methods for natural language processing. Morgan & Claypool](https://doi.org/10.2200/S00762ED1V01Y201703HLT037). 
+- https://skeydan.github.io/Deep-Learning-and-Scientific-Computing-with-R-torch/
+- https://mlverse.github.io/luz/articles/examples/text-classification.html
+{{% /notice %}}

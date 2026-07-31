@@ -6,6 +6,7 @@ public/
 content/*/*.html
 content/*/*.svg
 content/*/*.png
+content/data/*
 **.md~
 **.lock~
 **_cache/

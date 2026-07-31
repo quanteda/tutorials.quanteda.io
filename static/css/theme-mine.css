@@ -106,6 +106,7 @@ pre,
 pre .copy-to-clipboard{
   background-color: #282b2e;
   background-color: #f8f8f8;
+  line-height: 150%;
 }
 
 div.author {
