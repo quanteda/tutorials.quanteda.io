@@ -5,13 +5,15 @@ chapter: false
 draft: false
 ---
 
+You met `textstat_collocations()` briefly in [Advanced Operations](/advanced-operations/), where it was used to compound multi-word expressions automatically. Here we look at the function itself in more detail, since it is one of the most generally useful tools for exploring a new corpus.
+
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textstats)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.textstats)
+library(quanteda.corpora)
 ```
 
-This corpus contains 6,000 Guardian news articles from 2012 to 2016.
+The corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 ```{r eval=FALSE}
 corp_news <- download("data_corpus_guardian")
@@ -22,29 +24,34 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-
-A collocation analysis allows us to identify contiguous collocations of words. One of the most common types of multi-word expressions are proper names, which can be identified simply based on capitalization in English texts.
+A collocation analysis identifies contiguous sequences of words, "collocations", that occur together far more often than chance would predict. One of the most common types of multi-word expression is proper names, which can be identified based on capitalisation in English texts. Setting `min_count = 50` restricts the results to collocations that occur at least fifty times, which keeps the output manageable and filters out one-off coincidences.
 
 ```{r}
 toks_news <- tokens(corp_news, remove_punct = TRUE)
 tstat_col_caps <- tokens_select(toks_news, pattern = "^[A-Z]", 
                                 valuetype = "regex", 
                                 case_insensitive = FALSE, 
-                                padding = TRUE) %>% 
-                  textstat_collocations(min_count = 100)
+                                padding = TRUE) |> 
+                  textstat_collocations(min_count = 50)
+
+# print output
 head(tstat_col_caps, 20)
 ```
 
-You can also discover collocations longer than two words. In the example below we identify collocations consisting of three words.
+Each row is a candidate two-word collocation. The `count` column shows how often it occurred. The `lambda` and `z` columns measure how strongly the two words are associated, with higher values indicating a stronger association. By default, `textstat_collocations()` looks for collocations of exactly two words, but you can also discover longer collocations. In the example below we identify collocations consisting of three words, using the `size` argument.
 
 ```{r}
 tstat_col2 <- tokens_select(toks_news, pattern = "^[A-Z]", 
                                 valuetype = "regex", 
                                 case_insensitive = FALSE, 
-                                padding = TRUE) %>% 
-              textstat_collocations(min_count = 100, size = 3)
+                                padding = TRUE) |> 
+              textstat_collocations(min_count = 3, size = 3)
+
+# print output
 head(tstat_col2, 20)
 ```
+
+Once you have identified collocations you trust, the natural next step is to compound them into single tokens with `tokens_compound()`, exactly as demonstrated in [Advanced Operations](/advanced-operations/).
 
 {{% notice tip %}}
 If you find `textstat_collocations()` is taking too much time, increase the `min_count` threshold to speed up the estimation. You also do not need to set `sizes` larger than 2 to compound multi-word expressions, because overlapped collocations are chained if `join = TRUE` in `tokens_compound()`.

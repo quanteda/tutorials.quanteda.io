@@ -2,23 +2,29 @@
 title: Latent Semantic Scaling
 weight: 70
 draft: false
+bibliography: ../references.bib
 ---
 
-Latent Semantic Scaling (LSS) is a flexible and cost-efficient semi-supervised document scaling technique. The technique relies on word embeddings and users only need to provide a small set of "seed words" to locate documents on a specific dimension.
+Latent Semantic Scaling (LSS) [@watanabe2021] brings together two ideas from earlier in this tutorial: scaling documents along a dimension, as with Wordscores and Wordfish, and learning from a small set of seed words, as with Newsmap. LSS is a cost-efficient semi-supervised document scaling technique. Rather than reference texts with known scores, as in Wordscores, it relies on word embeddings, statistical representations of words based on the contexts they typically appear in. You only need to provide a small set of "seed words" to locate documents along a dimension of your choosing, such as positive versus negative sentiment.
 
-Install the **LSX** package from CRAN.
+Install the **LSX** package [@watanabe2023] from CRAN.
 
 ```{r eval=FALSE}
 install.packages("LSX")
 ```
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
-require(LSX)
+library(quanteda)
+library(quanteda.corpora)
+library(LSX)
+library(ggplot2)
 ```
 
-Download a corpus with news articles using **quanteda.corpora**'s `download()` function.
+```{r include=FALSE}
+theme_set(theme_bw(base_size = 16))
+```
+
+Download a corpus with news articles using **quanteda.corpora**'s `download()` function, the same Guardian corpus used throughout the [Statistical Analysis](/statistical-analysis/), [Advanced Operations](/advanced-operations/) and [Topic Models](/machine-learning/topicmodel) chapters.
 
 ```{r eval=FALSE}
 corp_news <- download("data_corpus_guardian")
@@ -29,21 +35,21 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We must segment news articles into sentences in the corpus to accurately estimate semantic proximity between words. We can also use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`) to remove words commonly used in news reports.
+Word embeddings work best when estimated from short spans of text: two words that appear in the same sentence are more likely to be semantically related than two words that merely appear somewhere in the same lengthy article. We therefore segment news articles into sentences using `corpus_reshape()`, as in the [Basic Operations chapter](/basic-operations/corpus/corpus_reshape). We also use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`source = "marimo"`), introduced in the [Different Languages chapter](/multilingual/), to remove words common in news reports that would otherwise add noise.
 
 ```{r, cache=TRUE}
 # tokenize text corpus and remove various features
 corp_sent <- corpus_reshape(corp_news, to =  "sentences")
-toks_sent <- corp_sent %>% 
+toks_sent <- corp_sent |> 
     tokens(remove_punct = TRUE, remove_symbols = TRUE, 
-           remove_numbers = TRUE, remove_url = TRUE) %>% 
-    tokens_remove(stopwords("en", source = "marimo")) %>%
+           remove_numbers = TRUE, remove_url = TRUE) |> 
+    tokens_remove(stopwords("en", source = "marimo")) |>
     tokens_remove(c("*-time", "*-timeUpdated", "GMT", "BST", "*.com"))  
 
 # create a document feature matrix from the tokens object
-dfmat_sent <- toks_sent %>% 
-    dfm() %>% 
-    dfm_remove(pattern = "") %>% 
+dfmat_sent <- toks_sent |> 
+    dfm() |> 
+    dfm_remove(pattern = "") |> 
     dfm_trim(min_termfreq = 5)
 ```
 
@@ -51,14 +57,14 @@ dfmat_sent <- toks_sent %>%
 topfeatures(dfmat_sent, 20)
 ```
 
-We will use generic sentiment seed words to perform sentiment analysis.
+We will use a small set of positive and negative sentiment seed words, bundled with **LSX**, to perform sentiment analysis. `as.seedwords()` converts a dictionary of positive and negative terms into the numeric format LSS expects, with positive words coded `1` and negative words coded `-1`.
 
 ```{r}
 seed <- as.seedwords(data_dictionary_sentiment)
 print(seed)
 ```
 
-With the seed words, LSS computes polarity of words frequent in the context of economy. We can identify context words by `char_context(pattern = "econom*")` before fitting the model.
+With the seed words defined, LSS computes the polarity of words frequent in the context of a topic you specify, here the economy, by measuring how semantically close each word is to the positive and negative seed words within that context. We first identify which words belong to that context using `char_context(pattern = "econom*")`, then fit the model on those context words.
 
 ```{r}
 # identify context words 
@@ -74,13 +80,13 @@ head(coef(tmod_lss), 20) # most positive words
 tail(coef(tmod_lss), 20) # most negative words
 ```
 
-By highlighting negative words in a manually compiled sentiment dictionary (`data_dictionary_LSD2015`), we can confirm that many of the words (but not all of them) have negative meanings in the corpus.
+These coefficients are the output of LSS: a polarity score for every context word, learned from a dozen or so seed words. As an initial assessment of the model output, we cross-reference its results against the Lexicoder Sentiment Dictionary (`data_dictionary_LSD2015`), a larger, manually compiled sentiment dictionary already used in [Advanced Operations](/advanced-operations/). Highlighting the words LSD2015 independently classifies as negative shows that many of the words LSS also scored as negative, though not all, overlap with this outside source.
 
-```{r fig.height=6, fig.width=8}
+```{r fig.height=4, fig.width=6, warning=FALSE}
 textplot_terms(tmod_lss, data_dictionary_LSD2015["negative"])
 ```
 
-We must reconstruct original articles from their sentences using `dfm_group()` before predicting polarity of documents.
+The model was trained on individual sentences, but we want a sentiment score per article, not per sentence. We reconstruct the original articles from their sentences using `dfm_group()`, as before, then predict the polarity of whole documents.
 
 ```{r}
 dfmat_doc <- dfm_group(dfmat_sent)
@@ -88,25 +94,29 @@ dat <- docvars(dfmat_doc)
 dat$fit <- predict(tmod_lss, newdata = dfmat_doc)
 ```
 
-We can smooth polarity scores of documents to visualize the trend using `smooth_lss()`. If `engine = "locfit"`, smoothing is very fast even when there are many documents.
+A single sentiment score per article is still noisy from one article to the next. We can smooth polarity scores over time to visualise the underlying trend using `smooth_lss()`, similar to the kernel smoothing used for daily sentiment in [Advanced Operations](/advanced-operations/). With `engine = "locfit"`, smoothing is fast even with many documents.
 
 ```{r}
 dat_smooth <- smooth_lss(dat, engine = "locfit")
 head(dat_smooth)
 ```
 
-In the plot below, the circles are polarity scores of documents and the curve is their local means with 95% confidence intervals.
+In the plot below, the circles are polarity scores of individual documents, plotted with heavy transparency so that dense clusters of points show up as darker regions. The curve is their local mean over time, shown with a 95% confidence interval, and together they give a clear read of how economic sentiment in the news rose and fell across the period covered by the corpus. The shape of this curve also depends on the smoother's own settings, not only on the data: a different span or bandwidth in `smooth_lss()` can make a trend look sharper or flatter than it really is. Try a few alternative specifications before drawing conclusions from the curve, and back up any pattern you find with a formal test rather than relying on the plot alone.
 
-```{r fig.height=6, fig.width=10}
-plot(dat$date, dat$fit, col = rgb(0, 0, 0, 0.05), pch = 16, ylim = c(-0.5, 0.5),
-     xlab = "Time", ylab = "Economic sentiment")
-lines(dat_smooth$date, dat_smooth$fit, type = "l")
-lines(dat_smooth$date, dat_smooth$fit + dat_smooth$se.fit * 1.96, type = "l", lty = 3)
-lines(dat_smooth$date, dat_smooth$fit - dat_smooth$se.fit * 1.96, type = "l", lty = 3)
-abline(h = 0, lty = c(1, 2))
+```{r fig.height=4, fig.width=7, warning=FALSE}
+# create data frame with date and confidence intervals
+dat_ci <- data.frame(date = dat_smooth$date,
+                      upper = dat_smooth$fit + dat_smooth$se.fit * 1.96,
+                      lower = dat_smooth$fit - dat_smooth$se.fit * 1.96)
+
+ggplot() +
+  geom_point(data = dat, aes(x = date, y = fit), alpha = 0.05) +
+  geom_line(data = dat_smooth, aes(x = date, y = fit)) +
+  geom_line(data = dat_ci, aes(x = date, y = upper), linetype = "dotted") +
+  geom_line(data = dat_ci, aes(x = date, y = lower), linetype = "dotted") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  coord_cartesian(ylim = c(-0.5, 0.5)) +
+  labs(x = "Time", y = "Economic sentiment")
 ```
 
-{{% notice ref %}}
-- Watanabe, K. 2021. "[Latent Semantic Scaling: A Semisupervised Text Analysis Technique for New Domains and Languages](https://www.tandfonline.com/doi/full/10.1080/19312458.2020.1832976)". _Communication Methods and Measures_ 15(2): 81-102. 
-- Watanabe. K. 2023. "[Introduction to LSX: The package for Latent Semantic Scaling](http://koheiw.github.io/LSX/articles/pkgdown/introduction.html)".
-{{% /notice %}}
+## References

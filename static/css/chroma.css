@@ -1,0 +1,89 @@
+/* Background */
+.chroma { background-color: #ffffff }
+
+/* Error */
+.chroma .err { color: #a61717; background-color: #e3d2d2 }
+
+/* Line table / numbers / highlight */
+.chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+.chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+.chroma .hl { display: block; width: 100%; background-color: #ffffcc }
+.chroma .lnt,
+.chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: #7f7f7f }
+
+/* Keywords, operators */
+.chroma .k,
+.chroma .kc,
+.chroma .kd,
+.chroma .kn,
+.chroma .kp,
+.chroma .kr,
+.chroma .o,
+.chroma .ow { color: #000000; font-weight: bold }
+.chroma .kt,
+.chroma .nc { color: #445588; font-weight: bold }
+
+/* Names */
+.chroma .na,
+.chroma .no,
+.chroma .nv,
+.chroma .vc,
+.chroma .vg,
+.chroma .vi { color: #008080 }
+.chroma .nb { color: #0086b3 }
+.chroma .bp,
+.chroma .gh { color: #999999 }
+.chroma .nd { color: #3c5d5d; font-weight: bold }
+.chroma .ni { color: #800080 }
+.chroma .ne,
+.chroma .nf,
+.chroma .nl { color: #990000; font-weight: bold }
+.chroma .nn,
+.chroma .gp { color: #555555 }
+.chroma .nt { color: #000080 }
+
+/* Strings */
+.chroma .s,
+.chroma .sa,
+.chroma .sb,
+.chroma .sc,
+.chroma .dl,
+.chroma .sd,
+.chroma .s2,
+.chroma .se,
+.chroma .sh,
+.chroma .si,
+.chroma .sx,
+.chroma .s1 { color: #dd1144 }
+.chroma .sr { color: #009926 }
+.chroma .ss { color: #990073 }
+
+/* Numbers */
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .il,
+.chroma .mo { color: #009999 }
+
+/* Comments */
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1 { color: #999988; font-style: italic }
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf { color: #999999; font-weight: bold; font-style: italic }
+
+/* Generic diff / output */
+.chroma .gd { color: #000000; background-color: #ffdddd }
+.chroma .ge { color: #000000; font-style: italic }
+.chroma .gr,
+.chroma .gt { color: #aa0000 }
+.chroma .gi { color: #000000; background-color: #ddffdd }
+.chroma .go { color: #888888 }
+.chroma .gs { font-weight: bold }
+.chroma .gu { color: #aaaaaa }
+.chroma .gl { text-decoration: underline }
+.chroma .w { color: #bbbbbb }

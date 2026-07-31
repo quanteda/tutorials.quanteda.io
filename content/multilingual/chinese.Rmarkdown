@@ -1,4 +1,4 @@
-  ---
+---
 title: Chinese
 weight: 30
 draft: false
@@ -6,18 +6,21 @@ draft: false
 
 {{% author %}}By Yuan Zhou{{% /author %}} 
 
+Chinese is written without spaces between words, unlike every language covered so far in this chapter. `tokens()` relies on the ICU library, mentioned in the [Overview page](/multilingual/overview), to find word boundaries as it segments the text. Once tokenised, cleaning up the result follows a familiar pattern: we use the [Marimo](https://github.com/koheiw/marimo) stopwords list (`stopwords("zh_cn", source = "marimo")`) and a minimum word length (`min_nchar = 2`) to remove function words, since many Chinese function words are a single character long. You can keep only Chinese characters with the Unicode script pattern `"^\\p{script=Hani}+$"`, which discards any stray Latin letters or digits ("Hani" refers to Han characters, the script shared by Chinese and, historically, Japanese).
+
 ```{r, message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.corpora)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 
-We resort to the [Marimo](https://github.com/koheiw/marimo) stopwords list (`stopwords("zh_cn", source = "marimo")`) and the length of words (`min_nchar = 2`) to remove function words. You can keep only Chinese characters with `"^\\p{script=Hani}+$"`.
-
 ```{r}
 corp <- corpus_reshape(data_corpus_udhr["cmn_hans"], to = "paragraphs")
-toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) %>% 
-  tokens_remove(pattern = stopwords("zh_cn", source = "marimo"), min_nchar = 2) %>% 
+toks <- tokens(corp, remove_punct = TRUE, remove_numbers = TRUE) |> 
+  tokens_remove(pattern = stopwords("zh_cn", source = "marimo"), min_nchar = 2) |> 
   tokens_keep(pattern = "^\\p{script=Hani}+$", valuetype = 'regex')
 print(toks[2], max_ndoc = 1, max_ntok = -1)
 ```

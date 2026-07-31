@@ -2,16 +2,19 @@
 title: Topic models
 weight: 50
 draft: false
+bibliography: ../references.bib
 ---
 
-Topics models are unsupervised document classification techniques. By modeling distributions of topics over words and words over documents, topic models identify the most discriminatory groups of documents automatically. 
+Like Wordfish, topic models are unsupervised: you do not need any labelled documents to use them. Rather than positioning documents on a scale, they group documents by subject matter. By modelling how topics are distributed over words, and how words are distributed over documents, topic models identify the most distinguishing groups of documents automatically, without you needing to specify in advance what those groups should be.
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
-require(seededlda)
-require(lubridate)
+library(quanteda)
+library(quanteda.corpora)
+library(seededlda)
+library(lubridate)
 ```
+
+The corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 ```{r eval=FALSE}
 corp_news <- download("data_corpus_guardian")
@@ -22,40 +25,57 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We will select only news articles published in 2016 using `corpus_subset()` and the `year` function from the **lubridate** package. 
+Topic models can be slow to fit on large corpora, so we will select only news articles published in 2016 using `corpus_subset()` and the `year()` function from the **lubridate** package, to keep this example fast enough to run interactively.
 
 ```{r}
 corp_news_2016 <- corpus_subset(corp_news, year(date) == 2016)
 ndoc(corp_news_2016)
 ```
 
-Further, after removal of function words and punctuation in `dfm()`, we will only keep the top 20% of the most frequent features (`min_termfreq = 0.8`) that appear in less than 10% of all documents (`max_docfreq = 0.1`) using `dfm_trim()` to focus on common but distinguishing features.
+Topic models also work best on a focused vocabulary. Very common words add little information about topic, since they appear everywhere, and very rare words add mostly noise, since the model has too little evidence about them. After removing function words and punctuation in `tokens()`, we will therefore only keep the top 20% of the most frequent remaining features (`min_termfreq = 0.8`) that also appear in fewer than 10% of all documents (`max_docfreq = 0.1`), using `dfm_trim()` to focus on features that are common enough to be reliable but still distinguish one document from another.
 
 ```{r}
 toks_news <- tokens(corp_news_2016, remove_punct = TRUE, remove_numbers = TRUE, remove_symbol = TRUE)
 toks_news <- tokens_remove(toks_news, pattern = c(stopwords("en"), "*-time", "updated-*", "gmt", "bst"))
-dfmat_news <- dfm(toks_news) %>% 
+dfmat_news <- dfm(toks_news) |> 
               dfm_trim(min_termfreq = 0.8, termfreq_type = "quantile",
                        max_docfreq = 0.1, docfreq_type = "prop")
 ```
 
-**quanteda** does not implement topic models, but you can fit LDA and seeded-LDA with the **seededlda** package.
+**quanteda** does not implement topic models itself, but you can fit Latent Dirichlet Allocation (LDA) [@blei2003] and seeded LDA using the companion **seededlda** package, on a DFM built as you have throughout this tutorial. Several other widely used topic modelling packages also work out of the box with a **quanteda** DFM, once converted to the format each one expects: **topicmodels** [@grun2011], **stm** [@roberts2019] for structural topic models that let you incorporate document-level covariates, and **keyATM** [@eshima2024] for keyword-assisted topic models, a more flexible alternative to the seeded LDA shown later on this page.
+
+{{% notice tip %}}
+`convert()`, which you already met when comparing documents earlier in this tutorial, reshapes a DFM into the `"topicmodels"` or `"stm"` format directly. **keyATM** instead provides its own `keyATM_read()` function, which reads a **quanteda** DFM without needing `convert()` at all.
+
+```{r eval=FALSE}
+# topicmodels
+dtm_tm <- convert(dfmat_news, to = "topicmodels")
+
+# stm
+dat_stm <- convert(dfmat_news, to = "stm")
+
+# keyATM
+docs_keyatm <- keyATM_read(texts = dfmat_news)
+```
+{{% /notice %}}
 
 ### LDA
 
-`k = 10` specifies the number of topics to be discovered. This is an important parameter and you should try a variety of values and validate the outputs of your topic models thoroughly.
+Standard LDA is fully unsupervised: you only tell it how many topics to look for, and it discovers the topics and their associated words entirely on its own. `k = 10` specifies the number of topics to be discovered, an important parameter: try several values and validate the outputs of your topic models, since there is no single "correct" number of topics for a given corpus.
 
 ```{r}
 tmod_lda <- textmodel_lda(dfmat_news, k = 10)
 ```
 
-You can extract the most important terms for each topic from the model using `terms()`.
+A fitted topic model does not label its topics for you; it only associates words and documents with numbered topics. You can extract the most important terms for each topic from the model using `terms()`, which is usually how you work out what each topic represents.
 
 ```{r}
 terms(tmod_lda, 10)
 ```
 
-You can then obtain the most likely topics using `topics()` and save them as a document-level variable.
+Glancing down each list of ten words, deciding what the topic "is", and moving on is tempting. @chang2009 showed that this kind of eyeballing is an unreliable way to judge topic quality: in their experiments, the topics that looked most coherent to a human skimming the top words were not reliably the topics that a model's own internal fit statistics rated highest, and vice versa. They proposed a more rigorous alternative, the word intrusion test: show human readers a topic's top words with one extra, unrelated "intruder" word mixed in, and see whether the readers can spot the intruder. If they consistently can, the topic's words hang together in a way people recognise; if they cannot, the topic is not as coherent as reading its top ten words might suggest. There is a parallel topic intrusion test for whether a document's assigned topic matches how a human would describe that document. Applying a proper word or topic intrusion test is beyond the scope of this tutorial, but is worth doing before you report topic labels as a finding rather than as a convenient description.
+
+Once you can see what each topic represents, you can obtain the most likely topic for every document using `topics()` and save the result as a document-level variable, turning an unsupervised model into a practical document classification.
 
 ```{r}
 head(topics(tmod_lda), 20)
@@ -69,7 +89,7 @@ table(dfmat_news$topic)
 
 ### Seeded LDA
 
-In the seeded LDA, you can pre-define topics in LDA using a dictionary of "seed" words.
+Standard LDA gives you no control over what its topics turn out to be about. Seeded LDA addresses this, an approach implemented in **seededlda** by @watanabealexander2023. You can pre-define topics in LDA using a dictionary of "seed" words, which nudges the model towards topics you already have a substantive interest in, similar in spirit to how you [used dictionaries earlier in this tutorial](/basic-operations/tokens/tokens_lookup). Here, though, the dictionary guides an otherwise unsupervised model rather than directly counting matches.
 
 ```{r}
 # load dictionary containing seed words
@@ -77,19 +97,19 @@ dict_topic <- dictionary(file = "../dictionary/topics.yml")
 print(dict_topic)
 ```
 
-The number of topics is determined by the number of keys in the dictionary. Next, we can fit the seeded LDA model using `textmodel_seededlda()` and specify the dictionary with our relevant keywords.
+Unlike standard LDA, where you had to choose `k` directly, the number of topics in seeded LDA is determined automatically by the number of keys in the dictionary. Next, we fit the seeded LDA model using `textmodel_seededlda()`, passing it the dictionary of relevant keywords in place of a raw topic count.
 
 ```{r}
 tmod_slda <- textmodel_seededlda(dfmat_news, dictionary = dict_topic)
 ```
 
-Some of the topic words are seed words, but the seeded LDA identifies many other related words.
+Some of the words returned for each topic are seed words we supplied ourselves, but the seeded LDA model identifies many other related words that were never in the original dictionary. A small hand-written list is expanded into a fuller topic vocabulary this way.
 
 ```{r}
 terms(tmod_slda, 20)
 ```
 
-`topics()` returns dictionary keys as the most likely topics of documents.
+Because each topic now has a meaningful name rather than just a number, `topics()` returns the dictionary keys directly as the most likely topic for each document.
 
 ```{r}
 head(topics(tmod_slda), 20)
@@ -101,10 +121,5 @@ dfmat_news$topic2 <- topics(tmod_slda)
 table(dfmat_news$topic2)
 ```
 
-{{% notice ref %}}
-
-- Blei, David M., Andrew Y. Ng, and Michael I. Jordan. 2003. "[Latent Dirichlet Allocation](https://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf)." _The Journal of Machine Learning Research_ 3(1): 993-1022.  
-- Lu, B., Ott, M., Cardie, C., & Tsou, B. K. 2011. "[Multi-aspect Sentiment Analysis with Topic Models](https://www.cs.cornell.edu/home/cardie/papers/masa-sentire-2011.pdf)". _Proceeding of the 2011 IEEE 11th International Conference on Data Mining Workshops_, 81–88.
-
-{{% /notice %}}
+## References
 

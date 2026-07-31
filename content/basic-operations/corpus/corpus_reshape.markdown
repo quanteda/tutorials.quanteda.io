@@ -4,15 +4,15 @@ weight: 30
 draft: false
 ---
 
+So far, each document in our examples has been a whole speech or manifesto section. Sometimes you need a different unit of analysis, for instance, comparing individual sentences rather than whole documents. `corpus_reshape()` lets you change the unit of texts between documents, paragraphs and sentences without losing track of where each piece came from. Because it records document identifiers as it splits the text, you can always restore the original documents later, even after other functions have modified the reshaped corpus.
 
-```r
-require(quanteda)
+
+``` r
+library(quanteda)
 ```
 
-`corpus_reshape()` allows you to change the unit of texts between documents, paragraphs and sentences. Since it records document identifiers, texts can be restored to the original unit even if the corpus is modified by other functions.
 
-
-```r
+``` r
 corp <- corpus(data_char_ukimmig2010)
 print(corp)
 ```
@@ -40,7 +40,7 @@ print(corp)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-```r
+``` r
 ndoc(corp)
 ```
 
@@ -48,10 +48,10 @@ ndoc(corp)
 ## [1] 9
 ```
 
-Change the unit of texts to sentences.
+We start with nine documents, one per party. Reshaping to sentences splits each document at sentence boundaries: every sentence becomes its own "document", so the number of documents grows sharply.
 
 
-```r
+``` r
 corp_sent <- corpus_reshape(corp, to = "sentences")
 print(corp_sent)
 ```
@@ -79,7 +79,7 @@ print(corp_sent)
 ## [ reached max_ndoc ... 200 more documents ]
 ```
 
-```r
+``` r
 ndoc(corp_sent)
 ```
 
@@ -87,10 +87,10 @@ ndoc(corp_sent)
 ## [1] 206
 ```
 
-Restore the original documents.
+Reshaping back to `"documents"` reverses the process exactly, collapsing the sentences back into the original nine documents.
 
 
-```r
+``` r
 corp_doc <- corpus_reshape(corp_sent, to = "documents")
 print(corp_doc)
 ```
@@ -118,7 +118,7 @@ print(corp_doc)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-```r
+``` r
 ndoc(corp_doc)
 ```
 
@@ -126,10 +126,10 @@ ndoc(corp_doc)
 ## [1] 9
 ```
 
-If you apply `corpus_subset()` to `corp_sent`, you can only keep long sentences (more than 10 words).
+Working at the sentence level helps when you want to filter out short, uninformative sentences before an analysis. Here we apply `corpus_subset()` to `corp_sent` to keep only long sentences (more than ten words), and then reshape what is left back into documents.
 
 
-```r
+``` r
 corp_sent_long <- corpus_subset(corp_sent, ntoken(corp_sent) >= 10)
 ndoc(corp_sent_long)
 ```
@@ -138,7 +138,7 @@ ndoc(corp_sent_long)
 ## [1] 182
 ```
 
-```r
+``` r
 corp_doc_long <- corpus_reshape(corp_sent_long, to = "documents")
 ndoc(corp_doc_long)
 ```
@@ -146,4 +146,6 @@ ndoc(corp_doc_long)
 ```
 ## [1] 9
 ```
+
+Because short sentences have been dropped, `corp_doc_long` contains the same nine party documents as before, but each one now has fewer, more substantive sentences than the original `corp`.
 

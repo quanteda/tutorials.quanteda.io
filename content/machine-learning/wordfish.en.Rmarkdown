@@ -2,17 +2,18 @@
 title: Wordfish
 weight: 30
 draft: false
+bibliography: ../references.bib
 ---
 
-Wordfish is a Poisson scaling model of one-dimensional document positions (Slapin and Proksch 2008). Wordfish also allows for scaling documents, but in comparison to Wordscores, reference scores/texts are not required. Wordfish is an unsupervised one-dimensional text scaling method, meaning that it estimates the positions of documents solely based on the observed word frequencies. 
+[Wordscores](/machine-learning/wordscores), in the previous chapter, needed reference texts with known positions before it could estimate anything. Wordfish removes that requirement. Wordfish is a Poisson scaling model of one-dimensional document positions [@slapinproksch2008]: unlike Wordscores, it does not need reference scores or reference texts. Wordfish is unsupervised: it estimates document positions solely from observed word frequencies, with no outside information about what the dimension represents. Most of the validation therefore happens after you fit the model, not before: you inspect which words end up at each end of the scale and interpret what it captures from that, the same logic as unseeded topic models, where you only learn what a topic means by examining it after the fact.
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textmodels)
-require(quanteda.textplots)
+library(quanteda)
+library(quanteda.textmodels)
+library(quanteda.textplots)
 ```
 
-In this example, we will show how to apply Wordfish to the Irish budget speeches from 2010. First, we will create a document-feature matrix. Afterwards, we will run Wordfish.
+In this example, we apply Wordfish to the Irish budget speeches from 2010. First, we create a document-feature matrix, then run Wordfish on it. The `dir` argument fixes the direction of the scale by naming two documents (here, the sixth and fifth in the corpus) that should end up on the negative and positive sides respectively; without some such anchor, the model could just as easily flip the entire scale left to right, and there is nothing in the model itself telling it which orientation is meaningful.
 
 ```{r}
 toks_irish <- tokens(data_corpus_irishbudget2010, remove_punct = TRUE)
@@ -21,27 +22,29 @@ tmod_wf <- textmodel_wordfish(dfmat_irish, dir = c(6, 5))
 summary(tmod_wf)
 ```
 
-We can plot the results of a fitted scaling model using `textplot_scale1d()`.
+We can plot the results of a fitted scaling model using `textplot_scale1d()`, which shows every document's estimated position along the fitted dimension.
 
 ```{r}
 textplot_scale1d(tmod_wf)
 ```
 
-The function also allows you to plot scores by a grouping variable, in this case the party affiliation of the speakers.
+The function also allows you to plot scores by a grouping variable, in this case the party affiliation of the speakers. You can then see whether the estimated positions line up with a party grouping you already expect.
 
 ```{r}
 textplot_scale1d(tmod_wf, groups = dfmat_irish$party)
 ```
 
-Finally, we can plot the estimated word positions and highlight certain features.
+Since Wordfish is unsupervised, we still need to work out what the dimension represents. Finally, we can plot the estimated word positions and highlight features of interest, to see which words are driving each end of the scale.
 
 ```{r, dev="png"}
-textplot_scale1d(tmod_wf, margin = "features", 
-                 highlighted = c("government", "global", "children", 
+textplot_scale1d(tmod_wf, margin = "features",
+                 highlighted = c("government", "global", "children",
                                  "bank", "economy", "the", "citizenship",
                                  "productivity", "deficit"))
 ```
 
-{{% notice ref %}}
-- Slapin, Jonathan and Sven-Oliver Proksch. 2008. "[A Scaling Model for Estimating Time-Series Party Positions from Texts](https://doi.org/10.1111/j.1540-5907.2008.00338.x)." _American Journal of Political Science_ 52(3): 705-772.
-{{% /notice %}}
+Words positioned towards the same end of the scale as a party or speaker are the ones most strongly driving that positioning, which gives you a substantive, human-readable way to check whether the estimated dimension matches your expectations, or points you towards a dimension you had not anticipated.
+
+Reading the highlighted words is a useful sanity check, but it is still just you, the analyst, deciding whether the results look plausible. Because Wordfish is unsupervised, there is no accuracy score or held-out test set to fall back on the way there was for the classifiers earlier in this chapter, so you can easily convince yourself a dimension means what you expected, even when the fit is weak. @lowebenoit2013 argue that scaling estimates like these should be validated against an independent benchmark wherever possible, for instance by asking human coders (experts or crowd workers) to place the same speakers or documents on the same scale, and then checking how closely their independent judgments agree with the model's positions. Agreement gives you evidence that the dimension is capturing something real, rather than a pattern that only looks convincing after you already know which party each speaker belongs to.
+
+## References

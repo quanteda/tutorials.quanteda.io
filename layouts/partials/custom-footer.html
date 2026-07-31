@@ -1,0 +1,15 @@
+<script>
+  // Make an entire in-text citation, e.g. "Denny and Spirling (2018)",
+  // clickable, not just the linked year, jumping down to its entry in
+  // the page's "References" section.
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("span.citation").forEach(function (span) {
+      var link = span.querySelector('a[href^="#ref-"]');
+      if (!link) return;
+      span.addEventListener("click", function (e) {
+        if (e.target.tagName.toLowerCase() === "a") return;
+        window.location.hash = link.getAttribute("href");
+      });
+    });
+  });
+</script>

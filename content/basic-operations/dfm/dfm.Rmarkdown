@@ -4,13 +4,17 @@ weight: 10
 draft: false
 ---
 
+A tokens object still keeps track of word order, but many statistical text analysis does not actually need order, only how often each word occurs. A document-feature matrix, ignores the word order and instead counts how many times each word (or "feature") appears in each document.
+
+
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textstats)
-options(width = 110)
+library(quanteda)
+library(quanteda.textstats)
 ```
 
-`dfm()` constructs a document-feature matrix (DFM) from a tokens object.
+```{r include=FALSE}
+options(width = 110)
+```
 
 ```{r}
 toks_inaug <- tokens(data_corpus_inaugural, remove_punct = TRUE)
@@ -18,34 +22,34 @@ dfmat_inaug <- dfm(toks_inaug)
 print(dfmat_inaug)
 ```
 
-You can get the number of documents and features `ndoc()` and `nfeat()`.
+The printed summary tells you the shape of the matrix (how many documents and how many distinct features) and how sparse it is: the proportion of cells that are zero. Text data typically produces very sparse matrices, since any one document only ever uses a small fraction of all the words that appear somewhere in the whole corpus. You can get the number of documents and features directly with `ndoc()` and `nfeat()`.
 
 ```{r}
 ndoc(dfmat_inaug)
 nfeat(dfmat_inaug)
 ```
 
-You can also obtain the names of documents and features by `docnames()` and `featnames()`.
+You can also obtain the names of documents and features with `docnames()` and `featnames()`.
 
 ```{r}
 head(docnames(dfmat_inaug), 20)
 head(featnames(dfmat_inaug), 20)
 ```
 
-Just like normal matrices, you can use`rowSums()` and `colSums()` to calculate marginals. 
+
+The most frequent features can be found more directly using `topfeatures()`.
+```{r}
+topfeatures(dfmat_inaug, 10)
+```
+
+Just like normal matrices, you can use `rowSums()` and `colSums()` to calculate marginals, as you saw in the [Introduction chapter](/introduction/r-commands). `rowSums()` gives the total number of words in each document; `colSums()` gives the total number of times each word occurs across the corpus.
 
 ```{r}
 head(rowSums(dfmat_inaug), 10)
 head(colSums(dfmat_inaug), 10)
 ```
 
-The most frequent features can be found using `topfeatures()`.
-
-```{r}
-topfeatures(dfmat_inaug, 10)
-```
-
-If you want to convert the frequency count to a proportion within documents, use `dfm_weight(scheme  = "prop")`.
+So far, every count in the matrix has been a raw frequency. Raw counts are not always the fairest basis for comparison: a long document naturally contains more of every word than a short one, because it has more words overall. To convert counts to proportions within each document, so that documents of different lengths become comparable, use `dfm_weight(scheme = "prop")`.
 
 ```{r}
 dfmat_inaug_prop <- dfm_weight(dfmat_inaug, scheme  = "prop")
@@ -53,11 +57,23 @@ print(dfmat_inaug_prop)
 ```
 
 {{% notice tip %}}
-`textstat_frequency()`, described in Chapter 4, offers more advanced functionalities than `topfeatures()` and returns a `data.frame` object, making it easier to use the output for further analyses.
+`textstat_frequency()`, described in Chapter 4, offers more advanced functionalities than `topfeatures()` and returns a `data.frame` object, which is easier to use as the input for further analyses.
 {{% /notice %}}
 
+`"prop"` is only one of several weighting schemes available through the `scheme` argument of `dfm_weight()`. Two other schemes are worth knowing early on. `"logcount"` compresses large counts by taking their logarithm, which stops a handful of very frequent words from dominating a comparison. `"boolean"` reduces every count to a simple 0/1 flag for whether a word appears at all, regardless of how many times. Applying `topfeatures()` after `"boolean"` weighting therefore does not tell you the most frequent words, but the words that appear in the most documents.
 
-You can also weight the frequency count by uniqueness of the features across documents using `dfm_tfidf()`.
+```{r}
+topfeatures(dfm_weight(dfmat_inaug, scheme = "logcount"), 10)
+topfeatures(dfm_weight(dfmat_inaug, scheme = "boolean"), 10)
+```
+
+Every one of these top ten words scores 60 under `"boolean"` weighting: each appears in all 60 inaugural speeches. That's a different, and in this case less interesting, ranking than the raw-frequency ranking from `topfeatures(dfmat_inaug, 10)` above.
+
+{{% notice tip %}}
+Further schemes, `"propmax"`, `"augmented"` and `"logave"`, weight counts relative to a document's own most frequent feature rather than its total length. See `?dfm_weight` for the exact formula behind each scheme.
+{{% /notice %}}
+
+Proportions treat every word as equally informative. In practice, though, a word that appears in almost every document, such as "government" in a set of political speeches, tells you little about what makes any one document distinctive. You can also weight the frequency count by how unevenly a feature is distributed across documents: use `dfm_tfidf()` (term frequency-inverse document frequency) for this. Features that are common everywhere are downweighted, while features that are concentrated in a few documents are upweighted.
 
 ```{r}
 dfmat_inaug_tfidf <- dfm_tfidf(dfmat_inaug)
@@ -65,5 +81,18 @@ print(dfmat_inaug_tfidf)
 ```
 
 {{% notice warning %}}
-Even after applying  `dfm_weight()` or `dfm_tfidf()`, `topfeatures()` works on a document-feature matrix, but it can be misleading if applied to more than one document.
+Even after applying `dfm_weight()` or `dfm_tfidf()`, `topfeatures()` works on a document-feature matrix, but it can be misleading if applied to more than one document.
+{{% /notice %}}
+
+## Converting a DFM to other formats
+
+A DFM is stored internally as a sparse matrix: the many zero counts are not actually stored in memory. That's what makes it possible to work with document-feature matrices containing millions of cells. Sometimes, though, you need an ordinary, fully "dense" R matrix instead, for example to pass a small example into a function that does not know about sparse matrices. `as.matrix()` converts a DFM into a standard base R matrix.
+
+```{r}
+dfmat_small <- dfm(tokens(c(doc1 = "a a a b b c", doc2 = "a b b b b b")))
+as.matrix(dfmat_small)
+```
+
+{{% notice warning %}}
+Only convert a DFM with `as.matrix()` for small examples like this one, or after trimming it down with `dfm_trim()`. Converting a large, realistically sparse DFM into a dense matrix can exhaust your computer's memory, since every zero suddenly has to be stored explicitly.
 {{% /notice %}}

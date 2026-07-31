@@ -2,27 +2,32 @@
 title: Russian
 weight: 15
 draft: false
+bibliography: ../references.bib
 ---
 
 {{% author %}}By Lanabi La Lova{{% /author %}} 
 
+We follow the same template as the [previous page](/multilingual/english-german): tokenise, remove stopwords, then keep only the relevant script's characters. After tokenisation, we remove so-called "stopwords" using either `stopwords("ru", source = "snowball")` or `stopwords("ru", source = "marimo")`. [Marimo](https://github.com/koheiw/marimo) is larger and better suited to multilingual analysis than Snowball. If you want tokens to consist only of Cyrillic script, you can select them with the pattern `"^[а-яА-Я]+$"`, which lists the Cyrillic letter ranges directly rather than using a Unicode script class.
+
 ```{r, message=FALSE}
-require(quanteda)
-require(quanteda.corpora)
+library(quanteda)
+library(quanteda.corpora)
+```
+
+```{r include=FALSE}
 options(width = 110)
 ```
 
-## Russian 
-
-After tokenization, we remove so called "stopwords" using `stopwords("ru", source = "snowball")` or 
-`stopwords("ru", source = "marimo")`. [Marimo](https://github.com/koheiw/marimo) is larger and better for multilingual analysis than Snowball. Please be very careful when pre-processing or removing tokens since these choices [might influence subsequent results](https://doi.org/10.1017/pan.2017.44). If you want tokens to comprise only of Cyrillic script, you can select them by `"^[а-яА-Я]+$"`.
+{{% notice warning %}}
+Be careful when pre-processing or removing tokens: as @denny2018 show, these choices might influence subsequent results, and the choice between the Snowball and Marimo stopword lists above is exactly this kind of decision.
+{{% /notice %}}
 
 ```{r}
 # reshape corpus to the level of paragraphs
 corp_ru <- corpus_reshape(data_corpus_udhr["rus"], to = "paragraphs")
 
 # tokenize corpus and apply pre-processing
-toks_ru <- tokens(corp_ru, remove_punct = TRUE, remove_numbers = TRUE) %>% 
+toks_ru <- tokens(corp_ru, remove_punct = TRUE, remove_numbers = TRUE) |> 
   tokens_remove(pattern = stopwords("ru", source = "snowball")) 
 print(toks_ru[2], max_ndoc = 1, max_ntoken = -1)
 ```
@@ -33,4 +38,6 @@ print(toks_ru[2], max_ndoc = 1, max_ntoken = -1)
 dfmat_ru <- dfm(toks_ru)
 print(dfmat_ru)
 ```
+
+## References
 

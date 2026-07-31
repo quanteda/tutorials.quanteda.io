@@ -4,14 +4,14 @@ weight: 40
 draft: false
 ---
 
-We can identify related words of keywords based on their distance in the documents. In this example, we created a list of words related to the European Union by comparing frequency of words inside and outside of their contexts.
+Rather than searching for fixed phrases, sometimes you want to discover which words tend to cluster around a particular keyword, without knowing in advance what those words might be. We can identify such related words based on their distance from a keyword in the documents. In this example, we build a list of words related to the European Union by comparing how often words occur near mentions of the EU against how often the same words occur everywhere else.
 
 ```{r message=FALSE}
-require(quanteda)
-require(quanteda.textstats)
+library(quanteda)
+library(quanteda.textstats)
 ```
 
-This corpus contains 6,000 Guardian news articles from 2012 to 2016.
+The corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 ```{r eval=FALSE}
 corp_news <- download("data_corpus_guardian")
@@ -26,7 +26,7 @@ corp_news <- readRDS("../data/data_corpus_guardian.rds")
 toks_news <- tokens(corp_news, remove_punct = TRUE)
 ```
 
-We will select two tokens objects for words inside and outside of the 10-word windows of the keywords (`eu`). 
+We split the corpus into two halves: words that occur close to our keywords, and words that do not. We do this by building two tokens objects: one keeps only the words within a 10-word window of the keywords (`eu`), and one removes that same window. Both use `tokens_keep()` and `tokens_remove()`, exactly as in the [Basic Operations chapter](/basic-operations/tokens/tokens_select).
 
 ```{r}
 eu <- c("EU", "europ*", "european union")
@@ -35,13 +35,15 @@ toks_inside <- tokens_remove(toks_inside, pattern = eu) # remove the keywords
 toks_outside <- tokens_remove(toks_news, pattern = eu, window = 10)
 ```
 
-We can compute words' association with the keywords using `textstat_keyness()`.
+We can now compute each word's association with the keywords using `textstat_keyness()`, a function covered in more detail in the [Statistical Analysis chapter](/statistical-analysis/). `textstat_keyness()` compares how often a word occurs in one set of documents (here, the contexts inside our window) against another (the contexts outside it), and returns a score for how distinctively associated each word is with the target set.
 
 ```{r}
 dfmat_inside <- dfm(toks_inside)
 dfmat_outside <- dfm(toks_outside)
 
-tstat_key_inside <- textstat_keyness(rbind(dfmat_inside, dfmat_outside), 
+tstat_key_inside <- textstat_keyness(rbind(dfmat_inside, dfmat_outside),
                                      target = seq_len(ndoc(dfmat_inside)))
 head(tstat_key_inside, 50)
 ```
+
+The words at the top of this table occur disproportionately often near mentions of the EU, compared with the rest of the corpus. That makes them good candidates for the vocabulary of EU-related news coverage.
