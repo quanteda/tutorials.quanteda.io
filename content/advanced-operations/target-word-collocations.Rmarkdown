@@ -4,7 +4,7 @@ weight: 40
 draft: false
 ---
 
-Rather than searching for fixed phrases, sometimes you want to discover which words tend to cluster around a particular keyword, without knowing in advance what those words might be. We can identify such related words based on their distance from a keyword in the documents. In this example, we build a list of words related to the European Union by comparing how often words occur near mentions of the EU against how often the same words occur everywhere else.
+When [compounding multi-word expressions](/advanced-operations/compound-mutiword-expressions), we identified contiguous collocations: words that occur directly next to each other, such as "European Union". Words can also be associated without being adjacent. These non-contiguous collocations are words that tend to occur within a few words of a particular keyword. You can discover them without knowing in advance what those words might be, based on their distance from the keyword in the documents. In this example, we build a list of words related to the European Union by comparing how often words occur near mentions of the EU against how often the same words occur everywhere else.
 
 ```{r message=FALSE}
 library(quanteda)

@@ -4,7 +4,7 @@ weight: 40
 draft: false
 ---
 
-Text files are stored on disk as raw bytes, and "character encoding" translates those bytes back into readable characters. Most modern files use UTF-8, which R handles automatically. Older files, especially ones exported from older software or from non-English systems, are sometimes saved in a different encoding. If R assumes the wrong encoding, accented letters and non-Latin scripts turn into garbled symbols instead of the correct text. Here is one way to recover from that. Even if files are not saved in UTF-8, you can sometimes extract the correct encoding from the file names themselves and import the texts correctly.
+Text files are stored on disk as raw bytes, and "character encoding" translates those bytes back into human-readable symbols. Most modern files use UTF-8, which is also the encoding R uses by default. Older files, especially ones exported from older software or from non-English systems, are sometimes saved in a different encoding. If R assumes the wrong encoding, accented letters and non-Latin scripts turn into garbled symbols instead of the correct text. Here is one way to recover from that. Even if files are not saved in UTF-8, you can sometimes extract the correct encoding from the file names themselves and import the texts correctly.
 
 ```{r, message=FALSE}
 library(quanteda)
@@ -25,7 +25,7 @@ filename <- list.files(path_temp, "^(Indian|UDHR_).*\\.txt$")
 head(filename)
 ```
 
-In this example dataset, each file name encodes its own character encoding as the third underscore-separated part. We can extract it using ordinary R string functions, without needing to open and inspect each file by hand.
+In this example dataset, each file name encodes its own character encoding as the third underscore-separated part. We can extract it using R's basic string functions, without needing to open and inspect each file by hand.
 
 ```{r}
 filename <- gsub(".txt$", "", filename)

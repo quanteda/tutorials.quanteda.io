@@ -4,7 +4,7 @@ weight: 20
 draft: false
 ---
 
-You already used `tokens_select()` to remove stopwords from a tokens object. `dfm_select()` does the same job on a document-feature matrix instead, by pattern-matching against feature (column) names rather than tokens.
+You already used `tokens_select()` to remove stopwords from a tokens object. `dfm_select()` does the same job on a document-feature matrix instead, by pattern-matching against feature (column) names rather than token types.
 
 ```{r, message=FALSE}
 library(quanteda)
@@ -25,7 +25,7 @@ dfmat_inaug_nostop <- dfm_select(dfmat_inaug, pattern = stopwords("en"), selecti
 print(dfmat_inaug_nostop)
 ```
 
-As with tokens, `dfm_remove()` is a shortcut alias for `dfm_select(selection = "remove")`. The code above and below are equivalent, and you can see the feature count drop identically in both.
+`dfm_remove()` is a shortcut alias for `dfm_select(selection = "remove")`, in the same way as `tokens_remove()` is for `tokens_select()`. The code above and below are equivalent, and you can see the feature count drop identically in both.
 
 ```{r}
 dfmat_inaug_nostop <- dfm_remove(dfmat_inaug, pattern = stopwords("en"))
@@ -40,14 +40,14 @@ print(dfmat_inaug_long)
 topfeatures(dfmat_inaug_long, 10)
 ```
 
-While `dfm_select()` and its relatives choose features based on patterns or length, `dfm_trim()` chooses them based on how often they occur. Use it to cut extremely rare features, which add noise and computational cost without adding much information. If `min_termfreq = 10`, features that occur fewer than ten times across the whole corpus are removed.
+While `dfm_select()` and its relatives choose features based on patterns or length, `dfm_trim()` chooses them based on their frequency, that is, how often each word occurs in the corpus or in how many documents it occurs. Use it to cut extremely rare features, which add noise and computational cost without adding much information. If `min_termfreq = 10`, features that occur fewer than ten times across the whole corpus are removed.
 
 ```{r}
 dfmat_inaug_freq <- dfm_trim(dfmat_inaug, min_termfreq = 10)
 print(dfmat_inaug_freq)
 ```
 
-You can trim from the other direction too. If `max_docfreq = 0.1`, features that occur in more than 10% of documents are removed. That's useful for stripping out words so common across your corpus that they no longer help distinguish one document from another.
+You can remove frequent features too. If `max_docfreq = 0.1`, features that occur in more than 10% of documents are removed. That's useful for stripping out words so common across your corpus that they no longer help distinguish one document from another.
 
 ```{r}
 dfmat_inaug_docfreq <- dfm_trim(dfmat_inaug, max_docfreq = 0.1, docfreq_type = "prop")

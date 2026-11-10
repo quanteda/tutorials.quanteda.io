@@ -27,7 +27,7 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_remove()`, but this time with `padding = TRUE`, which you met in the [Basic Operations chapter](/basic-operations/tokens/tokens_select). Padding matters here because collocation analysis needs to know which words were originally next to each other; without it, two words that were never actually adjacent could end up looking adjacent once the words between them are deleted.
+We remove punctuation marks and symbols in `tokens()` and stopwords in `tokens_remove()`, but this time with `padding = TRUE`, which you met in the [Basic Operations chapter](/basic-operations/tokens/tokens_select). Padding matters here because collocation analysis needs to know which words were originally next to each other. Without padding, removed words would artificially pull the remaining words closer together, so two words that were never adjacent could look like a collocation.
 
 ```{r}
 toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, padding = TRUE) |> 

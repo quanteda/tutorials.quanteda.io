@@ -2,9 +2,10 @@
 title: Construct a FCM
 weight: 10
 draft: false
+bibliography: ../../references.bib
 ---
 
-A feature co-occurrence matrix (FCM) records how often pairs of tokens occur in the same document or near each other, rather than how often each token occurs on its own, letting you study relationships between words, such as which ones tend to appear together, rather than just their individual frequencies. An FCM is a special object in **quanteda**, but it behaves similarly to a DFM in how you print, subset and inspect it.
+A document-feature matrix records how often each token occurs in each document. A feature co-occurrence matrix (FCM) instead records how often pairs of tokens occur in the same document or near each other, which lets you study relationships between words, such as which ones tend to appear together. An FCM is a special object in **quanteda**, but it behaves similarly to a DFM in how you print, subset and inspect it.
 
 ```{r message=FALSE}
 library(quanteda)
@@ -24,7 +25,7 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../../data/data_corpus_guardian.rds")
 ```
 
-Co-occurrence matrices grow very large, since they record a relationship between every pair of words rather than a single count per word. When a corpus is large, you might need cut a DFM down to a manageable set of features before constructing an FCM from it. In the example below, we first remove all stopwords and punctuation characters. The final line keeps only terms that occur at least 100 times across the corpus.
+Co-occurrence matrices grow very large: a DFM records the relationship between words and documents, but an FCM records the relationship between every pair of words. When a corpus is large, you might need to cut a DFM down to a manageable set of features before constructing an FCM from it. In the example below, we first remove all stopwords and punctuation characters. The final line keeps only terms that occur at least 100 times across the corpus.
 
 ```{r}
 toks_news <- tokens(corp_news, remove_punct = TRUE)
@@ -50,7 +51,7 @@ fcmat_news_select <- fcm_select(fcmat_news, pattern = feat, selection = "keep")
 dim(fcmat_news_select)
 ```
 
-An FCM can be used to train word embedding models with the **text2vec** package, or to visualise a semantic network analysis with `textplot_network()`.
+An FCM can be used to train GloVe word embeddings [@pennington2014] with the **text2vec** package, or to visualise a semantic network analysis with `textplot_network()`.
 
 ```{r}
 size <- log(colSums(dfm_select(dfmat_news, feat, selection = "keep")))
@@ -59,3 +60,4 @@ set.seed(144)
 textplot_network(fcmat_news_select, min_freq = 0.8, vertex_size = size / max(size) * 3)
 ```
 
+## References

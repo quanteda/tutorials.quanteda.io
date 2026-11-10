@@ -63,7 +63,7 @@ user_clust <- hclust(tstat_dist)
 plot(user_clust)
 ```
 
-Users that are joined together low in the tree are the most similar to one another in their word usage, while users that only join much higher up have comparatively little in common. Note that this reflects similarity in vocabulary alone.
+Users that are joined together low in the tree are the most similar to one another in their word usage, while users that only join much higher up have comparatively little in common. Note that this reflects similarity in word usage alone.
 
 ## References
 

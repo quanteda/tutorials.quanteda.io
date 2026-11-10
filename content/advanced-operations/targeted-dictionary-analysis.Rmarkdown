@@ -2,9 +2,10 @@
 title: Apply dictionary to specific contexts
 weight: 30
 draft: false
+bibliography: ../references.bib
 ---
 
-You have applied a dictionary to a tokens object, and you have used a window of context around a keyword. Here we combine these two approaches. We detect occurrences of dictionary words in specific contexts by selectively applying a dictionary only within a window around a keyword, rather than across the whole document.
+You have [applied a dictionary to a tokens object](/basic-operations/tokens/tokens_lookup), and you have [used a window of context around a keyword](/basic-operations/tokens/tokens_select). Here we combine these two approaches. We detect occurrences of dictionary words in specific contexts by selectively applying a dictionary only within a window around a keyword, rather than across the whole document.
 
 ```{r message=FALSE}
 require(quanteda)
@@ -41,7 +42,7 @@ gov <- c("government", "cabinet", "prime minister")
 toks_gov <- tokens_keep(toks_news, pattern = phrase(gov), window = 10)
 ```
 
-We now apply the Lexicoder Sentiment Dictionary, a widely used dictionary for political and news text that classifies words as positive or negative, to the selected contexts using `tokens_lookup()`. The dictionary has four categories in total, so we first subset it down to just "negative" and "positive" for this example.
+We now apply the Lexicoder Sentiment Dictionary [@young2012], a widely used dictionary for political and news text that classifies words as positive or negative, to the selected contexts using `tokens_lookup()`. The dictionary has four categories in total, so we first subset it down to just "negative" and "positive" for this example.
 
 ```{r}
 lengths(data_dictionary_LSD2015)
@@ -98,3 +99,4 @@ ggplot(dat_smooth, aes(x = date, y = sentiment)) +
   labs(x = NULL, y = "Sentiment")
 ```
 
+## References

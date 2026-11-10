@@ -60,9 +60,9 @@ We keep using *glob* patterns in this tutorials, but almost all the functions in
 
 ## Does it matter which preprocessing choices you make?
 
+{{% notice info %}}
 Choices like removing stopwords, choosing a `window`, and, in previous chapters, removing punctuation and lowercasing, can feel like routine housekeeping. @denny2018 show that it is not: different, individually reasonable combinations of preprocessing decisions can noticeably change downstream results, and some corpora are far more sensitive to these choices than others.
 
-{{% notice info %}}
 @denny2018's key insight is that preprocessing is not a single "correct" pipeline but a set of largely independent binary choices, remove punctuation, remove numbers, lowercase, stem, remove stopwords, trim infrequent terms, and each one is individually defensible. When they compared documents processed under every combination of these choices, some decisions barely moved the results. Others, not always the ones you would expect, consistently pushed a corpus's results away from what most other combinations agreed on. Because there is no way to know in advance which choices will matter for a given corpus and research question, treat your own preprocessing pipeline as a set of assumptions worth checking rather than as settled housekeeping. Beyond checking, let your research question decide what to remove, not the default settings. A text about government budgets loses information if you strip out currency symbols and numbers. In research on the temporal focus of speeches [@mueller2022], removing "will" as a stopword would delete the main marker of future-oriented language, even though most stopword lists remove it by default.
 {{% /notice %}}
 

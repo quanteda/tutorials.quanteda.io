@@ -4,7 +4,7 @@ weight: 40
 draft: false
 ---
 
-`dfm_group()` merges several documents into one by adding up their feature counts, so that you can compare groups of documents, such as speeches from the same party, instead of comparing every document individually. We return to `data_corpus_inaugural`, the corpus of US presidential inaugural speeches used earlier in this chapter, and build a document-feature matrix from it in the usual way.
+`dfm_group()` merges several documents into one by adding up their feature counts, so that you can analyse groups of documents, such as speeches from the same party, instead of every document individually. We return to `data_corpus_inaugural`, the corpus of US presidential inaugural speeches used earlier in this chapter, and build a document-feature matrix from it in the usual way.
 
 ```{r, message=FALSE}
 library(quanteda)

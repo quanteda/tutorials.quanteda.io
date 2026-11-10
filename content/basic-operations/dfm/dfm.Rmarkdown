@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-A tokens object still keeps track of word order, but many statistical text analysis does not actually need order, only how often each word occurs. A document-feature matrix, ignores the word order and instead counts how many times each word (or "feature") appears in each document.
+A tokens object keeps track of word order, which positional analyses need. Many statistical analyses of text, however, are non-positional, or "bag-of-words", analyses: they only need to know how often each word occurs, not where (see the [workflow page](/basic-operations/workflow)). A document-feature matrix ignores word order and instead counts how many times each word (or "feature") appears in each document.
 
 
 ```{r message=FALSE}
@@ -42,7 +42,7 @@ The most frequent features can be found more directly using `topfeatures()`.
 topfeatures(dfmat_inaug, 10)
 ```
 
-Just like normal matrices, you can use `rowSums()` and `colSums()` to calculate marginals, as you saw in the [Introduction chapter](/introduction/r-commands). `rowSums()` gives the total number of words in each document; `colSums()` gives the total number of times each word occurs across the corpus.
+Just like R's basic matrices, you can use `rowSums()` and `colSums()` to calculate marginals, as you saw in the [Introduction chapter](/introduction/r-commands). `rowSums()` gives the total number of words in each document; `colSums()` gives the total number of times each word occurs across the corpus.
 
 ```{r}
 head(rowSums(dfmat_inaug), 10)
@@ -94,5 +94,5 @@ as.matrix(dfmat_small)
 ```
 
 {{% notice warning %}}
-Only convert a DFM with `as.matrix()` for small examples like this one, or after trimming it down with `dfm_trim()`. Converting a large, realistically sparse DFM into a dense matrix can exhaust your computer's memory, since every zero suddenly has to be stored explicitly.
+Only convert a DFM with `as.matrix()` for small examples like this one, or after reducing its size substantially, for example with `dfm_lookup()`, which turns thousands of word features into a handful of dictionary categories, or with `dfm_trim()`. Converting a large, realistically sparse DFM into a dense matrix can exhaust your computer's memory, since every zero suddenly has to be stored explicitly.
 {{% /notice %}}

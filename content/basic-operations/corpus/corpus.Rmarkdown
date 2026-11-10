@@ -11,7 +11,7 @@ library(quanteda)
 library(readtext)
 ```
 
-The function that creates a corpus is `corpus()`, which accepts text from several starting points: a character vector with one document per element, a data frame that combines document texts with columns for document-level variables, or a `VCorpus` or `SimpleCorpus` object created by the **tm** package.
+The function that creates a corpus is `corpus()`, which accepts several types of input: a character vector with one document per element, a data frame that combines document texts with columns for document-level variables, or a `VCorpus` or `SimpleCorpus` object created by the **tm** package.
 
 ## Character vector
 
@@ -29,7 +29,7 @@ print(corp_immig)
 
 ## Data frame
 
-If your texts already live inside a data frame, for example because you exported them from a spreadsheet, you can build a corpus from that instead. A data frame is often more convenient than a character vector, since it can hold document-level variables and the texts side by side in one object.
+If your texts are stored in a data frame, for example because you exported them from a spreadsheet, you can build a corpus from that instead. A data frame is often more convenient than a character vector, since it can hold document-level variables and the texts side by side in one object.
 
 Using `read.csv()`, we load an example file from `path_data` as a data frame called `dat_inaug`. Note that your file does not need to be formatted as `.csv`: you can build a **quanteda** corpus from any file format that R can import as a data frame (see, for instance, the [**rio**](https://cran.r-project.org/web/packages/rio/index.html) package for importing other file formats as data frames into R).
 
@@ -56,7 +56,7 @@ print(corp_inaug)
 
 ## Vcorpus
 
-If you are coming to **quanteda** from the older **tm** package, you do not need to start from scratch. **quanteda** can convert a **tm** `VCorpus` object directly into its own corpus format. Your existing texts stay intact.
+If you are switching from the older **tm** package to **quanteda**, you do not need to start from scratch. **quanteda** can convert a **tm** `VCorpus` object directly into its own corpus format. Your existing texts stay intact.
 
 ```{r}
 corp_tm <- tm::VCorpus(tm::VectorSource(data_char_ukimmig2010))
