@@ -81,7 +81,7 @@ print(toks_nopunct)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-Compare the two tokens objects above: `toks_immig` still contains punctuation marks as separate tokens, while `toks_nopunct` does not, which is usually what you want before counting words. Removing punctuation and numbers at the tokenisation stage, rather than afterwards, is both faster and less error-prone than trying to strip them out later.
+Compare the two tokens objects above: `toks_immig` still contains punctuation marks as separate tokens, while `toks_nopunct` does not, which is usually what you want before counting words. Setting `remove_punct = TRUE` is a convenient shortcut rather than a different method: internally, `tokens()` first splits the text and then removes punctuation with `tokens_remove()`, just as you could do yourself in a separate step.
 
 ## Choosing a tokenizer version
 
@@ -147,7 +147,7 @@ print(tokens_tolower(toks_case))
 
 ## Inspecting the structure of a tokens object
 
-A tokens object is, underneath its printed display, a list with one element per document, each holding a character vector of that document's tokens in order. Converting it with `as.list()` makes this structure explicit, useful early on for building an accurate mental model of what a tokens object contains.
+Underneath its printed display, a tokens object is a list with one element per document. To save memory, each element is an integer vector. This means that every token is stored as a number that points to an entry in a shared vocabulary of unique token types, which you can view with `types()`. Converting the object with `as.list()` replaces these numbers with the actual tokens, so you see each document as a character vector of its tokens in their original order.
 
 
 ``` r

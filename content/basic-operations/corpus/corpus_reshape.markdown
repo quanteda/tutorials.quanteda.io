@@ -126,11 +126,11 @@ ndoc(corp_doc)
 ## [1] 9
 ```
 
-Working at the sentence level helps when you want to filter out short, uninformative sentences before an analysis. Here we apply `corpus_subset()` to `corp_sent` to keep only long sentences (more than ten words), and then reshape what is left back into documents.
+Working at the sentence level helps when you want to filter out short, uninformative sentences before an analysis. Here we apply `corpus_subset()` to `corp_sent` to keep only long sentences (at least ten words), and then reshape what is left back into documents.
 
 
 ``` r
-corp_sent_long <- corpus_subset(corp_sent, ntoken(corp_sent) >= 10)
+corp_sent_long <- corpus_subset(corp_sent, ntoken(tokens(corp_sent)) >= 10)
 ndoc(corp_sent_long)
 ```
 

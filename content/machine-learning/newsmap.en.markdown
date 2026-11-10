@@ -70,7 +70,7 @@ dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z0-9]+",
                                 valuetype = "regex", case_insensitive = FALSE) |> 
                      dfm_trim(min_termfreq = 10)
 
-tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)
+tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label, drop_label = FALSE)
 ```
 
 The seed dictionary contains only names of countries and capital cities, but the fitted model also learns other features associated with each country, such as the names of politicians or currencies. `coef()` shows the features most strongly associated with a given country, identified by its two-letter code as defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -130,16 +130,16 @@ head(pred_nm, 20)
     ##     KP     SY     IQ     RU     TH     CN     UA     SY     GB     US     SY 
     ## text12 text13 text14 text15 text16 text17 text18 text19 text20 
     ##     US     UA     SY     LK     ES     AU     CR     ID     BH 
-    ## 204 Levels: BI DJ ER ET KE MG MU MW MZ RE RW SO TZ UG ZM ZW AO CD CF CG ... WS
+    ## 241 Levels: BI DJ ER ET KE KM MG MU MW MZ RE RW SC SO TZ UG YT ZM ZW AO ... WS
 
-By default, `table()` only reports countries predicted at least once, silently dropping any country with a count of zero. Setting factor levels explicitly, using the same country codes that appear in `dfmat_label`, ensures that countries which did not appear in the corpus show up in the result with a count of zero, rather than being omitted entirely.
+`predict()` returns a factor whose levels are the countries in the model. Because we fitted the model with `drop_label = FALSE`, these levels include every country in the seed dictionary, even those that never occur in the corpus, so `table()` reports them with a count of zero instead of omitting them.
 
 ``` r
-count <- sort(table(factor(pred_nm, levels = colnames(dfmat_label))), decreasing = TRUE)
+count <- sort(table(pred_nm), decreasing = TRUE)
 head(count, 20)
 ```
 
-    ## 
+    ## pred_nm
     ##  GB  US  RU  UA  AU  CN  CA  FR  IQ  BR  SY  DE  ZA  NZ  JP  IL  IN  ES  EG  PS 
     ## 622 578 516 440 367 363 319 311 295 278 262 250 237 228 197 197 187 182 157 155
 

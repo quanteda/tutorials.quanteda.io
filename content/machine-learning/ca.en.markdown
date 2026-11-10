@@ -16,7 +16,7 @@ library(ggplot2)
 
 
 
-`textmodel_ca()` provides similar functionality to the standalone **ca** package, but the version in **quanteda.textmodels** works directly from a document-feature matrix, so you do not need to build a contingency table by hand first. We return to the Irish budget speeches used for Wordfish in the [previous chapter](/machine-learning/wordfish), so you can compare how the two methods position the same documents.
+`textmodel_ca()` provides similar functionality to the standalone **ca** package, but it works directly with a document-feature matrix. With `sparse = TRUE`, it can handle large sparse matrices that **ca** would first need to convert into a dense matrix. We return to the Irish budget speeches used for Wordfish in the [previous chapter](/machine-learning/wordfish), so you can compare how the two methods position the same documents.
 
 Even though correspondence analysis produces multiple dimensions, you can still plot documents on just the single most important one using `textplot_scale1d()`, in the same way as for Wordscores and Wordfish.
 

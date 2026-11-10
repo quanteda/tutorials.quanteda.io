@@ -32,7 +32,7 @@ toks_news <- tokens(corp_news, remove_punct = TRUE, remove_symbols = TRUE, paddi
     tokens_remove(stopwords("en"), padding = TRUE)
 ```
 
-One of the most common types of multi-word expression is proper names, which we can select based on capitalisation in English texts. `tokens_select()` here keeps only tokens starting with a capital letter, and `textstat_collocations()` then measures, for every pair of adjacent capitalised words, how much more often they occur together than you would expect if they occurred independently.
+One of the most common types of multi-word expression is proper names, which we can select based on capitalisation in English texts. `tokens_select()` here keeps only tokens starting with a capital letter. `textstat_collocations()` does no selection of its own, but scores every sequence of adjacent tokens it receives. The function measures how much more often they occur together than you would expect if they occurred independently.
 
 
 ``` r
@@ -94,6 +94,6 @@ head(kw_comp, 10)
 ##   [text109224, 220]           Alberta coast |    British_Columbia     |  plan
 ```
 
-Notice that `pattern` here is the `tstat_col_cap` collocations table itself, not a character vector wrapped in `phrase()`, as it was when you [compounded known phrases by hand earlier in this tutorial](/basic-operations/tokens/tokens_compound). `textstat_collocations()` already records each candidate as a multi-word sequence, so `tokens_compound()` recognises it as one directly; `phrase()` is only needed when you type a multi-word pattern yourself as plain text.
+Notice that `pattern` here is `tstat_col_cap`, the collocations object returned by `textstat_collocations()`, rather than a character vector wrapped in `phrase()`, as it was when you [compounded known phrases by hand earlier in this tutorial](/basic-operations/tokens/tokens_compound). When you pass a collocations object to `pattern`, **quanteda** applies `phrase()` to it automatically. You only need `phrase()` when you type a multi-word pattern yourself as a character string.
 
 The keyword-in-context output confirms that phrases such as "London Gatwick" and "British Columbia" have been compounded into single tokens, joined by an underscore, just as before. The difference is that this time, `textstat_collocations()` found the phrases for us, based purely on how often capitalised words occurred next to each other in the corpus.

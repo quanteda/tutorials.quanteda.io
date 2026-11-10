@@ -68,7 +68,7 @@ dfmat_feat_select <- dfm_select(dfmat_feat, pattern = "^[A-Z][A-Za-z0-9]+",
                                 valuetype = "regex", case_insensitive = FALSE) |> 
                      dfm_trim(min_termfreq = 10)
 
-tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label)
+tmod_nm <- textmodel_newsmap(dfmat_feat_select, y = dfmat_label, drop_label = FALSE)
 ```
 
 The seed dictionary contains only names of countries and capital cities, but the fitted model also learns other features associated with each country, such as the names of politicians or currencies. `coef()` shows the features most strongly associated with a given country, identified by its two-letter code as defined in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -88,10 +88,10 @@ pred_nm <- predict(tmod_nm)
 head(pred_nm, 20)
 ```
 
-By default, `table()` only reports countries predicted at least once, silently dropping any country with a count of zero. Setting factor levels explicitly, using the same country codes that appear in `dfmat_label`, ensures that countries which did not appear in the corpus show up in the result with a count of zero, rather than being omitted entirely.
+`predict()` returns a factor whose levels are the countries in the model. Because we fitted the model with `drop_label = FALSE`, these levels include every country in the seed dictionary, even those that never occur in the corpus, so `table()` reports them with a count of zero instead of omitting them.
 
 ```{r}
-count <- sort(table(factor(pred_nm, levels = colnames(dfmat_label))), decreasing = TRUE)
+count <- sort(table(pred_nm), decreasing = TRUE)
 head(count, 20)
 ```
 

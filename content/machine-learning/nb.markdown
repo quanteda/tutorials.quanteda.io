@@ -91,7 +91,7 @@ summary(tmod_nb)
     ## neg 0.001454 9.454e-05 3.636e-06 0.0002654 0.0002291 0.0003054 0.0008218
     ## pos 0.001632 8.450e-05 3.250e-06 0.0002925 0.0004453 0.0002275 0.0005850
 
-The model was trained on a specific set of features, those present in `dfmat_training`, but the test set may contain different words that the model has never seen and cannot use. Naive Bayes can only use features that occur in the training set, so we make the two DFMs’ features identical using `dfm_match()`, aligning the test set’s columns to the training set’s and discarding any features the model never learned about.
+The model was trained on a specific set of features, those present in `dfmat_training`, but the test set may contain different words that the model has never seen and cannot use. Like most supervised models, Naive Bayes can only use features that occurred in the training set, so we make the two DFMs’ features identical using `dfm_match()`, aligning the test set’s columns to the training set’s and discarding any features the model never learned about.
 
 ``` r
 dfmat_matched <- dfm_match(dfmat_test, features = featnames(dfmat_training))
