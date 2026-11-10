@@ -1,0 +1,24 @@
+---
+title: Overview
+weight: 5
+draft: false
+---
+
+This chapter moves from describing text statistically to using it to make predictions and to measure concepts. All models covered here are non-positional: they start from a document-feature matrix and only use how often each word occurs in each document, not where it occurs (see the [workflow page](/basic-operations/workflow)).
+
+The models differ in how much information you give them in advance. Supervised models learn from documents that a human has already labelled or scored, and then predict the labels or scores of new documents. Unsupervised models receive no such information and find structure in the text on their own, which you then have to interpret. Semi-supervised models sit in between: instead of labelled documents, you provide a small set of seed words, and the model learns from these which other words and documents belong to each category or end of a scale.
+
+The models also differ in what they produce. Classification models assign each document to one of several discrete categories, such as positive or negative reviews. Scaling models place documents on a continuous dimension, such as a left-right ideological scale. Topic models describe each document as a mixture of topics, which you can also use to classify documents by their most likely topic.
+
+| Model | Task | Information you provide |
+|---|---|---|
+| [Naive Bayes](/machine-learning/nb) | Classification | Labelled documents (supervised) |
+| [Regularised regression](/machine-learning/regression) | Classification | Labelled documents (supervised) |
+| [Wordscores](/machine-learning/wordscores) | Scaling | Reference documents with known positions (supervised) |
+| [Wordfish](/machine-learning/wordfish) | Scaling | None (unsupervised) |
+| [Correspondence analysis](/machine-learning/ca) | Scaling | None (unsupervised) |
+| [Topic models](/machine-learning/topicmodel) | Topics | None for LDA (unsupervised); seed words for seeded LDA (semi-supervised) |
+| [Newsmap](/machine-learning/newsmap) | Classification | Seed words (semi-supervised) |
+| [Latent Semantic Scaling](/machine-learning/lss) | Scaling | Seed words (semi-supervised) |
+
+Whichever model you use, validate its results before you interpret them. For supervised models, this means testing predictions on documents that were not used for training. For unsupervised and semi-supervised models, it means checking that the categories, topics or dimensions the model finds actually capture the concept you are interested in.

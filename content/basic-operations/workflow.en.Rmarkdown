@@ -35,6 +35,8 @@ M -.-> AN
 
 For example, if character vectors are given to `dfm()`, it internally constructs corpus and tokens objects before creating a DFM.
 
+Which object you need depends on the type of analysis. Non-positional analyses, such as Naive Bayes classifiers, scaling models like Wordfish and correspondence analysis, and topic models, start from a DFM. Positional analyses, such as collocation analysis and word embeddings, work with tokens, because they need to know which words occur next to or near each other. The same applies to neural networks, which process words in sequence and therefore do not need a DFM at all.
+
 ## Preprocess tokens, not DFMs
 
 Many operations in **quanteda** exist in two versions, one for tokens and one for DFMs, such as `tokens_select()` and `dfm_select()`, `tokens_lookup()` and `dfm_lookup()`, or `tokens_tolower()` and `dfm_tolower()`. We recommend doing most of your preprocessing on the tokens object, before you create a DFM. Only a tokens object still records the order of words, so only the `tokens_*()` functions can match multi-word expressions such as "New York", keep or remove words within a `window` around a keyword, and leave placeholders with `padding = TRUE` so that removing words does not change the distance between the remaining ones.

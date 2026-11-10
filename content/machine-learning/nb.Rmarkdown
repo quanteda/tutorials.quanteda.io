@@ -5,7 +5,7 @@ draft: false
 bibliography: ../references.bib
 ---
 
-We now move from describing text statistically to using it to make predictions. The models here fall into two broad families: supervised models, which learn from documents that a human has already labelled, and unsupervised models, which find structure in unlabelled text on their own. Naive Bayes is a supervised model, usually used to classify documents into two or more categories. We train the classifier using class labels already attached to a set of documents, and it then predicts the most likely class of new, unlabelled documents, based on the patterns it learned during training.
+Naive Bayes is a supervised model, as explained in the [overview](/machine-learning/overview), usually used to classify documents into two or more categories. We train the classifier using class labels already attached to a set of documents, and it then predicts the most likely class of new, unlabelled documents, based on the patterns it learned during training.
 
 ```{r, message=FALSE}
 library(quanteda)
