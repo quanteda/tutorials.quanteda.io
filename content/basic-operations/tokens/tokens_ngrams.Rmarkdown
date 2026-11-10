@@ -19,12 +19,12 @@ toks <- tokens(data_char_ukimmig2010, remove_punct = TRUE)
 ```
 
 ```{r}
-toks_ngram <- tokens_ngrams(toks, n = 2:4)
+toks_ngram <- tokens_ngrams(toks, n = 2:4, verbose = TRUE)
 head(toks_ngram[[1]], 30)
 tail(toks_ngram[[1]], 30)
 ```
 
-Setting `n = 2:4` generates bigrams, trigrams and four-grams all at once, which is why the output mixes sequences of different lengths, each joined with an underscore. The output is far larger than the words you started with, since almost every pair, triple and quadruple of neighbouring words now gets its own entry.
+Setting `n = 2:4` generates bigrams, trigrams and four-grams all at once, which is why the output mixes sequences of different lengths, each joined with an underscore. The output is far larger than the words you started with, since almost every pair, triple and quadruple of neighbouring words now gets its own entry. The message printed by `verbose = TRUE` shows how quickly the object grows: the number of tokens roughly triples.
 
 `tokens_ngrams()` also supports a `skip` argument to generate skip-grams, sequences that allow a gap between the words rather than requiring them to be strictly adjacent, useful for capturing relationships between words that are related but do not always sit next to each other.
 
@@ -39,7 +39,7 @@ Generating every possible n-gram, as above, produces a very large number of comb
 
 ```{r}
 toks_neg_bigram <- tokens_compound(toks, pattern = phrase("not *"))
-toks_neg_bigram_select <- tokens_select(toks_neg_bigram, pattern = phrase("not_*"))
+toks_neg_bigram_select <- tokens_select(toks_neg_bigram, pattern = "not_*")
 head(toks_neg_bigram_select[[1]], 30)
 ```
 
