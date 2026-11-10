@@ -41,7 +41,7 @@ Compare the two tokens objects above: `toks_immig` still contains punctuation ma
 
 `what = "word"`, the default you have been using so far, is not a single fixed set of rules, but tracks whichever version of **quanteda**'s built-in word tokenizer is current, set by `quanteda_options("tokens_tokenizer_word")`. That mapping has changed as the package has evolved. For most everyday work this is exactly what you want, since the current tokenizer is also the most accurate one. But it means the same code, `tokens(x)`, can silently produce different tokens after you or a collaborator updates **quanteda**.
 
-`tokens()` also accepts several older, explicitly named versions of the tokenizer, so you can pin down and reproduce a specific rule set rather than relying on whichever version happens to be current. `"word1"` reproduces the pre-version-2 behaviour, `"word2"` and `"word3"` reproduce the versions used in **quanteda** 2 and 3, and `"word4"`, current at the time of writing, is what `what = "word"` currently maps onto.
+`tokens()` also accepts several older, explicitly named versions of the tokenizer, so you can pin down and reproduce a specific rule set rather than relying on whichever version happens to be current. `"word1"` reproduces the pre-version-2 behaviour, `"word2"` and `"word3"` reproduce the versions used in **quanteda** 2 and 3, and `"word4"`, the default since **quanteda** 4.0, is what `what = "word"` maps onto.
 
 ```{r}
 txt_abbrev <- "Self-funding U.S.A. isnt gr8, right?"

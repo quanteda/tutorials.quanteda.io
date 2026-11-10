@@ -4,7 +4,7 @@ weight: 5
 draft: false
 ---
 
-Before you can analyse any text, you need to set up R and a handful of add-on packages. Here is everything you need to install, in the order you need it. If you already have R, an IDE and **quanteda** installed and working, feel free to skip ahead to the next chapter.
+Before you can analyse any text, you need to set up R and a handful of add-on packages. Here is everything you need to install, in the order you need it. These tutorials are written for **quanteda** 4.5.0. Most of the code should also work with version 4.3.0 or later. If you already have R, an IDE and **quanteda** installed and working, feel free to skip ahead to the next chapter.
 
 ## R and your IDE
 

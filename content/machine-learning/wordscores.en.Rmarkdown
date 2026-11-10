@@ -16,7 +16,7 @@ library(quanteda.corpora)
 
 Training a Wordscores model requires reference scores: texts whose policy positions on well-defined, predetermined dimensions are already "known" from some independent source, such as an expert survey. Wordscores learns the association between words and positions from these reference texts, then estimates the positions for the remaining "virgin" texts, whose scores are what we want to find out.
 
-In this example, we will use manifestos from the 2013 and 2017 German federal elections. For the 2013 manifestos, which act as our reference texts, we assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and use these known positions to predict the party positions for the 2017 manifestos, our virgin texts.
+In this example, we will use election manifestos from the 2013 and 2017 German federal elections. For the 2013 manifestos, which act as our reference texts, we assign the average expert evaluations from the 2014 [Chapel Hill Expert Survey](https://www.chesdata.eu/) for the five major parties, and use these known positions to predict the party positions for the 2017 manifestos, our virgin texts.
 
 ```{r eval=FALSE}
 corp_ger <- download(url = "https://www.dropbox.com/s/uysdoep4unfz3zp/data_corpus_germanifestos.rds?dl=1")

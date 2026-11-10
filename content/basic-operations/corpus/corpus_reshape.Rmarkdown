@@ -4,7 +4,7 @@ weight: 30
 draft: false
 ---
 
-So far, each document in our examples has been a whole speech or manifesto section. Sometimes you need a different unit of analysis, for instance, comparing individual sentences rather than whole documents. `corpus_reshape()` lets you change the unit of texts between documents, paragraphs and sentences without losing track of where each piece came from. Because it records document identifiers as it splits the text, you can always restore the original documents later, even after other functions have modified the reshaped corpus.
+So far, each document in our examples has been a long text, such as a speech transcript or a section of an election manifesto. Sometimes you want to analyse shorter units instead, for instance individual sentences rather than whole documents. `corpus_reshape()` lets you change the unit of texts between documents, paragraphs and sentences without losing track of where each piece came from. Because it records document identifiers as it splits the text, you can always restore the original documents later, even after other functions have modified the reshaped corpus.
 
 ```{r message=FALSE}
 library(quanteda)

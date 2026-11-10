@@ -4,7 +4,7 @@ weight: 15
 draft: false
 ---
 
-You met document-level variables briefly in the previous two chapters, when we attached a party label to a corpus and then used a year to subset one. Here we cover them properly. **quanteda**'s objects keep information associated with each document, separate from the text itself. **quanteda** calls this information "document-level variables", or "docvars", accessed with `docvars()`. Document-level variables can be used to filter or group text corpora.
+You met document-level variables briefly on the [previous page](/basic-operations/corpus/corpus), when we attached a party label to a corpus. Here we cover them properly. **quanteda**'s objects keep information associated with each document, separate from the text itself. **quanteda** calls this information "document-level variables", or "docvars", accessed with `docvars()`. Document-level variables can be used to filter or group text corpora.
 
 ```{r, message=FALSE}
 library(quanteda)

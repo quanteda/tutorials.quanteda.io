@@ -4,7 +4,7 @@ weight: 60
 draft: false
 ---
 
-An n-gram is a sequence of *n* consecutive tokens taken from a text, so a 2-gram (or "bigram") combines every pair of neighbouring words, and a 3-gram combines every three in a row. You can generate n-grams of any length from a tokens object using `tokens_ngrams()`, which builds every possible sequence of the requested length, sliding one token at a time through each document. Unlike `tokens_compound()`, which you met in the [previous chapter](/basic-operations/tokens/tokens_compound), `tokens_ngrams()` does not require you to know in advance which phrases matter, generating every combination and leaving you to work out afterwards which ones are meaningful.
+An n-gram is a sequence of *n* consecutive tokens taken from a text, so a 2-gram (or "bigram") combines every pair of neighbouring words, and a 3-gram combines every three in a row. You can generate n-grams of any length from a tokens object using `tokens_ngrams()`, which builds every possible sequence of the requested length, sliding one token at a time through each document. Unlike `tokens_compound()`, which you met [earlier in this chapter](/basic-operations/tokens/tokens_compound), `tokens_ngrams()` does not require you to know in advance which phrases matter, generating every combination and leaving you to work out afterwards which ones are meaningful.
 
 ```{r message=FALSE}
 library(quanteda)

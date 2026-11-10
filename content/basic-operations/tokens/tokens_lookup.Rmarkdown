@@ -49,7 +49,7 @@ print(toks_country)
 
 Compare the two outputs: `toks_region` collapses every matched place name down to a handful of continent labels, while `toks_country` keeps the finer-grained country labels. Everything that is not a place name has disappeared entirely, since `tokens_lookup()` only keeps tokens that match an entry in the dictionary.
 
-You can also run a keyword-in-context analysis by looking up the mentions of all African countries and the words surrounding them, combining what you learned in the [previous chapter](/basic-operations/tokens/kwic) with the dictionary itself.
+You can also run a keyword-in-context analysis by looking up the mentions of all African countries and the words surrounding them, combining what you learned on the [`kwic()` page](/basic-operations/tokens/kwic) with the dictionary itself.
 
 ```{r}
 kwic(toks, dict_newsmap["AFRICA"])

@@ -42,7 +42,7 @@ fcmat_news <- fcm(dfmat_news)
 dim(fcmat_news)
 ```
 
-You can select features of an FCM using `fcm_select()`, in the same way you selected features of a DFM in the [previous chapter](/basic-operations/dfm/dfm_select). Here we keep only the 50 most frequent words from the DFM, so that the network plot below stays readable.
+You can select features of an FCM using `fcm_select()`, in the same way you selected features of a DFM [with `dfm_select()`](/basic-operations/dfm/dfm_select). Here we keep only the 50 most frequent words from the DFM, so that the network plot below stays readable.
 
 ```{r}
 feat <- names(topfeatures(dfmat_news, 50))

@@ -19,14 +19,14 @@ options(width = 110)
 toks <- tokens(data_char_ukimmig2010)
 ```
 
-We can first check how often such phrases occur using `kwic()`, exactly as in the [previous chapter](/basic-operations/tokens/kwic).
+We can first check how often such phrases occur using `kwic()`, exactly as on the [`kwic()` page](/basic-operations/tokens/kwic).
 
 ```{r}
 kw_multiword <- kwic(toks, pattern = phrase(c("asylum seeker*", "british citizen*")))
 head(kw_multiword, 10)
 ```
 
-Most later analyses, including a document-feature matrix, only count individual tokens and have no way of knowing that two adjacent words belong together. To preserve multi-word expressions like these in that kind of "bag-of-words" analysis, you need to glue them together into a single token first, using `tokens_compound()`. As with `kwic()` in the [previous chapter](/basic-operations/tokens/kwic), `tokens_compound()` only recognises a pattern as a multi-word phrase if you wrap it in `phrase()`. Without it, "asylum seeker" is treated as one long, literal pattern that never matches anything, so the function silently compounds nothing, rather than raising an error.
+Most later analyses, including a document-feature matrix, only count individual tokens and have no way of knowing that two adjacent words belong together. To preserve multi-word expressions like these in that kind of "bag-of-words" analysis, you need to glue them together into a single token first, using `tokens_compound()`. As with `kwic()` [earlier in this chapter](/basic-operations/tokens/kwic), `tokens_compound()` only recognises a pattern as a multi-word phrase if you wrap it in `phrase()`. Without it, "asylum seeker" is treated as one long, literal pattern that never matches anything, so the function silently compounds nothing, rather than raising an error.
 
 ```{r}
 # without phrase(), nothing gets compounded, silently
