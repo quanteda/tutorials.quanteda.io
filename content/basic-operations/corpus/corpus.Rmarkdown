@@ -23,10 +23,9 @@ The `docvars` argument attaches document-level variables, additional information
 corp_immig <- corpus(data_char_ukimmig2010,
                      docvars = data.frame(party = names(data_char_ukimmig2010)))
 print(corp_immig)
-summary(corp_immig)
 ```
 
-`print()` confirms how many documents the corpus contains and how large it is. `summary()` gives you one row per document: the number of types (unique words), tokens (total word occurrences) and sentences, alongside the `party` variable you just attached.
+`print()` confirms how many documents the corpus contains, lists the `party` variable you just attached, and shows the beginning of each text.
 
 ## Data frame
 
@@ -45,19 +44,13 @@ names(dat_inaug)
 
 `names(dat_inaug)` lists the columns in the data frame: the speech text is stored in the `texts` column, and the rest, such as `Year` and `President`, will become document-level variables once we build the corpus. We tell `corpus()` which column holds the text with the `text_field` argument.
 
+By default, **quanteda** names each document `text1`, `text2` and so on. These generic labels are hard to work with once you have more than a handful of documents. It is best to give each document a meaningful name before you create the corpus, by adding a `doc_id` column to the data frame. `corpus()` then uses this column for the document names automatically.
+
 ```{r}
+dat_inaug$doc_id <- paste(dat_inaug$Year,
+                          dat_inaug$FirstName,
+                          dat_inaug$President, sep = " ")
 corp_inaug <- corpus(dat_inaug, text_field = "texts")
-print(corp_inaug)
-summary(corp_inaug, 5)
-```
-
-By default, **quanteda** names each document `text1`, `text2` and so on. These generic labels are hard to work with once you have more than a handful of documents, so you can replace them with something meaningful using `docnames()`.
-
-```{r}
-docid <- paste(dat_inaug$Year,
-               dat_inaug$FirstName,
-               dat_inaug$President, sep = " ")
-docnames(corp_inaug) <- docid
 print(corp_inaug)
 ```
 

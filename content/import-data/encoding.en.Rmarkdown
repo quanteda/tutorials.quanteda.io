@@ -14,7 +14,7 @@ library(readtext)
 `path_temp` will hold a folder of example files, each deliberately saved in a different character encoding, so that we can practise detecting and fixing it.
 
 ```{r}
-path_temp <- tempdir()
+path_temp <- tempdir(check = TRUE)
 unzip(system.file("extdata", "data_files_encodedtexts.zip", package = "readtext"), exdir = path_temp)
 ```
 
