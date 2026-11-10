@@ -35,4 +35,14 @@ M -.-> AN
 
 For example, if character vectors are given to `dfm()`, it internally constructs corpus and tokens objects before creating a DFM.
 
+## Preprocess tokens, not DFMs
+
+Many operations in **quanteda** exist in two versions, one for tokens and one for DFMs, such as `tokens_select()` and `dfm_select()`, `tokens_lookup()` and `dfm_lookup()`, or `tokens_tolower()` and `dfm_tolower()`. We recommend doing most of your preprocessing on the tokens object, before you create a DFM. Only a tokens object still records the order of words, so only the `tokens_*()` functions can match multi-word expressions such as "New York", keep or remove words within a `window` around a keyword, and leave placeholders with `padding = TRUE` so that removing words does not change the distance between the remaining ones.
+
+A DFM only records how often each feature occurs in each document. Once you have created it, the positional information is gone, and the `dfm_*()` functions treat every feature on its own. They are most useful for steps that depend on frequencies, such as removing rare or very common features with `dfm_trim()`, and for adjusting a DFM you already have.
+
+{{% notice info %}}
+For large corpora, **quanteda** also offers `tokens_xptr` objects, which you create with `as.tokens_xptr()`. A `tokens_xptr` object is passed by reference: `tokens_*()` functions modify it directly instead of creating a modified copy of the whole object, which makes preprocessing faster and saves memory. You can pass a `tokens_xptr` object to `dfm()` like an ordinary tokens object, or convert it back with `as.tokens()`. Because the object is modified in place, every variable that refers to it changes too, so call `as.tokens_xptr()` on it again if you need an independent copy.
+{{% /notice %}}
+
 ## References 

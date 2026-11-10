@@ -4,7 +4,7 @@ weight: 20
 draft: false
 ---
 
-You already used `tokens_select()` to remove stopwords from a tokens object. `dfm_select()` does the same job on a document-feature matrix instead, by pattern-matching against feature (column) names rather than token types.
+You already used `tokens_select()` to remove stopwords from a tokens object. `dfm_select()` does the same job on a document-feature matrix instead, by pattern-matching against feature (column) names rather than token types. Where possible, select tokens before creating a DFM, as explained on the [workflow page](/basic-operations/workflow#preprocess-tokens-not-dfms). `dfm_select()` is most useful for adjusting a DFM you already have.
 
 ```{r, message=FALSE}
 library(quanteda)

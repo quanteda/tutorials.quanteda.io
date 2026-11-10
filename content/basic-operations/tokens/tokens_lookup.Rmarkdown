@@ -71,7 +71,7 @@ dfm(dict_toks)
 {{% /notice %}}
 
 {{% notice note %}}
-`dfm_lookup()` performs the same category look-up, but starting from a document-feature matrix instead of a tokens object, which works fine for single-word dictionary entries. But a DFM only stores feature counts, not the order words appeared in, so `dfm_lookup()` cannot detect multi-word expressions such as "New York": each word is matched, or not, on its own, independently of its neighbours. `tokens_lookup()` works on the tokens themselves, so it matches multi-word entries as complete phrases, and also gives you access to options like `nested_scope` for controlling how overlapping multi-word matches are resolved, something a DFM has no way to represent. If your dictionary includes any multi-word entries, use `tokens_lookup()`, or run `tokens_compound()` before building a DFM so the phrases survive as single features.
+`dfm_lookup()` performs the same look-up on a document-feature matrix, but it cannot match multi-word entries such as "New York", because a DFM no longer records the order of words. If your dictionary contains multi-word entries, use `tokens_lookup()`. See the [workflow page](/basic-operations/workflow#preprocess-tokens-not-dfms) for why we recommend preprocessing tokens rather than DFMs.
 {{% /notice %}}
 
 ## Nested matches from different categories
