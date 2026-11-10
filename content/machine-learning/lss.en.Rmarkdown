@@ -44,7 +44,7 @@ toks_sent <- corp_sent |>
     tokens(remove_punct = TRUE, remove_symbols = TRUE, 
            remove_numbers = TRUE, remove_url = TRUE) |> 
     tokens_remove(stopwords("en", source = "marimo")) |>
-    tokens_remove(c("*-time", "*-timeUpdated", "GMT", "BST", "*.com"))  
+    tokens_remove("*.com")  
 
 # create a document feature matrix from the tokens object
 dfmat_sent <- toks_sent |> 

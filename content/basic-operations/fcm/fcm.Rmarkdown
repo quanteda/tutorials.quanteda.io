@@ -24,12 +24,12 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../../data/data_corpus_guardian.rds")
 ```
 
-Co-occurrence matrices grow very large, since they record a relationship between every pair of words rather than a single count per word. When a corpus is large, you might need cut a DFM down to a manageable set of features before constructing an FCM from it. In the example below, we first remove all stopwords and punctuation characters. Afterwards, we remove certain patterns that usually describe the publication time and date of articles, which are not part of the article's content. The final line keeps only terms that occur at least 100 times across the corpus.
+Co-occurrence matrices grow very large, since they record a relationship between every pair of words rather than a single count per word. When a corpus is large, you might need cut a DFM down to a manageable set of features before constructing an FCM from it. In the example below, we first remove all stopwords and punctuation characters. The final line keeps only terms that occur at least 100 times across the corpus.
 
 ```{r}
 toks_news <- tokens(corp_news, remove_punct = TRUE)
 dfmat_news <- dfm(toks_news)
-dfmat_news <- dfm_remove(dfmat_news, pattern = c(stopwords("en"), "*-time", "updated-*", "gmt", "bst"))
+dfmat_news <- dfm_remove(dfmat_news, pattern = stopwords("en"))
 dfmat_news <- dfm_trim(dfmat_news, min_termfreq = 100)
 
 topfeatures(dfmat_news)

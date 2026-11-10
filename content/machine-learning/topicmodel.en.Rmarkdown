@@ -11,7 +11,6 @@ Like Wordfish, topic models are unsupervised: you do not need any labelled docum
 library(quanteda)
 library(quanteda.corpora)
 library(seededlda)
-library(lubridate)
 ```
 
 The corpus contains 6,000 Guardian news articles from 2012 to 2016.
@@ -25,21 +24,13 @@ corp_news <- download("data_corpus_guardian")
 corp_news <- readRDS("../data/data_corpus_guardian.rds")
 ```
 
-Topic models can be slow to fit on large corpora, so we will select only news articles published in 2016 using `corpus_subset()` and the `year()` function from the **lubridate** package, to keep this example fast enough to run interactively.
+Topic models work best on a focused vocabulary. Very common words add little information about topics, since they appear everywhere. After removing punctuation, numbers, symbols and function words, we therefore use `dfm_trim()` to remove features that appear in more than 10% of all documents (`max_docfreq = 0.1`).
 
 ```{r}
-corp_news_2016 <- corpus_subset(corp_news, year(date) == 2016)
-ndoc(corp_news_2016)
-```
-
-Topic models also work best on a focused vocabulary. Very common words add little information about topic, since they appear everywhere, and very rare words add mostly noise, since the model has too little evidence about them. After removing function words and punctuation in `tokens()`, we will therefore only keep the top 20% of the most frequent remaining features (`min_termfreq = 0.8`) that also appear in fewer than 10% of all documents (`max_docfreq = 0.1`), using `dfm_trim()` to focus on features that are common enough to be reliable but still distinguish one document from another.
-
-```{r}
-toks_news <- tokens(corp_news_2016, remove_punct = TRUE, remove_numbers = TRUE, remove_symbol = TRUE)
-toks_news <- tokens_remove(toks_news, pattern = c(stopwords("en"), "*-time", "updated-*", "gmt", "bst"))
+toks_news <- tokens(corp_news, remove_punct = TRUE, remove_numbers = TRUE, remove_symbol = TRUE)
+toks_news <- tokens_remove(toks_news, pattern = stopwords("en"))
 dfmat_news <- dfm(toks_news) |> 
-              dfm_trim(min_termfreq = 0.8, termfreq_type = "quantile",
-                       max_docfreq = 0.1, docfreq_type = "prop")
+              dfm_trim(max_docfreq = 0.1, docfreq_type = "prop")
 ```
 
 **quanteda** does not implement topic models itself, but you can fit Latent Dirichlet Allocation (LDA) [@blei2003] and seeded LDA using the companion **seededlda** package, on a DFM built as you have throughout this tutorial. Several other widely used topic modelling packages also work out of the box with a **quanteda** DFM, once converted to the format each one expects: **topicmodels** [@grun2011], **stm** [@roberts2019] for structural topic models that let you incorporate document-level covariates, and **keyATM** [@eshima2024] for keyword-assisted topic models, a more flexible alternative to the seeded LDA shown later on this page.
@@ -61,10 +52,10 @@ docs_keyatm <- keyATM_read(texts = dfmat_news)
 
 ### LDA
 
-Standard LDA is fully unsupervised: you only tell it how many topics to look for, and it discovers the topics and their associated words entirely on its own. `k = 10` specifies the number of topics to be discovered, an important parameter: try several values and validate the outputs of your topic models, since there is no single "correct" number of topics for a given corpus.
+Standard LDA is fully unsupervised: you only tell it how many topics to look for, and it discovers the topics and their associated words entirely on its own. `k = 10` specifies the number of topics to be discovered, an important parameter: try several values and validate the outputs of your topic models, since there is no single "correct" number of topics for a given corpus. Topic models can be slow to fit on large corpora. Setting `batch_size = 0.1` splits the corpus into batches of 10% of the documents and fits them in parallel, which makes estimation on all 6,000 articles much faster.
 
 ```{r}
-tmod_lda <- textmodel_lda(dfmat_news, k = 10)
+tmod_lda <- textmodel_lda(dfmat_news, k = 10, batch_size = 0.1)
 ```
 
 A fitted topic model does not label its topics for you; it only associates words and documents with numbered topics. You can extract the most important terms for each topic from the model using `terms()`, which is usually how you work out what each topic represents.
@@ -97,10 +88,10 @@ dict_topic <- dictionary(file = "../dictionary/topics.yml")
 print(dict_topic)
 ```
 
-Unlike standard LDA, where you had to choose `k` directly, the number of topics in seeded LDA is determined automatically by the number of keys in the dictionary. Next, we fit the seeded LDA model using `textmodel_seededlda()`, passing it the dictionary of relevant keywords in place of a raw topic count.
+Unlike standard LDA, where you had to choose `k` directly, the number of topics in seeded LDA is determined automatically by the number of keys in the dictionary. Next, we fit the seeded LDA model using `textmodel_seededlda()`, passing it the dictionary of relevant keywords in place of a raw topic count. Setting `residual = 1` adds one extra topic without seed words, which collects words that do not belong to any of the pre-defined topics.
 
 ```{r}
-tmod_slda <- textmodel_seededlda(dfmat_news, dictionary = dict_topic)
+tmod_slda <- textmodel_seededlda(dfmat_news, dictionary = dict_topic, residual = 1, batch_size = 0.1)
 ```
 
 Some of the words returned for each topic are seed words we supplied ourselves, but the seeded LDA model identifies many other related words that were never in the original dictionary. A small hand-written list is expanded into a fuller topic vocabulary this way.
