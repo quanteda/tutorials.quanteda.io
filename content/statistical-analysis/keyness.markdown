@@ -5,7 +5,7 @@ chapter: false
 draft: false
 ---
 
-Keyness is a signed two-by-two association score originally implemented in [WordSmith](http://www.lexically.net/wordsmith/) to identify frequent words in documents in a target and reference group.
+Keyness answers a simple question: which words are unusually frequent in one set of documents compared with another? It's a signed two-by-two association score, originally implemented in [WordSmith](http://www.lexically.net/wordsmith/), that identifies words distinctively frequent in a target group of documents relative to a reference group.
 
 
 ``` r
@@ -16,6 +16,7 @@ library(quanteda.corpora)
 library(lubridate)
 ```
 
+The corpus contains 6,000 Guardian news articles from 2012 to 2016.
 
 
 ``` r
@@ -24,18 +25,22 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-Using `textstat_keyness()`, you can compare frequencies of words between target and reference documents. In this example, target documents are news articles published in 2016 and reference documents are those published in 2012-2015. We use the **lubridate** package to retrieve the year of the publication of an article.
+Using `textstat_keyness()`, you can compare frequencies of words between a target set of documents and a reference set. In this example, the target documents are news articles published in 2016, and the reference documents are those published from 2012 to 2015. The resulting keywords show what became distinctively more prominent in the news in 2016. We use the **lubridate** package's `year()` function to extract the year of publication from each article's date, which is more convenient than parsing dates with base R alone.
+
+The `target` argument accepts a logical condition. `year(dfmat_news$date) >= 2016` marks every 2016 article as the target and every earlier article as the reference automatically, so you don't need to split the corpus into two objects yourself first.
 
 
 ``` r
-toks_news <- tokens(corp_news, remove_punct = TRUE) 
+toks_news <- tokens(corp_news, remove_punct = TRUE)
 dfmat_news <- dfm(toks_news)
- 
-tstat_key <- textstat_keyness(dfmat_news, 
+
+tstat_key <- textstat_keyness(dfmat_news,
                               target = year(dfmat_news$date) >= 2016)
 textplot_keyness(tstat_key)
 ```
 
-<img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.png" alt="" width="960" />
+<img src="/statistical-analysis/keyness_files/figure-html/unnamed-chunk-4-1.png" alt="" width="768" />
+
+Words on the right-hand side of this plot, shown in one colour, are distinctively associated with the target group (2016 articles); words on the left, in the other colour, are distinctively associated with the reference group (2012-2015 articles). The further a word extends from the centre, the stronger its association. The plot offers a quick way to see what changed in the news agenda over time.
 
 

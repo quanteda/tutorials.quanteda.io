@@ -4,7 +4,7 @@ weight: 10
 draft: false
 ---
 
-A feature co-occurrence matrix (FCM) records the number of co-occurrences of tokens. This is a special object in **quanteda**, but behaves similarly to a DFM. 
+A feature co-occurrence matrix (FCM) records how often pairs of tokens occur in the same document or near each other, rather than how often each token occurs on its own, letting you study relationships between words, such as which ones tend to appear together, rather than just their individual frequencies. An FCM is a special object in **quanteda**, but it behaves similarly to a DFM in how you print, subset and inspect it.
 
 
 ``` r
@@ -13,6 +13,9 @@ library(quanteda.textplots)
 library(quanteda.corpora)
 ```
 
+We use a corpus of 6,000 Guardian news articles published between 2012 and 2016. Since it's too large to include directly in this tutorial's package, we retrieve it with the `download()` function from **quanteda.corpora**.
+
+
 
 ``` r
 corp_news <- download("data_corpus_guardian")
@@ -20,7 +23,7 @@ corp_news <- download("data_corpus_guardian")
 
 
 
-When a corpus is large, you have to select features of a DFM before constructing a FCM. In the example below, we first remove all stopwords and punctuation characters. Afterwards, we remove certain patterns that usually describe the publication time and date of articles. The third row keeps only terms that occur at least 100 times in the document-feature matrix. 
+Co-occurrence matrices grow very large, since they record a relationship between every pair of words rather than a single count per word. When a corpus is large, you might need cut a DFM down to a manageable set of features before constructing an FCM from it. In the example below, we first remove all stopwords and punctuation characters. Afterwards, we remove certain patterns that usually describe the publication time and date of articles, which are not part of the article's content. The final line keeps only terms that occur at least 100 times across the corpus.
 
 
 ``` r
@@ -47,8 +50,7 @@ nfeat(dfmat_news)
 ## [1] 4212
 ```
 
-You can construct a FCM from a DFM or a tokens object using `fcm()`. `topfeatures()` returns the most frequently co-occurring words.
-
+You can construct an FCM from a DFM or a tokens object using `fcm()`. 
 
 ``` r
 fcmat_news <- fcm(dfmat_news)
@@ -59,7 +61,7 @@ dim(fcmat_news)
 ## [1] 4212 4212
 ```
 
-You can select features of a FCM using `fcm_select()`.
+You can select features of an FCM using `fcm_select()`, in the same way you selected features of a DFM in the [previous chapter](/basic-operations/dfm/dfm_select). Here we keep only the 50 most frequent words from the DFM, so that the network plot below stays readable.
 
 
 ``` r
@@ -72,7 +74,7 @@ dim(fcmat_news_select)
 ## [1] 50 50
 ```
 
-A FCM can be used to train word embedding models with the **text2vec** package, or to visualize a semantic network analysis with ` textplot_network()`.
+An FCM can be used to train word embedding models with the **text2vec** package, or to visualise a semantic network analysis with `textplot_network()`.
 
 
 ``` r

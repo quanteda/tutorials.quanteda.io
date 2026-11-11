@@ -4,30 +4,32 @@ weight: 20
 draft: false
 ---
 
+Text data does not always come conveniently packaged into a single spreadsheet. Often you will instead have a folder of separate files, one document per file, common when texts were scraped from the web or exported one at a time from another system. You can also load multiple text files like these at once, from a single folder or from a set of subfolders. Again, `path_data` is the location of sample files that come bundled with the **readtext** package.
+
 ```{r, message=FALSE}
 library(quanteda)
 library(readtext)
 ```
 
-A second option to import data is to load multiple text files at once that are stored in the same folder or subfolders. Again, `path_data` is the location of sample files on your computer.
-
 ```{r}
 path_data <- system.file("extdata/", package = "readtext")
 ```
 
-Unlike the pre-formatted files, individual text files usually do not contain document-level variables. However, you can create document-level variables using the **readtext** package.
+Unlike pre-formatted spreadsheet files, individual text files usually carry no document-level variables of their own, since a plain `.txt` file is just the text and nothing else. The **readtext** package works around this by letting you extract document-level variables from the file names themselves, provided the file names follow a consistent pattern.
 
-The directory `/txt/UDHR` contains text files (".txt") of the Universal Declaration of Human Rights in 13 languages. 
+The directory `/txt/UDHR` contains text files (".txt") of the Universal Declaration of Human Rights in 13 languages.
+
+The asterisk (`*`) at the end of the path tells `readtext()` to read every file in that folder, rather than one specific file by name.
 
 ```{r}
 dat_udhr <- readtext(paste0(path_data, "/txt/UDHR/*"))
 ```
 
 {{% notice note %}}
-If you are using Windows, you need might need to specify the encoding of the file by adding `encoding = "utf-8"`. In this case, imported texts might appear like `<U+4E16><U+754C><U+4EBA><U+6743>` but they indicate that Unicode charactes are imported correctly.
+If you are using Windows, you might need to specify the encoding of the file by adding `encoding = "utf-8"`. In this case, imported texts might appear like `<U+4E16><U+754C><U+4EBA><U+6743>` but they indicate that Unicode characters are imported correctly, and they will display properly once you use them in an analysis.
 {{% /notice %}}
 
-You can generate document-level variables based on the file names using the `docvarnames` and `docvarsfrom` argument. `dvsep = "_"` specifies the value separator in the filenames.`encoding = "ISO-8859-1"` determines character encodings of the texts.
+You can generate document-level variables based on the file names using the `docvarnames` and `docvarsfrom` arguments, especially useful when your files are named in a structured way, for example `unit_context_year_language_party.txt`, since each part of the name can become its own variable. `dvsep = "_"` specifies the character that separates these values in the filenames, and `encoding = "ISO-8859-1"` tells **readtext** which character encoding the text files themselves use.
 
 ```{r}
 dat_eu <- readtext(paste0(path_data, "/txt/EU_manifestos/*.txt"),
@@ -40,13 +42,13 @@ str(dat_eu)
 
 ### JSON
 
-You can also read JSON files (.json) downloaded from the Twititer stream API. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in data directory of this tutorial package.
+Social media data is often distributed as JSON, a structured text format that stores nested key-value pairs rather than plain rows and columns. **readtext** can read this format too. [twitter.json](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/data/twitter.json) is located in the data directory of this tutorial package, and it is a small sample of tweets saved in this format. (Collecting new data this way is no longer possible: Twitter/X's public API has changed substantially since this sample was collected. Reading an existing JSON file like this one still works the same way, regardless of where it came from.)
 
 ```{r}
 dat_twitter <- readtext("../data/twitter.json", source = "twitter")
 ```
 
-The file comes with several metadata for each tweet, such as the number of retweets and likes, the username, time and time zone. 
+Setting `source = "twitter"` tells **readtext** to expect the specific structure of tweet data, automatically pulling out metadata fields that come with each tweet, such as the number of retweets and likes, the username, time and time zone.
 
 ```{r}
 head(names(dat_twitter))
@@ -54,19 +56,21 @@ head(names(dat_twitter))
 
 ### PDF
 
-`readtext()` can also convert and read PDF (".pdf") files. 
+`readtext()` can also convert and read PDF (".pdf") files directly, extracting the underlying text so you do not have to copy and paste it by hand.
 
 ```{r}
-dat_udhr <- readtext(paste0(path_data, "/pdf/UDHR/*.pdf"), 
-                      docvarsfrom = "filenames", 
+dat_udhr <- readtext(paste0(path_data, "/pdf/UDHR/*.pdf"),
+                      docvarsfrom = "filenames",
                       docvarnames = c("document", "language"),
                       sep = "_")
 ```
 
 ### Microsoft Word
 
-Finally, `readtext()` can import Microsoft Word (".doc" and ".docx") files.
+Finally, `readtext()` can import Microsoft Word (".doc" and ".docx") files in the same way, useful if your texts were originally typed up or shared as Word documents rather than plain text.
 
 ```{r}
 dat_word <- readtext(paste0(path_data, "/word/*.docx"))
 ```
+
+Whichever format your texts started in, `.csv`, individual `.txt` files, JSON, PDF or Word, the result of `readtext()` is always the same kind of data frame, ready to be passed to `corpus()` in the same way.

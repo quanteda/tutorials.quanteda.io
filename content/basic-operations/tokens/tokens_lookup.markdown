@@ -4,18 +4,19 @@ weight: 50
 draft: false
 ---
 
+A dictionary is a predefined list of words grouped into categories, such as a list of country names grouped by continent, or a list of positive and negative words for sentiment analysis. `tokens_lookup()` scans a tokens object for the words in a dictionary and replaces each match with the name of the category it belongs to, which lets you count categories of meaning rather than individual words. It's the most flexible dictionary look-up function in **quanteda**. We use a [geographical dictionary](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/newsmap.yml) from the [**newsmap**](https://cran.r-project.org/web/packages/newsmap/index.html) package as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats, so you are not limited to dictionaries built specifically for R.
+
 
 ``` r
 library(quanteda)
-options(width = 110)
 ```
+
+
 
 
 ``` r
 toks <- tokens(data_char_ukimmig2010)
 ```
-
-`tokens_lookup()` is the most flexible dictionary look up function in **quanteda**. We use [geographical dictionary](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/newsmap.yml) from the [**newsmap**](https://cran.r-project.org/web/packages/newsmap/index.html) package as an example. Using `dictionary()`, you can import dictionary files in the Wordstat, LIWC, Yoshicoder, Lexicoder and YAML formats.
 
 
 ``` r
@@ -24,7 +25,7 @@ dict_newsmap <- dictionary(file = "../../dictionary/newsmap.yml")
 
 Note that you can access the dictionary in various languages (currently English, German, Japanese, Russian, and Spanish) with the **newsmap** package.
 
-The geographical dictionary comprises of names of countries and cities (and their demonyms) in a hierarchical structure (countries are nested in world regions and sub-regions).
+The geographical dictionary comprises names of countries and cities, and their demonyms (such as "French" for France), arranged in a hierarchical structure where countries are nested within world regions and sub-regions. You can explore this structure the same way you would explore a nested list in R.
 
 
 ``` r
@@ -72,7 +73,7 @@ dict_newsmap[["AFRICA"]][["NORTH"]]
 ## [ reached max_nkey ... 2 more keys ]
 ```
 
-The `levels` argument determines the keys to be recorded in a resulting tokens object.
+Because the dictionary is hierarchical, you must tell `tokens_lookup()` which level of the hierarchy to use, with the `levels` argument. Level 1 is the broadest, continents, while level 3 is the most specific, individual countries.
 
 
 ``` r
@@ -138,7 +139,9 @@ print(toks_country)
 ## [ reached max_ndoc ... 3 more documents ]
 ```
 
-You can also use run a keyword-in-context analysis by looking up the mentions of all African countries and the words surrounding the countries.
+Compare the two outputs: `toks_region` collapses every matched place name down to a handful of continent labels, while `toks_country` keeps the finer-grained country labels. Everything that is not a place name has disappeared entirely, since `tokens_lookup()` only keeps tokens that match an entry in the dictionary.
+
+You can also run a keyword-in-context analysis by looking up the mentions of all African countries and the words surrounding them, combining what you learned in the [previous chapter](/basic-operations/tokens/kwic) with the dictionary itself.
 
 
 ``` r
@@ -146,13 +149,12 @@ kwic(toks, dict_newsmap["AFRICA"])
 ```
 
 ```
-## Keyword-in-context with 2 matches.
-##                                                                             
+## Keyword-in-context with 2 matches.                                                                            
 ##  [BNP, 3116] , with Rome and Ancient | Egypt  | being well known examples of
 ##  [BNP, 3149]   purpose. The Balkans, | Rwanda | , Indonesia, Ulster,
 ```
 
-You can define your own dictionary by passing a named list of characters to `dictionary()`.
+You are not limited to imported dictionaries such as **newsmap**'s. You can define your own dictionary by passing a named list of characters to `dictionary()`, where each name becomes a category and each character vector lists the words, or word patterns, that belong to it.
 
 
 ``` r
@@ -218,4 +220,44 @@ dfm(dict_toks)
 
 {{% notice tip %}}
 `tokens_lookup()` ignores multiple matches of dictionary values for the same key with the same token to avoid double counting. For example, if `US = c("United States of America", "United States")` is in your dictionary, you get "US" only once for a sequence of tokens `"United" "States" "of" "America"`.
+{{% /notice %}}
+
+{{% notice note %}}
+`dfm_lookup()` performs the same category look-up, but starting from a document-feature matrix instead of a tokens object, which works fine for single-word dictionary entries. But a DFM only stores feature counts, not the order words appeared in, so `dfm_lookup()` cannot detect multi-word expressions such as "New York": each word is matched, or not, on its own, independently of its neighbours. `tokens_lookup()` works on the tokens themselves, so it matches multi-word entries as complete phrases, and also gives you access to options like `nested_scope` for controlling how overlapping multi-word matches are resolved, something a DFM has no way to represent. If your dictionary includes any multi-word entries, use `tokens_lookup()`, or run `tokens_compound()` before building a DFM so the phrases survive as single features.
+{{% /notice %}}
+
+## Nested matches from different categories
+
+The tip above covers duplicate matches within a single key. A different problem arises when one dictionary entry sits entirely inside another entry that belongs to a *different* key. Consider a dictionary that treats "New York Times" as a newspaper and "New York" as a city: the phrase "New York Times" contains "New York" as a nested match, so a `paper` match and a `city` match can both, in principle, fire over the same three words.
+
+`nested_scope` controls whether that nested match survives. With `nested_scope = "key"`, the default, nesting is only resolved within the same key, so a shorter match belonging to a different key is kept even when it sits entirely inside a longer match. With `nested_scope = "dictionary"`, the longest match wins across the whole dictionary, and any shorter match nested inside it is suppressed, regardless of which key it belongs to.
+
+
+``` r
+# nested matching differences
+dict4 <- dictionary(list(paper = "New York Times", city = "New York"))
+toks4 <- tokens("The New York Times is a New York paper.")
+tokens_lookup(toks4, dict4, nested_scope = "key", exclusive = FALSE)
+```
+
+```
+## Tokens consisting of 1 document.
+## text1 :
+## [1] "The"   "PAPER" "CITY"  "is"    "a"     "CITY"  "paper" "."
+```
+
+``` r
+tokens_lookup(toks4, dict4, nested_scope = "dictionary", exclusive = FALSE)
+```
+
+```
+## Tokens consisting of 1 document.
+## text1 :
+## [1] "The"   "PAPER" "is"    "a"     "CITY"  "paper" "."
+```
+
+With `nested_scope = "key"`, "New York Times" is tagged `PAPER`. But the "New York" nested inside it is *also* tagged `CITY`, on top of the second, freestanding "New York" later in the sentence, so `CITY` ends up counted twice. With `nested_scope = "dictionary"`, the nested "New York" inside "New York Times" is suppressed, since a longer match from another key already covers it; only the freestanding "New York" is left tagged as `CITY`.
+
+{{% notice warning %}}
+The distinction matters whenever your dictionary mixes entries that can contain one another, which is common with entity names, since organisation, place and person names frequently overlap. The default, `nested_scope = "key"`, can silently double-count a shorter category inside a longer match from an unrelated key, inflating that category's frequency. If your own dictionary has this kind of overlap, check both settings against a few examples you understand well, rather than assuming the default does what you expect.
 {{% /notice %}}

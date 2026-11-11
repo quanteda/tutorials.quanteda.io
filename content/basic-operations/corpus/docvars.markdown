@@ -4,12 +4,12 @@ weight: 15
 draft: false
 ---
 
+You met document-level variables briefly in the previous two chapters, when we attached a party label to a corpus and then used a year to subset one. Here we cover them properly. **quanteda**'s objects keep information associated with each document, separate from the text itself. **quanteda** calls this information "document-level variables", or "docvars", accessed with `docvars()`. Document-level variables can be used to filter or group text corpora.
+
 
 ``` r
 library(quanteda)
 ```
-
-**quanteda**'s objects keep information associated with documents. They are called "document-level variables", or "docvars", and are accessed using `docvars()`.
 
 
 ``` r
@@ -29,7 +29,7 @@ head(docvars(corp))
 
 ## Extracting document-level variables
 
-If you want to extract individual elements of document variables, you can specify `field`.
+If you only want one particular variable rather than all of them, specify it with the `field` argument.
 
 
 ``` r
@@ -43,7 +43,7 @@ docvars(corp, field = "Year")
 ## [46] 1969 1973 1977 1981 1985 1989 1993 1997 2001 2005 2009 2013 2017 2021 2025
 ```
 
-You can also access to individual document-level variables using the `$` operator. 
+You can also access an individual document-level variable using the `$` operator, in the same way you would pull a column out of a data frame. It's usually quicker to type.
 
 
 ``` r
@@ -59,7 +59,7 @@ corp$Year
 
 ## Assigning document-level variables
 
-`docvars()` also allows you to create or update document variables.
+`docvars()` also allows you to create a new variable or update an existing one, by assigning a value to it. Here we derive a new `Century` variable from the existing `Year` variable.
 
 
 ``` r
@@ -77,7 +77,7 @@ head(docvars(corp))
 ## 6 1809    Madison     James Democratic-Republican      19
 ```
 
-Alternatively, you can create the document-level variable using the `$` operator
+`Century` now appears as an extra column when we print `docvars(corp)` again. Alternatively, you can create the document-level variable using the `$` operator, which does exactly the same thing.
 
 
 ``` r

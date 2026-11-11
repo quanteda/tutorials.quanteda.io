@@ -1,4 +1,4 @@
-  ---
+---
 title: Japanese
 weight: 40
 draft: false
@@ -6,15 +6,16 @@ draft: false
 
 {{% author %}}By Kohei Watanabe{{% /author %}} 
 
+Like Chinese, Japanese is written without spaces between words, so the same ICU-based word segmentation used on the [previous page](/multilingual/chinese) applies here too. We remove grammatical words using `stopwords("ja", source = "marimo")`. You can select tokens containing only Japanese characters (Hiragana, Katakana, Kanji) with the pattern `"^[ぁ-んァ-ヶー一-龠]+$"`, which lists the relevant character ranges directly. There are also Unicode character classes for hiragana (`\p{script=Hira}`) and katakana (`\p{script=Kana}`) that you can use instead, if you want to be more selective about which of the three scripts to keep. Note the `padding = TRUE` argument here, which you met in the [Basic Operations chapter](/basic-operations/tokens/tokens_select). The collocation analysis below needs to know the true distance between remaining words, and padding preserves that by leaving empty placeholders where removed tokens used to be.
+
 
 ``` r
 library(quanteda)
 library(quanteda.textstats)
 library(quanteda.corpora)
-options(width = 110)
 ```
 
-We remove grammatical words using `stopwords("ja", source = "marimo")`. You can select tokens only with Japanese words (Hiragana, Katakana, Kanji) with `"^[ぁ-んァ-ヶー一-龠]+$"`. There are also Unicode character classes for hiragana (`\p{script=Hira}`) and katakana (`\p{script=Kana}`) that you can use.
+
 
 
 ``` r
@@ -76,7 +77,7 @@ print(toks[2], max_ndoc = 1, max_ntok = -1)
 ## [379] "を"       "公布"     ""         ""
 ```
 
-We can improve tokenization by collocation analysis in a similar way as [compounding multi-word expressions](advanced-operations/compound-mutiword-expressions/) in English texts. We identify collocations of katakana or kanji (`"^[ァ-ヶー一-龠]+$"`) using `textstat_collocations()`. We set `padding = TRUE` to keep the distance between words.
+Automatic word segmentation is not perfect, and sometimes splits up what is really a single multi-character word into separate pieces. We can improve tokenisation by using collocation analysis to spot and rejoin these pieces, in a similar way to [compounding multi-word expressions](/advanced-operations/compound-mutiword-expressions) in English texts. We identify collocations of katakana or kanji characters (`"^[ァ-ヶー一-龠]+$"`) using `textstat_collocations()`, the same function used in that earlier chapter. We keep `padding = TRUE` here too, so that the collocation analysis measures distances correctly across the tokens we removed earlier.
 
 
 ``` r
@@ -101,7 +102,7 @@ head(tstat_col, 10)
 ## 10     国際 的     2            0      2  3.073171 4.099615
 ```
 
-After compounding of statistically significantly associated collocations (`tstat_col$z > 3`), we can resort to the lengths of words (`min_nchar = 2`) to further remove grammatical words.
+After compounding the statistically significant collocations (`tstat_col$z > 3`), exactly as with the English proper-name example in [Advanced Operations](/advanced-operations/), we can resort to word length (`min_nchar = 2`) to further remove short grammatical fragments that survived this far.
 
 
 ``` r

@@ -8,8 +8,9 @@ draft: false
 ``` r
 library(quanteda)
 library(quanteda.textmodels)
-options(width = 110)
 ```
+
+
 
 [laver-garry.cat](https://raw.githubusercontent.com/quanteda/tutorials.quanteda.io/master/content/dictionary/laver-garry.cat) is a Wordstat dictionary that contain political left-right ideology keywords (Laver and Garry 2000). 
 
@@ -60,6 +61,6 @@ print(dfmat_irish_lg)
 
 
 {{% notice note %}}
-`dfm_lookup()` cannot detect multi-word expressions since a document-feature matrix does not store information about positions of words. We recommend using `tokens_lookup()` to detect or `tokens_copound()` to compound multi-word expressions before creating a DFM.
+`dfm_lookup()` cannot detect multi-word expressions since a document-feature matrix does not store information about positions of words. We recommend using `tokens_lookup()` to detect or `tokens_compound()` to compound multi-word expressions before creating a DFM.
 {{% /notice %}}
 
